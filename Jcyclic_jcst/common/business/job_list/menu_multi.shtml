@@ -1,0 +1,17 @@
+<div id="menu2" class="easyui-menu" hideOnUnhover="false" style="width:200px;text-align: center;border-radius: 5px; background-color: white;display: none;"> 
+   <label style="display: block;background-color:rgb(246,248,245);height: 27px;opacity: 1.0;border-bottom:2px solid rgb(241,241,241);">
+   	  <div style="float: left;width: 50%;height: 25px;margin-top: 3px;text-align: center;color: black;" disabled="disabled" >
+	    <span class="i18n" name='cost_dategrid_choice' style="margin-top: 1px;font-size: 15px;color: rgb(95,97,96);"></span>
+	  </div>
+      <div style="width: 16%;float: right;margin-top: 2px;text-align: center;color: black;">
+      	<span id="closeMenu2" style="color: rgb(95,97,96);cursor: pointer;">×</span>
+      </div>  
+   </label>
+   <div class="title_menu pay_handle i18n" name='menu3' id="yjwlM" onclick="clickMenuMore('yjwlM')" ></div>
+   <div class="directory i18n" name='menu4' id="yjwlqxM" onclick="clickMenuMore('yjwlqxM')"></div>	
+   <div class="directory i18n" name='menu8' id="qqsqM" onclick="clickMenuMore('qqsqM')"></div>	
+   <div class="directory i18n" name='menu1' id="fpfxsqM" onclick="clickMenuMore('fpfxsqM')"></div>	
+   <div class="directory cost_handle2 i18n" name='menu10' id="rujinM" onclick="clickMenuMore('rujinM')"></div>	
+   <div class="directory zjM i18n" name='menu16' id="zjM"></div>	
+   <div class="footer_menu labelsetM i18n lable-set" name='menu17' id="lableM"></div>
+</div>

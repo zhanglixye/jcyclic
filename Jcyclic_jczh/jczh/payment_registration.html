@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title class="i18n" name='payment_registration'>支払情報登録</title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<script type="text/javascript" src="../public/lib/animate/select.js"></script>
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css" />
+		<link rel="stylesheet" href="../public/stylesheets/jczh/job_registration.css" />
+		<link rel="stylesheet" href="../public/stylesheets/jczh/payment_registration.css" />
+		<script type="text/javascript" src="../public/javascript/jczh/job/payment_registration.js"></script>
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js"></script>
+		<script type="text/javascript" src="../public/javascript/jczh/job/payment_common.js"></script>
+			
+		<!--#include virtual="../common/language.shtml"-->
+	</head>
+	<style>
+		.textbox{
+			padding: 5px 12px 6px 0px;
+		}
+		.panel-heading {
+			padding-left: 7px;
+		}
+		.btn-group .btn-primary{
+			padding: 6px;
+		}
+		.pbottom{
+			margin-bottom: 10px;
+		}
+		.pafter::after{
+			content:"＊";
+			vertical-align: middle;
+			color: rgb(238,0,0);
+			margin-left: 2px;
+		}
+		.picon{
+			margin-left: -8px;
+		}
+		.layui-layer-wrap .panel .panel-body .form-group label{
+			margin-left: 5%;
+		}
+		#invoicebtn{
+			background-color: #1abc9c;
+		}
+		.bord_no{
+			font-size: 20px!important;
+		}
+		.switchot{
+			overflow: hidden;
+		}
+		.pay_regist{
+			width: 207px!important;
+		}
+		.setblock ul li{
+			width: auto!important;
+			margin-top: 10px!important;
+			margin-left: 15px!important;
+		}
+		.icon-guanbi{
+			padding: 0px 3px 0px 0px;
+		}
+		.setblock1 ul li span{
+			cursor: pointer;
+			padding-left: 0px;
+		}
+		.setblock1 ul li span:hover{
+			text-decoration: underline;
+		}
+		.treatext .form-group.col-md-12{
+			padding: 0;
+		}
+	</style>
+	<body class="main page">
+		<!--Navbar-->
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='payment_registration'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<!--隐藏域-->
+			<input type="text" id="payee_cd" name="payee_cd" hidden="hidden"/>
+			<input type="text" id="pd" name="pd" hidden="hidden"/>
+			
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" style="font-size: 16px; font-weight: bold" name='ltdRegistration_basic_information'>
+									
+								</div>
+								<div class="panel-body" style="padding: 15px 18px 0px 18px;">
+									<div class="form-group col-md-6 treatext" style="padding: 0 14px;">
+										<div class="form-group col-md-12" >
+											<label class="control-label i18n" name='payment_info_natal_day'></label>
+											<span style="vertical-align: middle;color: rgb(238,0,0);margin-left: -4px;">＊</span>
+											<div class="input-group required">
+												<input id="pay_dlyday" type="text" class="form-control required date-box-required pay_dlyday">
+											</div>
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label i18n" name='payment_info_hope_day'></label>
+											<span style="vertical-align: middle;color: rgb(238,0,0);margin-left: -4px;">＊</span>
+											<div class="input-group required">
+												<input id="pay_hope_date" type="text" class="form-control required date-box-required pay_hope_date" >
+											</div>
+										</div>
+										<div class="form-group col-md-12">
+											<label class="control-label i18n" name="jobregistration_remarks"></label>
+											<textarea maxlength="500" id="payremark" class="form-control " placeholder="" rows="3" style="padding: 0px 12px;height: 66px;"></textarea>
+										</div>
+									</div>
+									<div class="form-group col-md-6" >
+										<div class="col-md-11" style="padding: 0 5px;">
+											<div class="panel panel-default col-md-12 " style="background: #f5f5f5">
+												<div class="panel-heading" style="border: none; font-size: 16px; font-weight: bold;">
+													<span class="i18n" name='jobregistration_payment_amount' style="margin-left: -8px;"></span>
+												</div>
+												<!--#include virtual="../common/jczh/price_on.shtml"-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='payment_info_supplement_information' style="font-size: 16px; font-weight: bold;">
+									
+								</div>
+								<div class="panel-body " style="padding: 15px 23px 0px 23px; ">
+									<!--#include virtual="../common/jczh/advance_infor.shtml"-->
+									<div class="panel panel-default">
+										<div class="panel-heading i18n" name="payment_info_dispatch_ticket" style="font-weight: bold; font-size: 16px;">
+											
+										</div>
+										<div class="panel-body setblock1" style="padding: 15px 6px 0px 6px; ">
+											<div class="form-group col-md-6">
+												<label class="control-label i18n" name="invoice_edit_date"></label>
+												<!--<div class="input-group">
+													<input id="invoice_date" name="invoice_date" type="text" class="form-control" style="width: 70%">
+												</div>-->
+												<p class="form-control-static date" id="invoice_date"></p>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="control-label i18n" name="invoice_edit_fanhao"></label>
+												<!--<input oninput="this.value = number_va_length(this.value,15)" id="invoice_no" name="invoice_no" class="form-control width_100_ml0" placeholder="" type="number">-->
+												<p class="form-control-static"  id="invoice_no"></p>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="control-label i18n" name="invoice_edit_type"></label>
+												<select id="invoice_type" name="payeeType" class="form-control" style="display:none">
+												</select>
+												<p class="form-control-static" id="invoice_type_show"></p>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="control-label i18n" name="invoice_edit_content"></label>
+												<select id="invoice_text" name="invoice_text" class="form-control" style="display:none">
+												</select>
+												<p class="form-control-static" id="invoice_text_show"></p>
+											</div>
+											<div class="form-group col-md-6 hidden">
+												<label class="control-label i18n" name="invoice_edit_ny"></label>
+												<p id="deduction" name='deduction' class="form-control-static" style="border: none;">
+												</p>
+												<div class="hidden i18n" id="deductionvalue" name="deductionvalue" hidden="hidden"></div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="control-label">
+													<span class="i18n" name='salescategoryRegistration_vlue_added_tax_rate'></span> 
+													<i style="font-size: 16px; " class="iconfont icon-tishi" id="setb2"></i>
+												</label>
+												<p class="form-control-static" style="border: none;">
+													<span class="rate"></span>
+													<span>%</span>
+												</p>
+											</div>
+										</div>
+										<div class="form-group col-md-6" style="float: none; margin: 0 auto; margin-bottom: 20px;padding: 0 11px;">
+											<label class="control-label i18n" name="jobregistration_remarks"></label>
+											<!--<textarea maxlength="500" id="v_remark" name="v_remark" class="form-control" placeholder="" rows="3" style="padding: 0 12px;height: 66px;"></textarea>-->
+											<div class="form-group" style="border: 1px solid #ccc;">
+												<div id="v_remark" class="job_text remark" style="padding: 5px;">
+													<pre></pre>
+												</div>
+												<hr style="width: 98%;margin: 0 auto;" />
+												<div class="text-center rotate-90 hidden">
+													<i class="iconfont icon-xiala"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="lastChild i18n" name='jobregistration_person_in_charge2'></div>
+							<div class="lastChild">
+								<button class="btn btn-success i18n" name="ltdRegistration_login" type="submit" onclick="insertPayInfo()"></button>
+								<button class="btn btn-default i18n" name="ltdRegistration_back" type="submit" onClick="goBackcostlist()"></button>
+							</div>
+					</div>
+					<div class="col-md-4" style="padding: 0;">
+						<nav class="log-sidebar" style=" background: none; border-radius: 4px;border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow-y: scroll; " id="navright">
+							<!--#include virtual="../common/business/label/label_set.shtml"--> 
+							<!--#include virtual="../common/jczh/job_information.shtml"--> 
+							<div class="panel panel-default" style="border: none;padding-bottom: 15px;">
+								<div class="panel-heading l-right" style="font-size: 17px; font-weight: bold;">
+									<div class="i18n" name="salescategoryApproval_external_information" style="width: auto;float: left">
+										
+									</div>			
+									&nbsp;&nbsp;
+									<span style="font-size: 14px;" id="cost_no" ></span>
+									<span style="font-size: 14px;" id="cost_name"></span>
+								</div>
+								<div class="panel-body" style="padding: 15px 18px 0px 18px;background-color: initial;">
+									<div class="col-md-12" style=" padding:3px 0 0 0;" align="left">
+										<div class="form-group col-md-6" style="margin-left: -10px;">
+											<label class="control-label i18n" name="order_register_fazhuDay"></label>
+											<p id="orderdate" class="form-control-static date">
+												
+											</p>
+										</div>
+										<div class="form-group col-md-6 date" style="margin-left: -10px;">
+											<label class="control-label i18n" name="order_register_napinDate"></label>
+											<p id="plandlvday" class="form-control-static date">
+												
+											</p>
+										</div>
+										<div class="form-group col-md-12" style="clear: both;margin-left: -10px;">
+											<label class="control-label i18n" name="order_register_fazhuX"></label>
+											<p id="outsoureuser" class="form-control-static" style="overflow: hidden;">
+												
+											</p>
+										</div>
+										<div class="form-group col-md-12" style="clear: both;margin-left: -10px;">
+											<label class="control-label i18n" name="order_register_typepro"></label>
+											<p class="form-control-static"  id="costtype">
+												
+											</p>
+										</div>
+										<div class="col-md-5" style="padding: 0 5px; float: left; width: 87%;">
+											<div class="panel panel-default col-md-12 " style="background: #f5f5f5; padding-bottom: 20px;">
+												<div class="panel-heading" style="border: none; font-size: 16px; height: 48px; line-height: 43px; padding-left: 0; font-weight: bold;">
+													<div class="i18n" name="payment_info_contribution_amount" style="width: auto;float: left">
+														
+													</div>
+												</div>
+												<div style=" box-shadow: 0px 3px 5px #d4d4d4;background-color: #ffffff;">
+													<div class="panel-body panel" style="border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-bottom:none; border: 1px solid #dddddd;border-bottom: none; margin-bottom: 0;">
+														<div class="form-group col-md-12" style="padding: 10px 5px; margin-bottom: 0;">
+															<label class="control-label i18n col-md-2" style="padding: 0; width: auto;clear: both" name="salescategoryRegistration_vlue_added_tax_rate">増値税率</label>
+															<!--<label class="control-label col-md-5" style="padding: 0; font-size: 12px; margin-top: -3px; margin-left: 13px;">
+																<i style="font-size: 16px; "class="iconfont icon-tishi" id="setb2"></i>
+															</label>-->
+															<label class="control-label col-md-5" style="padding: 0; clear: both; text-align: left; font-weight: normal;margin-left: 5px;">
+																<span id="costrate"></span>
+																<span>%</span>
+															</label>
+															<div class="col-md-12 clearfix" style="padding-left: 0">
+															<label class="control-label i18n" style="padding: 0;float: left;" name="payment_info_amount_of_force"></label>
+															
+															<div class="" style="float:left;margin-left:10px;height: 34px; line-height: 34px;margin-top: -5px;" align="right">
+																<div class="btn-group outsource" style="zoom:0.8;">
+																	<label class="radius_left btn btn-primary activeT" style="line-height: 18px;background: none!important;">
+																	<input type="radio" name="deductionflg" id="deductionflg" value="1">
+																	<small class="i18n" name='shuiru'></small>
+																	</label>
+																	<label class="radius_left btn btn-primary"  style="line-height: 18px;background: none!important;">
+																	<input type="radio" name="deductionflg" id="saleIsHave" value="0">
+																	<small class="i18n" name='shuiba'></small>
+																	</label>
+																</div>
+															</div>
+															</div>
+															<label class="control-label col-md-7" style="padding: 0; text-align: right; font-weight: normal">
+																 <span id="costforeignamt"></span>
+																 <span id="cost_foreign_money"></span>
+															</label>
+														</div>
+													</div>
+													<div style="transform: rotate(180deg);" >
+														<img src="../public/images/triangle_center_touming.png" style="width: 100%;"/>
+													</div>
+													<div class="panel-body panel" style="border-top-right-radius: 0; border-top-left-radius: 0; border: 1px solid #dddddd; margin-bottom: 15px; border-top: none;">
+														<div class="form-group col-md-12" style="padding: 10px 5px; margin-bottom: 0;padding-bottom: 23px;">
+															<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_cost_amount"></label>
+															<label class="control-label col-md-7" style="padding: 0; text-align: right; font-weight: normal">
+																<span id="costrmb"></span>
+																<span class="person_code">JPY</span>
+															</label>
+															<label class="control-label i18n col-md-3" style="padding: 0;clear: both" name="payment_info_value_tax"></label>
+															<label class="control-label col-md-7" style="padding: 0; clear: both; text-align: right; font-weight: normal;">
+																<span id="costvatamt"></span>
+																<span class="person_code">JPY</span>
+															</label>
+															<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_payment_amount"></label>
+															<label class="control-label col-md-7" style="padding: 0; text-align: right; font-weight: normal">
+																<span id="outsoureamt"></span>
+																<span class="person_code">JPY</span>
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group flex_col_center" style="float: left; margin: 0 auto;">
+											<label class="control-label i18n" name="jobregistration_remarks"></label>
+											<!--<textarea id="costremark" class="form-control" placeholder="" rows="3" style="overflow: scroll;margin-left: -10px;width: 368px;padding: 0px 12px;"></textarea>-->
+											<div class="form-group order_remark" style="border: 1px solid #ccc;">
+												<div id="costremark" class="job_text remark" style="padding: 5px;">
+													<pre></pre>
+												</div>
+												<hr style="width: 98%;margin: 0 auto;" />
+												<div class="text-center rotate-90 hidden">
+													<i class="iconfont icon-xiala"></i>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-12 flex_col_center" style="clear: left;padding: 0;">
+											<label class="control-label i18n duiqi" name="order_register_Renewing"></label>
+											<div class="row duiqi">
+												<div class="clearfix col-xs-12" style="padding: 0;">
+													<div class="col-xs-1" style="padding:0;">
+														<i class="iconfont icon-ren" id="costupdusercolor" style="cursor: default;"></i>
+													</div>									
+													<div class="clearfix col-xs-11" style="padding:0;">
+														<div id="costupdusername"></div>
+														<small id="costupdate" class="sma" style="white-space: nowrap;"></small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<script>
+											$('.flex_col_center>label').width(auto_smalll_remark_T());
+											$('.order_remark,.duiqi').width(auto_smalll_remark_T());
+										</script>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</aside>
+		</div>
+		<div class="hid payment_pay">
+			<div class="panel">
+			   <ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='credential_registration'>入金处理</li>
+					<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+				</ul>
+			    <div class="panel-body" style="padding: 0px 20px 0px 20px;">
+			       <div class="form-group">
+				       <label for="name" class="i18n" name='adv_title' style="margin-left: 0px;">タイトル</label>
+				       <input type="text" id="save_name" class="form-control advancetitle ">
+			       </div>    
+			        <div class="form-group">
+				       <label for="name" style="margin-left: 0px;">URL</label>
+				       <input type="text" id="save_url" class="form-control advanceurl ">
+			       </div> 
+			    </div>
+			    <div class="btn_footer">
+					<button id="closeBtnInput" class="btn btn-default i18n right_float" name='salescategoryRegistration_clsoe' style="margin-left: 10px;float: right;"></button>
+					<button class="btn btn-success i18n log_job"  id="save" name='salescategoryRegistration_login' onclick="advanceURL()" style="margin-right:10px;float: right;"></button>
+			   		<span style="float:right;margin-right: 20px;" class="iconfont icon-LINK" onclick="new_url_open()"></span>
+			    </div>
+			</div>
+		</div>
+		<!--#include virtual="../common/business/label/label_set_t.shtml"--> 
+		<!--#include virtual="../common/jczh/add_tax_price.shtml"-->  
+	</body>
+	<script>
+		function new_url_open(){
+			var url = $("#save_url").val();	
+			returnURL(url);
+			var url_path = returnURL(url);
+			window.open(url_path);
+		}
+	</script>
+</html>

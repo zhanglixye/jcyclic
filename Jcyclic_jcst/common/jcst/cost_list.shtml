@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--#include virtual="./zh_header.shtml"-->
+		<!--#include virtual="./zh_easyUi.shtml"-->
+		<script type="text/javascript" src="../../public/lib/properties_language/jquery.i18n.properties-1.0.9.js"></script>
+		<script type="text/javascript" src="../../public/javascript/master/zh_language.js?v=2018092801"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.datagrid-row-selected,.datagrid-row-over,.datagrid-row-alt{
+				background: unset;
+			}
+		</style>
+		<ul class="breadcrumb" id="breadcrumb">
+			<li class="fs18 i18n" name='common_cost_list_intell'></li>
+			<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+		</ul>
+		<aside id="content" style="padding-bottom: 0;left: 0;overflow-y: hidden;">
+			<table style="max-height: 467px;" id="cost_list"></table>
+			<form class="form-inline top-15 ov bottom-15">
+				<input class="btn btn-default pull-right i18n-input" id="closeBtnInput" selectname='salescategoryRegistration_clsoe' type="button"  value="">
+			</form>
+		</aside>
+		</div>
+	</body>
+</html>

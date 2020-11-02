@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.MonthBalanceMapper">
+	<resultMap id="monthBalanceMap" type="com.kaiwait.bean.jczh.entity.AccountMonth">
+		<result column="isSellRegistrationNums" property="isSellRegistrationNums" jdbcType="INTEGER" />
+   </resultMap>
+<update id="upLendReject">
+	update lendtrn 
+	inner join sellordertrn on lendtrn.JOB_CD = sellordertrn.JOB_CD
+	set 
+	lendtrn.BL_FLG = 1
+	where lendtrn.COMPANY_CD = #{companyID}
+	and sellordertrn.COMPANY_CD = #{companyID}
+	and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{aMonth},"%Y%m")
+	and STATUS =0 and lendtrn.DEL_FLG != 1
+</update>
+ <select id="getAccountInfo" resultMap="monthBalanceMap">
+  <![CDATA[
+ 	select 
+		(select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")   
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1 
+			and jobtrn.COMPANY_CD=#{companyID}) as isSellRegistrationNums,
+		
+		(select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")     
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1  and sellordertrn.SALE_ADMIT_DATE is  null
+			and jobtrn.COMPANY_CD=#{companyID}) as sellRegistrationNotConfirmNums,
+		
+		(select 
+			ifnull(sum(sellordertrn.SALE_AMT),0)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")     
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1  and sellordertrn.SALE_ADMIT_DATE is  null
+			and jobtrn.COMPANY_CD=#{companyID}) as sellRegistrationNotConfirmAmt,
+			
+		(select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")     
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1  and sellordertrn.SALE_ADMIT_DATE is not null
+			and jobtrn.COMPANY_CD=#{companyID}) as sellIsConfirmNums,
+		
+		(select 
+			ifnull(sum(sellordertrn.SALE_AMT),0)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")  
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1  and sellordertrn.SALE_ADMIT_DATE is not null
+			and jobtrn.COMPANY_CD=#{companyID} ) as sellIsConfirmAmt,
+		
+		(select 
+			ifnull(sum(sellordertrn.SALE_AMT),0)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")  
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1 and sellordertrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID} ) as isSellRegistrationAmt,
+		
+		
+		(select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG !=1
+		where  date_format(jobtrn.PLAN_DALDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")   
+			and sellordertrn.SALE_NO is  null and jobtrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID} ) as notSellRegistrationNums,
+		
+		(select 
+			ifnull(sum(jobtrn.PLAN_SALE),0)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+		where  date_format(jobtrn.PLAN_DALDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")   
+			and  sellordertrn.SALE_NO is  null and jobtrn.DEL_FLG != 1 
+			and jobtrn.COMPANY_CD=#{companyID} ) as notSellRegistrationAmt,
+		
+		(select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG !=1
+		where  date_format( ifnull(sellordertrn.DLVDAY, jobtrn.PLAN_DALDAY),"%Y%m") =  date_format(#{sysDate},"%Y%m") 
+			and jobtrn.COST_FINISH_FLG = 0 and jobtrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID} ) as costNotFinshNums,
+			
+		(	select sum(costs.costAmt) from (
+				select
+					ifnull(sum(ifnull(paytrn.PAY_AMT,costtrn.COST_RMB)),0) -ifnull(sum(purposetrn.PURPOSE_AMT),0)  as costAmt
+				from jobtrn
+					left join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0
+					join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+					left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG=0
+					left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID}
+						and purposetrn.JOB_CD = costtrn.JOB_CD and purposetrn.ORDER_TYPE != 2
+				where 
+					paytrn.CONFIRMDATE is null
+					and jobtrn.DEL_FLG != 1
+					and sellordertrn.DLVDAY is not null
+					and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+					and jobtrn.COMPANY_CD = #{companyID}
+				union all
+				select
+					0 -  ifnull(sum(purposetrn.PURPOSE_AMT),0) as costAmt
+				from jobtrn
+					left join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID}
+					left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+					left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID}
+					left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID}
+						and purposetrn.JOB_CD = costtrn.JOB_CD and purposetrn.ORDER_TYPE != 2
+				where 
+					paytrn.CONFIRMDATE is not null 
+					and jobtrn.DEL_FLG != 1
+					and sellordertrn.DLVDAY is not null
+					and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+					and paytrn.CONFIRMDATE > ifnull((select summary.CHECK_DATE from summary where summary.COMPANY_CD=#{companyID} order by summary.ACCOUNTYM desc  limit 1),"2018-01-30")
+					and costtrn.COMPANY_CD=#{companyID}	and jobtrn.COMPANY_CD=#{companyID}
+			) as costs	
+		) as notConfirmCostAmt,
+		
+		(select
+			ifnull(sum(paytrn.PAY_AMT),0)
+		from jobtrn
+			left join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+			left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG=0
+			left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID}
+				and purposetrn.JOB_CD = costtrn.JOB_CD and purposetrn.ORDER_TYPE != 2
+		where 
+			paytrn.CONFIRMDATE is not null 
+			and jobtrn.DEL_FLG != 1
+			and sellordertrn.DLVDAY is not null
+			and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+			and paytrn.CONFIRMDATE > ifnull((select summary.CHECK_DATE from summary where summary.COMPANY_CD=#{companyID} order by summary.ACCOUNTYM desc  limit 1),"2018-01-30")
+			and costtrn.COMPANY_CD=#{companyID} and jobtrn.COMPANY_CD=#{companyID}) as confirmCostAmt,
+		
+		
+		
+		(select sum(ledns.lendAmt) from(
+				select
+					ifnull(sum(lendtrn.LEND_AMT),0) - ifnull(sum(purposetrn.PURPOSE_AMT),0) as lendAmt
+				from jobtrn
+					left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+					left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.COMPANY_CD = #{companyID} and lendtrn.DEL_FLG=0
+					left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID} 
+						and purposetrn.JOB_CD = lendtrn.JOB_CD and purposetrn.ORDER_TYPE = 2
+				where 
+					lendtrn.CONFIRMDATE is null 
+					and jobtrn.DEL_FLG != 1
+					and sellordertrn.DLVDAY is not null
+					and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+					and jobtrn.COMPANY_CD=#{companyID}
+				union all 
+				select
+					0 - ifnull(sum(purposetrn.PURPOSE_AMT),0) as lendAmt
+				from jobtrn
+					left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+					left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.COMPANY_CD = #{companyID} and lendtrn.DEL_FLG=0
+					left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID}
+						and purposetrn.JOB_CD = lendtrn.JOB_CD and purposetrn.ORDER_TYPE = 2
+				where 
+					lendtrn.CONFIRMDATE is not null 
+					and jobtrn.DEL_FLG != 1
+					and sellordertrn.DLVDAY is not null
+					and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+					and lendtrn.CONFIRMDATE > ifnull((select summary.CHECK_DATE from summary where summary.COMPANY_CD=#{companyID} order by summary.ACCOUNTYM desc  limit 1),"2018-01-30") 
+					and jobtrn.COMPANY_CD=#{companyID}
+			) as ledns
+		) as notConfirmLendAmt,
+		
+		(select
+			ifnull(sum(lendtrn.LEND_AMT),0) 
+		from jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG != 1 and sellordertrn.COMPANY_CD=#{companyID}
+			left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.COMPANY_CD = #{companyID} and lendtrn.DEL_FLG=0
+			left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD = #{companyID} 
+				and purposetrn.JOB_CD = lendtrn.JOB_CD and purposetrn.ORDER_TYPE = 2
+		where 
+			lendtrn.CONFIRMDATE is not null 
+			and jobtrn.DEL_FLG != 1
+			and sellordertrn.DLVDAY is not null
+			and date_format(sellordertrn.DLVDAY,"%Y%m") <=  date_format(#{sysDate},"%Y%m")  
+			and lendtrn.CONFIRMDATE > ifnull((select summary.CHECK_DATE from summary where summary.COMPANY_CD=#{companyID} order by summary.ACCOUNTYM desc  limit 1),"2018-01-30") 
+			and jobtrn.COMPANY_CD=#{companyID}) as confirmLendAmt,
+		
+		(select 
+			ifnull(sum(trantrn.TRAN_AMT),0)
+		from trantrn
+		where trantrn.COMPANY_CD=#{companyID} and trantrn.ADD_DATE > ifnull((select summary.CHECK_DATE from summary where summary.COMPANY_CD=#{companyID} order by summary.ACCOUNTYM desc  limit 1),"2018-01-30")
+		) as tranTotalAmt,
+		
+		(select
+			count(*)
+		from costtrn
+			join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD = #{companyID}
+		where paytrn.PAYREQDATE is not null and paytrn.CONFIRMDATE is null 
+			and costtrn.COMPANY_CD = #{companyID} and paytrn.DEL_FLG != 1 and costtrn.`STATUS` =  2
+		) as payReqNotConfirmNums,
+		
+		(select 
+			count(*)
+		from lendtrn
+		where lendtrn.BL_FLG = 1 and lendtrn.CONFIRMDATE is null 
+			and lendtrn.COMPANY_CD = #{companyID} and lendtrn.DEL_FLG != 1
+		) as notConfirmLendNums,
+
+		(select 
+			count(*) 
+		from trantrn 
+		where trantrn.CONFIRMDATE is null and trantrn.COMPANY_CD=#{companyID}
+			and trantrn.DEL_FLG != 1) as notConfirmTranNums
+		
+				]]>
+ </select>
+ <!-- (select 
+			count(*)
+		from jobtrn
+		join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG != 1 and lendtrn.BL_FLG = 1 and lendtrn.CONFIRMDATE is null 
+		left join sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+		where
+			jobtrn.COMPANY_CD=#{companyID}
+			and jobtrn.DEL_FLG != 1
+			and date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")   
+		) as notConfirmLendNums,
+
+		(select 
+			count(*) 
+		from jobtrn
+		join trantrn  on jobtrn.JOB_CD=trantrn.JOB_CD and jobtrn.COMPANY_CD=trantrn.COMPANY_CD and  trantrn.CONFIRMDATE is null and trantrn.DEL_FLG != 1
+		left join sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+		where 
+			 jobtrn.COMPANY_CD=#{companyID}
+			and jobtrn.DEL_FLG != 1
+			and date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m") ) as notConfirmTranNums
+ -->
+ <select id="getJobsByWillFinsh" resultType="com.kaiwait.bean.jczh.entity.Job">
+ <![CDATA[
+ select
+jobtrn.JOB_CD as jobNo,
+saleratemst.RATE2 as rate2,
+saleratemst.RATE3 as rate3,
+case when DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{aMonth},"%Y%m") then 1 else 0 end as isThisMonth
+from jobtrn
+join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG=0 and sellordertrn.COMPANY_CD=#{companyID}
+join saleratemst on jobtrn.SALE_TYP = saleratemst.SALE_CD and saleratemst.COMPANY_CD=#{companyID} and sellordertrn.DLVDAY between saleratemst.START_DATE and  saleratemst.END_DATE
+where jobtrn.DEL_FLG =0 and jobtrn.COMPANY_CD=#{companyID}
+AND DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") <= DATE_FORMAT(#{aMonth},"%Y%m")
+group by jobtrn.JOB_CD
+	]]>
+ </select>
+  <select id="getJobsByNotAdmit" resultType="com.kaiwait.bean.jczh.entity.Job">
+ <![CDATA[
+	select 
+		jobcd as jobNo,
+		count(*)
+	from (
+	
+		select 
+			jobtrn.JOB_CD as jobcd
+		from jobtrn 
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG=0 and sellordertrn.COMPANY_CD = #{companyID} 
+			join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.DEL_FLG=0 and costtrn.`STATUS` < 3 and costtrn.COMPANY_CD=#{companyID}
+		where jobtrn.DEL_FLG =0 and jobtrn.COMPANY_CD=#{companyID} 
+			AND DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") <= DATE_FORMAT(#{aMonth},"%Y%m") 
+		
+		union all
+		
+		select 
+			jobtrn.JOB_CD as jobcd
+		from jobtrn 
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG=0 and sellordertrn.COMPANY_CD = #{companyID} 
+			join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG =0 and lendtrn.`STATUS`!=3 and lendtrn.`STATUS`!=1 and lendtrn.COMPANY_CD=#{companyID}
+		where jobtrn.DEL_FLG =0 and jobtrn.COMPANY_CD=#{companyID} 
+			AND DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") <= DATE_FORMAT(#{aMonth},"%Y%m") 
+		
+		union all
+		
+		select 
+			jobtrn.JOB_CD as jobcd
+		from jobtrn 
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG=0 and sellordertrn.COMPANY_CD = #{companyID} 
+			join trantrn on jobtrn.JOB_CD = trantrn.JOB_CD and trantrn.DEL_FLG=0 and trantrn.TRAN_STATUS = 0 and trantrn.COMPANY_CD=#{companyID}
+		where jobtrn.DEL_FLG =0 and jobtrn.COMPANY_CD=#{companyID} 
+			AND DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") <= DATE_FORMAT(#{aMonth},"%Y%m") 
+	)as jobs
+	group by jobs.jobcd
+
+	]]>
+ </select>
+ <update id="updateAccountJobInfo">
+		<![CDATA[
+			update jobtrn join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID}
+			set
+			jobtrn.ACCOUNTDAY = #{dateNow},
+			jobtrn.ACCOUNTUSERCD = #{userID},
+			jobtrn.ACCOUNT_FLG = "1"
+			WHERE DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m")=DATE_FORMAT(#{aMonth},"%Y%m")
+			AND jobtrn.COMPANY_CD = #{companyID}
+		]]>
+	</update>
+	<update id="updateJobSetEnd">
+	 	<foreach collection="jobList" index="index" item="job"  separator=";">
+		 	update jobtrn  
+			set
+			jobtrn.JOBEND_FLG = "1",
+			jobtrn.JOBEND_DATE = #{accountDate}
+			WHERE JOB_CD=#{job.jobNo}
+			AND JOBEND_FLG != '1' and COMPANY_CD = #{companyID}
+	     </foreach>
+	</update>
+	
+	<update id="updateCostEnd">
+	 	<foreach collection="jobList" index="index" item="job"  separator=";">
+		 	update costtrn  
+			set
+				costtrn.`STATUS` = 4
+			WHERE costtrn.JOB_CD=#{job.jobNo} AND  COMPANY_CD = #{companyID} and costtrn.`STATUS` = 3
+	     </foreach>
+	</update>
+	
+	<update id="updateLendEnd">
+	 	<foreach collection="jobList" index="index" item="job"  separator=";">
+		 	update lendtrn
+				set lendtrn.`STATUS` = 3
+			where lendtrn.JOB_CD = #{job.jobNo} and COMPANY_CD = #{companyID} and lendtrn.`STATUS` = 1
+	     </foreach>
+	</update>
+	
+	<update id="updateTranEnd">
+	 	<foreach collection="jobList" index="index" item="job"  separator=";">
+		 	update trantrn
+				set trantrn.TRAN_STATUS = 2
+			where trantrn.JOB_CD = #{job.jobNo}
+			and trantrn.COMPANY_CD=#{companyID} and trantrn.TRAN_STATUS = 1
+	     </foreach>
+	</update>
+	
+	
+	<insert id="addSummary">
+		insert into summary
+		(ACCOUNTYM,
+		SELL_REGISTRATION,SELL_NOT_REGISTRATION,ORDER_NOT_FINSH,
+		SELL_REGISTRATION_AMT,SELL_NOT_REGISTRATION_AMT,COST_EXPECTED,
+		COST_CONFIRM,LEND_EXPECTED,LEND_CONFIRM,TRAN_TOTAL,
+		CHECK_DATE,CHECH_USER,COMPANY_CD)
+		values
+		(DATE_FORMAT(#{aMonth},"%Y%m"),
+		#{accountMonth.isSellRegistrationNums},#{accountMonth.notSellRegistrationNums},#{accountMonth.costNotFinshNums},
+		#{accountMonth.isSellRegistrationAmt},#{accountMonth.notSellRegistrationAmt},#{accountMonth.notConfirmCostAmt},
+		#{accountMonth.confirmCostAmt},#{accountMonth.notConfirmLendAmt},#{accountMonth.confirmLendAmt},#{accountMonth.tranTotalAmt},
+		#{accountDate},#{userID},#{companyID});	
+	</insert>
+	<update id="updateAccountMonth" >
+		<![CDATA[
+			UPDATE commonmst 
+			set
+			ITMVALUE = #{nextMonth}
+			WHERE
+			commonmst.COMPANY_CD = #{companyID} AND
+			MSTCD = "0001" AND ITEMCD = "001" 
+		]]>
+	</update>
+	<select id="searchJobsByMonth" resultType="com.kaiwait.bean.jczh.entity.Job">
+	<![CDATA[
+		select 
+			jobs.orderType,
+			sum(ifnull(jobs.purposrAmt,0)) as purposrAmt
+		from (
+			select
+				jobtrn.JOB_CD as jobNo,
+				"cost" as orderType,
+				sum(ifnull(paytrn.PAY_AMT,costtrn.COST_RMB)) - sum(ifnull(purposetrn.PURPOSE_AMT,0)) as purposrAmt
+			from jobtrn
+				join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+				join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0 and costtrn.`STATUS` < 3
+				left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG = 0
+				left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE != 2
+			where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+				and date_format(sellordertrn.DLVDAY,"%Y%m") <= date_format(#{sysDate},"%Y%m")
+			
+			union all
+			
+			select
+				jobtrn.JOB_CD as jobNo,
+				"cost" as orderType,
+				0 - sum(ifnull(purposetrn.PURPOSE_AMT,0)) as purposrAmt
+			from jobtrn
+				join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+				join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0 and costtrn.`STATUS` = 3
+				left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG = 0
+				left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE != 2
+			where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+				and date_format(sellordertrn.DLVDAY,"%Y%m") <= date_format(#{sysDate},"%Y%m")
+			
+			union  all
+			
+			select
+				jobtrn.JOB_CD as jobNo,
+				"lend" as orderType,
+				sum(ifnull(lendtrn.LEND_AMT,0)) - sum(ifnull(purposetrn.PURPOSE_AMT,0)) as purposrAmt
+			from jobtrn
+				join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+				left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG =0 and lendtrn.COMPANY_CD=#{companyID} and lendtrn.`STATUS` != 1 and lendtrn.`STATUS` != 3
+				left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE = 2
+			where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+				and date_format(sellordertrn.DLVDAY,"%Y%m") <= date_format(#{sysDate},"%Y%m")
+			
+			union all
+			
+			select
+				jobtrn.JOB_CD as jobNo,
+				"lend" as orderType,
+				0 - sum(ifnull(purposetrn.PURPOSE_AMT,0)) as purposrAmt
+			from jobtrn
+				join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+				left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG =0 and lendtrn.COMPANY_CD=#{companyID} and lendtrn.`STATUS` = 1 and lendtrn.`STATUS` != 3
+				left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE = 2
+			where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+				and date_format(sellordertrn.DLVDAY,"%Y%m") <= date_format(#{sysDate},"%Y%m")
+		) as jobs
+		group by orderType
+		]]>
+	</select>
+	<select id="getNotCheckAmtByMonth" resultType="com.kaiwait.bean.jczh.entity.Job">
+		<![CDATA[
+		select
+			jobtrn.JOB_CD as jobNo,
+			costtrn.COST_NO as orderNo,
+			case when paytrn.PAY_AMT is not null then 1 else 0 end as orderType,
+			ifnull(paytrn.PAY_AMT,costtrn.COST_RMB) as purposrAmt
+		from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+			join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0 and costtrn.`STATUS` < 3
+			left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG = 0
+			left join purposetrn on costtrn.COST_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE != 2
+		where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+			and date_format(sellordertrn.DLVDAY,"%Y%m")  <= date_format(#{sysDate},"%Y%m")
+		
+		union  all
+		
+		select
+			jobtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as orderNo,
+			2 as orderType,
+			ifnull(lendtrn.LEND_AMT,0) as purposrAmt
+		from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+			join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG =0 and lendtrn.COMPANY_CD=#{companyID} and lendtrn.`STATUS` != 1 and lendtrn.`STATUS` != 3
+			left join purposetrn on lendtrn.INPUT_NO = purposetrn.ORDER_NO and purposetrn.COMPANY_CD=#{companyID} and purposetrn.ORDER_TYPE = 2
+		where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+			and date_format(sellordertrn.DLVDAY,"%Y%m")  <= date_format(#{sysDate},"%Y%m")
+		]]>
+	</select>
+	<insert id="addPurpose">
+		insert into purposetrn 
+		(JOB_CD,ORDER_NO,COMPANY_CD,PURPOSE_AMT,ORDER_TYPE,ADDDATE,ADDUSERCD)
+		values
+		<foreach collection="jobList" index="index" item="job"  separator=",">
+		 	(#{job.jobNo},
+		 	#{job.orderNo},
+		 	#{companyID},
+		 	#{job.purposrAmt},
+		 	#{job.orderType},
+		 	#{accountDate},
+		 	#{userID})
+	     </foreach>
+	</insert>
+	<delete id="delAfterPurpose">
+	delete from purposetrn	
+	where purposetrn.JOB_CD = #{jobNo}
+		and purposetrn.ORDER_NO = #{orderNo}
+		and purposetrn.COMPANY_CD  = #{companyID}
+	</delete>
+	<select id="getNotCheckCostByHistory" resultType="com.kaiwait.bean.jczh.entity.OrderHistory">
+		<![CDATA[
+		select
+			jobtrn.JOB_CD as jobNo,
+			costtrn.COST_NO as orderNo,
+			0 as ordertyp,
+			ifnull(paytrn.PAY_RMB,costtrn.COST_PAY_AMT) as payAmt,
+			ifnull(paytrn.PAY_AMT,costtrn.COST_RMB) as costAmt,
+			ifnull(paytrn.PAY_VAT_AMT,costtrn.COST_VAT_AMT) as costVatAmt,
+			0 as orderStatus,
+			costtrn.STATUS as costStatus,
+			date_format(#{sysDate},"%Y%m") as checkMonth
+		from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+			join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG=0 and costtrn.`STATUS` < 3
+			left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.COMPANY_CD=#{companyID} and paytrn.DEL_FLG = 0
+		where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+		
+		union  all
+		
+		select
+			jobtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as orderNo,
+			1 as ordertyp,
+			lendtrn.LEND_PAY_AMT as payAmt,
+			lendtrn.LEND_AMT as costAmt,
+			lendtrn.LEND_VAT_AMT as costVatAmt,
+			0 as orderStatus,
+			lendtrn.STATUS as costStatus,
+			date_format(#{sysDate},"%Y%m") as checkMonth
+		from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and sellordertrn.DEL_FLG = 0
+			join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG =0 and lendtrn.COMPANY_CD=#{companyID} and lendtrn.`STATUS` != 1 and lendtrn.`STATUS` != 3
+		where jobtrn.COMPANY_CD =#{companyID} and jobtrn.DEL_FLG = 0
+		]]>
+	</select>
+	<insert id="addOrderByHistory" parameterType="com.kaiwait.bean.jczh.entity.OrderHistory" >
+		insert into orderhistorytrn
+		(JOB_NO,ORDER_NO,CHECK_MONTH,PAY_AMT,COST_AMT,COST_VAT,ORDER_STATUS,ORDER_TYPE,COMPANY_CD,COST_STATUS,ADDDATE,ADDUSERCD)
+		values
+		(#{order.jobNo},#{order.orderNo},#{order.checkMonth},#{order.payAmt},#{order.costAmt},#{order.costVatAmt},#{order.orderStatus},#{order.ordertyp},#{companyID},#{order.costStatus},#{accountDate},#{userID})
+	</insert>
+	<insert id="addJobSellRateByHistory">
+	insert into jobratehistorytrn
+	(JOB_CD,COMPANY_CD,RATE2,RATE3,ADDDATE,ADDUSERCD)
+	values
+	(#{jobNo},#{companyID},#{rate2},#{rate3},#{nowDate},#{usercd})
+	</insert>
+	<select id="getSellRegistrationNotConfirmJobs" resultType="com.kaiwait.bean.jczh.entity.Job">
+		select 
+			jobtrn.JOB_CD as jobNo,
+			saleratemst.RATE2 as rate2,
+			saleratemst.RATE3 as rate3,
+			sellordertrn.SALEUPDUSERCD as userIDByMonth
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+			join saleratemst on jobtrn.SALE_TYP = saleratemst.SALE_CD and saleratemst.COMPANY_CD=#{companyID} and sellordertrn.DLVDAY between saleratemst.START_DATE and saleratemst.END_DATE
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")     
+			and sellordertrn.SALE_NO is not null and jobtrn.DEL_FLG != 1  and sellordertrn.SALE_ADMIT_DATE is  null
+			and jobtrn.COMPANY_CD=#{companyID}
+	</select>
+	<select id="getCostNotFinshJobs" resultType="com.kaiwait.bean.jczh.entity.Job">
+		select 
+			jobtrn.JOB_CD as jobNo,
+			jobtrn.UPDUSERCD as userIDByMonth
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG !=1
+		where  date_format( ifnull(sellordertrn.DLVDAY, jobtrn.PLAN_DALDAY),"%Y%m") =  date_format(#{sysDate},"%Y%m") 
+			and jobtrn.COST_FINISH_FLG = 0 and jobtrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID} 
+	</select>
+	<update id="upCostFinshFlgByJobs">
+		update jobtrn set 
+			COST_FINISH_FLG=1,
+			COST_FINISH_USERCD=#{job.userIDByMonth},
+			COST_FINISH_DATE=#{dateNow}
+		where JOB_CD=#{job.jobNo} and COMPANY_CD=#{companyID}
+	</update>
+	<update id="upSellNotConfirmJobs">
+		update sellordertrn set 
+			SALE_ADMIT_USERCD=#{job.userIDByMonth},
+			SALE_ADMIT_DATE=#{dateNow},
+			SALE_CANCEL_USERCD=null,
+			SALE_CANCEL_DATE=null
+		where JOB_CD=#{job.jobNo} and COMPANY_CD=#{companyID}
+	</update>
+</mapper>

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.LendtrnMapper">
+
+<resultMap type="com.kaiwait.bean.jczh.entity.Lendtrn" id="Lendtrn">
+		<id column="input_no" property="input_no" jdbcType="VARCHAR" />
+		<result column="input_no" property="input_no" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="VARCHAR" />
+		<result column="lend_date" property="lend_date" jdbcType="VARCHAR" />
+		<result column="item_code" property="item_code" jdbcType="VARCHAR" />
+		<result column="lend_name" property="lend_name" jdbcType="VARCHAR" />
+		<result column="lend_user" property="lend_user" jdbcType="VARCHAR" />
+		<result column="isdeduction" property="isdeduction" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="lend_amt" property="lend_amt" jdbcType="VARCHAR" />
+		<result column="lend_foreign_amt" property="lend_foreign_amt" jdbcType="VARCHAR" />
+		<result column="lend_vat_amt" property="lend_vat_amt" jdbcType="VARCHAR" />
+		<result column="lend_pay_amt" property="lend_pay_amt" jdbcType="VARCHAR" />
+		<result column="ishave" property="ishave" jdbcType="VARCHAR" />
+		<result column="lend_cure_code" property="lend_cure_code" jdbcType="VARCHAR" />
+		<result column="lend_use_date" property="lend_use_date" jdbcType="VARCHAR" />
+		<result column="lend_refer" property="lend_refer" jdbcType="VARCHAR" />
+		<result column="lend_foreign_type" property="lend_foreign_type" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+		<result column="upusercd" property="upusercd" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="adduser" property="adduser" jdbcType="VARCHAR" />
+		<result column="upduser" property="upduser" jdbcType="VARCHAR" />
+		<result column="adminuserlend" property="adminuserlend" jdbcType="VARCHAR" />
+		<result column="canceluserlend" property="canceluserlend" jdbcType="VARCHAR" />
+		<result column="cancel_confirm_date" property="cancel_confirm_date" jdbcType="VARCHAR" />
+		<result column="confirmdate" property="confirmdate" jdbcType="VARCHAR" />
+		<result column="cancelconfirmdate" property="cancelconfirmdate" jdbcType="VARCHAR" />
+		<result column="cancelconfirmemp" property="cancelconfirmemp" jdbcType="VARCHAR" />
+		<result column="blflg" property="blflg" jdbcType="VARCHAR" />
+		<result column="costfinishflg" property="costfinishflg" jdbcType="VARCHAR" />
+		<result column="vat_change_flg" property="vat_change_flg" jdbcType="VARCHAR" />
+		<result column="memberid" property="memberid" jdbcType="VARCHAR" />
+		<result column="colorv" property="colorv" jdbcType="VARCHAR" />
+		<result column="departcd" property="departcd" jdbcType="VARCHAR" />
+		<result column="lendusedate" property="lendusedate" jdbcType="VARCHAR" />
+		<result column="departname" property="departname" jdbcType="VARCHAR" />
+		<result column="departnamehk" property="departnamehk" jdbcType="VARCHAR" />
+		<result column="departnameen" property="departnameen" jdbcType="VARCHAR" />
+		<result column="departnamejp" property="departnamejp" jdbcType="VARCHAR" />
+		<result column="usercd" property="usercd" jdbcType="VARCHAR" />
+		<result column="foreignlen" property="foreignlen" jdbcType="VARCHAR" />
+		<result column="payforeigntype" property="payforeigntype" jdbcType="VARCHAR" />
+		<result column="pdfflagpro" property="pdfflagpro" jdbcType="VARCHAR" />
+		<result column="pdfflagcri" property="pdfflagcri" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemname_hk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="itemnamehk" property="itemnamehk" jdbcType="VARCHAR" />
+		<result column="itemnameen" property="itemnameen" jdbcType="VARCHAR" />
+		<result column="itemnamejp" property="itemnamejp" jdbcType="VARCHAR" />
+		<result column="addusername" property="addusername" jdbcType="VARCHAR" />
+		<result column="upusername" property="upusername" jdbcType="VARCHAR" />
+		<result column="addusernamecolor" property="addusernamecolor" jdbcType="VARCHAR" />
+		<result column="upusernamecolor" property="upusernamecolor" jdbcType="VARCHAR" />
+		<result column="adminuserlendcolor" property="adminuserlendcolor" jdbcType="VARCHAR" />
+		<result column="canceluserlenddcolor" property="canceluserlenddcolor" jdbcType="VARCHAR" />
+		<result column="itemname" property="itemname" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+		<result column="old_input_no" property="old_input_no" jdbcType="VARCHAR" />
+		
+	
+	</resultMap>
+   <insert id="insertlendtrn" parameterType="com.kaiwait.bean.jczh.entity.Lendtrn" >
+     insert into lendtrn
+		(job_cd,
+        input_no,
+        company_cd,
+        lend_date,
+        item_code,
+        lend_name,
+        lend_user,
+        isdeduction,
+        remark,
+        lend_amt,
+        lend_pay_amt,
+        lend_foreign_amt,
+        lend_vat_amt,
+        ishave,
+        lend_cure_code,
+        lend_use_date,
+        lend_refer,
+        lend_foreign_type,
+        adddate,
+        lendtrn.update,
+        addusercd,
+        upusercd,
+        status,
+        del_flg,
+        vat_change_flg       
+        )
+        values
+        (
+         #{job_cd,jdbcType=INTEGER},
+         #{input_no,jdbcType=VARCHAR},
+         #{company_cd,jdbcType=INTEGER},
+         #{lend_date,jdbcType=TIMESTAMP},
+         #{item_code,jdbcType=VARCHAR},
+         #{lend_name,jdbcType=VARCHAR},
+         #{lend_user,jdbcType=VARCHAR},
+         #{isdeduction,jdbcType=VARCHAR},
+         #{remark,jdbcType=VARCHAR},
+         #{lend_amt,jdbcType=VARCHAR},
+         #{lend_pay_amt,jdbcType=VARCHAR},
+         #{lend_foreign_amt,jdbcType=VARCHAR},
+         #{lend_vat_amt,jdbcType=VARCHAR},
+         #{ishave,jdbcType=VARCHAR},
+         #{lend_cure_code,jdbcType=VARCHAR},
+         #{lend_use_date,jdbcType=VARCHAR},
+         #{lend_refer,jdbcType=VARCHAR},
+         #{lend_foreign_type,jdbcType=VARCHAR},
+         #{adddate,jdbcType=VARCHAR},
+         #{adddate,jdbcType=VARCHAR},
+         #{addusercd,jdbcType=VARCHAR},
+         #{addusercd,jdbcType=VARCHAR},
+         #{status,jdbcType=VARCHAR},
+         #{del_flg,jdbcType=VARCHAR},
+         #{vat_change_flg,jdbcType=VARCHAR}
+        )
+  </insert>
+   <select id="Lendtrnquery"  parameterType="com.kaiwait.bean.jczh.entity.Lendtrn" 
+   		resultMap="Lendtrn" >
+   
+	SELECT
+	a.job_cd,
+	a.input_no,
+	a.company_cd,
+	a.lend_date,
+	a.item_code,
+	a.lend_name,
+	a.lend_user,
+	IFNULL(a.old_input_no,0) old_input_no,
+	IFNULL(a.lend_pay_amt,0) lend_pay_amt,
+	a.isdeduction,
+	a.remark,
+	IFNULL(a.lend_amt,0) lend_amt,
+	IFNULL(a.lend_foreign_amt,0) lend_foreign_amt,
+	IFNULL(a.lend_vat_amt,0) lend_vat_amt,
+	a.ishave,
+	a.lend_cure_code,
+	lend_use_date,
+	a.lend_refer,
+	a.lend_foreign_type,
+	a.adddate,
+	a.update,
+	a.addusercd,
+	a.upusercd,
+	(select user_name from usermst where USERCD=a.addusercd) addusername,
+	(select user_name from usermst where USERCD=a.upusercd) upusername,
+	(select colorv from usermst where USERCD=a.addusercd) addusernamecolor,
+	(select colorv from usermst where USERCD=a.upusercd) upusernamecolor,
+	a.status,
+	a.del_flg,
+	a.confirmdate,
+	a.confirmemp,
+	a.cancel_confirm_date,
+	a.cancel_confirm_emp,
+	a.vat_change_flg,
+	b.itmname,
+	b.itmname as itemname,
+	b.itemname_hk,
+	b.itemname_en,
+	b.itemname_jp,
+	b.itemname_hk as itemnamehk,
+	b.itemname_en as itemnameen,
+	b.itemname_jp as itemnamejp,
+	(select itmname from commonmst where MSTCD='0005' and ITEMCD = c.depart_cd and company_cd=c.company_cd)  departname,
+	(select itemname_hk from commonmst where MSTCD='0005' and ITEMCD = c.depart_cd and company_cd=c.company_cd)  departnamehk,
+	(select itemname_en from commonmst where MSTCD='0005' and ITEMCD = c.depart_cd and company_cd=c.company_cd)  departnameen,
+	(select itemname_jp from commonmst where MSTCD='0005' and ITEMCD = c.depart_cd and company_cd=c.company_cd)  departnamejp,
+	IFNULL((select itmvalue from commonmst where MSTCD='0050' and ITEMCD = a.lend_foreign_type and company_cd=c.company_cd),0)  foreignlen,
+	IFNULL((select itmname from commonmst where MSTCD='0050' and ITEMCD = a.lend_foreign_type and company_cd=c.company_cd),null)  payforeigntype,
+	IFNULL((select itmvalue from commonmst where MSTCD='0070' and ITEMCD = '009' and company_cd=c.company_cd),0)  pdfflagpro,
+	IFNULL((select itmvalue from commonmst where MSTCD='0070' and ITEMCD = '007' and company_cd=c.company_cd),0)  pdfflagcri,
+	c.user_name as username,
+	c.usercd as usercd,
+	c.member_id as memberid,
+	c.colorv,
+	c.depart_cd as departcd,
+	useradd.user_name as adduser,
+	userupd.user_name as upduser,
+	lendadminuser.user_name as adminuserlend,
+	lendadminuser.colorv as adminuserlendcolor,
+	lendcanceluser.user_name as canceluserlend,
+	lendcanceluser.colorv as canceluserlenddcolor,
+	a.BL_FLG as  blflg,
+	(select cost_finish_flg from jobtrn where job_cd=a.job_cd and company_cd=a.company_cd) costfinishflg,
+	a.lock_flg lock_flg
+	FROM
+	lendtrn a
+	LEFT JOIN commonmst b ON a.ITEM_CODE = b.ITEMCD AND b.mstcd = '9001' AND b.company_cd = #{company_cd,jdbcType=INTEGER} 
+	LEFT JOIN usermst c ON c.usercd = a.LEND_USER 
+	LEFT JOIN usermst useradd ON useradd.usercd = a.ADDUSERCD  
+	LEFT JOIN usermst userupd ON userupd.usercd = a.UPUSERCD  
+	LEFT JOIN usermst lendadminuser ON lendadminuser.usercd = a.CONFIRMEMP 
+	LEFT JOIN usermst lendcanceluser ON lendcanceluser.usercd = a.CANCEL_CONFIRM_EMP  
+	WHERE a.input_no = #{input_no,jdbcType=VARCHAR}
+	AND a.company_cd = #{company_cd,jdbcType=INTEGER}
+	AND a.del_flg = '0'
+	AND job_cd = #{job_cd,jdbcType=VARCHAR}
+	
+  </select> 
+  
+   <select id="LendtrnDate" resultType="com.kaiwait.bean.jczh.entity.Lendtrn" >
+	SELECT
+	a.ADDDATE,
+	a.UPDATE,
+	a.CONFIRMDATE,
+	a.CANCEL_CONFIRM_DATE as cancelconfirmdate
+	FROM
+	lendtrn a
+	WHERE a.input_no = #{input_no,jdbcType=VARCHAR}
+	AND a.company_cd = #{company_cd,jdbcType=INTEGER}
+	AND a.del_flg = '0'
+	AND job_cd = #{job_cd,jdbcType=VARCHAR}
+	
+  </select> 
+  <update id="lendtrnapproval" parameterType="com.kaiwait.bean.jczh.entity.Lendtrn">
+		update lendtrn 
+		<set>
+				status='1',
+				CONFIRMDATE = #{update,jdbcType=VARCHAR},
+			    CONFIRMEMP= #{addusercd,jdbcType=INTEGER},
+			    CANCEL_CONFIRM_DATE = null,
+			    CANCEL_CONFIRM_EMP = null
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+		and job_cd = #{job_cd,jdbcType=VARCHAR}
+  </update>
+  <update id="lendtrndelete" parameterType="com.kaiwait.bean.jczh.entity.Lendtrn">
+		update lendtrn 
+		<set>
+				del_flg='1',
+				UPUSERCD=#{usercd,jdbcType=VARCHAR},
+				lendtrn.UPDATE=#{datenow,jdbcType=VARCHAR}
+		</set>
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companyID,jdbcType=INTEGER}
+		and job_cd = #{jobcd,jdbcType=VARCHAR}
+  </update>  
+  <update id="updateLendtrn" parameterType="com.kaiwait.bean.jczh.entity.Lendtrn">
+		update lendtrn
+		<set>	 
+			lend_date=	#{lend_date},
+		
+			item_code=	#{item_code},
+		
+			lend_user=	#{lend_user},
+				
+			lend_name=	#{lend_name},
+				
+			remark=	#{remark},
+		
+			isdeduction= #{isdeduction},
+		
+			ishave=	#{ishave},
+		
+			lend_foreign_amt= #{lend_foreign_amt},
+		
+			lend_amt= #{lend_amt},
+		
+			lend_pay_amt= #{lend_pay_amt},
+		
+			lend_vat_amt= #{lend_vat_amt},
+		
+			lendtrn.update = #{update,jdbcType=VARCHAR},
+		
+			upusercd = #{addusercd,jdbcType=INTEGER},
+		
+			lend_use_date = #{lendusedate},
+
+			lend_refer = #{lend_refer,jdbcType=VARCHAR},
+		
+			lend_foreign_type = #{lend_foreign_type,jdbcType=VARCHAR},
+			<if test="lend_cure_code != null and lend_cure_code != ''" >
+		     lend_cure_code = #{lend_cure_code,jdbcType=VARCHAR},
+		    </if>
+			<if test="lend_cure_code == null or lend_cure_code == ''" >
+		     lend_cure_code = null,
+		    </if>	
+			vat_change_flg = #{vat_change_flg,jdbcType=VARCHAR},
+			old_input_no = #{old_input_no},
+			input_no = #{new_input_no}
+				
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+		and job_cd = #{job_cd,jdbcType=VARCHAR}
+  </update> 
+  <insert id="insertProoftrn" >
+		insert into prooftrn 
+		(INPUT_NO,COMPANY_CD,PROOF_TYPE,PROOF_TITLE,PROOF_URL,ADDDATE,prooftrn.UPDATE,ADDUSERCD,UPUSERCD)
+		values
+		 <foreach collection="clietList" index="index" item="client"  separator=","  >
+          	(
+          	#{inputno,jdbcType=VARCHAR},
+          	#{companyID,jdbcType=VARCHAR},
+          	'1',
+          	#{client.proof_title,jdbcType=VARCHAR},
+			#{client.proof_url,jdbcType=VARCHAR},
+			#{upddate,jdbcType=VARCHAR},
+			#{upddate,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR}
+			)
+	     </foreach>
+		
+	</insert>
+	<select id="rooftrnquery"  resultType="java.util.Map">
+
+		select INPUT_NO,COMPANY_CD,PROOF_TYPE,PROOF_TITLE,PROOF_URL,ADDDATE,prooftrn.UPDATE,ADDUSERCD,UPUSERCD
+		from prooftrn
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+
+	</select> 
+	<delete id="deleteProoftrn">
+		delete from prooftrn where input_no = #{inputno,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</delete> 
+	<!-- 立替取消  -->
+	<update id="cancelLendTrn" parameterType="com.kaiwait.bean.jczh.entity.Lendtrn">
+	  update lendtrn
+	  <set>
+	   `STATUS` =0,
+	    CONFIRMDATE = null,
+	    CONFIRMEMP= null,
+	    CANCEL_CONFIRM_DATE = #{cancelconfirmdate},
+	    CANCEL_CONFIRM_EMP = #{cancelconfirmemp}
+	  </set>
+	  where JOB_CD = #{job_cd} and INPUT_NO = #{input_no} and COMPANY_CD = #{company_cd} and DEL_FLG=0
+	</update>
+ 	<select id="getstatus"  resultType="String">
+		select status
+		from lendtrn
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companyID,jdbcType=INTEGER}
+		and job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	<select id="QueryJobstatus" resultType="String">
+	  select job_cd  from jobtrn
+	  where  job_cd = #{jobcd}
+	  and  company_cd =#{companyID}
+	  and del_flg=0
+	  and account_flg ='1' and jobend_flg ='0'	
+  </select>	
+	<select id="LendtrnConfirmPDF" resultType="com.kaiwait.bean.jczh.entity.LendtrnConfirmBeen">
+		select 
+	<!-- インプット確認票No. -->
+		 IFNULL(t.INPUT_NO,'') inputNo,
+	<!--   登録日 -->
+		 IFNULL(DATE_FORMAT(t.ADDDATE,'%Y-%m-%d'),'') addDate,
+	<!--   登録者 -->
+		 IFNULL((select user_name from usermst where usercd =t.ADDUSERCD  ),'') addUserName,
+	<!-- 此处省略公共查询 -->
+	
+	<!--  得意先コード -->
+		IFNULL(j.CLDIV_CD,'') dClCode,
+		<!--  得意先 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select CLDIV_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') dClName,
+		<!--  jobNo -->
+		IFNULL(j.JOB_CD,'') jobNo,
+		<!--  件名 -->
+		IFNULL(j.JOB_NAME,'') jobName,
+		<!--  売上種目 -->
+		 IFNULL((select SALE_NAME from salemst where SALE_CD =j.SALE_TYP ),'') saleTypeName,
+		<!--  請求先 -->
+		 IFNULL((select DIVNM from clmst where CLDIVCD=(select PAYER_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') rClName,
+		<!--  相手先G会社 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select G_COMPANY from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') hClName,
+		<!--  計上予定日 -->
+		IFNULL(j.PLAN_DALDAY,'') planDlvDay,
+		<!--  計上日 -->
+		IFNULL((select DLVDAY from sellordertrn where JOB_CD = t.job_cd and DEL_FLG = '0' and COMPANY_CD = t.COMPANY_CD),'') dlvDay,
+		<!--  責任者  -->
+	 	 IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='1' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') zUserName,
+		<!--  営業担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='2' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') yUserName,
+		<!--  割当担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='3' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') mdUserName,
+	 	
+	 	
+	<!--   経費科目 -->
+		IFNULL((select itmname from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyType,
+		IFNULL((select itemname_en from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypeen,
+		IFNULL((select itemname_jp from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypejp,
+		IFNULL((select itemname_hk from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypehk,
+	<!--   案件名 -->
+		 IFNULL(t.LEND_NAME,'') caseName,
+	<!--   立替社員 -->
+		 IFNULL(IFNULL((select user_name from usermst where usercd =t.LEND_USER  ),''),'') lendtrnUser,
+	<!--   使用日 -->
+		 IFNULL(t.LEND_DATE,'') lendUseDate,
+	<!--   控除 -->
+		 IFNULL((case ISDEDUCTION when 0 then '不扣除' else '扣除' end),'') isDeduction,
+	<!--   立替金額 -->
+		 IFNULL(t.LEND_AMT+t.LEND_VAT_AMT,'') lendtrnNum,
+	<!--   立替原価 -->
+		 IFNULL(t.LEND_AMT,'') lendtrnCost,
+	<!--   仕入増値 -->
+		 IFNULL(t.LEND_VAT_AMT,'') costVatAmt,
+	<!--   備考 -->
+		 IFNULL(t.REMARK,'') remark,
+	<!--   金額入力 -->
+		 IFNULL(t.LEND_FOREIGN_AMT,'') inputAmt,
+	<!--   税込 -->
+		 IFNULL(t.ISHAVE,'') isHave,
+	<!--   換算レート -->
+		 IFNULL(t.LEND_CURE_CODE,'') cureCode,
+	<!--   適用日 -->
+		 IFNULL(t.LEND_USE_DATE,'') useDate,
+	<!--   参照先 -->
+		 IFNULL(t.LEND_REFER,'') refName,
+	<!--   新No. -->
+	IFNULL(t.INPUT_NO,'') newNo,
+	<!--   旧No. -->
+	IFNULL(t.OLD_INPUT_NO,'') oldNo,
+		IFNULL((select company_full_name from companymst where company_cd = t.COMPANY_CD),'') companyfullname,
+		IFNULL((select change_utin from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') changeutin,
+		IFNULL((select itmname from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') foreigntype,
+		IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') foreignlen,
+		IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =(select CURRENCY_CODE from companymst where company_cd =t.company_cd) and company_cd = t.company_cd),'') mylen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd =(select currency_code from companymst where company_cd = t.company_cd) and company_cd = t.company_cd) currencycode,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='002' and company_cd = t.company_cd) currencycodejp,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='003' and company_cd = t.company_cd) currencycodeen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='004' and company_cd = t.company_cd) currencycodehk
+	from lendtrn t
+	LEFT JOIN jobtrn j on t.job_cd = j.JOB_CD and t.COMPANY_CD = j.COMPANY_CD
+	where t.input_no = #{inputno,jdbcType=VARCHAR}
+		and t.company_cd = #{companycd,jdbcType=INTEGER}
+		and t.job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	<select id="LendtrnApprovalPDF" resultType="com.kaiwait.bean.jczh.entity.LendtrnApprovalBeen">
+	  select  
+	   <!-- //インプット確認票No. -->
+		 IFNULL(t.INPUT_NO,'') inputNo,
+		<!-- //承認日 -->
+		 IFNULL(DATE_FORMAT(t.CONFIRMDATE,'%Y-%m-%d'),'') approvalDate,
+		<!-- //承認者 -->
+		IFNULL((select user_name from usermst where usercd =t.CONFIRMEMP  ),'') approvalUser,
+		 
+		 <!--  得意先コード -->
+		IFNULL(j.CLDIV_CD,'') dClCode,
+		<!--  得意先 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select CLDIV_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') dClName,
+		<!--  jobNo -->
+		IFNULL(j.JOB_CD,'') jobNo,
+		<!--  件名 -->
+		IFNULL(j.JOB_NAME,'') jobName,
+		<!--  売上種目 -->
+		 IFNULL((select SALE_NAME from salemst where SALE_CD =j.SALE_TYP ),'')  saleTypeName,
+		<!--  請求先 -->
+		 IFNULL((select DIVNM from clmst where CLDIVCD=(select PAYER_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') rClName,
+		<!--  相手先G会社 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select G_COMPANY from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') hClName,
+		<!--  計上予定日 -->
+		IFNULL(DATE_FORMAT(j.PLAN_DALDAY,'%Y-%m-%d'),'') planDlvDay,
+		<!--  計上日 -->
+		IFNULL((select DLVDAY from sellordertrn where JOB_CD = t.job_cd and DEL_FLG = '0' and COMPANY_CD = t.COMPANY_CD),'') dlvDay,
+		<!--  責任者  -->
+	 	 IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='1' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') zUserName,
+		<!--  営業担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='2' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') yUserName,
+		<!--  割当担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='3' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') mdUserName,
+	 	
+	 	
+		<!-- //経費科目 -->
+		IFNULL((select itmname from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyType,
+		IFNULL((select itemname_en from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypeen,
+		IFNULL((select itemname_jp from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypejp,
+		IFNULL((select itemname_hk from commonmst where mstcd = '9001' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypehk,
+		<!-- //案件名 -->
+		IFNULL(t.LEND_NAME,'') caseName,
+		<!-- //立替社員 -->
+		IFNULL((select user_name from usermst where usercd =t.LEND_USER  ),'') lendtrnUser,
+		<!-- //使用日 -->
+		IFNULL(DATE_FORMAT(t.LEND_DATE,'%Y-%m-%d'),'') lendUseDate,
+		<!-- //控除 -->
+		IFNULL((case ISDEDUCTION when 0 then '不扣除' else '扣除' end),'') isDeduction,
+		<!-- //立替金額 -->
+		 IFNULL(t.LEND_AMT+t.LEND_VAT_AMT,'') lendtrnNum,
+		<!-- //立替原価 -->
+		IFNULL(t.LEND_AMT,'') lendtrnCost,
+		<!-- //仕入増値税 -->
+		IFNULL(t.LEND_VAT_AMT,'') costVatAmt,
+		<!-- //備考 -->
+		IFNULL(t.REMARK,'') remark,
+		<!-- //金額入力 -->
+		IFNULL(t.LEND_FOREIGN_AMT,'') inputAmt,
+		<!-- //税込 -->
+		IFNULL(t.ISHAVE,'') isHave,
+		<!-- //換算レート -->
+		IFNULL(t.LEND_CURE_CODE,'') cureCode,
+		<!-- //適用日 -->
+		IFNULL(t.LEND_USE_DATE,'') useDate,
+		<!-- //参照先 -->
+		IFNULL(t.LEND_REFER,'') refName,
+		<!--   新No. -->
+		IFNULL(t.INPUT_NO,'') newNo,
+		<!--   旧No. -->
+		IFNULL(t.OLD_INPUT_NO,'') oldNo,
+		<!-- //科目 -->
+		'1' type,
+		<!-- //借方 -->
+		'1' debit,
+		<!-- //貸方 -->
+		'1' credit,
+		IFNULL((select company_full_name from companymst where company_cd = t.company_cd),'') companyfullname,
+		IFNULL((select itmname from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') foreigntype,
+		IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') foreignlen,
+		IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =(select CURRENCY_CODE from companymst where company_cd =t.company_cd) and company_cd = t.company_cd),'') mylen,
+		IFNULL((select change_utin from commonmst where mstcd = '0050' and itemcd =t.lend_foreign_type and company_cd = t.company_cd),'') changeutin,
+		(select itmname from commonmst where mstcd = '0050' and itemcd =(select currency_code from companymst where company_cd = t.company_cd) and company_cd = t.company_cd) currencycode,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='002' and company_cd = t.company_cd) currencycodejp,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='003' and company_cd = t.company_cd) currencycodeen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='004' and company_cd = t.company_cd) currencycodehk
+	from lendtrn t
+	LEFT JOIN jobtrn j on t.job_cd = j.JOB_CD and t.COMPANY_CD = j.COMPANY_CD
+	where t.input_no = #{inputno,jdbcType=VARCHAR}
+		and t.company_cd = #{companycd,jdbcType=INTEGER}
+		and t.job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	 <insert id="addOrder" parameterType="com.kaiwait.bean.jczh.entity.OrderHistorytrn" >
+     insert into orderhistorytrn
+		(job_no,
+		order_no,
+		check_month,
+		pay_amt,
+		cost_amt,
+		cost_vat,
+		order_status,
+		order_type,
+		company_cd
+		)
+        values
+        (
+         #{jobNo,jdbcType=INTEGER},
+         #{orderNo,jdbcType=VARCHAR},
+         #{checkMonth,jdbcType=INTEGER},
+         #{payAmt,jdbcType=TIMESTAMP},
+         #{costAmt,jdbcType=VARCHAR},
+         #{costVat,jdbcType=VARCHAR},
+         #{orderStatus,jdbcType=VARCHAR},
+         #{orderType,jdbcType=VARCHAR},
+         #{companycd,jdbcType=VARCHAR}
+        )
+  </insert>
+   <delete id="DeleteOrder" parameterType="com.kaiwait.bean.jczh.entity.OrderHistorytrn" >
+     delete from orderhistorytrn
+		where job_no=#{jobNo,jdbcType=INTEGER}
+		and order_no=#{orderNo,jdbcType=VARCHAR}
+		and check_month= #{checkMonth,jdbcType=INTEGER}
+		and company_cd=#{companycd,jdbcType=VARCHAR}
+  </delete>
+  <select id="queryLock"  resultType="java.lang.Integer">	
+		select 
+			lock_flg
+		from lendtrn 
+		where input_no = #{inputno,jdbcType=VARCHAR}
+			and company_cd = #{companycd,jdbcType=INTEGER}
+			and job_cd = #{jobcd,jdbcType=VARCHAR}
+   </select>
+    <update id="updateLock">
+    update lendtrn 
+    set lock_flg = lock_flg+1 
+    where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=INTEGER}
+		and job_cd = #{jobcd,jdbcType=VARCHAR}
+   </update>
+</mapper>

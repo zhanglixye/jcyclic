@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.JobLandMapper">
+	 <resultMap id="BaseResultMapJobLandVo" type="com.kaiwait.bean.jczh.vo.JobLandVo">
+	 </resultMap>
+	<resultMap id="pdfBlob" type="com.kaiwait.bean.jczh.entity.PdfBolbInfo">
+	</resultMap> 
+   <resultMap id="BaseResultMapCustomerVo" type="com.kaiwait.bean.jczh.vo.CustomerVo">
+		<id column="CLDIVCD" property="cldivcd" jdbcType="INTEGER" />
+		<id column="DIVNM" property="divnm" jdbcType="VARCHAR" />
+   </resultMap>
+    <resultMap id="BaseResultMapJobUserLable" type="com.kaiwait.bean.jczh.entity.JobUserLable">
+		<id column="JOB_CD" property="job_cd" jdbcType="VARCHAR" />
+		<id column="USERCD" property="usercd" jdbcType="VARCHAR" />
+		<id column="LEVEL_FLG" property="level_flg" jdbcType="VARCHAR" />
+		<id column="USER_NAME" property="user_name" jdbcType="VARCHAR" />
+		<id column="DEPART_CD" property="depart_cd" jdbcType="VARCHAR" />
+		<id column="COLORV" property="usercolor" jdbcType="VARCHAR" />
+		<id column="ITMNAME" property="itmname" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_HK" property="itemname_hk" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_EN" property="itemname_en" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_JP" property="itemname_jp" jdbcType="VARCHAR" />
+		<id column="memberid" property="memberid" jdbcType="VARCHAR" />
+   </resultMap>
+     <resultMap id="BaseResultMapJobLableTrn" type="com.kaiwait.bean.jczh.entity.JobLableTrn">
+		<id column="JOB_CD" property="jobcd" jdbcType="VARCHAR" />
+		<id column="LABEL_TEXT" property="labletext" jdbcType="VARCHAR" />
+		<id column="LABEL_LEVEL" property="lablelevel" jdbcType="VARCHAR" />
+		<id column="LABEL_CD" property="lablecd" jdbcType="VARCHAR" />
+		<id column="COMPANY_CD" property="companycd" jdbcType="INTEGER" />
+   </resultMap>
+   <resultMap id="BaseResultMapLable" type="com.kaiwait.bean.jczh.entity.Lable">
+		<id column="LABEL_ID" property="lableid" jdbcType="VARCHAR" />
+		<id column="LABEL_LEVEL" property="lablelevel" jdbcType="INTEGER" />
+		<id column="LABLE_TEXT" property="labletext" jdbcType="VARCHAR" />
+		<id column="LABLE_TYPE" property="labletype" jdbcType="INTEGER" />
+   </resultMap>
+   
+    <resultMap id="BaseResultMapCommonmstVo" type="com.kaiwait.bean.jczh.vo.CommonmstVo">
+		<id column="ITEMCD" property="itemcd" jdbcType="VARCHAR" />
+		<id column="ITMNAME" property="itmname" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_HK" property="itemname_hk" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_EN" property="itemname_en" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_JP" property="itemname_jp" jdbcType="VARCHAR" />
+		<id column="ITMVALUE" property="itemvalue" jdbcType="VARCHAR" />
+		<id column="ORDERNO" property="orderno" jdbcType="VARCHAR" />
+		<id column="AIDCD" property="aidcd" jdbcType="VARCHAR" />
+		<id column="CHANGE_UTIN" property="changeunit" jdbcType="VARCHAR" />
+    </resultMap>
+      <resultMap id="BaseResultMapCommonmstVo1" type="com.kaiwait.bean.jczh.vo.CommonmstVo">
+		<id column="ITEMCD" property="itemcd" jdbcType="VARCHAR" />
+		<id column="ITMNAME" property="itmname" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_HK" property="itemname_hk" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_EN" property="itemname_en" jdbcType="VARCHAR" />
+		<id column="ITEMNAME_JP" property="itemname_jp" jdbcType="VARCHAR" />
+		<id column="ITMVALUE" property="itemvalue" jdbcType="VARCHAR" />
+		<id column="ORDERNO" property="orderno" jdbcType="VARCHAR" />
+		<id column="AIDCD" property="aidcd" jdbcType="VARCHAR" />
+		<id column="CHANGE_UTIN" property="changeunit" jdbcType="VARCHAR" />
+    </resultMap>
+     <resultMap id="BaseResultMapSalemstVo" type="com.kaiwait.bean.jczh.vo.SalemstVo">
+		<id column="SALE_CD" property="sale_cd" jdbcType="VARCHAR" />
+		<id column="SALE_NAME" property="sale_name" jdbcType="VARCHAR" />
+		<id column="TRAN_LEND" property="tranlend" jdbcType="VARCHAR" />
+		<id column="RATE1" property="rate1" jdbcType="DECIMAL" />
+		<id column="RATE2" property="rate2" jdbcType="DECIMAL" />
+		<id column="RATE3" property="rate3" jdbcType="DECIMAL" />
+		<id column="VAT_RATE" property="var_rate" jdbcType="DECIMAL" />
+		<id column="ADD_DATE" property="add_date" jdbcType="DATE" />
+		<id column="END_DATE" property="end_date" jdbcType="DATE" />
+   </resultMap>
+      <resultMap id="BaseResultMapTranLendVo" type="com.kaiwait.bean.jczh.vo.TranLendVo">
+   </resultMap>
+    <resultMap id="BaseResultMapJobLand" type="com.kaiwait.bean.jczh.entity.JobLand">
+       <id column="JOB_CD" property="job_cd" jdbcType="VARCHAR" />
+       <id column="JOB_NAME" property="job_name" jdbcType="VARCHAR" />
+       <id column="SALE_TYP" property="sale_typ" jdbcType="VARCHAR" />
+       <id column="CLDIV_CD" property="cldiv_cd" jdbcType="VARCHAR" />
+       <id column="PAYER_CD" property="payer_cd" jdbcType="VARCHAR" />
+       <id column="G_COMPANY" property="g_company" jdbcType="VARCHAR" />
+       <id column="PLAN_DALDAY" property="plan_dalday" jdbcType="DATE" />
+       <id column="PLAN_SALE" property="plan_sale" jdbcType="DECIMAL" />
+       <id column="PLAN_SALE_FOREIGN_AMT" property="plan_sale_foreign_amt" jdbcType="DECIMAL" />
+       <id column="PLAN_SALE_CURE_CODE" property="plan_sale_cure_code" jdbcType="VARCHAR" />
+       <id column="PLAN_SALE_USE_DATE" property="plan_sale_use_date" jdbcType="DATE" />
+       <id column="PLAN_SALE_ISHAVE" property="plan_sale_ishave" jdbcType="INTEGER" />
+       <id column="PLAN_SALE_REFER" property="plan_sale_refer" jdbcType="VARCHAR" />
+       <id column="PLAN_SALE_TAX1" property="plan_sale_tax1" jdbcType="DECIMAL" />
+       <id column="PLAN_SALE_TAX2" property="plan_sale_tax2" jdbcType="DECIMAL" />
+       <id column="PLANSALE_TAX_TOTAL" property="plansale_tax_total" jdbcType="DECIMAL" />
+       <id column="PLANCOST_TAX" property="plancost_tax" jdbcType="DECIMAL" />
+       <id column="PLANSALE_FOREIGN_CODE" property="plansale_foreign_code" jdbcType="VARCHAR" />
+       <id column="PLAN_COST_AMT" property="plancostamt" jdbcType="DECIMAL" />
+       <id column="PLAN_COST_USE_DATE" property="plan_cost_use_date" jdbcType="DATE" />
+       <id column="PLAN_COST_REFER" property="plan_cost_refer" jdbcType="VARCHAR" />
+       <id column="PLAN_COST_CURE_CODE" property="plan_cost_cure_code" jdbcType="VARCHAR" />
+       <id column="PLAN_COST_FOREIGN_AMT" property="plan_cost_foreign_amt" jdbcType="DECIMAL" />
+       <id column="PLAN_COST_FOREIGN_CODE" property="plan_cost_foreign_code" jdbcType="VARCHAR" />
+       <id column="PLAN_COST_ISHAVE" property="plan_cost_ishave" jdbcType="INTEGER" />            
+       <id column="REMARK" property="remark" jdbcType="VARCHAR" />          
+       <id column="PLAN_VAT_AMT" property="plan_vat_amt" jdbcType="DECIMAL" />          
+       <id column="PLAN_REQ_AMT" property="plan_req_amt" jdbcType="DECIMAL" />  
+        <id column="PLAN_PAY_AMT" property="plan_pay_amt" jdbcType="DECIMAL" />  
+       <id column="ADDDATE" property="adddate" jdbcType="DATE" />
+       <id column="UPDDATE" property="upddate" jdbcType="DATE" />  
+       <id column="ADDUSERCD" property="addusercd" jdbcType="VARCHAR" />       
+       <id column="UPDUSERCD" property="updusercd" jdbcType="VARCHAR" />  
+        <id column="ASSIGN_FLG" property="assignflg" jdbcType="VARCHAR" />  
+         <id column="JOBEND_FLG" property="jobEndFlg" jdbcType="VARCHAR" />  
+        <id column="COST_FINISH_FLG" property="costFinshFlg" jdbcType="VARCHAR" />  
+          <id column="ACCOUNT_FLG" property="accountFlg" jdbcType="VARCHAR" />  
+             <id column="LOCK_FLG" property="lockFlg" jdbcType="INTEGER" />  
+       <id column="c1.DIVNM" property="divnm" jdbcType="VARCHAR" />  
+       <id column="c1.DIVNM_EN" property="divnm_en" jdbcType="VARCHAR" />       
+       <id column="c1.DIVNAME_FULL" property="divname_full" jdbcType="VARCHAR" /> 
+        <id column="c1.DEL_FLG" property="divDelFlg" jdbcType="INTEGER" />                
+       <id column="c2.DIVNM" property="payername" jdbcType="VARCHAR" />  
+       <id column="c2.DIVNM_EN" property="payernameen" jdbcType="VARCHAR" />       
+       <id column="c2.DIVNAME_FULL" property="payernamefull" jdbcType="VARCHAR" />
+         <id column="c2.DEL_FLG" property="payDelFlg" jdbcType="INTEGER" />                
+       <id column="c3.DIVNM" property="gcompanyname" jdbcType="VARCHAR" />  
+       <id column="c3.DIVNM_EN" property="gcompanynameen" jdbcType="VARCHAR" />       
+       <id column="c3.DIVNAME_FULL" property="gcompanynamefull" jdbcType="VARCHAR" /> 
+       <id column="c3.DEL_FLG" property="gDelFlg" jdbcType="INTEGER" />       
+       <id column="SALE_VAT_CHANGE_FLG" property="saleVatChangeFlg" jdbcType="INTEGER" />       
+       <id column="COST_VAT_CHANGE_FLG" property="costVatChangeFlg" jdbcType="INTEGER" />
+       <id column="uad.USER_NAME" property="adduser" jdbcType="VARCHAR" />
+       <id column="uad.COLORV" property="addcolor" jdbcType="VARCHAR" />
+       <id column="upd.USER_NAME" property="upduser" jdbcType="VARCHAR" />
+       <id column="upd.COLORV" property="updcolor" jdbcType="VARCHAR" />  
+       <id column="SALE_VAT_RATE" property="sale_vat_rate" jdbcType="DECIMAL" />
+       <id column="COST_VAT_RATE" property="cost_vat_rate" jdbcType="DECIMAL" />    
+       <id column="VAT_RATE" property="vat_rate" jdbcType="DECIMAL" />         
+   </resultMap>
+  <sql id="Base_Column_List">
+        JOB_CD,
+        JOB_NAME,
+        SALE_TYP,
+        CLDIV_CD,
+        PAYER_CD,
+        G_COMPANY,
+        PLAN_DALDAY,
+        PLAN_SALE,
+        PLAN_SALE_FOREIGN_AMT,
+        PLAN_SALE_CURE_CODE,
+        PLAN_SALE_USE_DATE,
+        PLAN_SALE_ISHAVE,
+        PLAN_SALE_REFER,
+        PLAN_SALE_TAX1,
+        PLAN_SALE_TAX2,
+        PLANSALE_TAX_TOTAL,
+        PLANCOST_TAX,
+        PLANSALE_FOREIGN_CODE,
+         PLAN_COST_FOREIGN_AMT,
+        PLAN_COST_USE_DATE,
+        PLAN_COST_REFER,
+        PLAN_COST_CURE_CODE,
+         PLAN_COST_AMT,
+        PLAN_COST_FOREIGN_CODE,
+        PLAN_COST_ISHAVE,
+        ADDDATE,
+        UPDDATE,
+        ADDUSERCD,
+        UPDUSERCD,
+        REMARK,
+        COMPANY_CD,
+        DEL_FLG,
+        PLAN_VAT_AMT,
+        PLAN_REQ_AMT,
+        PLAN_PAY_AMT,
+        ASSIGN_FLG,
+        SALE_VAT_RATE,
+        COST_VAT_RATE,
+        COST_FINISH_FLG,
+        COST_FINISH_USERCD,
+        COST_FINISH_DATE,
+        PLAN_SALE_FOREIGN_TYPE,
+        PLAN_COST_FOREIGN_TYPE,
+        SALE_VAT_CHANGE_FLG,
+        COST_VAT_CHANGE_FLG
+   </sql>
+   <insert id="insertJob" parameterType="com.kaiwait.bean.jczh.entity.JobLand" >
+       insert into jobtrn
+       (
+       <include refid="Base_Column_List" />
+       )
+       values
+       (
+        #{job_cd,jdbcType=VARCHAR},
+        #{job_name,jdbcType=VARCHAR},
+        #{sale_typ,jdbcType=VARCHAR},
+        #{cldiv_cd,jdbcType=VARCHAR},
+        #{payer_cd,jdbcType=VARCHAR},
+        #{g_company,jdbcType=VARCHAR},
+        #{plan_dalday,jdbcType=DATE},
+          #{plan_sale_foreign_amt,jdbcType=DECIMAL},
+        #{plan_sale,jdbcType=DECIMAL},
+        #{plan_sale_cure_code,jdbcType=VARCHAR},
+        #{plan_sale_use_date,jdbcType=DATE},
+        #{plan_sale_ishave,jdbcType=INTEGER},
+        #{plan_sale_refer,jdbcType=VARCHAR},
+        #{plan_sale_tax1,jdbcType=DECIMAL},
+        #{plan_sale_tax2,jdbcType=DECIMAL},
+        #{plansale_tax_total,jdbcType=DECIMAL},
+        #{plancost_tax,jdbcType=DECIMAL},
+        #{plansale_foreign_code,jdbcType=VARCHAR},
+      	#{plancostamt,jdbcType=DECIMAL},
+        #{plan_cost_use_date,jdbcType=DATE},
+        #{plan_cost_refer,jdbcType=VARCHAR},
+        #{plan_cost_cure_code,jdbcType=VARCHAR},
+           #{plan_cost_foreign_amt,jdbcType=DECIMAL},
+        #{plan_cost_foreign_code,jdbcType=VARCHAR},
+        #{plan_cost_ishave,jdbcType=INTEGER},
+        #{adddate,jdbcType=DATE},
+        #{upddate,jdbcType=DATE},
+        #{addusercd,jdbcType=VARCHAR},
+        #{updusercd,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR},
+        #{company_cd,jdbcType=INTEGER},
+        #{del_flg,jdbcType=INTEGER},
+        
+        #{plan_vat_amt,jdbcType=DECIMAL},
+        #{plan_req_amt,jdbcType=DECIMAL},
+         #{plan_pay_amt,jdbcType=DECIMAL},
+         #{assignflg,jdbcType=INTEGER},
+         #{sale_vat_rate,jdbcType=DECIMAL},
+         #{cost_vat_rate,jdbcType=DECIMAL},
+         #{costFinshFlg}
+         <if test="costFinshFlg==1">
+          , #{costFinishUser},
+          #{costFinishDate},
+         </if>
+         <if test="costFinshFlg==0">
+          ,"",
+          null,
+         </if>
+          #{plansale_foreign_code,jdbcType=VARCHAR},
+          #{plan_cost_foreign_code,jdbcType=VARCHAR},
+           #{saleVatChangeFlg,jdbcType=INTEGER},
+            #{costVatChangeFlg,jdbcType=INTEGER}
+          
+       )
+   </insert>
+  <insert id="insertJobUser"  >
+     insert into jobuserstrn
+        (
+        JOB_CD,
+        USERCD,
+        LEVEL_FLG,
+        ADDDATE,
+        UPDDATE,
+        ADDUSERCD,
+        UPDUSERCD,
+        DEL_FLG,
+        COMPANY_CD
+                )
+        values
+       <foreach collection="julableList" index="index" item="item"  separator="," >
+        (
+          #{item.job_cd,jdbcType=VARCHAR},
+          #{item.usercd,jdbcType=VARCHAR},
+          #{item.level_flg,jdbcType=VARCHAR},
+          #{item.add_date,jdbcType=DATE},
+       	  #{item.upd_date,jdbcType=DATE},
+          #{item.add_user_cd,jdbcType=VARCHAR},
+          #{item.upd_user_cd,jdbcType=VARCHAR},
+          #{item.juser_del_flg,jdbcType=VARCHAR},
+          #{item.company_cd,jdbcType=INTEGER}
+        )
+       </foreach>  
+   
+   </insert> 
+     <insert id="insertJobUpUser"  >
+     insert into jobuserstrn
+        (
+        JOB_CD,
+        USERCD,
+        LEVEL_FLG,
+        ADDDATE,
+        UPDDATE,
+        ADDUSERCD,
+        UPDUSERCD,
+        DEL_FLG,
+        COMPANY_CD
+                )
+        values
+     
+        (
+          #{job_cd,jdbcType=VARCHAR},
+          #{usercd,jdbcType=VARCHAR},
+          #{level_flg,jdbcType=VARCHAR},
+          #{add_date,jdbcType=DATE},
+       	  #{upd_date,jdbcType=DATE},
+          #{add_user_cd,jdbcType=VARCHAR},
+          #{upd_user_cd,jdbcType=VARCHAR},
+          #{juser_del_flg,jdbcType=VARCHAR},
+          #{company_cd,jdbcType=INTEGER}
+        )
+       
+   
+   </insert> 
+   <insert id="insertJobLable">
+     insert into joblabeltrn
+         (JOB_CD,LABEL_CD,COMPANY_CD,ADDDATE,ADDUSERCD)
+        values
+        <foreach collection="jltrnList" index="index" item="item" separator=",">
+        (
+        #{item.jobcd,jdbcType=VARCHAR},
+        #{item.lablecd,jdbcType=VARCHAR},
+        #{item.companycd,jdbcType=INTEGER},
+       	#{item.addDate},
+		#{item.addUsercd}
+        ) 
+        </foreach>
+   </insert>
+
+<update id="updateJob" parameterType="com.kaiwait.bean.jczh.entity.JobLand">
+  update jobtrn
+  <set>
+        JOB_NAME =  #{job_name,jdbcType=VARCHAR},
+        SALE_TYP =  #{sale_typ,jdbcType=VARCHAR},
+        CLDIV_CD =  #{cldiv_cd,jdbcType=VARCHAR},
+        PAYER_CD =  #{payer_cd,jdbcType=VARCHAR},
+        G_COMPANY =  #{g_company,jdbcType=VARCHAR},
+        PLAN_DALDAY=  #{plan_dalday,jdbcType=DATE},
+        PLAN_SALE = #{plan_sale_foreign_amt,jdbcType=DECIMAL},
+        PLAN_SALE_FOREIGN_AMT= #{plan_sale,jdbcType=DECIMAL},
+        PLAN_SALE_CURE_CODE =  #{plan_sale_cure_code,jdbcType=VARCHAR},
+        PLAN_SALE_USE_DATE= #{plan_sale_use_date,jdbcType=DATE},
+        PLAN_SALE_ISHAVE = #{plan_sale_ishave,jdbcType=INTEGER},
+        PLAN_SALE_REFER =  #{plan_sale_refer,jdbcType=VARCHAR},
+        PLAN_SALE_TAX1 =  #{plan_sale_tax1,jdbcType=DECIMAL},
+        PLAN_SALE_TAX2 =  #{plan_sale_tax2,jdbcType=DECIMAL},
+        PLANSALE_TAX_TOTAL =  #{plansale_tax_total,jdbcType=DECIMAL},
+        PLANCOST_TAX  =     #{plancost_tax,jdbcType=DECIMAL},
+        PLANSALE_FOREIGN_CODE=  #{plansale_foreign_code,jdbcType=VARCHAR},
+        PLAN_COST_AMT=  #{plan_cost_foreign_amt,jdbcType=DECIMAL},
+        PLAN_COST_USE_DATE = #{plan_cost_use_date,jdbcType=DATE},
+        PLAN_COST_REFER =   #{plan_cost_refer,jdbcType=VARCHAR},
+        PLAN_COST_CURE_CODE=  #{plan_cost_cure_code,jdbcType=VARCHAR},
+        PLAN_COST_FOREIGN_AMT=  #{plancostamt,jdbcType=DECIMAL},
+        PLAN_COST_FOREIGN_CODE =  #{plan_cost_foreign_code,jdbcType=VARCHAR},
+        PLAN_COST_ISHAVE =  #{plan_cost_ishave,jdbcType=INTEGER},
+        UPDDATE =  #{upddate,jdbcType=DATE},
+        UPDUSERCD = #{updusercd,jdbcType=VARCHAR},
+        REMARK =  #{remark,jdbcType=VARCHAR},
+        COMPANY_CD = #{company_cd,jdbcType=INTEGER},
+        DEL_FLG  = #{del_flg,jdbcType=INTEGER},
+        PLAN_VAT_AMT=  #{plan_vat_amt,jdbcType=DECIMAL},
+        PLAN_REQ_AMT =  #{plan_req_amt,jdbcType=DECIMAL},
+        PLAN_PAY_AMT =  #{plan_pay_amt,jdbcType=DECIMAL},
+        ASSIGN_FLG = #{assignflg,jdbcType=INTEGER},
+        PLAN_SALE_FOREIGN_TYPE=#{plansale_foreign_code,jdbcType=VARCHAR},
+        PLAN_COST_FOREIGN_TYPE=#{plan_cost_foreign_code,jdbcType=VARCHAR},
+        SALE_VAT_CHANGE_FLG=#{saleVatChangeFlg,jdbcType=INTEGER},
+        COST_VAT_CHANGE_FLG=#{costVatChangeFlg,jdbcType=INTEGER},
+        LOCK_FLG = #{lockFlg},
+        COST_VAT_RATE = #{cost_vat_rate,jdbcType=DECIMAL},
+        SALE_VAT_RATE = #{sale_vat_rate,jdbcType=DECIMAL},  
+  </set>
+  where JOB_CD = #{job_cd,jdbcType=VARCHAR} and COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+</update>
+   <!-- 売上种目 -->
+ <select id="selectSaleList" resultMap="BaseResultMapSalemstVo">
+     select 
+		salemst.SALE_CD as sale_cd,
+		salemst.SALE_NAME as sale_name,
+		salemst.TRAN_LEND as tranlend
+	from salemst 
+
+	where 
+	  salemst.COMPANY_CD = #{companycd}
+	  and salemst.DEL_FLG != 1
+	 <if test="saleType!=''and saleType!=null ">
+	   and salemst.SALE_CD = #{saleType,jdbcType=VARCHAR}
+	 </if>
+	 <if test="tranLend != '' and tranLend!=null">
+	   and salemst.TRAN_LEND = #{tranLend,jdbcType=VARCHAR}
+	 </if>
+	 group by
+    SALE_CD
+ </select>
+   <!-- job登陆外货下拉 -->
+ <select id="selectSaleCode" resultMap="BaseResultMapCommonmstVo">
+	 select 
+		 ITEMCD as itemcd,
+		 ITMNAME as itmname,
+		 ITEMNAME_HK as itemname_hk,
+		 ITEMNAME_EN as itemname_en,
+		 ITEMNAME_JP as itemname_jp,
+		 ITMVALUE as itemvalue,
+		 ORDERNO as orderno,
+		 AIDCD as aidcd,
+		 CHANGE_UTIN as changeunit
+	 from 
+		 commonmst
+	 where 
+	 MSTCD = #{mstcd} and COMPANY_CD= #{company_cd,jdbcType=INTEGER} 
+	  <if test="mstcd=='0050'">
+	   and DEL_FLG !=1
+	 </if>
+	  <if test="mstcd=='0015'">
+	   and DEL_FLG =0
+	 </if>
+	 <if test="codecd!=null">
+	  and ITEMCD = #{codecd,jdbcType=VARCHAR}
+	 </if>
+	 order by ORDERNO
+	</select>
+	   <!-- 查询本国货币-->
+ <select id="selectCurrencyCode" resultMap="BaseResultMapCommonmstVo1">
+	 select 
+		 ITEMCD as itemcd,
+		 ITMNAME as itmname,
+		 ITEMNAME_HK as itemname_hk,
+		 ITEMNAME_EN as itemname_en,
+		 ITEMNAME_JP as itemname_jp,
+		 ITMVALUE as itemvalue,
+		 ORDERNO as orderno,
+		 AIDCD as aidcd,
+		 CHANGE_UTIN as changeunit
+	 from 
+		 commonmst
+	 where 
+	 MSTCD = #{mstcd} and COMPANY_CD= #{company_cd,jdbcType=INTEGER} and ITEMCD = #{codecd,jdbcType=VARCHAR}
+	</select>
+<select id="selectLableList" resultMap="BaseResultMapLable">
+  select 
+   LABEL_ID as lableid,
+   LABEL_LEVEL as lablelevel,
+   LABEL_TEXT as labletext
+  from 
+  labelmst
+   where
+   1=1
+   <if test="powerflg==1">
+    and (LABEL_LEVEL = 1 or ADDUSERCD = #{usercd,jdbcType=VARCHAR})
+   </if>
+   <if test="powerflg==0">
+    and ADDUSERCD = #{usercd,jdbcType=VARCHAR}
+   </if>
+    and DEL_FLG = 0 and LABEL_TYPE =  #{labletype,jdbcType=INTEGER} and COMPANY_CD = #{companycd}
+   ORDER BY lablelevel desc
+</select>
+<select id="countTranLendByCd" resultMap="BaseResultMapTranLendVo">
+ <!-- select 
+	count(trantrn.INPUT_NO) as tranNum,
+	count(lendtrn.INPUT_NO) as lendNum
+	from 
+	trantrn 
+	left join lendtrn on trantrn.JOB_CD = CONVERT(lendtrn.JOB_CD USING utf8) COLLATE utf8_unicode_ci and lendtrn.COMPANY_CD = #{company_cd} and lendtrn.DEL_FLG=0 
+	left join jobtrn on trantrn.JOB_CD = CONVERT(jobtrn.JOB_CD USING utf8) COLLATE utf8_unicode_ci  and jobtrn.COMPANY_CD = #{company_cd} and jobtrn.DEL_FLG = 0 and trantrn.DEL_FLG = 0
+	where 
+	trantrn.JOB_CD = #{jobcd}
+	and trantrn.COMPANY_CD = #{company_cd}  -->
+	select 
+  	count(trantrn.INPUT_NO) as tranNum,
+	  count(lendtrn.INPUT_NO) as lendNum
+from jobtrn
+ LEFT JOIN trantrn on jobtrn.JOB_CD = trantrn.JOB_CD and trantrn.COMPANY_CD = #{company_cd} and trantrn.DEL_FLG = 0
+ LEFT JOIN lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.COMPANY_CD =#{company_cd} and lendtrn.DEL_FLG = 0
+where jobtrn.JOB_CD = #{jobcd} and jobtrn.COMPANY_CD =#{company_cd}  and jobtrn.DEL_FLG = 0
+</select>
+<select id="selectRateByJobCd" resultType="com.kaiwait.bean.jczh.entity.Job">
+  select
+saleratemst.RATE2 as rate2,
+saleratemst.RATE3 as rate3
+from jobtrn
+join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG=0 and sellordertrn.COMPANY_CD=#{companycd}
+join saleratemst on jobtrn.SALE_TYP = saleratemst.SALE_CD and saleratemst.COMPANY_CD=#{companycd} and sellordertrn.DLVDAY between saleratemst.START_DATE and  saleratemst.END_DATE
+where jobtrn.DEL_FLG =0 and jobtrn.COMPANY_CD=#{companycd}
+and jobtrn.JOB_CD = #{jobcd}
+ 
+</select>
+<select id="selectJobByCd" resultMap="BaseResultMapJobLand">
+select 
+        jobtrn.JOB_CD as job_cd,
+        JOB_NAME as job_name,
+        SALE_TYP as sale_typ,
+        CLDIV_CD as cldiv_cd,
+        PAYER_CD as payer_cd,
+        ifnull(G_COMPANY,"") as g_company,
+        PLAN_DALDAY as plan_dalday,
+        PLAN_SALE as plan_sale,
+        PLAN_SALE_FOREIGN_AMT as plan_sale_foreign_amt,
+        PLAN_SALE_CURE_CODE as plan_sale_cure_code,
+        PLAN_SALE_USE_DATE as plan_sale_use_date,
+        PLAN_SALE_ISHAVE as plan_sale_ishave,
+        PLAN_SALE_REFER as plan_sale_refer,
+        PLAN_SALE_TAX1 as plan_sale_tax1,
+        PLAN_SALE_TAX2 as plan_sale_tax2,
+        PLANSALE_TAX_TOTAL as plansale_tax_total,
+        PLANCOST_TAX as plancost_tax,
+        PLANSALE_FOREIGN_CODE as plansale_foreign_code,
+        PLAN_COST_AMT as plancostamt,
+        PLAN_COST_USE_DATE as plan_cost_use_date,
+        PLAN_COST_REFER as plan_cost_refer,
+        PLAN_COST_CURE_CODE as plan_cost_cure_code,
+        PLAN_COST_FOREIGN_AMT as plan_cost_foreign_amt,
+        PLAN_COST_FOREIGN_CODE as plan_cost_foreign_code,
+        jobtrn.PLAN_SALE_ISHAVE  AS plan_cost_ishave,
+        REMARK as remark,
+        PLAN_VAT_AMT as plan_vat_amt,
+        PLAN_REQ_AMT as plan_req_amt,
+        PLAN_PAY_AMT as plan_pay_amt,
+        jobtrn.ADDDATE as adddate,
+        jobtrn.UPDDATE as upddate,
+        jobtrn.ADDUSERCD as addusercd,
+        jobtrn.UPDUSERCD as updusercd,
+        jobtrn.ASSIGN_FLG as assignflg,
+        jobtrn.JOBEND_FLG as jobEndFlg,
+        jobtrn.COST_FINISH_FLG as costFinshFlg,
+        jobtrn.ACCOUNT_FLG as accountFlg,
+        jobtrn.LOCK_FLG as lockFlg,
+        c1.DIVNM as divnm,
+        c1.DIVNM_EN as divnm_en,
+        c1.DIVNAME_FULL as divname_full,
+        c1.DEL_FLG as divDelFlg,
+        c2.DIVNM as payername,
+        c2.DIVNM_EN as payernameen,
+        c2.DIVNAME_FULL as payernamefull,
+        c2.DEL_FLG as payDelFlg,
+        ifnull(c3.DIVNM,"") as gcompanyname,
+        ifnull(c3.DIVNM_EN,"") as gcompanynameen,
+        ifnull(c3.DIVNAME_FULL,"") as gcompanynamefull,
+        c3.DEL_FLG as gDelFlg,
+        uad.USER_NAME as adduser,
+        uad.COLORV as addcolor,
+        upd.USER_NAME as upduser,
+        upd.COLORV as updcolor,
+        jobtrn.SALE_VAT_RATE, 
+        jobtrn.COST_VAT_RATE,
+        sellordertrn.VAT_RATE,
+		jobtrn.FROM_JPP as fromJpp
+   from jobtrn 
+left join clmst c1 on jobtrn.CLDIV_CD = c1.CLDIVCD and c1.COMPANY_CD = #{companycd} 
+left join clmst c2 on jobtrn.PAYER_CD = c2.CLDIVCD and c2.COMPANY_CD = #{companycd} 
+left join clmst c3 on jobtrn.G_COMPANY = c3.CLDIVCD and c3.COMPANY_CD = #{companycd} 
+left join usermst uad on jobtrn.ADDUSERCD = uad.USERCD  
+left join usermst upd on jobtrn.UPDUSERCD = upd.USERCD
+LEFT JOIN sellordertrn ON jobtrn.job_cd = sellordertrn.job_cd and sellordertrn.COMPANY_CD = jobtrn.COMPANY_CD
+   where jobtrn.JOB_CD = #{jobcd,jdbcType=VARCHAR} and jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0 
+</select>
+<select id="getNameByUserCd" resultType="String">
+     select USER_NAME as uname
+     from usermst
+     where USERCD = #{usercd,jdbcType=VARCHAR} 
+</select>
+<select id="selectJobUser" resultMap="BaseResultMapJobUserLable">
+ select 
+	jobuserstrn.JOB_CD as job_cd, 
+	jobuserstrn.USERCD as usercd,
+	jobuserstrn.LEVEL_FLG as level_flg,
+	usermst.USER_NAME as user_name,
+    usermst.DEPART_CD as depart_cd,
+    usermst.COLORV as usercolor,
+	commonmst.ITMNAME as itmname,
+	commonmst.ITEMNAME_EN  as itemname_en,
+	commonmst.ITEMNAME_HK as itemname_hk,
+	commonmst.ITEMNAME_JP as itemname_jp,
+	usermst.MEMBER_ID as memberid
+	from jobuserstrn 
+  left join usermst on jobuserstrn.USERCD = usermst.USERCD 
+  left join commonmst on  usermst.DEPART_CD  = commonmst.ITEMCD  and commonmst.MSTCD='0005' and commonmst.COMPANY_CD = #{companycd}
+	where jobuserstrn.JOB_CD  =#{jobcd,jdbcType=VARCHAR}  and jobuserstrn.DEL_FLG =0 and jobuserstrn.COMPANY_CD = #{companycd}
+    GROUP BY usercd,LEVEL_FLG,DEPART_CD
+    ORDER BY level_flg ASC,usermst.USERCD ASC
+</select>
+<select id="selectJobLable" resultMap="BaseResultMapJobLableTrn">
+  select 
+	joblabeltrn.JOB_CD as jobcd,
+	joblabeltrn.LABEL_CD as lablecd,
+	labelmst.LABEL_LEVEL as lablelevel,
+	labelmst.LABEL_TEXT as labletext
+	from 
+	joblabeltrn
+	left join labelmst on labelmst.LABEL_ID = joblabeltrn.LABEL_CD 
+	where joblabeltrn.JOB_CD = #{jobcd,jdbcType=VARCHAR} and labelmst.DEL_FLG = 0 and joblabeltrn.COMPANY_CD = #{companycd} and labelmst.COMPANY_CD = #{companycd}
+</select>
+<delete id="deleteByJobCd">
+  delete 
+  from 
+  ${dbname}
+  where 
+  <if test="jobcd!=null and jobcd!=''">
+    JOB_CD = #{jobcd,jdbcType=VARCHAR}
+	</if>
+	 <if test="costno!=null and costno!=''">
+    cost_no = #{costno,jdbcType=VARCHAR}
+	</if>
+
+  and 
+  COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+   
+</delete>
+
+<select id="isFinishFlg" resultType="INTEGER">
+   select count(*) from sellordertrn  where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+</select>
+<update id="delJob" >
+update ${dbname} set DEL_FLG = #{delFlg},UPDDATE =#{updDate}
+<if test="lockFlg!=0"> , LOCK_FLG  = #{lockFlg}</if>
+  
+<if test="level!=null and level!=''">
+, LEVEL_FLG = #{level} 
+</if>
+where JOB_CD = #{jobcd} AND COMPANY_CD = #{companycd} 
+<if test="usercd!=null and usercd!=''">
+ and USERCD = #{usercd}
+</if>
+</update>
+<select id="isHaveRequst" resultType="INTEGER">
+ select count(*) as num from jobuserstrn where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd}  and USERCD = #{usercd}
+</select>
+<update id="updateJutrn" >
+update jobuserstrn set 
+ LEVEL_FLG = #{levelflg},
+ UPDUSERCD = #{upusercd},
+ UPDDATE = #{update}
+ where JOB_CD = #{jobcd} AND COMPANY_CD = #{companycd} and DEL_FLG = 0 and USERCD = #{usercd}
+</update>
+<select id="jobLogOutPut" resultType="com.kaiwait.bean.jczh.entity.JobLandOut">
+ select 
+ companymst.COMPANY_FULL_NAME as companyName,
+ companymst.COMPANY_NAME_EN as companyNameEn,
+ jobtrn.JOB_CD as jobcd,
+ jobtrn.COST_FINISH_FLG as costFinishFlg,
+ jobtrn.ADDDATE as addDate,
+ jobtrn.ADDUSERCD as addUserCd,
+ usermstadd.USER_NAME AS addUserName,
+ jobtrn.UPDDATE as upddate,
+ jobtrn.UPDUSERCD as upUserCd,
+ usermstUp.USER_NAME as upUserName,
+ salemst.SALE_NAME as saleName,
+ clmstD.DIVNM as dName,
+ clmstD.CLDIVCD as dCode,
+ clmstD.ACCOUNT_CD as accountCd,
+ clmstQ.DIVNM as qName,
+ clmstHDY.DIVNM as hdyName,
+ jobtrn.JOB_NAME as jobName,
+ "" as AUser,
+"" as assUser,
+ jobtrn.PLAN_DALDAY as planDalday,
+ jobtrn.PLAN_SALE as planSale,
+ sellordertrn.DLVDAY as dalDay,
+ jobtrn.PLAN_COST_AMT as planCost,
+ <!-- SUM(jobtrn.PLAN_SALE_TAX1+jobtrn.PLAN_SALE_TAX2) as planTax,
+  jobtrn.PLAN_SALE-(SUM(jobtrn.PLAN_SALE_TAX1+jobtrn.PLAN_SALE_TAX2)+jobtrn.PLAN_COST_AMT) as profit,
+ ifnull((jobtrn.PLAN_SALE-(SUM(jobtrn.PLAN_SALE_TAX1+jobtrn.PLAN_SALE_TAX2)+jobtrn.PLAN_COST_AMT))/jobtrn.PLAN_SALE * 100,0) as profitRate, -->
+ jobtrn.PLANSALE_TAX_TOTAL as  planTax,
+jobtrn.PLAN_SALE-(jobtrn.PLANSALE_TAX_TOTAL+jobtrn.PLAN_COST_AMT) as profit,
+ifnull((jobtrn.PLAN_SALE-(jobtrn.PLANSALE_TAX_TOTAL+jobtrn.PLAN_COST_AMT))/jobtrn.PLAN_SALE * 100,0) as profitRate,
+ GROUP_CONCAT(labelmst.LABEL_TEXT) as labelText,
+ jobtrn.REMARK as remark,
+ commonL.ITMNAME as localMoney,
+ commonL.ITEMNAME_HK as localMoneyHk,
+ commonL.ITEMNAME_EN as localMoneyEn,
+ commonL.ITEMNAME_JP as localMoneyJp,
+ ifnull(commonL.ITMVALUE,0) as localPoint,
+ commonS.ITMNAME as planSaleMoney,
+ commonS.ITEMNAME_HK as planSaleMoneyHk,
+ commonS.ITEMNAME_EN as planSaleMoneyEn,
+ commonS.ITEMNAME_JP as planSaleMoneyJp,
+ commonS.CHANGE_UTIN as planSaleChangeUnit,
+ ifnull(commonS.ITMVALUE,0) as planSalePoint,
+ commonC.ITMNAME as planCostMoney,
+ commonC.ITEMNAME_HK as planCostMoneyHk,
+ commonC.ITEMNAME_EN as planCostMoneyEn,
+ commonC.ITEMNAME_JP as planCostMoneyJp,
+ commonC.CHANGE_UTIN as planCostChangeUnit,
+ ifnull(commonC.ITMVALUE,0) as planCostPoint,
+<!--  GROUP_CONCAT(usermstA.USER_NAME) as zUser,
+ GROUP_CONCAT(usermstR.USER_NAME) as dUser,
+ GROUP_CONCAT(usermstM.USER_NAME) as mUser, -->
+ a.zUser as zUser,
+ b.dUser as dUser,
+ c.mUser as mUser,
+ jobtrn.PLANCOST_TAX as planCostTax,
+ jobtrn.PLAN_VAT_AMT as planSaleTax,
+ 
+ jobtrn.PLAN_SALE_FOREIGN_AMT as planSaleForeignAmt,
+ jobtrn.PLAN_SALE_CURE_CODE as planSaleCureCode,
+ jobtrn.PLAN_SALE_USE_DATE as planSaleUseDate,
+ jobtrn.PLAN_SALE_ISHAVE as planSaleIsHave,
+ jobtrn.PLAN_SALE_REFER as planSaleRefer,
+ 
+ jobtrn.PLAN_COST_FOREIGN_AMT as planCostForeignAmt,
+ jobtrn.PLAN_COST_CURE_CODE as planCostCureCode,
+ jobtrn.PLAN_COST_ISHAVE as planCostIsHave,
+ jobtrn.PLAN_COST_USE_DATE as planCostUseDate,
+ jobtrn.PLAN_COST_REFER as planCostRefer
+ from 
+ jobtrn 
+ LEFT JOIN companymst on jobtrn.COMPANY_CD = companymst.COMPANY_CD and companymst.DEL_FLG = 0
+ LEFT JOIN usermst usermstAd  on jobtrn.ADDUSERCD = usermstAd.USERCD 
+ LEFT JOIN usermst usermstUp  on jobtrn.UPDUSERCD = usermstUp.USERCD  
+ LEFT JOIN salemst on jobtrn.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = #{companycd} and salemst.DEL_FLG = 0
+ LEFT JOIN sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companycd} and sellordertrn.DEL_FLG = 0
+ LEFT JOIN usermst usermstadd ON jobtrn.ADDUSERCD = usermstadd.USERCD
+ LEFT JOIN clmst clmstD on jobtrn.CLDIV_CD = clmstD.CLDIVCD and clmstD.COMPANY_CD = #{companycd} 
+ LEFT JOIN clmst clmstQ on jobtrn.PAYER_CD = clmstQ.CLDIVCD and clmstQ.COMPANY_CD = #{companycd} 
+ LEFT JOIN clmst clmstHDY on jobtrn.G_COMPANY = clmstHDY.CLDIVCD and clmstHDY.COMPANY_CD = #{companycd} 
+ 
+ left join 
+( select
+  jobtrn.job_cd,
+jobtrn.company_cd,
+  group_concat(zruser.user_name separator '  ') as zUser
+  from jobtrn
+  left join jobuserstrn zrjobuser
+ on jobtrn.job_cd =zrjobuser.job_cd and
+ jobtrn.company_cd=zrjobuser.company_cd and zrjobuser.level_flg='1' and zrjobuser.del_flg=jobtrn.del_flg
+ left join usermst zruser
+ on zruser.usercd =zrjobuser.usercd 
+ 
+where jobtrn.company_cd=#{companycd}
+and jobtrn.job_cd=#{jobcd}
+and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) a on a.job_cd =jobtrn.job_cd and a.company_cd=#{companycd}
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(dduser.user_name separator '  ') as dUser
+  from jobtrn
+ left join jobuserstrn ddjobuser
+ on jobtrn.job_cd =ddjobuser.job_cd and
+ jobtrn.company_cd=ddjobuser.company_cd and ddjobuser.level_flg='2' and ddjobuser.del_flg=jobtrn.del_flg
+ left join usermst dduser
+ on dduser.usercd =ddjobuser.usercd 
+ where jobtrn.company_cd=#{companycd}
+ and jobtrn.job_cd=#{jobcd}
+ and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) b on b.job_cd =jobtrn.job_cd and b.company_cd=#{companycd}
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(mduser.user_name separator '  ') as mUser
+  from jobtrn  
+  left join jobuserstrn mdjobuser
+ on jobtrn.job_cd =mdjobuser.job_cd and
+ jobtrn.company_cd=mdjobuser.company_cd and mdjobuser.level_flg='3' and
+ mdjobuser.del_flg=jobtrn.del_flg
+ left join usermst mduser
+ on mduser.usercd =mdjobuser.usercd 
+ where jobtrn.company_cd=#{companycd}
+ and jobtrn.job_cd=#{jobcd}
+ and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) c on c.job_cd =jobtrn.job_cd and c.company_cd=#{companycd}
+ 
+ LEFT JOIN joblabeltrn on jobtrn.JOB_CD = joblabeltrn.JOB_CD and joblabeltrn.COMPANY_CD = #{companycd} 
+ LEFT JOIN labelmst on joblabeltrn.LABEL_CD = labelmst.LABEL_ID and labelmst.COMPANY_CD = #{companycd} and labelmst.DEL_FLG = 0
+ LEFT JOIN commonmst commonL on commonL.ITEMCD = companymst.CURRENCY_CODE and commonL.MSTCD = '0050' and commonL.COMPANY_CD = #{companycd}
+ LEFT JOIN commonmst commonS on commonS.ITEMCD = jobtrn.PLANSALE_FOREIGN_CODE and commonS.MSTCD = '0050' and commonS.COMPANY_CD = #{companycd}
+ LEFT JOIN commonmst commonC on commonC.ITEMCD = jobtrn.PLAN_COST_FOREIGN_CODE and commonC.MSTCD = '0050' and commonC.COMPANY_CD = #{companycd}
+ where jobtrn.JOB_CD = #{jobcd} and jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+
+</select>
+<select id="selectReqInsOutPut" resultType="com.kaiwait.bean.jczh.entity.ReqIns">
+  SELECT 
+        jobtrn.COST_FINISH_FLG as costFinishFlg,
+        jobtrn.PLAN_COST_AMT as planCostMoney,
+        jobtrn.PLANCOST_TAX as planCostTax,
+		sellordertrn.REQ_AMT as reqMoney,
+		sellordertrn.SALE_AMT as saleMoney,
+		sellordertrn.SALE_VAT_AMT as saleRate,
+		sellordertrn.SALE_FOREIGN_CODE as sale_foreign_code,
+		sellordertrn.SALE_CURE_CODE as cureCode,
+		sellordertrn.SALE_ISHAVE as saleIsHave,
+		sellordertrn.SALE_USE_DATE as userDate,
+		sellordertrn.SALE_REFER as saleRefer,
+		sellordertrn.SALE_FOREIGN_AMT as saleForeignAmt,
+		sellordertrn.SALE_ISHAVE as rateType,
+		sellordertrn.SALE_REMARK as remark,
+	    sellordertrn.SALE_TAX1 as rate2,
+        sellordertrn.SALE_TAX2 as rate3,
+        sellordertrn.SALE_ADMIT_DATE as saleAdminDate,
+        sellordertrn.SALE_ADMIT_REMARK as saleAdminRemark,
+        usermst.USER_NAME as saleAdminUser,
+	    commonmst.CHANGE_UTIN as saleChangeUnit,
+	    commonmst.ITMNAME as  saleMoneyUnit,
+	  	commonmst.ITEMNAME_EN as  saleMoneyUnitEn,
+	  	commonmst.ITEMNAME_HK as saleMoneyUnitHk,
+	    commonmst.ITEMNAME_JP as saleMoneyUnitJp,
+	    ifnull(commonmst.ITMVALUE,0) as salePoint,
+	    IFNULL(reqtrn.REQ_TIMES,0) as times,
+	    IFNULL(invoicetrn.INVOICE_TIMES,0) as inTimes
+	    
+    
+FROM
+	jobtrn
+LEFT JOIN  sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companycd} and sellordertrn.DEL_FLG = 0
+LEFT JOIN  reqtrn on jobtrn.JOB_CD = reqtrn.JOB_CD and reqtrn.COMPANY_CD = #{companycd} and reqtrn.DEL_FLG = 0
+LEFT JOIN  invoicetrn on jobtrn.JOB_CD = invoicetrn.JOB_CD and invoicetrn.COMPANY_CD = #{companycd} and invoicetrn.DEL_FLG = 0
+LEFT JOIN commonmst  on commonmst.ITEMCD = sellordertrn.SALE_FOREIGN_CODE and commonmst.MSTCD = '0050' and commonmst.COMPANY_CD = #{companycd}
+LEFT JOIN usermst on sellordertrn.SALE_ADMIT_USERCD = usermst.USERCD
+
+ where jobtrn.JOB_CD = #{jobcd} and jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+
+</select>
+<select id="selectBs" resultType="com.kaiwait.bean.jczh.entity.BsTickets">
+SELECT
+	jobtrn.PLAN_SALE AS planSaleMoney,
+	jobtrn.PLAN_VAT_AMT AS planSaleTax,
+	jobtrn.PLAN_COST_AMT AS planCostMoney,
+	jobtrn.PLANCOST_TAX AS planCostTax,
+	jobtrn.PLANSALE_TAX_TOTAL AS planTax,
+	sellordertrn.SALE_AMT AS saleMoney,
+	sellordertrn.SALE_VAT_AMT AS saleTax,
+	sellordertrn.VAT_AMT as vatamt,
+	sellordertrn.REQ_AMT as reqMoney,
+	SUM(
+		sellordertrn.SALE_TAX1 + sellordertrn.SALE_TAX2
+	) AS tax,
+	sellordertrn.SALEADDDATE AS saleAddDate
+FROM
+	jobtrn
+LEFT JOIN sellordertrn ON jobtrn.JOB_CD = sellordertrn.JOB_CD
+AND sellordertrn.DEL_FLG = 0
+AND sellordertrn.COMPANY_CD =  #{companycd}
+WHERE
+	jobtrn.JOB_CD = #{jobcd}  and jobtrn.DEL_FLG =
+	0
+AND jobtrn.COMPANY_CD = #{companycd}
+</select>
+<select id="getReqMoney" resultType="String">
+  select 
+   sellordertrn.REQ_AMT as reqMoney
+   from sellordertrn where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+ </select>
+ <update id="upDateLockFlg" parameterType="Integer">
+  update ${dbname} set
+    LOCK_FLG = #{lockFlg}
+   
+   
+ </update>
+ <insert id="insertPdfByDB" >
+ 	insert into testpdf 
+ 	(PDF_BYTES) values (#{pdfBytes});
+ </insert>
+ <select id="getPdfByDB" resultType="com.kaiwait.bean.jczh.entity.PdfBolbInfo">
+ select PDF_BYTES as pdfBytes from testpdf where ID=#{pdfID}
+ </select>
+ 
+  <select id="getNameByUserName" resultType="String">
+ 	SELECT
+	USER_NAME 
+FROM
+	jobtrn
+	LEFT JOIN usermst ON jobtrn.ADDUSERCD = usermst.USERCD 
+WHERE
+	jobtrn.JOB_CD = #{jobcd}
+	AND jobtrn.COMPANY_CD = #{companycd}
+ </select>
+ 
+   <select id="selectjobhistrn" resultType="com.kaiwait.bean.jczh.entity.JobList">
+	 SELECT
+		jobratehistorytrn.rate2 as historyrate2,
+		jobratehistorytrn.rate3 as historyrate3
+	FROM
+	jobtrn LEFT JOIN jobratehistorytrn ON jobtrn.JOB_CD = jobratehistorytrn.JOB_CD and jobtrn.COMPANY_CD = jobratehistorytrn.COMPANY_CD
+	WHERE
+	jobtrn.JOB_CD = #{jobcd} AND
+	jobtrn.COMPANY_CD=#{company_cd}
+  </select>
+  
+  <select id="selectOldInputNo" resultType="String">
+  	SELECT INPUT_NO 
+		FROM lendtrn 
+	WHERE  	
+		NEW_INPUT_NO = #{newinputno}
+		AND COMPANY_CD =#{companycd}
+  </select>
+  
+  
+</mapper>

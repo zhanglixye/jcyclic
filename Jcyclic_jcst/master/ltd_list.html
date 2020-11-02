@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='ltd_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/master/ltd_list_dataGrid.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/common/common_export_excel.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->   
+	</head>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='ltd_list_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<div class="supplier_sum_hei1">
+					<div class="form-inline">
+						<div class="selInput1 form-group">
+							<label class="i18n" name='ltdList_company_name' for="qyfInput" style="margin-right: 5px;"></label>
+							<input maxlength="100" class="form-control i18n-input company_full_name" tabindex="1" selectname='ltdList_ph' selectattr='placeholder' type="text" name="" id="qyfInput"/>
+						</div>
+						
+						<div class="selInput2 form-group radio del_flg">
+							<label class="marRight i18n" name='ltdList_Y_N_Effect'></label>
+							<label class="radio">
+					            <input type="radio" name="radio" checked="checked" value=0>
+					            <!--<i></i>-->
+					            <span class="i18n" tabindex="2" name='ltdList_effective'></span>
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio" value=1>
+					            <!--<i></i>-->
+					            <span class="i18n" tabindex="3" name='ltdList_invalid'></span>				                              
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio" value=''>
+					           <!-- <i></i>-->
+					            <span class="i18n" tabindex="4" name='suppliersList_all' ></span>
+					        </label>
+						</div>	
+					</div>				
+					<div class="form-inline top-15 bottom-15 ov">
+						<i style="font-size: 22px; margin:0 15px " class="iconfont icon-xiazai pull-right green marRight " tabindex="6" onclick="ltdListObj.downloadExcel()"></i>
+						<input style="width:7%;" selectname='ltdList_retrieval' class="btn btn-success pull-right search i18n-input" type="button" tabindex="5" onclick="ltdListObj.search()" value="">
+					</div>
+				</div>				
+				<table class="tableObj" id="ltd_list" style="width: 100%;"></table>	
+				<div class="switch_table_none hidden">
+					<center style="margin-top: 20px;"></center>
+				</div>
+		       <div class="form-inline top-15 ov bottom-15 supplier_sum_hei2">
+				
+					<input class="btn btn-success pull-right i18n-input company-change"  selectname='ltdList_change' type="button" tabindex="8" onclick="ltdListObj.edit()" value="" style="width: 7%;">
+					
+						<input class="btn btn-success pull-right i18n-input company-add" style="margin-right:10px;" selectname='ltdList_add' tabindex="7" onclick="ltdListObj.turnLog()" type="button" value="">
+				</div>
+				
+			</aside>
+			<script>
+				var objTop = $('.supplier_sum_hei1').height();
+				var objBot = $('.supplier_sum_hei2').height();
+				var tableObj = $('.tableObj');
+				auto_tableHei(objTop,objBot,45,tableObj);
+			</script>
+		</div>	
+	</body>
+</html>

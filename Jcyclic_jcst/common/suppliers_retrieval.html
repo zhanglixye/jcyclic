@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/language.shtml"-->  
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_retrieval.css?v=2018092801"/>
+		<script type="text/javascript" src="../public/javascript/master/suppliers_retrieval.js?v=2018092801"></script>
+	</head>
+	<body>
+		<div class="common_se suppliers_retrieval">
+			<div class="panel-heading clear" style="background-color: #ecf0f1;border-bottom-left-radius: 0px!important;border-bottom-right-radius: 0px!important;">
+				<span class="i18n fw" name='suppliersRetrieval_select'></span>
+				<i class="iconfont icon-guanbi" style="font-size: 13px;"></i>
+			</div>
+			<div style="padding: 0 30px;">				
+				<div class="pane-ody">
+					<div class="body-top">
+						<div class="form-group mt-15">
+						    <label class="i18n" for="exampleInputEmail1" name='suppliersRetrieval_suppliers'></label>
+						    <input maxlength="20" type="text" class="form-control" id="exampleInputEmail1" style="width: 40%;">
+						</div>
+						<div class="form-group clear">
+							<input selectname="suppliersRetrieval_cancel" id="clear_input" type="button" class="btn btn-default i18n-input btn-small"/>
+						    <input onclick="clientPopInitHandler()" selectname="ltdList_retrieval" type="button" class="btn btn-success mr-15 i18n-input btn-small"/>
+						    <input id="pd" type="hidden" class="form-control">
+						</div>
+						<div style="margin-left: -30px;margin-right: -30px;">
+							<hr style="border-color: #eee;border-width: medium;" />
+						</div>
+					</div>
+					<div class="body-bottom" style="border-radius: 0px!important;">
+						<table id="clientPopTab" style="width: 100%;max-height: 300px;"></table>
+						<div class="form-group clear mt-15">
+							<input id="closeBtnInput" type="button" class="btn btn-default i18n-input btn-small" selectname="salescategoryRegistration_clsoe"/>
+						    <input onclick="setChooseInfo()" type="button" selectname="suppliersRetrieval_ok" class="btn btn-success mr-15 i18n-input btn-small"/>						    
+						</div>
+					</div>
+				</div>	
+			</div>					    
+		</div>	
+	</body>
+	<script>
+		$("#clear_input").click(function(){
+			$("#exampleInputEmail1").val("");
+		})
+	</script>
+</html>

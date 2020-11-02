@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.TimesheetMapper">
+
+
+   <select id="searchInitList"   resultType="java.util.Map" >
+   
+	select a.JOB_CD jobcd,
+		a.CLDIV_CD cldiv,
+		a.G_COMPANY gcompany,
+		a.PAYER_CD payer,
+		a.JOB_NAME jobname,
+		a.SALE_TYP salename,
+		b.DLVDAY dlvday,
+		b.SALE_AMT saleamt,
+		b.VAT_AMT vatamt,
+		b.REQ_AMT reqamt,
+		a.PLAN_COST_AMT plancostamt,
+		'原価合计' costTotalAmt,
+		'仕入增值税合计' costVatTotal,
+		'営業税' tax1,
+		'文化城址建設費税' tax2,
+		'増値付加税' tax3,
+		'税金合计' taxTotal,
+		'营收合计' profit,
+		'营收率' profitRate,
+		'计上状态' jsflag,
+		'担当割当状态' assignflg,
+		'请求状态' reqflg,
+		'入金状态' recflg,
+		'发票状态' invflg,
+		'原価完了状态' costfinishflg,
+		'得意先编号' cldivcd,
+		'责任者' zrusername,
+		'壳上予定额' plansale,
+		a.ADDUSERCD jobadduser,
+		a.ADDDATE adddate,
+		b.SALEADDUSERCD seladduser,
+		b.SALEADDDATE saleadddate,
+		b.SALE_ADMIT_USERCD adminuser,
+		b.SALE_ADMIT_DATE saleadmitdate,
+		'计上月' dlvmon,
+		a.REMARK remark,
+		'ラベル' labletext
+	from jobtrn a,sellordertrn b 
+	where a.JOB_CD=b.JOB_CD
+	
+	
+  </select> 
+  <insert id="timesheetInsert" parameterType="com.kaiwait.bean.jczh.io.TimesheetInput">
+
+		insert into timesheettrn
+		(JOB_NO,
+		USER_CD,
+		JOB_DATE,
+		TIME_PER,
+		ADDDATE,
+		ADDUSERCD,
+		timesheettrn.UPDATE,
+		UPUSERCD,
+		COMPANY_CD)
+		values
+        (#{jobcd,jdbcType=VARCHAR},
+		#{usercd,jdbcType=VARCHAR},
+		#{jobdate,jdbcType=VARCHAR},
+		#{timenum,jdbcType=VARCHAR},
+		#{date,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR},
+		#{date,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR},
+		#{companyid,jdbcType=VARCHAR})	    
+		
+	</insert>
+	 <select id="timesheetList"   resultType="java.util.Map" >
+	 select JOB_NO,
+		USER_CD,
+		JOB_DATE,
+		TIME_PER,
+		ADDDATE,
+		ADDUSERCD,
+		timesheettrn.UPDATE,
+		UPUSERCD,
+		COMPANY_CD
+		from timesheettrn where 1=1
+		and job_no =#{jobcd,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+		and USER_CD = #{usercd,jdbcType=VARCHAR}
+		
+	 </select>
+	<delete id="timesheetDelete">
+		delete from timesheettrn 
+		where  job_no = #{jobcd,jdbcType=VARCHAR}
+		and user_cd = #{usercd,jdbcType=VARCHAR}
+		and job_date = #{jobdate,jdbcType=VARCHAR}
+		and company_cd = #{companyid,jdbcType=VARCHAR}
+	</delete> 
+	<select id="timesheetIshave" resultType="java.lang.Integer">
+		select
+		count(*)
+		from timesheettrn
+		where  job_no = #{jobcd,jdbcType=VARCHAR}
+		and user_cd = #{userid,jdbcType=VARCHAR}
+		and job_date = #{jobdate,jdbcType=VARCHAR}
+		and company_cd = #{companyid,jdbcType=VARCHAR}
+	</select>
+	<update id="timesheetupdate">
+		update timesheettrn
+		<set>
+			time_per= #{timenum,jdbcType=VARCHAR},
+			timesheettrn.update= #{date,jdbcType=VARCHAR},
+			upusercd= #{usercd,jdbcType=VARCHAR}
+		</set>
+		where  job_no = #{jobcd,jdbcType=VARCHAR}
+		and user_cd = #{usercd,jdbcType=VARCHAR}
+		and job_date = #{jobdate,jdbcType=VARCHAR}
+		and company_cd = #{companyid,jdbcType=VARCHAR}
+	</update>
+	<select id="timesheetuser" resultType="com.kaiwait.bean.jczh.entity.TimesheetUser">
+		select
+		usercd userid,member_id memberid,user_name username,colorv colorv,
+		(select itmname from commonmst where mstcd = '0005' and company_cd =a.company_cd and itemcd = a.depart_cd) departname,
+		(select itemname_jp from commonmst where mstcd = '0005' and company_cd =a.company_cd and itemcd = a.depart_cd) departnamejp,
+		(select itemname_en from commonmst where mstcd = '0005' and company_cd =a.company_cd and itemcd = a.depart_cd) departnameen,
+		(select itemname_hk from commonmst where mstcd = '0005' and company_cd =a.company_cd and itemcd = a.depart_cd) departnameft,
+		level
+		from usermst a
+		where  USERCD = #{usercd,jdbcType=VARCHAR}
+		
+	</select>
+	<select id="selectcompanycd" resultType="java.lang.String">
+		select
+		company_cd
+		from usermst
+		where usercd = #{usercd,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="outPutTimeSheetList"  resultType="com.kaiwait.bean.jczh.entity.TimesheetUser">
+	SELECT
+		JOB_NO AS jobno,
+		JOB_NAME AS jobname,
+		DEPART_CD AS  departcd,
+		TIME_PER AS timeper,
+		USER_NAME_EN AS usernameen,
+		USER_NAME as username,
+		ITMNAME AS itmname,
+		ITEMNAME_EN AS itmnameen,
+		ITEMNAME_HK AS itmnamehk,
+		ITEMNAME_JP AS itmnamejp,
+		JOB_DATE AS jobdate,
+		USER_CD AS userid,
+		LEVEL AS  level,
+		usermst.MEMBER_ID AS syname
+	FROM
+	(
+	SELECT
+	 *
+	 FROM
+	 (
+	SELECT
+		jobtrn.JOB_CD,jobtrn.JOB_NAME 
+	FROM
+		jobtrn
+	WHERE
+		COMPANY_CD = #{companycd,jdbcType=VARCHAR} 
+	 ) AS jobtrn1
+	  INNER	 join  	timesheettrn ON jobtrn1.JOB_CD = timesheettrn.JOB_NO AND timesheettrn.JOB_DATE BETWEEN str_to_date(#{dlvmonsta}, "%Y-%m-%d" ) 
+					AND str_to_date( #{dlvmonend}, "%Y-%m-%d" )  ) AS timesheettrn1
+	  LEFT 	JOIN 	usermst ON  usermst.USERCD = timesheettrn1.USER_CD
+	  LEFT 	JOIN 	syscommonmst ON MSTCD="0005" AND  ITEMCD = DEPART_CD
+	  	ORDER BY 	DEPART_CD,LEVEL,syname,JOB_DATE,JOB_NO
+	</select>
+	
+	<select id="selectdept"  resultType="java.lang.String">
+	SELECT DEPART_CD as departCD FROM usermst WHERE USERCD = #{userid} AND COMPANY_CD = #{companycd}  
+	</select>
+	
+	<select id="companyname"  resultType="java.lang.String">
+		SELECT companymst.COMPANY_NAME  FROM companymst WHERE COMPANY_CD = #{companycd} 
+	</select>
+	
+	<select id="selectprofessional"  resultType="com.kaiwait.bean.jczh.entity.User">
+			SELECT
+				ITMNAME AS levelzc,
+				ITEMNAME_EN AS levelen,
+				ITEMNAME_HK AS levelzt,
+				ITEMNAME_JP AS leveljp
+				FROM usermst INNER JOIN syscommonmst ON  
+				usermst.USERCD = #{userid}  
+				AND syscommonmst.ITEMCD = usermst.`LEVEL` 
+				AND syscommonmst.MSTCD = "0004" 
+	</select>
+	<select id="selectCompany"  resultType="java.lang.String">
+			SELECT
+	tz.ITMVALUE
+FROM
+	companymst
+	LEFT JOIN commonmst AS lg ON companymst.COMMON_LANGUAGE = lg.ITEMCD 
+	AND lg.MSTCD = "0002" 
+	AND companymst.COMPANY_CD = lg.COMPANY_CD
+	LEFT JOIN commonmst AS cd ON companymst.CURRENCY_CODE = cd.ITEMCD 
+	AND cd.MSTCD = "0050" 
+	AND companymst.COMPANY_CD = cd.COMPANY_CD
+	LEFT JOIN commonmst AS tz ON companymst.TIME_ZONE = tz.ITEMCD 
+	AND tz.MSTCD = "0006" 
+	AND companymst.COMPANY_CD = tz.COMPANY_CD 
+WHERE
+	1 = 1 
+	AND companymst.DEL_FLG = 0
+	AND companymst.COMPANY_CD =#{companycd}
+	</select>
+	
+	
+	
+</mapper>

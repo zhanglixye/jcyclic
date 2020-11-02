@@ -1,0 +1,77 @@
+<!--Navbar-->
+<nav class="navbar navbar-default" id="navbar">
+	<a class="navbar-brand" href="../jcst/top_registration.html">
+		<i class="iconfont icon-J-LOGO" style="font-size: 35px;"></i>
+		<span style="position: relative;bottom: 5px;">J-CYCLIC</span>
+	</a>
+	<ul class="nav navbar-nav pull-right" style="width: 90%;">
+		<li style="margin-right: 30px;">
+			<a href="#" class="acc">
+				<span class="i18n" name="common_accounting_year"></span>
+				<b id="accountDate" style="color: #000;padding-left: 2px;font-size: 22px;"></b>
+			</a>
+		</li>
+		<li>
+			<a style="line-height: 23px;" href="#" class="acc i18n" name="common_company_select">
+				
+			</a>
+		</li>
+		<li class="dropdown" style="top: 11px;">
+			<select id="changeCompany" onchange="changeCompany(this.value)" class="selectpicker form-control h0">
+				<option></option>
+				<option></option>
+				<option></option>
+			</select>
+		</li>
+		<li class="dropdown top-14 hidden">
+			<select class="selectpicker form-control h0">
+				<option></option>
+				<option></option>
+				<option></option>
+			</select>
+		</li>
+		<li style="float: right;">
+			<span class="fontSm">
+				<span class="system_time_top" id="timeZoneType"></span><br /><span class="system_time_bottom" id="localtime"></span>
+			</span>
+		</li>
+		<li style="float: right;">
+			<a href="#">
+				<i onclick="logoutHandler('headT')" class="iconfont icon-tuichu"></i>
+			</a>
+		</li>
+		<li style="float: right;">
+			<a href="#">
+				<i class="iconfont icon-bangzhu"></i>
+			</a>
+		</li>
+		<li id="lockIcon" style="float: right;">
+			<a onclick="sysLock()">
+				<input type="hidden" id="sysLockFlg"/>
+				<i class="iconfont icon-suo"></i>
+			</a>
+		</li>
+		<!--<li style="float: right;">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="iconfont icon-tongzhi" data-toggle="modal" data-target="#myModalBoard"></i>
+			</a>
+		</li>-->
+		<li style="float: right;">
+			<a href="#" class="user">
+				<input value="" type="hidden" id="wheel-icon" class="form-control">
+			</a>
+		</li>
+		<li class="dropdown" style="margin-right: 10px;float: right;height: 100%;top: 11px;">
+			<select id="language" class="selectpicker form-control h0 language_conversion">
+				<option value="jp" class="i18n" name='common_language_choice0'></option>
+				<option value="zc" class="i18n" name='common_language_choice1'></option>
+				<option value="zt" class="i18n" name='common_language_choice2'></option>
+				<option value="en" class="i18n" name='common_language_choice3'></option>
+			</select>
+		</li>
+	</ul>
+</nav>
+<!--留言板模态框-->
+<!--#include virtual="../common/business/board/board.shtml"-->
+						    
+	

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.RecTrnMapper">
+
+	<update id="RecTrnUpdate1Tx">
+		update rectrn set
+		rec_date=#{rec_date},
+		rec_status =#{rec_status},
+		recremark =#{recremark},
+		rec_amt=#{rec_amt},
+		upusercd=#{upusercd},
+		`update`=#{update},
+		lock_flg=lock_flg+1
+		where
+		job_cd =#{job_cd}
+		and company_cd =#{company_cd}
+		and del_flg =0
+	</update>
+    <update id="RecTrnUpdateMoreTx">
+		update rectrn set
+		rec_date=#{rec_date},
+		rec_status =#{rec_status},
+		upusercd=#{upusercd},
+		`update`=#{update},
+		lock_flg=lock_flg+1
+		where
+		job_cd =#{job_cd}
+		and company_cd =#{company_cd}
+		and del_flg =0
+	</update>
+	
+	    <update id="RecTrnUpdateMoreTxNodate">
+		update rectrn set
+		rec_status =#{rec_status},
+		upusercd=#{upusercd},
+		`update`=#{update},
+		lock_flg=lock_flg+1
+		where
+		job_cd =#{job_cd}
+		and company_cd =#{company_cd}
+		and del_flg =0
+	</update>
+	
+	
+	<update id="RecTrnDeleteDateTx">
+		update rectrn set rec_date=null,`UPDATE` =#{update},UPUSERCD=#{upusercd},lock_flg=lock_flg+1
+		where
+		job_cd =#{job_cd}
+		and company_cd =#{companyID}
+		and del_flg =0
+	</update>
+	<insert id="RecTrnInsertTx">
+		insert into rectrn (
+		job_cd,
+		rec_cd,
+		rec_date,
+		rec_amt,
+		adddate,
+		`update`,
+		addusercd,
+		upusercd,
+		company_cd,
+		recremark,
+		rec_status,
+		del_flg
+		)values(
+		#{job_cd},
+		#{rec_cd},
+		#{rec_date},
+		#{rec_amt},
+		#{adddate},
+		#{update},
+		#{addusercd},
+		#{upusercd},
+		#{company_cd},
+		#{recremark},
+		#{rec_status},
+		0
+		)
+	</insert>
+	<select id="getRec" resultType="com.kaiwait.bean.jczh.entity.RecTrn">
+	   select 
+	      REC_CD as rec_cd,
+	      REC_DATE as rec_date,
+	      REC_AMT as rec_amt,
+	      ADDDATE as adddate,
+	      REC_STATUS as recStatus,
+	      LOCK_FLG as recLockFlg
+	   from rectrn where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0 and REC_STATUS = 1 
+	</select>
+		<select id="getRecAll" resultType="com.kaiwait.bean.jczh.entity.RecTrn">
+	   select 
+	      REC_CD as rec_cd,
+	      REC_DATE as rec_date,
+	      REC_AMT as rec_amt,
+	      ADDDATE as adddate,
+	      REC_STATUS as recStatus,
+	      LOCK_FLG as recLockFlg
+	   from rectrn where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and rec_cd = #{reccd} and DEL_FLG = 0 
+	</select>
+</mapper>

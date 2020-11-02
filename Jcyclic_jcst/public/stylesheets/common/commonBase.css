@@ -1,0 +1,708 @@
+/*
+ * 引入Roboto字体
+ */
+@font-face {
+    font-family: Roboto;
+    src: url("../../fonts/RobotoFont/Roboto-Regular.woff2?v=2.137") format("woff2"),
+    url("./RobotoFont/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+}
+
+div{
+	border-radius: 5px !important;
+}
+/*
+ *  css 下拉菜单样式设置
+ */
+/*
+ * borderColor 统一颜色 #DDDDDD
+ */
+#content div,#content a{
+	border-color: #DDDDDD !important;
+}
+
+.col-md-12{
+	width: 100%;
+}
+
+.drop-down{
+    position: relative;
+}
+.font_color_red{
+	color: red !important;
+}
+.drop-down-content,.drop-down-content_1{
+	padding: 0;
+    /*opacity: 0.3;*/
+    display: none;
+    height: auto;
+    overflow: hidden;
+   /* transition: all 1s ease;*/
+    position: absolute;
+    left: 78px;
+    padding-left: 20px;
+    /*z-index: 999;*/
+}
+body .input-group .form-control{
+	z-index: auto;
+}
+.drop-down-content{  
+    top: 4px;
+}
+.drop-down-content_1{
+    bottom: 12px;
+}
+.drop-down-content li,.drop-down-content_1 li{
+	list-style: none;
+}
+#dock .drop-down:hover .drop-down-content,#dock .drop-down:hover .drop-down-content_1{
+   /* opacity: 1;*/
+   /* height: 250px;*/
+  	display: block;
+}
+.drop-down-content li:hover a,.drop-down-content_1 li:hover a{
+    color: #1abc9c;
+}
+.drop-down-content a,.drop-down-content_1 a{
+    display: block;
+    text-decoration: none;
+    width: 110px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    background-color: #2c3e50;
+    font-size: 12px;
+}
+#dock .drop-down .drop-down-content li:first-of-type:before,#dock .drop-down .drop-down-content_1 li:last-of-type:before{
+	-webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #2c3e50;
+    position: absolute;
+    left: 14px;
+    margin-top: 18px;
+    border: 2px solid white;
+    border-top: 0;
+    border-right: 0;
+}
+/*
+ * css Radio样式设置
+ */
+.label {
+  display: inline;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+}
+.navbar-nav li:first-child>a,.navbar-nav li:nth-child(2)>a{
+	cursor: default;
+}
+#green_radio{
+	left: -10px;
+    top: 4px;
+}
+.block{
+	display: block !important;
+}
+.startmonth{ 
+	padding: 5px 2px 0 2px;
+    background: #fafafa;
+    margin-left: 20px;
+    border-radius: 6px;
+}
+
+input[type="radio"] + span::before,input[type="radio"]:disabled + span::before{
+    content: "\a0"; /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    margin-left: .6em;
+    border-radius: 50%;
+    border: 6px solid #ddd;
+    text-indent: .15em;
+    line-height: 1; 
+	background-color: #fff;	
+}
+      
+input[type="radio"]:disabled + span{
+    color: #787878;
+}
+
+input[type="radio"]:checked:disabled + span{
+    color: #787878;
+}
+
+input[type="radio"],input[type="checkbox"]{
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+/*checked*/
+input[type="checkbox"]:checked +  span::before {
+	content: "\e63a" !important;
+	margin-right: 5px;
+	font-size: 16px;
+	color: #29bb9c;
+}
+/*平常状态*/
+input[type="checkbox"] +  span::before{
+	content: "\e63b";
+	margin-right: 5px;
+	font-size: 16px;
+	color: #999;
+}
+/*disabeld 常态下状态*/
+input[type="checkbox"]:disabled +  span::before{
+	content: "\e63d";
+	margin-right: 5px;
+	font-size: 16px;
+}
+/*disabeld checked状态*/
+input[type="checkbox"]:checked:disabled + span:before{
+    content: "\e63c" !important;
+    color: #999999;
+    background-color: #444444;
+}
+
+input[type="checkbox"]:disabled +  span::before{
+	cursor: default;
+}
+
+input[type="checkbox"]:disabled +  span{
+	cursor: default;
+}
+
+input[type="radio"]:checked +  span::before {
+     content: "\a0"; /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 6px solid  #1abc9c;
+    text-indent: .15em;
+    line-height: 1; 
+	background-color: #fff;
+}
+/*得意先钮付变更 icon */
+.turn{display: inline-block; vertical-align: top; height: 67.8%; width: 14.7%;}
+.turn-left{margin: 0 auto;position: absolute; top: 43%;margin-top: -38px; left: 50%;margin-left: -63px; width: 126px; height: 38px; border: none;}
+.turn-right{margin: 0 auto;position: absolute; top: 43%;margin-top: 38px; left: 50%;margin-left: -63px; width: 126px; height: 38px; border: none;}
+.turn-left span,.turn-right span{
+	font-size: 80px;
+	position: relative;
+	top: -38px;
+	left: 24px;
+	color: #148f77;
+}
+
+.panel-header, .panel-body {
+    border: 0 !important;
+}
+.breadcrumb li.fs18{
+	font-weight: bold;
+}
+.fw{
+	font-weight: bold !important;
+}
+.ml-30{
+	margin-left: 30px;
+}
+.ml-25{
+	margin-left: 25px;
+}
+.ml-20{
+	margin-left: 20px;
+}
+.ml-15{
+	margin-left: 15px;
+}
+.ml-10{
+	margin-left: 10px;
+}
+.ml-5{
+	margin-left: 5px;
+}
+.pd-18-15{
+	padding-left: 18px;
+	padding-top: 15px;
+}
+.panel.datagrid{
+	border: 1px solid #ddd !important;
+}
+.panel-heading,.panel-heading span:first-child{
+	font-size: 16px !important;
+	font-weight: bold !important;
+}
+input[type='button'].btn-small{
+	padding: 3px 12px !important;
+}
+.rotate-90{
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.iconfont{
+	cursor: pointer;
+}
+div.bord_no{
+	display: block;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card small {
+    font-size: 11px;
+    color: #ddd;
+}
+.mb-5{
+	margin-bottom: 5px;
+}
+.mb-10{
+	margin-bottom: 10px;
+}
+.colorManRed{
+	color: #bc6969;
+}
+.colorManGreen{
+	color: #5d9074;
+}
+/*旋转180度*/
+.deg180{
+transform:rotate(180deg);
+-ms-transform:rotate(180deg); 	/* IE 9 */
+-moz-transform:rotate(180deg); 	/* Firefox */
+-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+-o-transform:rotate(180deg); 	/* Opera */
+}
+/*将div变成textarea,文字超出有滚动条*/
+div.textarea{
+	width: 100%;
+	height: 65px;
+	overflow: auto;
+	border: 1px solid #ccc;
+	white-space: nowrap;
+}
+/*
+ * 文字超出样式
+ */
+.over-anim{
+	height:66px;
+	overflow:hidden;
+}
+.job_text.remark{
+	transition: height ease-in-out 1s;
+	min-height: 66px;
+	padding-left: 20.5px !important;
+	padding-right: 20.5px !important;
+}
+.icon-xiala{
+	color:#148f77;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+@keyframes down{
+	from{transform:translateY(0px);opacity:1}
+	to{transform:translateY(10px);opacity:0}
+}
+/*
+ * 证券方格
+ */
+.setblock1 ul {
+	width: 100%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.setblock1 ul li {
+	width: auto;
+	float: left;
+	list-style: none;
+	background: #1abc9c;
+	padding: 0 3px;
+	margin: 5px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.setblock1 ul li span {
+	height: 27px;
+	line-height: 27px;
+	padding-left: 5px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.flex-center{
+	display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.flex-right{
+	display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.panel.combo-p.panel-htop{
+	z-index: 99999999 !important;
+}
+
+.hid{
+	display: none;
+}
+
+.mb-15{
+	margin-bottom: 15px;
+}
+
+.mt--15{
+	margin-top: -15px;
+}
+
+.mt--10{
+	margin-top: -10px;
+}
+
+.mt--5{
+	margin-top: -5px;
+}
+
+.mt-15{
+	margin-top: 15px;
+}
+
+.mt-10{
+	margin-top: 10px;
+}
+
+.mt-5{
+	margin-top: 5px;
+}
+
+.mr-20{
+	margin-right: 20px;
+}
+
+.mr-30{
+	margin-right: 30px;
+}
+
+.pad_mar_0{
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.common_se .icon-guanbi {
+    float: right;
+    font-size: 13px;
+    color: #7d7f7e;
+}
+
+.add_tax_bus,.add_tax_price{
+	cursor: pointer;
+}
+
+.messager-window{
+	z-index: 99999999999 !important;
+}
+
+.btn-group>.btn.active{
+	z-index: auto;
+}
+textarea.form-control{
+	resize: none;
+	height: 68px;
+}
+
+.log-sidebar{
+	right: 50px;
+}
+
+.datagrid-header-row,
+.datagrid-row {
+	height: 40px !important;
+	line-height: 40px !important;
+}
+
+.lastChild button:not(:last-of-type){
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.system_time_top{
+	position: relative;
+	top: 5px;
+}
+
+.system_time_bottom{
+	position: relative;
+	bottom: 5px;
+}
+
+pre {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.r-t-t,.r-t-b,.r-t-t div,.r-t-b div{
+	border-radius: 0 !important;
+}
+.add_lable{
+	cursor: pointer;
+}
+.clearfix .clearfix small{
+	color: #000000;
+}
+
+.person>.person-t,.person>.person-m,.person>.person-b{
+	border-radius: 0 !important;
+}
+
+.row .clearfix .col-xs-2 .icon-ren{
+	cursor: default!important;
+}
+.user i{
+	cursor: pointer!important;
+}
+label[name=jobregistration_edit]:hover{
+	color: #000000!important;
+}
+#jobcd:hover{
+	color: #000000!important;
+}
+label[name=order_register_orderEm]:hover{
+	color: #000000!important;
+}
+label[name=order_register_orderEm]{
+	border-bottom: 0!important;
+	text-decoration: underline!important;
+}
+.msgtexts a{
+	text-decoration: underline;
+}
+.col-md-8 .lastChild input[type="checkbox"] {
+	margin-left: 5px;
+	display: none;
+	top: 1px;
+}
+.col-md-8 .lastChild label.checkbox-inline{
+	padding-left: 10px;
+}
+.mr-6{
+	margin-right: 6px;
+}
+.col-md-12 .mb-5 span[class = "input-group-addon"]{
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+#mySelect .mySelect-option div{
+	border-radius: 0px!important;
+	}
+.hid .panel	#breadcrumb{
+	border-bottom-right-radius: 0px!important;
+	border-bottom-left-radius: 0px!important;
+	border-bottom: 1px solid #dddddd;
+}
+.layui-layer-content iframe{
+	border-radius: 5px!important;
+}
+ul[class="breadcrumb"]{
+	border-bottom-left-radius: 0px!important;
+	border-bottom-right-radius: 0px!important;
+}
+.modal-content .modal-header{
+	border-top-left-radius: 5px!important;
+	border-top-right-radius: 5px!important;
+}
+.modal-content .modal-footer{
+	border-bottom-left-radius: 5px!important;
+	border-bottom-right-radius: 5px!important;
+}
+
+.iconfont.icon-sheding1{
+	cursor: pointer;
+}
+
+.radio span{
+	outline: none;
+}
+.jcob_easy_dian{
+	position: absolute;
+    right: 0;
+    color: #000;
+    background-color: #ccc;
+    opacity: 0.5;
+    height: 40px;
+    transform: translateY(-10px);
+    line-height: 40px;
+}
+.l-right span span{
+	cursor:pointer!important;
+	text-decoration:underline;
+	color: #1abc9c;
+}
+.l-right span span:hover{
+	color: #000000;
+}
+.custom-radio label span{
+	outline: none;
+}
+
+input:disabled{
+	background-color: #eeeeee;
+}
+.icon-shangchuan,.icon-xiazai{
+	outline: none;
+}
+
+.flex-column{
+	display: flex;
+	flex-direction: column;
+}
+.panel-history .panel-default .panel-content h5{
+	word-break: break-all;
+}
+textarea{
+	overflow-y: scroll;
+}
+.tip_hover{
+    cursor: pointer!important;
+	text-decoration: underline;
+	color: #1abc9c;
+	}
+.tip_hover:hover{
+	  color: #000000;
+	}
+.panel-heading .icon-tianjia1{
+	cursor: pointer;
+}
+.business .panel .form-group label[name="jobregistration_edit"]{
+	width: auto;
+	padding: 0 6px 0 10px!important;
+}
+.business .panel .form-group label[name="jobregistration_value_added_tax"]{
+	width: auto!important;
+}
+.price_on .panel .form-group label[name="jobregistration_value_added_tax"]{
+	width: auto!important;
+}
+.price_on .panel .form-group label[name="jobregistration_edit"]{
+	width: auto;
+	padding: 0 6px 0 10px!important;
+}
+
+button:not(.close),input[type='button']{
+	min-width: 70px !important;
+}
+
+.checkbox label{
+	padding-left: 0;
+}
+
+.datagrid-view input[type="checkbox"] {
+    position: unset;
+    clip: unset;
+}
+.mySelect-option-li label[class="checkbox-inline"]{
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.flex_row_reverse{
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+select:disabled,input:disabled{
+	color: rgb(85,85,85);
+}
+
+.flex_col_center{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+input[type="checkbox"]:disabled + span + span{
+	color: #787878;
+}
+
+.width_100_ml0{
+	width: 100% !important;
+	margin-left: 0 !important;
+}
+
+.font_weight_300{
+	font-weight: 300 !important;
+}
+
+.mr_bottom label{
+	font-weight: 300 !important;
+}
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+    border-radius: 4px !important;
+}
+.border_red{
+	border-color:red !important;
+}
+.border_red_left{
+	border-top-color:red !important;
+	border-bottom-color:red !important;
+	border-right-color:red !important;
+}
+.right_float{
+	margin-right: 20px;
+}
+label.radio{
+	display: inline-block;
+	margin-bottom: 0;
+}
+.overwhite{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.person_padding-right{
+	padding-right: 5px;
+}
+

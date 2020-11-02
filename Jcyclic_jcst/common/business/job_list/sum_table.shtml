@@ -1,0 +1,47 @@
+<div class="col-md-8" style=" padding-right: 0; height: 83px; margin-bottom: 20px; padding-left: 0; border: 1px solid #dedede">
+	<div class="r-t-t">
+		<div>
+		</div>
+		<div class="i18n" name="joblist_sales">
+			
+		</div>
+		<div class="i18n" name="joblist_estimated_cost">
+			
+		</div>
+		<div class="i18n" name="joblist_total_cost">
+			
+		</div>
+		<div class="i18n" name="joblist_tax">
+			
+		</div>
+		<div class="i18n" name="joblist_such">
+			
+		</div>
+		<div class="i18n" name="joblist_rate">
+			
+		</div>
+	</div>
+	<div class="r-t-b">
+		<div class="i18n" name="joblist_total">
+			
+		</div>
+		<div class="default_decimal_reservation" id="saleamtsum">
+			
+		</div>
+		<div class="default_decimal_reservation" id="plancostamtsum">
+			
+		</div>
+		<div class="default_decimal_reservation" id="costTotalAmtsum">
+			
+		</div>
+		<div class="default_decimal_reservation" id="taxTotalsum">
+			
+		</div>
+		<div class="default_decimal_reservation" id="profitsum">
+			
+		</div>
+		<div class="default_decimal_reservation" id="profitRatesum">
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.CompanyMapper">
+	<resultMap id="BaseResultMapVo" type="com.kaiwait.bean.mst.vo.CompanyVo">
+		<id column="COMPANY_CD" property="company_cd" jdbcType="INTEGER" />
+		<result column="COMPANY_NAME" property="company_name" jdbcType="VARCHAR" />
+		<result column="COMPANY_NAME_EN" property="company_name_en"
+			jdbcType="VARCHAR" />
+		<result column="COMPANY_FULL_NAME" property="company_full_name"
+			jdbcType="VARCHAR" />
+		<result column="lg.ITMNAME" property="item_name_zc" jdbcType="VARCHAR" />
+		<result column="lg.ITEMNAME_EN" property="itemnameen" jdbcType="VARCHAR" />
+		<result column="lg.ITEMNAME_HK" property="itemnamezt" jdbcType="VARCHAR" />
+		<result column="lg.ITEMNAME_JP" property="itemnamejp" jdbcType="VARCHAR" />
+		<result column="cd.ITMNAME" property="itemnamecdzc" jdbcType="VARCHAR" />
+		<result column="cd.ITEMNAME_HK" property="itemnamecdzt" jdbcType="VARCHAR" />
+		<result column="cd.ITEMNAME_EN" property="itemnamecden" jdbcType="VARCHAR" />
+		<result column="cd.ITEMNAME_JP" property="itemnamecdjp" jdbcType="VARCHAR" />
+		<result column="tz.ITMNAME" property="itemnametzzc" jdbcType="VARCHAR" />
+		<result column="tz.ITEMNAME_HK" property="itemnametzzt" jdbcType="VARCHAR" />
+		<result column="tz.ITEMNAME_JP" property="itemnametzjp" jdbcType="VARCHAR" />
+		<result column="tz.ITEMNAME_EN" property="itemnametzen" jdbcType="VARCHAR" />
+		<result column="NUMBER_RULES" property="number_rules" jdbcType="VARCHAR" />
+		<result column="company_type" property="company_type" jdbcType="VARCHAR" />	
+	</resultMap>
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.Company">
+		<id column="COMPANY_CD" property="company_cd" jdbcType="INTEGER" />
+		<result column="COMPANY_NAME" property="company_name" jdbcType="VARCHAR" />
+		<result column="COMPANY_NAME_EN" property="company_name_en"
+			jdbcType="VARCHAR" />
+		<result column="COMPANY_FULL_NAME" property="company_full_name"
+			jdbcType="VARCHAR" />
+		<result column="COMMON_LANGUAGE" property="common_language"
+			jdbcType="VARCHAR" />
+		<result column="TIME_ZONE" property="time_zone" jdbcType="VARCHAR" />
+		<result column="CURRENCY_CODE" property="currency_code"
+			jdbcType="VARCHAR" />
+		<result column="COMPANY_TYPE" property="company_type" jdbcType="INTEGER" />
+		<result column="NUMBER_RULES" property="number_rules" jdbcType="INTEGER" />
+		<result column="START_MONTH" property="start_month" jdbcType="INTEGER" />
+		<result column="MD_SKIP" property="md_skip" jdbcType="INTEGER" />
+		<result column="COST_SKIP" property="cost_skip" jdbcType="INTEGER" />
+		<result column="PAY_SKIP" property="pay_skip" jdbcType="INTEGER" />
+		<result column="CONFIRM_SKIP" property="confirm_skip" jdbcType="INTEGER" />
+		<result column="APPLY_SKIP" property="apply_skip" jdbcType="INTEGER" />
+		<result column="REQ_SKIP" property="req_skip" jdbcType="INTEGER" />
+		<result column="INVOICE_APPLY_SKIP" property="invoice_apply_skip"
+			jdbcType="INTEGER" />
+		<result column="INVOICE_SKIP" property="invoice_skip" jdbcType="INTEGER" />
+		<result column="REGISTRATION_AUTOMATIC" property="registration_automatic"
+			jdbcType="INTEGER" />
+		<result column="AUTO_MONTH" property="auto_month" jdbcType="VARCHAR" />
+		<result column="AUTO_DAY" property="auto_day" jdbcType="VARCHAR" />
+		<result column="ORDER_COMPANY_NAME" property="order_company_name"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_COMPANY_NAME_EN" property="order_company_name_en"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_COMPANY_NAME_JP" property="order_company_name_jp"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_COMPANY_NAME_HK" property="order_company_name_hk"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION" property="order_location"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION_EN" property="order_location_en"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION_JP" property="order_location_jp"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION_HK" property="order_location_hk"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION1" property="order_location1"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION1_EN" property="order_location1_en"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION1_JP" property="order_location1_jp"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION1_HK" property="order_location1_hk"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION2" property="order_location2"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION2_EN" property="order_location2_en"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION2_JP" property="order_location2_jp"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_LOCATION2_HK" property="order_location2_hk"
+			jdbcType="VARCHAR" />
+		<result column="TEL_NUMBER" property="telnumber"
+			jdbcType="VARCHAR" />
+		<result column="TEL_NUMBER_EN" property="telnumberen"
+			jdbcType="VARCHAR" />
+		<result column="TEL_NUMBER_JP" property="telnumberjp"
+			jdbcType="VARCHAR" />
+		<result column="TEL_NUMBER_HK" property="telnumberhk"
+			jdbcType="VARCHAR" />
+		<result column="DEL_FLG" property="del_flg" jdbcType="INTEGER" />
+		<result column="LOCK_FLG" property="companyLockFlg" jdbcType="INTEGER" />
+		<result column="INVOICE_FLG" property="jobInvoiceFlg" jdbcType="INTEGER" />
+		<result column="INVOICE_IN_FLG" property="orderInvoiceInFlg" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		COMPANY_CD,
+		COMPANY_NAME,
+		COMPANY_NAME_EN,
+		COMPANY_FULL_NAME,
+		COMMON_LANGUAGE,
+		TIME_ZONE,
+		CURRENCY_CODE,
+		COMPANY_TYPE,
+		NUMBER_RULES,
+		START_MONTH,
+		MD_SKIP,
+		COST_SKIP,
+		PAY_SKIP,
+		CONFIRM_SKIP,
+		APPLY_SKIP,
+		REQ_SKIP,
+		INVOICE_APPLY_SKIP,
+		INVOICE_SKIP,
+		REGISTRATION_AUTOMATIC,
+		AUTO_MONTH,
+		AUTO_DAY,
+		ORDER_COMPANY_NAME,
+		ORDER_COMPANY_NAME_EN,
+		ORDER_COMPANY_NAME_JP,
+		ORDER_COMPANY_NAME_HK,
+		ORDER_LOCATION,
+		ORDER_LOCATION_EN,
+		ORDER_LOCATION_JP,
+		ORDER_LOCATION_HK,
+		ORDER_LOCATION1,
+		ORDER_LOCATION1_EN,
+		ORDER_LOCATION1_JP,
+		ORDER_LOCATION1_HK,
+		ORDER_LOCATION2,
+		ORDER_LOCATION2_EN,
+		ORDER_LOCATION2_JP,
+		ORDER_LOCATION2_HK,
+		TEL_NUMBER,
+		TEL_NUMBER_EN,
+		TEL_NUMBER_JP,
+		TEL_NUMBER_HK,
+		DEL_FLG,
+		ADDDATE,
+		UPDDATE,
+		ADDUSERCD,
+		UPDUSERCD,
+		INVOICE_FLG,
+		INVOICE_IN_FLG
+		
+	</sql>
+	<insert id="insertCompany" parameterType="com.kaiwait.bean.mst.entity.Company" useGeneratedKeys="true" keyProperty="company_cd" keyColumn="COMPANY_CD">
+		insert into companymst
+		(
+		<include refid="Base_Column_List" />
+		)
+		values(
+		#{company_cd,jdbcType=INTEGER},
+		#{company_name,jdbcType=VARCHAR},
+		#{company_name_en,jdbcType=VARCHAR},
+		#{company_full_name,jdbcType=VARCHAR},
+		#{common_language,jdbcType=VARCHAR},
+		#{time_zone,jdbcType=VARCHAR},
+		#{currency_code,jdbcType=INTEGER},
+		#{company_type,jdbcType=INTEGER},
+		#{number_rules,jdbcType=INTEGER},
+		#{start_month,jdbcType=INTEGER},
+		#{md_skip,jdbcType=INTEGER},
+		#{cost_skip,jdbcType=INTEGER},
+		#{pay_skip,jdbcType=INTEGER},
+		#{confirm_skip,jdbcType=INTEGER},
+		#{apply_skip,jdbcType=INTEGER},
+		#{req_skip,jdbcType=INTEGER},
+		#{invoice_apply_skip,jdbcType=INTEGER},
+		#{invoice_skip,jdbcType=INTEGER},
+		#{registration_automatic,jdbcType=INTEGER},
+		#{auto_month,jdbcType=VARCHAR},
+		#{auto_day,jdbcType=VARCHAR},
+		#{order_company_name,jdbcType=VARCHAR},
+		#{order_company_name_en,jdbcType=VARCHAR},
+		#{order_company_name_jp,jdbcType=VARCHAR},
+		#{order_company_name_hk,jdbcType=VARCHAR},
+		#{order_location,jdbcType=VARCHAR},
+		#{order_location_en,jdbcType=VARCHAR},
+		#{order_location_jp,jdbcType=VARCHAR},
+		#{order_location_hk,jdbcType=VARCHAR},
+		#{order_location1,jdbcType=VARCHAR},
+		#{order_location1_en,jdbcType=VARCHAR},
+		#{order_location1_jp,jdbcType=VARCHAR},
+		#{order_location1_hk,jdbcType=VARCHAR},
+		#{order_location2,jdbcType=VARCHAR},
+		#{order_location2_en,jdbcType=VARCHAR},
+		#{order_location2_jp,jdbcType=VARCHAR},
+		#{order_location2_hk,jdbcType=VARCHAR},
+		#{telnumber,jdbcType=VARCHAR},
+		#{telnumberen,jdbcType=VARCHAR},
+		#{telnumberjp,jdbcType=VARCHAR},
+		#{telnumberhk,jdbcType=VARCHAR},
+		#{del_flg,jdbcType=INTEGER},
+		#{addDate},
+		#{updDate},
+		#{addUsercd},
+		#{upUsercd},
+		#{jobInvoiceFlg},
+		#{orderInvoiceInFlg}
+		)
+	</insert>
+	<update id="deleteFlg" parameterType="com.kaiwait.bean.mst.entity.Company">
+		update companymst set
+		DEL_FLG = #{del_flg,jdbcType=INTEGER}
+		where
+		COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateCompany" parameterType="com.kaiwait.bean.mst.entity.Company">
+		update companymst
+		<set>
+			COMPANY_CD = #{company_cd,jdbcType=INTEGER},
+			<if test="company_name !=null and company_name !=''">
+			COMPANY_NAME = #{company_name,jdbcType=VARCHAR},
+			</if>
+			<if test="company_name_en !=null and company_name_en !=''">
+			COMPANY_NAME_EN = #{company_name_en,jdbcType=VARCHAR},
+			</if>
+			<if test="company_full_name !=null and company_full_name !=''">
+			COMPANY_FULL_NAME = #{company_full_name,jdbcType=VARCHAR},
+			</if>
+			<if test="common_language !=null and common_language !=''">
+			COMMON_LANGUAGE = #{common_language,jdbcType=VARCHAR},
+			</if>
+			<if test="time_zone !=null and time_zone !=''">
+			TIME_ZONE = #{time_zone,jdbcType=VARCHAR},
+			</if>
+			<if test="currency_code !=null and currency_code !='' or currency_code =='0'">
+			CURRENCY_CODE = #{currency_code,jdbcType=INTEGER},
+			</if>
+			<if test="company_type !=null and company_type !='' or company_type ==0">
+			COMPANY_TYPE = #{company_type,jdbcType=INTEGER},
+			</if>
+			<if test="number_rules !=null and number_rules !='' or number_rules ==0">
+			NUMBER_RULES = #{number_rules,jdbcType=INTEGER},
+			</if>
+			<if test="start_month !=null and start_month !='' or start_month ==0">
+			START_MONTH = #{start_month,jdbcType=INTEGER},
+			</if>
+			<if test="md_skip !=null and md_skip !='' or md_skip ==0">
+			MD_SKIP = #{md_skip,jdbcType=INTEGER},
+			</if>
+			<if test="cost_skip !=null and cost_skip !='' or cost_skip ==0">
+			COST_SKIP = #{cost_skip,jdbcType=INTEGER},
+			</if>
+			<if test="pay_skip !=null and pay_skip !='' or pay_skip ==0">
+			PAY_SKIP = #{pay_skip,jdbcType=INTEGER},
+			</if>
+			<if test="confirm_skip !=null and confirm_skip !='' or confirm_skip ==0">
+			CONFIRM_SKIP = #{confirm_skip,jdbcType=INTEGER},
+			</if>
+			APPLY_SKIP = #{apply_skip,jdbcType=INTEGER},
+			REQ_SKIP = #{req_skip,jdbcType=INTEGER},
+			INVOICE_APPLY_SKIP = #{invoice_apply_skip,jdbcType=INTEGER},
+			INVOICE_SKIP = #{invoice_skip,jdbcType=INTEGER},
+			<if test="registration_automatic !=null and registration_automatic !='' or registration_automatic == 0">
+			REGISTRATION_AUTOMATIC = #{registration_automatic,jdbcType=INTEGER},
+			</if>
+			<if test="auto_month !=null and auto_month !=''">
+			AUTO_MONTH = #{auto_month,jdbcType=VARCHAR},
+			</if>
+			<if test="auto_day !=null and auto_day !=''">
+			AUTO_DAY = #{auto_day,jdbcType=VARCHAR},
+			</if>
+			<if test="order_company_name !=null and order_company_name !=''">
+			ORDER_COMPANY_NAME = #{order_company_name,jdbcType=VARCHAR},
+			</if>
+			<if test="order_company_name !=null and order_company_name !=''">
+			ORDER_COMPANY_NAME_EN = #{order_company_name_en,jdbcType=VARCHAR},
+			</if>
+			<if test="order_company_name_jp !=null and order_company_name_jp !=''">
+			ORDER_COMPANY_NAME_JP = #{order_company_name_jp,jdbcType=VARCHAR},
+			</if>
+			<if test="order_company_name_hk !=null and order_company_name_hk !=''">
+			ORDER_COMPANY_NAME_HK = #{order_company_name_hk,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location !=null and order_location !=''">
+			ORDER_LOCATION= #{order_location,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location_en !=null and order_location_en !=''">
+			ORDER_LOCATION_EN=#{order_location_en,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location_jp !=null and order_location_jp !=''">
+			ORDER_LOCATION_JP=#{order_location_jp,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location_hk !=null and order_location_hk !=''">
+			ORDER_LOCATION_HK=#{order_location_hk,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location1 !=null and order_location1 !=''">
+			ORDER_LOCATION1= #{order_location1,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location1_en !=null and order_location1_en !=''">
+			ORDER_LOCATION1_EN= #{order_location1_en,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location1_jp !=null and order_location1_jp !=''">
+			ORDER_LOCATION1_JP= #{order_location1_jp,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location1_hk !=null and order_location1_hk !=''">
+			ORDER_LOCATION1_HK= #{order_location1_hk,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location2 !=null and order_location2 !=''">
+			ORDER_LOCATION2= #{order_location2,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location2_en !=null and order_location2_en !=''">
+			ORDER_LOCATION2_EN= #{order_location2_en,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location2_jp !=null and order_location2_jp !=''">
+			ORDER_LOCATION2_JP= #{order_location2_jp,jdbcType=VARCHAR},
+			</if>
+			<if test="order_location2_hk !=null and order_location2_hk !=''">
+			ORDER_LOCATION2_HK= #{order_location2_hk,jdbcType=VARCHAR},
+			</if>
+			<if test="telnumber !=null and telnumber !=''">
+			TEL_NUMBER= #{telnumber,jdbcType=VARCHAR},
+			</if>
+			<if test="telnumberen !=null and telnumberen !=''">
+			TEL_NUMBER_EN= #{telnumberen,jdbcType=VARCHAR},
+			</if>
+			<if test="telnumberjp !=null and telnumberjp !=''">
+			TEL_NUMBER_JP= #{telnumberjp,jdbcType=VARCHAR},
+			</if>
+			<if test="telnumberhk !=null and telnumberhk !=''">
+			TEL_NUMBER_HK= #{telnumberhk,jdbcType=VARCHAR},
+			</if>
+			<if test="del_flg !=null and del_flg !='' or del_flg == 0">
+			DEL_FLG= #{del_flg,jdbcType=INTEGER},
+			</if>
+			LOCK_FLG = #{companyLockFlg},
+			UPDDATE = #{updDate},
+			UPDUSERCD = #{upUsercd},
+			INVOICE_FLG = #{jobInvoiceFlg},
+			INVOICE_IN_FLG = #{orderInvoiceInFlg}
+		</set>
+		where
+		COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+	</update>
+	
+	
+	 <select id="selectCompany" resultMap="BaseResultMapVo"  >
+		select
+			companymst.COMPANY_CD as company_cd,
+			COMPANY_NAME as company_name,
+			IFNULL(COMPANY_NAME_EN,"") AS company_name_en,
+			COMPANY_FULL_NAME as company_full_name,
+			NUMBER_RULES as number_rules,
+			companymst.COMPANY_TYPE as company_type,
+			lg.MSTCD as mstcd,
+			lg.ITEMCD as itemcd,
+			IFNULL(lg.ITMNAME,"") AS item_name_zc,
+			IFNULL(lg.ITEMNAME_HK,"") AS item_name_zt,
+			IFNULL(lg.ITEMNAME_EN,"") AS item_name_en,
+			IFNULL(lg.ITEMNAME_JP,"") AS item_name_jp,
+			IFNULL(cd.ITMNAME,"") AS item_name_cd_zc,
+			IFNULL(cd.ITEMNAME_HK,"") AS item_name_cd_zt,
+			IFNULL(cd.ITEMNAME_EN,"") AS item_name_cd_en,
+			IFNULL(cd.ITEMNAME_JP,"") AS item_name_cd_jp,
+			IFNULL(tz.ITMNAME ,"")AS item_name_tz_zc,
+			IFNULL(tz.ITEMNAME_HK,"") AS item_name_tz_zt,
+			IFNULL(tz.ITEMNAME_EN,"") AS item_name_tz_en,
+			IFNULL(tz.ITEMNAME_JP,"") AS item_name_tz_jp 
+		FROM
+			companymst
+		left join  commonmst as lg on companymst.COMMON_LANGUAGE = lg.ITEMCD and lg.MSTCD = "0002" and companymst.COMPANY_CD = lg.COMPANY_CD  
+		left join  commonmst as cd on companymst.CURRENCY_CODE = cd.ITEMCD and cd.MSTCD = "0050" and companymst.COMPANY_CD = cd.COMPANY_CD  
+		left join  commonmst as tz on companymst.TIME_ZONE = tz.ITEMCD and tz.MSTCD = "0006" and companymst.COMPANY_CD = tz.COMPANY_CD  
+		where 1 =1 
+		 <if test="companyType!=99999">
+		  
+		  and companymst.COMPANY_TYPE !=2
+		</if> 
+		<if test="del_flg!=null">
+			and
+			companymst.DEL_FLG = #{del_flg,jdbcType=INTEGER}
+		</if>
+		<if test="companycd!= '0'.toString()">
+		    and companymst.COMPANY_CD = #{companycd}
+		</if>
+		<if test="company_full_name!=null and company_full_name!=''">
+			and
+			( companymst.COMPANY_FULL_NAME like "%"#{company_full_name,jdbcType=VARCHAR}"%" or  companymst.COMPANY_NAME like "%"#{company_full_name,jdbcType=VARCHAR}"%" ) order by companymst.COMPANY_CD
+		</if>
+		
+	</select>
+
+	<select id="getUpdateCompany" resultMap="BaseResultMap" >
+	 select 
+	COMPANY_CD,
+		COMPANY_NAME,
+		COMPANY_NAME_EN,
+		COMPANY_FULL_NAME,
+		COMMON_LANGUAGE,
+		TIME_ZONE,
+		CURRENCY_CODE,
+		COMPANY_TYPE,
+		NUMBER_RULES,
+		START_MONTH,
+		MD_SKIP,
+		COST_SKIP,
+		PAY_SKIP,
+		CONFIRM_SKIP,
+		APPLY_SKIP,
+		REQ_SKIP,
+		INVOICE_APPLY_SKIP,
+		INVOICE_SKIP,
+		REGISTRATION_AUTOMATIC,
+		AUTO_MONTH,
+		AUTO_DAY,
+		ORDER_COMPANY_NAME,
+		ORDER_COMPANY_NAME_EN,
+		ORDER_COMPANY_NAME_JP,
+		ORDER_COMPANY_NAME_HK,
+		ORDER_LOCATION,
+		ORDER_LOCATION_EN,
+		ORDER_LOCATION_JP,
+		ORDER_LOCATION_HK,
+		ORDER_LOCATION1,
+		ORDER_LOCATION1_EN,
+		ORDER_LOCATION1_JP,
+		ORDER_LOCATION1_HK,
+		ORDER_LOCATION2,
+		ORDER_LOCATION2_EN,
+		ORDER_LOCATION2_JP,
+		ORDER_LOCATION2_HK,
+		TEL_NUMBER,
+		TEL_NUMBER_EN,
+		TEL_NUMBER_JP,
+		TEL_NUMBER_HK,
+		DEL_FLG,
+		LOCK_FLG,
+		INVOICE_FLG,
+		INVOICE_IN_FLG
+	  from companymst
+	  where 
+	  	COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+	</select>
+	<!-- 公司登陆时候插入原价税率 -->
+	<insert id="insertPayeeTaxMst" parameterType="com.kaiwait.bean.mst.entity.Payeetaxmst">
+	  insert into payeetaxmst 
+	  (USER_TAX_TYPE,INVOICE_TYPE,INVOICE_TEXT,VAT_RATE,DEDUCTION,DEL_FLG,COMPANY_CD,ADDDATE, UPDDATE,ADDUSERCD,UPDUSERCD)
+	  values
+	 <foreach collection="payeetax" index="index" item="payee"  separator="," >
+	  (
+	  #{payee.user_tax_type},
+	  #{payee.invoice_type},
+	  #{payee.invoice_text},
+	  #{payee.vat_rate},
+	  #{payee.deduction},
+	  #{payee.del_flg},
+	  #{payee.companycd},
+	  #{payee.addDate},
+	  #{payee.updDate},
+	  #{payee.addUsercd},
+	  #{payee.upUsercd}
+	  )
+	  </foreach>
+	</insert>
+	<select id="getSysMessage" resultType="com.kaiwait.bean.mst.entity.SysMessage">
+	 select 
+	 PWD as pwd,
+	 UNAME as uname,
+	 UNAME_EN as unameen,
+	 UNAME_JP as unamejp,
+	 UNAME_HK as unamehk,
+	 DEPART_CD as departcd,
+	 LEVEL_CD as levelcd
+	  from pwdmst
+	</select>
+	<select id="isExcistLogName" resultType="Integer">
+	 select count(*) from usermst where LOGIN_ID = #{testLoginId}
+	</select>
+	<update id="upCompany">
+		update companymst set
+		CURRENCY_CODE = #{itemcd,jdbcType=INTEGER}
+		where
+		COMPANY_CD = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<select id="getIsCompanyInvoiceFlg" resultType="int">
+		select 
+			count(*)
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD  and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+			left join journalinvoicetrn on jobtrn.JOB_CD=journalinvoicetrn.JOB_NO and jobtrn.COMPANY_CD=journalinvoicetrn.COMPANY_CD
+		where  date_format(sellordertrn.DLVDAY,"%Y%m") =  date_format(#{sysDate},"%Y%m")  
+			and journalinvoicetrn.INVOICE_NO IS NOT NULL
+			and jobtrn.DEL_FLG != 1 
+			and jobtrn.COMPANY_CD=#{companyID}
+	</select>
+	<select id="getSystemDate" resultType="String">
+		select DATE_FORMAT(ITMVALUE,"%Y-%m-%d") from commonmst where commonmst.MSTCD = "0001" and commonmst.COMPANY_CD = #{companyID}
+	</select>
+	<insert id="insertListColumnMst" >
+                insert into listcolumnmst select a.*,#{companycd,jdbcType=VARCHAR} from syslistcolumnmst a where LEVEL in ("0","1")
+        </insert>
+        <select id="getcompanyType" resultType="int">
+        	SELECT COMPANY_TYPE FROM `companymst` WHERE COMPANY_CD = #{companyID}
+        </select>
+</mapper>

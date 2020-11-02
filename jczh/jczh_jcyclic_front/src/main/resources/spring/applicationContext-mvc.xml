@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="com.kaiwait.core.controller.dynamic" />
+	<context:component-scan base-package="com.kaiwait.core.utils" />
+	<context:component-scan base-package="com.kaiwait.front" />
+
+	<mvc:annotation-driven />
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<!-- <property name="messageConverters"> -->
+		<!-- <list> -->
+		<!-- <ref bean="mappingJacksonHttpMessageConverter" /> JSON转换器 -->
+		<!-- </list> -->
+		<!-- </property> -->
+	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/dynamic/**" />
+			<mvc:exclude-mapping path="/uploadFile/**" />
+			<bean id="logInterceptor" class="com.kaiwait.core.interceptor.WebLogInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/dynamic/**" />
+			<bean id="validateInterceptor" class="com.kaiwait.core.interceptor.ValidateInterceptor">
+				<property name="uriValidatorMapping">
+					<map>
+						<entry key="/dynamic/" value-ref="jsonRuleValidator"/>
+					</map>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+<!-- 	<bean id="jasperReportResolver" class="org.springframework.web.servlet.view.XmlViewResolver">  -->
+<!-- 		<property name="order" value="2"></property> -->
+<!-- 		<property name="location"> -->
+<!-- 			<value>classpath:/jasperxml/jasper.xml</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<bean id="jsonRuleValidator" class="com.kaiwait.core.validator.impl.JsonRuleValidator">
+		<property name="ifDefParse" ref="ifDefFileParse"/>
+	</bean>
+	<bean id="ifDefFileParse"
+		class="com.kaiwait.core.process.dynamic.parser.InterfaceDefinitionParseFileImpl">
+		<property name="definitionFileRootPath" value="/ifdef" />
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxInMemorySize" value="5242880"></property>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+    <!-- 
+    <bean id="handlerExceptionResolver" class="com.kaiwait.core.controller.dynamic.JcUploadCSVController">
+    </bean>
+     -->
+</beans>

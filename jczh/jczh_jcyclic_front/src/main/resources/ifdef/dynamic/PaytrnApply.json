@@ -1,0 +1,33 @@
+{
+  "definitionFilePath" : null,
+  "name" : "支付承认",
+  "path" : "PaytrnApply",
+  "rootPath" : "dynamic",
+  "type" : "update",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "payreqremark",
+      "comment" : "备注",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 500,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

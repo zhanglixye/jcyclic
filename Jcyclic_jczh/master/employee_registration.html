@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" id="titleName" name='employee_registration_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>
+		<!--#include virtual="../common/language.shtml"-->   
+		<script type="text/javascript" src="../public/javascript/master/employee_registration.js?v=2018092801" ></script>		
+	</head>
+	<style type="text/css">
+		nav::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li id="employeeRegistrationTitleID" class="fs18 i18n" name='employee_registration_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="background-color:#bdc3c7;padding-bottom: 0;">
+				<div class="row">
+					<div class="col-md-8">
+			            <div id="userBaseBlock" class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersRegistration_basic_information'></div>
+			              <div class="panel-body" style="overflow: hidden;">
+			                <div class="form-group" required="">
+			                	<label class="control-label i18n" name='employeeRegistration_staff_number'></label>
+			                	<input id="userIDByInput" name="userCD" class="form-control" placeholder="" type="hidden" />
+			                	<input oninput="this.value=ToCDB(this.value)" id="memberID" maxlength="20" name="memberID" class="form-control required" placeholder="" type="text" />
+			                	<input id="lockFlg" name="lockFlg" type="hidden"/>
+			                </div>			                
+			                <div class="form-group" required="">
+			                	<label class="control-label i18n" name='employeeRegistration_full_name'></label>
+			                	<input name="nickname" maxlength="100" class="form-control required" placeholder="" type="text">
+			                </div>
+			                <div class="form-group">
+			                	<label class="control-label i18n" name='employeeRegistration_full_name_english'></label>
+			                	<input name="nickNameEn" maxlength="100" class="form-control" placeholder="" type="text">
+			                </div>
+			                <div class="form-group" required="">
+			                	<label class="control-label i18n" name='employeeRegistration_login_id'></label>
+			                	<!--<input type="text" name="loginName" style="width:0;height:0;float:left;visibility:hidden"/>-->
+			                	<input maxlength="100" oninput="this.value=ToCDB(this.value,3)" id="nickId" name="loginName" class="form-control required" placeholder="" type="text">
+			                </div>
+			                <div class="form-group hidden">
+			                	<label class="control-label i18n" name='employeeRegistration_email_address'></label>
+			                	<input maxlength="100" oninput="this.value=ToCDB(this.value)" name="email" class="form-control email" placeholder="" type="text" >
+			                </div>
+			                <div class="form-group" required="">
+			                	<label class="control-label i18n" name='employeeRegistration_password'></label>
+			                	<!--<input type="password" name="pwd" style="width:0;height:0;float:left;visibility:hidden"/>-->
+			                	<input onfocus="this.type='password'" maxlength="200" id="userPwd" name="pwd" class="form-control required" placeholder="" type="text" >
+			                </div>
+			                <div id="departList" class="form-group radio">
+			                  <label class="control-label i18n" name='employeeRegistration_subordinate_department'></label>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio11" name="employee_suoshu" checked="true">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_new_customer'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio12" name="employee_suoshu">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_make'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio13" name="employee_suoshu">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_market_strategy'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio14" name="employee_suoshu">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_media'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio15" name="employee_suoshu">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_promotion_promotion'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio16" name="employee_suoshu">
+									 <!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_finance'></span>
+								</label>
+			                  </div>
+			                  <div class="radio block">
+			                    <label class="radio">
+									<input type="radio" id="inlineRadio21" name="employee_suoshu">
+									<!--<i id='green_radio'></i>-->
+									<span class="i18n" name='employeeRegistration_admin'></span>
+								</label>
+			                  </div>
+			                </div>			
+			                <div class="form-group radio">
+			                  <label class="control-label i18n" name='employeeRegistration_business_level'></label>
+			                  <div id="levelList" class="row">
+			                    <div class="col-md-3">
+			                      <div class="radio">
+			                        <label class="work-level-radio custom-radio nowrap radio">
+										<input type="radio" name="inlineRadioOptions2" id="inlineRadio22" value="option1">
+										<!--<i id="green_radio"></i>-->
+										<span class="i18n" name='employeeRegistration_head_department'></span>
+									</label>
+			                      </div>
+			                    </div>
+			                    <div class="col-md-3">
+			                      <div class="radio">
+			                        <label class="work-level-radio custom-radio nowrap radio">
+									  <input type="radio" name="inlineRadioOptions2" id="inlineRadio23" value="option1" checked="true">
+									  <!--<i id="green_radio"></i>-->
+									  <span class="i18n" name='employeeRegistration_common'></span>
+									</label>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			                <div id="cuRoleList" class="form-group" required="">
+			                <label class="control-label i18n" name='employeeRegistration_role'></label>
+			                <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox1" value="option1">
+				                	<span class="iconfont icon-duihaok"></span>
+				                	<span class='i18n' name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox2" value="option2">
+				                	<span class="iconfont icon-duihaok"></span>
+				                	<span class='i18n' name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox3" value="option3">
+				                	<span class="iconfont icon-duihaok"></span>
+				                	<span class='i18n' name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox4" value="option4">
+				                	<span class="iconfont icon-duihaok"></span>
+				                	<span class='i18n' name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox5" value="option5">
+				                	<span class="iconfont icon-duihaok"></span>
+				                	<span class='i18n' name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox6" value="option6">
+				                	<span class="i18n iconfont icon-duihaok" name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox7" value="option7">
+				                	<span class="i18n iconfont icon-duihaok" name=''></span>
+				                </label>
+			                  </div>
+			                  <div class="checkbox">
+			                    <label>
+				                	<input type="checkbox" id="inlineCheckbox8" value="option8">
+				                	<span class="i18n iconfont icon-duihaok" name=''></span>
+				                </label>
+			                  </div>
+			                </div>
+							<style type="text/css">
+								.checkbox{
+									margin-left: 10px;
+								}
+								.checkbox > label{
+									font-weight: bold;
+								}
+							</style>
+			                <div  class="form-group radio">
+			                  <label class="control-label i18n" name='employeeRegistration_language'></label>
+			                    <div id="langeList" class="row">
+			                      <div class="col-md-3">
+			                      	<div class="radio">
+			                      		<label class="radio">
+							                <input type="radio" id="inlineRadio1" value="0" name='langtyp' checked="">
+							                <!--<i id="green_radio"></i>-->
+							                <span class="i18n" name='suppliersRegistration_zh_c'></span>
+							            </label>
+			                      	</div>			                    
+			                      </div>
+			                      <div class="col-md-3">
+			                      	<div class="radio">
+			                      		<label class="radio">
+							                <input type="radio" id="inlineRadio2" value="1" name='langtyp'>
+							                <!--<i id="green_radio"></i>-->
+							                <span class="i18n" name='suppliersRegistration_zh_t'></span>
+						                </label>
+			                      	</div>
+			                      </div>
+			                      <div class="col-md-3">
+			                      	<div class="radio">
+				                        <label class="radio">
+							                <input type="radio" id="inlineRadio3" value="2" name='langtyp'>
+							               <!-- <i id="green_radio"></i>-->
+							                <span class="i18n" name='common_language_choice0'></span>
+						                </label>
+			                      	</div>
+			                      </div>
+			                      <div class="col-md-3">
+			                      	<div class=" radio">
+			                      		<label class="radio">
+							                <input type="radio" id="inlineRadio4" value="3" name='langtyp'>
+							               <!-- <i id="green_radio"></i>-->
+							                <span class="i18n" name='common_language_choice3'></span>
+						                </label>
+			                      	</div>			                        
+			                      </div>
+			                    </div>
+			                </div>	
+			              </div>
+			            </div>			
+			            <div id="userChooseCompanyBlock" class="panel panel-default">
+			              <div class="panel-heading i18n" name='employeeRegistration_other_companies_refer'></div>
+			              <div class="panel-body">
+			                  <div id="cuCompanyList" class="form-group">
+			                    <label class="control-label i18n" name='employeeRegistration_can_companies_refer'></label>
+			                    <div class="checkbox">
+		                      	  <label>
+								  	<input type="checkbox" id="inlineCheckbox11" value="option1">
+								  	<span class="i18n iconfont icon-duihaok" name='employeeRegistration_shanghai_H_bobaotang'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									  <input type="checkbox" id="inlineCheckbox22" value="option2">
+									  <span class="i18n iconfont icon-duihaok" name='employeeRegistration_bochuang_shanghai_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									  <input type="checkbox" id="inlineCheckbox33" value="option3">
+									  <span class="i18n iconfont icon-duihaok" name='employeeRegistration_wuhan_H_bobaotang'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+								    <input type="checkbox" id="inlineCheckbox44" value="option4">
+								    <span class="i18n iconfont icon-duihaok" name='employeeRegistration_bobaotang_xinzhi_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox55" value="option5">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_beijing_H_bobantang'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox66" value="option6">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_daguang_beijing_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox78" value="option7">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_daguang_shanghai_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox88" value="option8">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_daguang_guangzhou_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox99" value="option9">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_daguang_guangzhou_shanghai_2'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox100" value="option10">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_beijing_DPH_civic'></span>
+								  </label>
+			                    </div>
+			                    <div class="checkbox">
+			                      <label>
+									<input type="checkbox" id="inlineCheckbox111" value="option11">
+									<span class="i18n iconfont icon-duihaok" name='employeeRegistration_guangdong_DPH_civic'></span>
+								  </label>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersList_invalid'></div>
+			              <div class="panel-body">
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_invalid_sign'></label>
+			                  <div class="checkbox">
+			                    <label class="checkbox-inline">
+					              <input type="checkbox" id="inlineCheckboxF" value="" name="delFlg">
+					              <span class="iconfont icon-duihaok"></span>
+					            </label>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			
+			            <div class="lastChild">
+			              <button  id="employeeBtn" class="btn btn-success i18n" name='suppliersRegistration_login' type="button" onclick="createUser()"></button>
+			              <button class="btn btn-default i18n" name='suppliersRegistration_back' type="button" onclick="backEmpList()"></button>
+			            </div>
+			
+					</div>
+					<div class="col-md-4">
+						<nav class="log-sidebar" style="background: none; border-radius: 4px;border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow-y: scroll;">
+				            <div class="panel panel-default">
+				              <div class="panel-heading i18n" name='suppliersRegistration_historical_records'></div>
+				              <div id="userHistory" class="panel-body">
+				               
+				              </div>
+				            </div>
+				          </nav>	
+				          <script>
+				          	bodyh = $(document).height(); //浏览器当前窗口文档的高度
+							navh = bodyh - 135;
+							$("nav.log-sidebar").css("height", navh + "px");
+				          </script>
+					</div>
+				</div>
+			</aside>
+		</div>	
+	</body>
+</html>

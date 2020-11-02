@@ -1,0 +1,111 @@
+<style>
+	.outsource label.active {
+		background: #ccc!important;
+		/*border-color: #ccc!important;*/
+		color: #000 !important;
+		border-bottom-right-radius: 4px !important;
+		border-top-right-radius: 4px !important;
+		border-bottom-left-radius: 4px !important;
+		border-top-left-radius: 4px !important;
+	}
+	
+	.out_first_sr_color {
+		color: #000000!important;
+	}
+	
+	.bus_color {
+		background-color: white!important;
+	}
+	
+	.form-group[required] .control-label::after {
+		content: "";
+	}
+	/*.setFixRate .sale-input .numberbox{
+		border-color: rgb(224,224,224);
+	}*/
+	.setFixRate .sale-input .numberbox #_easyui_textbox_input1{
+		color: rgb(153,153,153);
+		background-color: rgb(245,245,245);
+	}
+</style>
+<div class="panel panel-default">
+	<div class="panel-heading i18n" name='salescategoryLogin_intelligence'></div>
+	<div class="form-group clearfix pd-18-15 salenohidden" required >
+		<div class="pull-left">
+			<label for="dateD" class="control-label i18n " name='jishangd'></label>
+			<div class="input-group">
+				<input disabled="true" type="text" id="dalday" name="dateD" class="form-control required hiddclass date-box-required" />
+			</div>
+		</div>
+		<div class="pull-left ml-30">
+			<label for="dateR" class="i18n" name="salescategoryLogin_qingjiu"></label>
+			<div class="input-group">
+				<input disabled="true" type="text" id="plan_dalday" name="dateR" class="form-control hiddclass date-box-required" />
+			</div>
+		</div>
+	</div>
+	<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 0px 18px;overflow-x: hidden;">
+		<div class="col-md-4" style="padding: 0 5px;">
+			<div class="panel panel-default col-md-12 " style="background: #f5f5f5">
+				<div class="panel-heading tollage" style="border: none; font-size: 16px; font-weight: bold;">
+					<!--<span data-flag='1' class="i18n green_active" name='jobregistration_sales'>売上</span>
+								<span data-flag='0' class="i18n" name='yuding' style="font-size: 16px;font-weight: bold;">予定</span>-->
+					<div class="btn-group sale_head" id="job_card" data-toggle="buttons">
+						<label class="btn btn-primary model_first active" style="line-height: 1.028571;">
+									<input type="radio" name="plan_sale_ishave" value="1" autocomplete="off"> 
+									<small class="i18n" name="jobregistration_sales"></small>												
+									</label>
+						<label class="btn btn-primary model_second" style="line-height: 1.028571;">
+									<input type="radio" name="plan_sale_ishave" value="0" autocomplete="off">
+									<small class="i18n" name="yuding"></small>						 
+									</label>
+					</div>
+				</div>
+				<!--#include virtual="../../jczh/business.shtml"-->
+				<!--#include virtual="../../jczh/business_off.shtml"-->
+			</div>
+		</div>
+		<div class="col-md-4" style="padding: 0 5px;">
+			<div class="panel panel-default col-md-12 " style="background: #f5f5f5; margin-left: 0px;">
+				<div class="panel-heading tollage" style="border: none; font-size: 16px; font-weight: bold;">
+					<!--<span data-flag='1' class="i18n" name='jobregistration_cost'>原価</span>
+								<span data-flag='0' class="i18n green_active" name='yuding' style="font-size: 16px;font-weight: bold;">予定</span>-->
+					<div class="btn-group sale_head"   id="cost_card" data-toggle="buttons">
+						<label class="btn btn-primary model_thired active" style="line-height: 1.028571;">
+									<input type="radio" name="plan_sale_ishave" value="1" autocomplete="off"> 
+									<small class="i18n" name="jobregistration_cost"></small>												
+									</label>
+						<label class="btn btn-primary model_fourth" style="line-height: 1.028571;">
+									<input type="radio" name="plan_sale_ishave" value="0" autocomplete="off">
+									<small class="i18n" name="yuding"></small>						 
+									</label>
+					</div>
+				</div>
+				<!--#include virtual="../../jczh/price_on.shtml"-->
+				<!--#include virtual="../../jczh/price.shtml"-->
+			</div>
+		</div>
+		<div style="padding: 0 5px;width: 117.5%;display: flex;">
+			<div class="panel panel-default col-md-4" style="background: #fff; padding-top: 15px; padding-bottom: 30px; box-shadow: 0px 3px 5px #d4d4d4;margin-right:5px">
+				<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_tax"></label>
+				<label class="control-label col-md-12" style="padding: 10px 0 0px 10px; text-align: left; font-weight: normal"><span class="tax_total" style="font-size: 16px;">0.00</span><span class="person_code"></span></label>
+			</div>
+			<div class="panel panel-default col-md-4" style="background: #fff; padding-top: 15px; padding-bottom: 30px; box-shadow: 0px 3px 5px #d4d4d4;margin-left:5px">
+				<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_operating_revenue"></label>
+				<label class="control-label col-md-12" style="padding: 10px 0 0px 10px; text-align: left; font-weight: normal"><span class="get_total" style="font-size: 16px;">0.00</span><span class="person_code"></span> <span class="sumRate" style="font-size: 16px;">[0.00%]</span></label>
+			</div>
+		</div>
+	</div>
+	<div class="panel" style="padding: 15px 18px 0px 18px;">
+		<div class="panel-heading i18n salenohidden" name="salescategoryLogin_prepare"></div>
+		<div style="border: 1px solid #dddddd;padding: 5px;border-top: none;" class="salenohidden">
+			<textarea maxlength="500" rows="3" class="form-control sale_remark job_detail_remark" style="padding: 0px 12px;"></textarea>
+		</div>
+		<div class="clearfix mb-10 salenohidden"style="margin-top: 10px;"> 
+			<!--#include virtual="../../jczh/job_box.shtml"-->
+		</div>
+	</div>
+</div>
+<script>
+	$(".after_css").hide();
+</script>

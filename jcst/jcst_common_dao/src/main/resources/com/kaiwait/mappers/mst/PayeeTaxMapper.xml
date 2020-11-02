@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.PayeeTaxMapper" >
+  <resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.Payeetaxmst" >
+	<result column="user_tax_type" property="user_tax_type" jdbcType="VARCHAR" />
+	<result column="invoice_type" property="invoice_type" jdbcType="VARCHAR" />
+	<result column="invoice_text" property="invoice_text" jdbcType="VARCHAR" />
+	<result column="user_tax_type_hk" property="user_tax_type_hk" jdbcType="VARCHAR" />
+	<result column="invoice_type_hk" property="invoice_type_hk" jdbcType="VARCHAR" />
+	<result column="invoice_text_hk" property="invoice_text_hk" jdbcType="VARCHAR" />
+	<result column="user_tax_type_en" property="user_tax_type_en" jdbcType="VARCHAR" />
+	<result column="invoice_type_en" property="invoice_type_en" jdbcType="VARCHAR" />
+	<result column="invoice_text_en" property="invoice_text_en" jdbcType="VARCHAR" />
+	<result column="user_tax_type_jp" property="user_tax_type_jp" jdbcType="VARCHAR" />
+	<result column="invoice_type_jp" property="invoice_type_jp" jdbcType="VARCHAR" />
+	<result column="invoice_text_jp" property="invoice_text_jp" jdbcType="VARCHAR" />
+	<result column="vat_rate" property="vat_rate" jdbcType="VARCHAR" />
+	<result column="deduction" property="deduction" jdbcType="VARCHAR" />
+	<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+	<result column="user_tax_type_code" property="user_tax_type" jdbcType="VARCHAR" />
+	<result column="invoice_type_code" property="invoice_type" jdbcType="VARCHAR" />
+	<result column="invoice_text_code" property="invoice_text" jdbcType="VARCHAR" />
+	<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+  </resultMap>
+
+   <select id="querymaxno" resultType="java.util.Map" >
+   
+	SELECT IFNULL(max(cldivcd),null) num from clmst
+	
+   </select> 
+   <select id="queryPayeeTaxList" resultType="java.util.Map"  >	
+		SELECT
+			b.itmname user_tax_type,
+			b.itemname_hk user_tax_type_hk,
+			b.itemname_en user_tax_type_en,
+			b.itemname_jp user_tax_type_jp,
+			c.itmname invoice_type,
+			c.itemname_hk invoice_type_hk,
+			c.itemname_en invoice_type_en,
+			c.itemname_jp invoice_type_jp,
+			d.itmname invoice_text,
+			d.itemname_hk invoice_text_hk,
+			d.itemname_en invoice_text_en,
+			d.itemname_jp invoice_text_jp,
+			a.vat_rate*100 vat_rate,
+			a.deduction,
+			a.del_flg,
+			a.user_tax_type user_tax_type_code,
+			a.invoice_type invoice_type_code,
+			a.invoice_text invoice_text_code,
+			a.id
+		FROM
+			payeetaxmst a
+		LEFT JOIN commonmst b ON a.COMPANY_CD = b.COMPANY_CD
+		AND b.ITEMCD = a.user_tax_type
+		AND b.MSTCD = '0060'
+		LEFT JOIN commonmst c ON a.COMPANY_CD = c.COMPANY_CD
+		AND c.ITEMCD = a.invoice_type
+		AND c.MSTCD = '0061'
+		LEFT JOIN commonmst d ON a.COMPANY_CD = d.COMPANY_CD
+		AND d.ITEMCD = a.invoice_text
+		AND d.MSTCD = '0062'
+		WHERE
+			1 = 1 and a.COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+	  <if test="delflg == 1" >
+        and a.del_flg = 1
+      </if> 
+      <if test="delflg == 0" >
+        and a.del_flg = 0
+      </if>
+      order by a.id desc
+   </select> 
+   <insert id="insertPayeetaxmstTx" parameterType="com.kaiwait.bean.mst.entity.Payeetaxmst" >
+     insert into payeetaxmst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="user_tax_type != null" >
+        user_tax_type,
+      </if> 
+      <if test="invoice_type != null" >
+        invoice_type,
+      </if>
+      <if test="invoice_text != null" >
+        invoice_text,
+      </if>
+      <if test="vat_rate != null" >
+        vat_rate,
+      </if>
+      <if test="deduction != null" >
+        deduction,
+      </if>
+      <if test="del_flg != null" >
+        del_flg,
+      </if>
+      <if test="company_cd != null" >
+        company_cd,
+      </if>
+      adddate,upddate,addusercd,updusercd
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="user_tax_type != null" >
+        #{user_tax_type,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice_type != null" >
+        #{invoice_type,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice_text != null" >
+        #{invoice_text,jdbcType=VARCHAR},
+      </if> 
+      <if test="vat_rate != null" >
+        #{vat_rate,jdbcType=VARCHAR},
+      </if>
+      <if test="deduction != null" >
+        #{deduction,jdbcType=VARCHAR},
+      </if>
+      <if test="del_flg != null" >
+        #{del_flg,jdbcType=VARCHAR},
+      </if>
+      <if test="company_cd != null" >
+        #{company_cd,jdbcType=VARCHAR},
+      </if>
+       #{adddate,jdbcType=VARCHAR}, #{upddate,jdbcType=VARCHAR}, #{addusercd,jdbcType=VARCHAR}, #{updusercd,jdbcType=VARCHAR}
+    </trim>  
+  </insert>
+  
+   <select id="Selectinitone" resultType="java.util.Map"  >
+ 	select ITMNAME zc,ITEMNAME_HK hk,ITEMNAME_EN en,ITEMNAME_JP jp from  commonmst 
+ 	where mstcd = #{id,jdbcType=VARCHAR}
+  </select>
+  <update id="updatePayeetaxmstTx" parameterType="com.kaiwait.bean.mst.entity.Payeetaxmst" >
+    update payeetaxmst
+    <set >
+      <if test="user_tax_type != null" >
+        user_tax_type = #{user_tax_type,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice_type != null" >
+        invoice_type = #{invoice_type,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice_text != null" >
+        invoice_text = #{invoice_text,jdbcType=VARCHAR},
+      </if> 
+      <if test="vat_rate != null" >
+        vat_rate = #{vat_rate,jdbcType=VARCHAR},
+      </if>
+      <if test="deduction != null" >
+        deduction = #{deduction,jdbcType=VARCHAR},
+      </if>
+      <if test="del_flg != null" >
+        del_flg = #{del_flg,jdbcType=VARCHAR},
+      </if>
+      <if test="company_cd != null" >
+        company_cd = #{company_cd,jdbcType=VARCHAR},
+      </if>
+      upddate=#{upddate,jdbcType=VARCHAR},
+      updusercd=#{updusercd,jdbcType=VARCHAR}
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+ 
+     <select id="changeQuery" resultMap="BaseResultMap" >	
+		select 
+		user_tax_type,
+		invoice_type,
+		invoice_text,
+		vat_rate,
+		deduction,
+		del_flg,
+		id,
+		lock_flg
+		from payeetaxmst a
+		where id = #{id,jdbcType=VARCHAR}
+   </select> 
+    <select id="payeeCheck"  resultType="java.lang.Integer">	
+		select 
+		count(*)
+		from payeetaxmst a
+		where user_tax_type = #{user_tax_type,jdbcType=VARCHAR}
+		and invoice_type = #{invoice_type,jdbcType=VARCHAR}
+		and invoice_text = #{invoice_text,jdbcType=VARCHAR}
+		and company_cd = #{company_cd,jdbcType=VARCHAR}
+		and del_flg = '0'
+
+   </select> 
+   <select id="payeeLock"  resultType="java.lang.Integer">	
+		select 
+		lock_flg
+		from payeetaxmst a
+		where id = #{id,jdbcType=VARCHAR}
+
+   </select>
+    <update id="updateLock" parameterType="com.kaiwait.bean.mst.entity.Payeetaxmst" >
+    update payeetaxmst set lock_flg = lock_flg+1 
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="queryHave"  resultType="java.lang.Integer">	
+		select 
+		count(*)
+		from payeetaxmst a
+		where user_tax_type = #{user_tax_type,jdbcType=VARCHAR}
+		and invoice_type = #{invoice_type,jdbcType=VARCHAR}
+		and invoice_text = #{invoice_text,jdbcType=VARCHAR}
+		and company_cd = #{companyID,jdbcType=VARCHAR}
+		and id =  #{id,jdbcType=VARCHAR}
+   </select>
+</mapper>

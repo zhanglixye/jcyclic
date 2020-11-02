@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+	<div class="panel-heading" style="font-size: 16px; font-weight: bold">
+			<span class="i18n" name='salescategoryLogin_job_information'></span>
+		<span class='job_cd'></span>
+		<input type="hidden" class="sale_no"/>
+	</div>
+	<div class="panel-body"  style="padding-left: 4px;">
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name='jobregistration_subject'></label>
+			<div class="bord_no job_name"></div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name='jobregistration_event_sales'></label>
+			<input class="sale_cd" type="hidden"/>
+			<div class="bord_no sale_type"></div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name="suppliersList_customer"></label>
+			<input class="cldiv_cd" type="hidden"/>
+			<div class="bord_no divname_full"></div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name="suppliersList_payer"></label>
+			<input class="payer_cd" type="hidden"/>
+			<div class="bord_no payer_name"></div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name="suppliersList_HDY_group"></label>
+			<input class="g_company" type="hidden"/>
+			<div class="bord_no g_company_name"></div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="control-label i18n" name="jobregistration_record_date"></label>
+				<div class="bord_no plan_dalday" style="width: 30%;"></div>						
+		</div>
+		<style>
+			.whether_the_skip .radio label{ padding: 0}
+		</style>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<meta id="i18n_pagename" content="master-common-jcst">
+<!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" content="ie=edge"/>-->
+<link rel="stylesheet" type="text/css" href="../../public/lib/bootstrap3.3.0/bootstrap3.3.0.css?v=2018092801"/>
+<!-- jq 1.9.1 -->
+<script type="text/javascript" src="../../public/lib/jquery/jquery-1.9.1.js"></script>
+<!-- layer -->
+<script type="text/javascript" src="../../public/lib/layer/layer.js" ></script>
+<!--radio nav 共同css -->
+<link rel="stylesheet" href="../../public/stylesheets/common/commonBase.css?v=2018092801" />
+<link rel="icon" type="image/ico" href="../../public/images/bitbug_favicon.ico"/>
+<!--测试锁-->
+<link rel="stylesheet" type="text/css" href="../../public/fonts/iconfont/iconfont.css?v=2018092801"/>
+<!--颜色选择器-->	
+<link rel="stylesheet" href="../../public/lib/minicolors/jquery.minicolors.css" />
+<script type="text/javascript" src="../../public/lib/minicolors/jquery.minicolors.min.js" ></script>
+<!--百度编辑器-->		
+<link rel="stylesheet" href="../../public/lib/umeditor/umeditor.css" />
+<script type="text/javascript" src="../../public/lib/umeditor/template.min.js" ></script>
+<script type="text/javascript" src="../../public/lib/umeditor/umeditor.config.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/lib/umeditor/umeditor.js" ></script>
+<!--百度编辑器语言支持-->
+<script type="text/javascript" src="../../public/lib/umeditor/lang/zh-cn.js" ></script>
+<script type="text/javascript" src="../../public/lib/umeditor/lang/en.js" ></script>
+<!--留言板公用css与js-->
+<link rel="stylesheet" type="text/css" href="../../public/stylesheets/jcst/board.css?v=2018092801"/>
+<script type="text/javascript" src="../../public/javascript/jcst/job/board.js?v=2018092801" ></script>
+<!--bootstrap3-->
+<link rel="stylesheet" href="../../public/lib/bootstrap3.3.0/bootstrap-select.min.css" />	
+<script type="text/javascript" src="../../public/lib/bootstrap3.3.0/bootstrap-filestyle.min.js"></script>
+<script type="text/javascript" src="../../public/lib/bootstrap3.3.0/bootstrap3.3.0.js"></script>
+<script type="text/javascript" src="../../public/lib/bootstrap3.3.0/bootstrap-select.js"></script>
+<script type="text/javascript" src="../../public/javascript/common/urlParametersController.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/javascript/common/validataController.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/javascript/common/showMessageController.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/javascript/common/common_tab_setting.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/javascript/common/common_setting.js?v=2018092801" ></script>
+<script type="text/javascript" src="../../public/javascript/common/common.js?v=2018092801" ></script>
+

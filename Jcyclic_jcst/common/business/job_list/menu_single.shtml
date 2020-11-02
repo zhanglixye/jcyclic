@@ -1,0 +1,30 @@
+<div id="menu" class="easyui-menu" hideOnUnhover="false" style="width:200px;text-align: center;border-radius: 5px; background-color: white;display: none;"> 
+   <label style="display: block;background-color:rgb(246,248,245);height: 27px;opacity: 1.0;border-bottom:2px solid rgb(241,241,241);">
+   	<div style="float: left;width: 50%;height: 25px;margin-top: 3px;text-align: center;color: black;" disabled="disabled" >
+	    <span class="i18n" name='cost_dategrid_choice' style="margin-top: 1px;font-size: 15px;color: rgb(95,97,96);"></span>
+	</div>
+    <div style="width: 16%;float: right;margin-top: 2px;text-align: center;color: black;">
+      	<span id="closeMenu" style="color: rgb(95,97,96);cursor: pointer;">×</span>
+    </div>  
+   </label>
+   <div class="directory i18n" name='menu15' onclick="clickMenu('jobdetail')" id="jobdetail"></div>
+   <div class="directory i18n" name='customlist_list_of_cost' onclick="clickMenu('costlist')" id="costlist"></div>
+   <div class="directory i18n" name='job_update_title' id="jobupdate" onclick="clickMenu('jobupdate')" ></div>
+   <div class="directory i18n" name='menu2' id="mdfp" onclick="clickMenu('mdfp')"></div>
+   <div class="directory i18n" name='menu3'  id="yjwl" onclick="clickMenu('yjwl')"></div>
+   <div class="directory i18n" name='menu4'  id="yjwlqx" onclick="clickMenu('yjwlqx')"></div>
+   <div class="directory i18n" name='salescategory_login_title' id="saleEdit" onclick="clickMenu('saleEdit')"></div>
+   <div class="directory i18n" name='salescategory_update_title' id="saleUpdate" onclick="clickMenu('saleUpdate')"></div>
+   <div class="directory i18n" name='menu5'  onclick="clickMenu('saleCancel')" id="saleCancel" ></div>
+   <div class="directory i18n" name='menu6' onclick="clickMenu('saleAdmit')" id="saleAdmit"> </div>
+   <div class="directory i18n" name='menu7' onclick="clickMenu('saleAdmitCancel')" id="saleAdmitCancel"></div>
+   <div class="directory i18n" name='menu8' onclick="clickMenu('qqsq')" id="qqsq"></div>
+   <div class="directory i18n" name='menu1' onclick="clickMenu('fpfx')" id="fpfx"></div>
+   <div class="directory cost_handle1 i18n" name='menu10' id="rujin" ></div>
+   <div class="directory i18n" name='menu11'  id="wfdl" onclick="clickMenu('wfdl')"></div>
+   <div class="directory i18n" name='menu12'  id="liti" onclick="clickMenu('liti')"></div>
+   <div class="directory i18n" name='menu13'  id="zhenti"  onclick="clickMenu('zhenti')"></div>
+   <div class="directory i18n" name='menu14' onclick="clickMenu('mmdlp')" id="mmdlp"></div>		  
+   <div class="directory zj i18n" name='menu16' onclick="clickMenu('zj')" id="zj"></div>
+   <div class="footer_menu directory labelset i18n lable-set" name='menu17'  id="label"></div>
+</div>

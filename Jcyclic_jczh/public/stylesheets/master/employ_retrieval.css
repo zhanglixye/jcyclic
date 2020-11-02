@@ -1,0 +1,43 @@
+.common_se.pan{
+	width: 100%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	/* border:1px solid #ddd;	*/
+	height: 100%;
+}
+.common_se .icon-guanbi{
+	float: right;
+}
+.common_se .clear:after{
+    content:"";
+    clear:both;
+    display:block;
+    height:0;
+    overflow:hidden;
+    visibility:hidden;
+}
+.common_se .btn-default,.common_se .btn-success{
+	width: 23%;
+	float: right;
+}
+
+.common_se .mr-15{
+	margin-right: 15px;
+}
+.common_se .datagrid-wrap.panel-body.panel-body-noheader{
+	padding: 0;
+	border:1px solid rgb(221, 221, 221);
+}	
+.common_se .row_input .form-control,.row_input label{
+	float: left;
+	width: 40%;
+	margin-right: 30px;
+}	
+.common_se .pane_ody{
+	padding: 15px;
+}	
+.common_se .mt-15{
+	margin-top: 15px;
+}

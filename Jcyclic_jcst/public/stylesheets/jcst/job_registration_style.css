@@ -1,0 +1,55 @@
+.menu-shadow {
+	height: auto!important;
+}
+
+#menu {
+	height: auto!important;
+}
+
+#menu2 {
+	height: auto!important;
+}
+
+.mr_bottom {
+	margin-bottom: 15px!important;
+}
+
+.mr_top {
+	margin-top: -5px!important;
+}
+.datagrid-btable .datagrid-cell span.manager{
+	background-color: #f97923;
+	padding: 3px;
+	color: white;
+	border-radius: 5px;
+	margin-right: 3px;
+}
+.datagrid-btable .datagrid-cell span.requestor{
+	background-color: #00b0f0;
+	padding: 3px;
+	color: white;
+	border-radius: 5px;
+	margin-right: 3px;
+}
+div.datagrid-body{
+	overflow-y: hidden;
+}
+td[field='lable']{
+	padding-right: 4px;
+}
+.table_fix_top{
+	position: fixed;
+	top: 113px;
+	z-index: 8;
+}
+.table_fix_header{
+	position: fixed;
+	top: 151px;
+	z-index: 8;
+}
+.top-40{
+	top:40px;
+}
+.icon-xiala{
+	cursor: auto;
+}

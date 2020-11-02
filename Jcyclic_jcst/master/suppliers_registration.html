@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='suppliers_registration_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<script type="text/javascript" src="../public/lib/easyUi1.5.3/jquery.easyui2.min.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/lib/easyUi1.5.3/locale/easyui-lang-zh_CN.js" ></script>
+		<link rel="stylesheet" type="text/css" href="../public/lib/easyUi1.5.3/themes/default/easyui-2.css?v=2018092801"/>
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>
+		<link rel="stylesheet" type="text/css" href="../public/lib/easyUi1.5.3/themes/icon.css"/>
+		<!--#include virtual="../common/boostrap_switch.shtml"-->    
+        <script type="text/javascript" src="../public/javascript/master/suppliers_registration.js?v=2018092801"></script>
+        <!--#include virtual="../common/language.shtml"-->   
+	</head>
+	<style type="text/css">
+		.nav-tabs{
+			border: 0;
+		}
+		.modal-content div{
+			border-radius: 0px!important;
+		}
+		#myModal.modal.in .modal-dialog{
+			margin-top: 0;
+			display: flex;
+			align-items: center;
+			height: 100%;
+		}
+		.edit_model{
+		    padding: 0 6px 0 0;
+			text-align: center;
+			color: #1abc9c;
+			text-decoration: underline;
+			cursor: pointer;
+			margin-left: 10px;
+			font-weight: bold;
+		}
+		.edit_model:hover{
+			color: #000000;
+		}
+		div.panel.datagrid.panel-htop.easyui-fluid{
+			border-radius: 5px!important;
+		}
+		nav::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+	<body class="main page" onLoad="$('#myModal').css({'display':'none'})">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='suppliers_registration_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+			        <div class="col-md-8">
+			          <div>			
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersRegistration_basic_information'></div>
+			              <div class="panel-body" style="overflow: hidden;">
+			                <div class="row">
+			                  <div class="col-md-6 cldivcdtitle">
+			                    <div class="form-group ">
+			                      <label class="control-label i18n" name='suppliersRegistration_number'></label>
+			                      <p class="form-control-static cldivcd"></p>
+			                    </div>
+			                  </div>
+			                  <div class="col-md-6">
+			                    <div class="form-group" required="">
+			                      <label class="control-label i18n" name='suppliersRegistration_system_number'></label>
+			                      <input maxlength="10" oninput="this.value=ToCDB(this.value)" class="form-control account_cd required" tabindex="1" placeholder="" type="text" required="" >
+			                    </div>
+			                  </div>
+			                </div>
+			                <div class="form-group" required="">
+			                  <label class="control-label i18n ggffddss" name='suppliersRegistration_type'></label>
+			                  <div class="checkbox">
+			                    <div class="row">
+			                      <div class="col-md-3">
+			                        <label class="checkbox-inline">										
+							            <input class="client_flg required" type="checkbox" name="checkbox" id="inlineCheckbox11" value="1" tabindex="2">
+							            <span class="iconfont icon-duihaok"></span>	
+							            <span class="i18n" name='suppliersList_customer'></span>
+									</label>
+			                      </div>
+			                      <div class="col-md-3">
+			                        <label class="checkbox-inline">
+										<input class="contra_flg required" type="checkbox" id="inlineCheckbox2" value="1" tabindex="3">
+										<span class="iconfont icon-duihaok"></span>
+										<span class="i18n" name='suppliersList_contractor'></span>
+									</label>
+			                      </div>
+			                      <div class="col-md-3">
+			                        <label class="checkbox-inline">
+										<input class="pay_flg required" type="checkbox" id="inlineCheckbox3" value="1"tabindex="4">
+										<span class="iconfont icon-duihaok"></span>
+										<span class="i18n" name='suppliersList_payer'></span>
+									</label>
+			                      </div>
+			                      <div class="col-md-3">
+			                        <label class="checkbox-inline">
+										<input class="hdy_flg required" type="checkbox" id="inlineCheckbox4" value="1" tabindex="5">
+										<span class="iconfont icon-duihaok"></span>	
+										<span class="i18n" name='suppliersList_HDY_group'></span>
+									</label>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>						
+			                <div class="form-group" required=""><label class="control-label i18n" name='suppliersRegistration_name'></label><input maxlength="100" class="form-control divname_full  required"  tabindex="6" placeholder="" type="text"  ></div>
+			                <div class="form-group" required=""><label class="control-label i18n" name='suppliersRegistration_abbreviation'></label><input maxlength="100" class="form-control divnm  required" tabindex="7" placeholder="" type="text"></div>
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_english_name'></label><input maxlength="100" class="form-control divnm_en" placeholder="" tabindex="8" type="text"></div>
+			                <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address'></label><input maxlength="200" class="form-control addressone" placeholder="" tabindex="9"></div>
+			                <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address2'></label><input maxlength="200" class="form-control addresstwo" placeholder="" tabindex="10"></div>
+			                <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address3'></label><input maxlength="200" class="form-control addressthree" placeholder="" tabindex="11"></div>
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_tel_c'></label><input maxlength="200" class="form-control div_tel" placeholder="" type="text" tabindex="12" ></div>			
+			              </div>
+			            </div>			
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersRegistration_contractor_project_supplementary_information'></div>
+			              <span class="tip_show" value = "1">
+			              	<i class="iconfont icon-sanjiao deat no_animation" style="float:right;margin-top: -35px;margin-right: 20px;color: rgb(14,45,95);font-size: 23px;font-weight: bold;"></i>
+			              </span>
+			              <div class="panel-body supp_hide">
+			                <div class="p-3">
+			                  <ul class="nav nav-tabs">
+			                  	<li role="nav-tabs-en"><a href="#" class="i18n" name='common_language_choice3' tabindex="14" ></a></li>
+			                    <li role="nav-tabs-zc"><a href="#" class="i18n" name='suppliersRegistration_zh_c' tabindex="15" ></a></li>
+			                    <li role="nav-tabs-zt"><a href="#" class="i18n" name='suppliersRegistration_zh_t' tabindex="16" ></a></li>
+			                    <li role="nav-tabs-jp"><a href="#" class="i18n" name='suppliersRegistration_public_language' tabindex="13" ></a></li>		                    	                    
+			                  </ul>
+			                  <div class="tab-content">
+			                    <div id="tab1" class="tab-pane nav-tabs-jp">
+			                      <div class="panel panel-default">
+			                        <div class="panel-body">
+			                          <div class="form-group"><label class="control-label i18n" name='suppliersList_suppliers_n'></label><input maxlength="100" class="form-control contra_contacts_name_jp" placeholder="" tabindex="17" type="text"></div>
+			                          <div class="panel panel-default">
+			                            <div class="panel-heading i18n" name='suppliersRegistration_my_company'></div>
+			                            <div class="panel-body">
+			                              <div class="form-group"><label class="control-label i18n" name='name'></label><input maxlength="100" class="form-control contra_self_company_name_jp" placeholder="" tabindex="18" type="text"></div>
+			                              <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address'></label><input maxlength="200" class="form-control contra_address_jp" tabindex="19" type="text" placeholder=""></div>
+			                		      <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address2'></label><input maxlength="200" class="form-control contra_address_jp1" tabindex="20" type="text" placeholder=""></div>
+			                			  <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address3'></label><input maxlength="200" class="form-control contra_address_jp2" tabindex="21" type="text" placeholder=""></div>
+			                              <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_tel_c'></label><input maxlength="200" class="form-control contra_tel_jp" tabindex="22" placeholder="" type="text"></div>
+			                            </div>
+			                          </div>			        
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div id="tab1" class="tab-pane nav-tabs-zc">
+			                      <div class="panel panel-default">
+			                        <div class="panel-body">
+			                          <div class="form-group"><label class="control-label i18n" name='suppliersList_suppliers_n'></label><input maxlength="100" class="form-control contra_contacts_name" placeholder="" tabindex="17" type="text"></div>
+			                          <div class="panel panel-default">
+			                            <div class="panel-heading i18n" name='suppliersRegistration_my_company'></div>
+			                            <div class="panel-body">
+			                              <div class="form-group"><label class="control-label i18n" name='name'></label><input maxlength="100" class="form-control contra_self_company_name" placeholder="" tabindex="18" type="text"></div>
+			                              <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address'></label><input maxlength="200" class="form-control contra_address" tabindex="19" type="text" placeholder=""></div>
+			                		      <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address2'></label><input maxlength="200" class="form-control contra_address1"  tabindex="20" type="text" placeholder=""></div>
+			                			  <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address3'></label><input maxlength="200" class="form-control contra_address2" tabindex="21" type="text" placeholder=""></div>
+			                              <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_tel_c'></label><input maxlength="200" class="form-control contra_tel" tabindex="22" placeholder="" type="text"></div>
+			                            </div>
+			                          </div>			        
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div id="tab1" class="tab-pane nav-tabs-zt">
+			                     <div class="panel panel-default">
+			                        <div class="panel-body">
+			                          <div class="form-group"><label class="control-label i18n" name='suppliersList_suppliers_n'></label><input maxlength="100" class="form-control contra_contacts_name_hk" placeholder="" tabindex="17" type="text"></div>
+			                          <div class="panel panel-default">
+			                            <div class="panel-heading i18n" name='suppliersRegistration_my_company'></div>
+			                            <div class="panel-body">
+			                              <div class="form-group"><label class="control-label i18n" name='name'></label><input maxlength="100" class="form-control contra_self_company_name_hk" placeholder="" tabindex="18" type="text"></div>
+			                              <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address'></label><input maxlength="200" class="form-control contra_address_hk" tabindex="19" type="text" placeholder=""></div>
+			                		      <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address2'></label><input maxlength="200" class="form-control contra_address_hk1" tabindex="20" type="text" placeholder=""></div>
+			                			  <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address3'></label><input maxlength="200" class="form-control contra_address_hk2" tabindex="21" type="text" placeholder=""></div>
+			                              <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_tel_c'></label><input maxlength="200" class="form-control contra_tel_hk" tabindex="22" placeholder="" type="text"></div>
+			                            </div>
+			                          </div>			        
+			                        </div>
+			                      </div>
+			                    </div>
+			                   	<div id="tab1" class="tab-pane nav-tabs-en">
+			                      <div class="panel panel-default">
+			                        <div class="panel-body">
+			                          <div class="form-group"><label class="control-label i18n" name='suppliersList_suppliers_n'></label><input maxlength="100" class="form-control contra_contacts_name_en" tabindex="17" placeholder="" type="text"></div>
+			                          <div class="panel panel-default">
+			                            <div class="panel-heading i18n" name='suppliersRegistration_my_company'></div>
+			                            <div class="panel-body">
+			                              <div class="form-group"><label class="control-label i18n" name='name'></label><input maxlength="100" class="form-control contra_self_company_name_en" placeholder="" tabindex="18" type="text"></div>
+			                              <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address'></label><input maxlength="200" class="form-control contra_address_en" tabindex="19" type="text" placeholder=""></div>
+			                		      <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address2'></label><input maxlength="200" class="form-control contra_address_en1" tabindex="20" type="text" placeholder=""></div>
+			                			  <div class="form-group"><label class="control-label i18n " name='suppliersRegistration_address3'></label><input maxlength="200" class="form-control contra_address_en2" tabindex="21" type="text" placeholder=""></div>
+			                              <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_tel_c'></label><input maxlength="200" class="form-control contra_tel_en" tabindex="22" placeholder="" type="text"></div>
+			                            </div>
+			                          </div>			        
+			                        </div>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			                <div class="panel panel-default">
+	                            <div class="panel-heading i18n" name='suppliersRegistration_payment_reservation_day'></div>
+	                            <div class="panel-body">
+	                              <div class="form-group" style="margin-bottom: 3px;">
+	                              	<label class="control-label i18n" name='suppliersRegistration_payment_expectation_day_auto'></label>
+	                              	<input class="boostrap-switch switch_pay pay_auto_setting" id="switch-state2" type="checkbox" checked="checked" data-size="mini"tabindex="22" >
+	                              	<span class="i18n-input" selectname='suppliersRegistration_payment_reservation_prompt' selectattr='data-original-title'>
+	                              		<i class="iconfont icon-i toolTipO"></i>
+	                              	</span>
+	                              </div>
+	                              <div class="form-group">
+	                              	<select id="selectone" name="boostrap-select" class="form-control pay_Date_flg" tabindex="23">
+                              			<option value="0" class="i18n" name='suppliersRegistration_payment_information_login_day'></option>
+                              			<option value="1" class="i18n" name='suppliersRegistration_accept_goods'></option>
+                              		</select>
+	                              	<label class="control-label i18n" name='suppliersRegistration_since'></label>                              	
+	                              	<input max="12" min="1" value="1" class="form-control pay_auto_month" type="number" tabindex="24" oninput="this.value=/^(?:1[0-2]|[1-9])$/.test(this.value)?this.value:''">
+	                              	<span class="i18n" name='suppliersRegistration_after_month'></span>
+	                              	<input max="31" min="1" value="31" class="form-control pay_auto_day" type="number" tabindex="25" oninput="this.value=/^(?:3[0-1]|2[1-9]|1[1-9]|[1-9])$/.test(this.value)?this.value:''">
+	                              	<span class="i18n" name='suppliersRegistration_day'></span>
+	                              	<span class="i18n-input" selectname='suppliersRegistration_common_prompt' selectattr='data-original-title'>
+	                              		<i class="iconfont icon-i toolTipT"></i>
+	                              	</span>
+	                              </div>
+	                            </div>
+                          	</div>
+                          	<div class="panel panel-default" id="taxtypeset" style="display:none">
+                          		<div class="panel-heading" style="display: flex;">
+                          			<div class="i18n" name='suppliersRegistration_type_taxpayer_set'>
+                          				
+                          			</div>
+                          			
+                          		</div>
+                          		<div class="panel-body">
+                          			<!--<div class="form-group">-->
+                          				<div class="row" style="margin-right: 0px;">
+							                <div class="col-md-10">
+							                <div class="form-group" required="">
+							                	<label class="control-label i18n" name="suppliersRegistration_type_taxpayer"></label><span data-toggle="modal" data-target="#myModal" class="i18n edit_model" style="font-size: 14px;" name="salescategoryRegistration_edit">編集</span>
+							                    <input class="form-control contra_tel_jp taxtypexs"  type="text" disabled="disabled" >
+							                </div>	
+							                </div>
+											<div class="col-md-2"> 
+												
+											</div>
+                          				</div>
+				                    <!--</div>-->
+                          		</div>
+                          	</div>
+			              </div>
+			            </div>			
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersRegistration_other'></div>
+			              <div class="panel-body">
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_other_1'></label><textarea maxlength="200" class="form-control other_note" placeholder="" rows="3" tabindex="26" ></textarea></div>
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_other_2'></label><textarea maxlength="200" class="form-control other_note1" placeholder="" rows="3" tabindex="27" ></textarea></div>
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_other_3'></label><textarea maxlength="200" class="form-control other_note2" placeholder="" rows="3" tabindex="28" ></textarea></div>
+			              </div>
+			            </div>			
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersList_invalid'></div>
+			              <div class="panel-body">
+			                <div class="form-group"><label class="control-label i18n" name='suppliersRegistration_invalid_sign'></label>
+			                  <div class="checkbox">
+			                    <label class="checkbox-inline">
+									<input type="checkbox" id="inlineCheckbox1" value="1" class="del_flg" tabindex="29">
+									<span class="iconfont icon-duihaok"></span>
+								</label>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>			
+			            <div class="lastChild">
+			              <button style="display: block;float: left;margin-right: 10px;" class="btn btn-success i18n addflag" name='suppliersRegistration_login' tabindex="30" onclick="checkaccountcd();"></button>
+			              <button style="display: block;float: left;margin-right: 10px;" class="btn btn-success i18n updateflag" name='salescategoryList_change' tabindex="31" onclick="checkaccountcd();"></button>
+			              <button class="btn btn-default i18n" name='suppliersRegistration_back' onclick="back();" tabindex="32">戻る</button>
+			            </div>
+			          </div>
+			        </div>			
+			        <div class="col-md-4">
+			          <nav class="log-sidebar" style="background: none; border-radius: 4px;border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow-y: scroll;">
+			            <div class="panel panel-default">
+			              <div class="panel-heading i18n" name='suppliersRegistration_historical_records'></div>
+			              <div id="userHistory" class="panel-body">
+			                
+			              </div>
+			            </div>
+			          </nav>
+			          <script>
+				          	bodyh = $(document).height(); //浏览器当前窗口文档的高度
+							navh = bodyh - 135;
+							$("nav.log-sidebar").css("height", navh + "px");
+			          </script>
+			        </div>			
+			      </div>
+			</aside>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: block">
+            <div class="modal-dialog" style="z-index: 99999; width: 800px; ">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #ecf0f1;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			              &times;
+			        </button>
+                        <h4 style="font-weight: bold;" class="modal-title i18n" id="myModalLabel" name='suppliersRegistration_type_taxpayer_set' >
+				             	
+				        </h4>
+                    </div>
+                   <div style="padding: 20px 20px 0 20px;background: #fff;">
+                   	<table data-options="fitColumns:true,scrollbarSize:0," id="registrationUi" style="width: 100%; float: left;"></table>
+                   </div>                  
+                   <!-- 添加面板 -->
+			        <div id="tb" style="text-align: left;">
+				       	<a class="iconfont icon-tianjia" onclick="obj.add()"></a>
+			       </div> 
+                    <div class="modal-footer" style="border: 0;">
+                        <button type="button" class="btn i18n btn-primary"  name='save' tabindex="1" onclick="obj.save()"></button>
+                        <button type="button" class="btn i18n btn-default" tabindex="2" data-dismiss="modal"  name='salescategoryRegistration_clsoe'></button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+		</div>
+	</body>
+	<script>
+		$(".supp_hide").hide();	
+		$('#inlineCheckbox2').click(function(e){
+			fazhu_show();
+		})
+		//発注先拡張項目
+		$(".tip_show").click(function(){
+			if($(".tip_show").attr("value") == 1){
+				$(".no_animation").css({"transition":"all 0.5s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+				$(".supp_hide").show();
+				$(".tip_show").attr("value",0);
+			}else{
+				$(".no_animation").css({"transition":"all 0.5s ease-out-in","transform":"rotate(0deg)","display":"inline-block"});
+				$(".supp_hide").hide();
+				$(".tip_show").attr("value",1);
+			}
+		})
+		//获取falg		
+		var url = location.search;
+		var theRequest = new Object();
+		if ( url.indexOf( "?" ) != -1 ) {
+			var str = url.substr( 1 );
+			var strs = str.split( "&" );
+			for ( var i = 0; i < strs.length; i++ ) {
+		    theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
+		  }
+//			console.log( theRequest.flag );
+			if(theRequest.flag==0){
+				 $('.fs18').attr('name','suppliers_registration_title_ch');   
+			}			
+		}
+	</script>
+</html>

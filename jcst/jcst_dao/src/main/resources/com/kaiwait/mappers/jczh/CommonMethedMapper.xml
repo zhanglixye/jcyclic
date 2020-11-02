@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.CommonMethedMapper">
+	<resultMap id="BaseResultCommonMethed" type="com.kaiwait.bean.jczh.entity.CommonMethed">
+
+   </resultMap>
+ 	<resultMap id="roleMap" type="com.kaiwait.bean.jczh.entity.Role">
+		<result column="roleID" property="roleID" jdbcType="INTEGER" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleOrder" property="roleOrder" jdbcType="INTEGER" />
+		</resultMap>
+	 <resultMap id="resulForeignt" type="com.kaiwait.bean.jczh.entity.Cost" >
+			<id column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+			<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+			<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+			<result column="itemnamehk" property="itemname_hk" jdbcType="VARCHAR" />
+			<result column="itemnameen" property="itemname_en" jdbcType="VARCHAR" />
+			<result column="itemnamejp" property="itemname_jp" jdbcType="VARCHAR" />
+			<result column="aidcd" property="aidcd" jdbcType="VARCHAR" />
+			<result column="changeutin" property="change_utin" jdbcType="VARCHAR" />
+	</resultMap>
+	     <resultMap id="BaseResultMapSalemstVo" type="com.kaiwait.bean.jczh.vo.SalemstVo">
+		<id column="SALE_CD" property="sale_cd" jdbcType="VARCHAR" />
+		<id column="SALE_NAME" property="sale_name" jdbcType="VARCHAR" />
+		<id column="TRAN_LEND" property="tranlend" jdbcType="VARCHAR" />
+		<id column="RATE1" property="rate1" jdbcType="DECIMAL" />
+		<id column="RATE2" property="rate2" jdbcType="DECIMAL" />
+		<id column="RATE3" property="rate3" jdbcType="DECIMAL" />
+		<id column="VAT_RATE" property="var_rate" jdbcType="DECIMAL" />
+		<id column="ADD_DATE" property="add_date" jdbcType="DATE" />
+		<id column="END_DATE" property="end_date" jdbcType="DATE" />
+   </resultMap>
+<select id="getMaxJobCode" resultType="String">
+	<if test="isYearFlg == 0">
+		select ifnull(
+			(select concat(date_format(#{sysDate,jdbcType=VARCHAR},'%y%m'),lpad((max(substring(JOB_CD,6))+1),5,0)) from jobtrn where jobtrn.COMPANY_CD = #{companyID,jdbcType=INTEGER}  
+			and substring(JOB_CD,2,2) = (date_format(#{sysDate,jdbcType=VARCHAR},'%y'))  and `ADDDATE` >=
+				(select ifnull(
+					(select max(jobtrn.`ADDDATE`) from jobtrn where jobtrn.COMPANY_CD = #{companyID,jdbcType=INTEGER} AND
+					substring(JOB_CD,6,5) = (date_format(#{sysDate,jdbcType=VARCHAR},'00001')) and substring(JOB_CD,2,2) = (date_format(#{sysDate,jdbcType=VARCHAR},'%y')) 
+					)
+					,#{sysDate,jdbcType=VARCHAR}))
+			),date_format(#{sysDate,jdbcType=VARCHAR},'%y%m00001')
+		) as max_code; 
+	</if>
+	<if test="isYearFlg == 1">
+		select ifnull(
+			(select concat(date_format(#{sysDate,jdbcType=VARCHAR},'%y%m'),lpad((max(substring(JOB_CD,6))+1),5,0)) from jobtrn where jobtrn.COMPANY_CD = #{companyID,jdbcType=INTEGER}  
+			and substring(JOB_CD,2,2) = (date_format(#{sysDate,jdbcType=VARCHAR},'%y')) and substring(JOB_CD,4,2)=(date_format(#{sysDate,jdbcType=VARCHAR},'%m')) 
+			),date_format(#{sysDate,jdbcType=VARCHAR},'%y%m00001')
+		) as max_code; 
+	</if>
+</select>
+<select id="getMaxLableCode" resultType="String">
+	select ifnull(lpad(max(substring(LABEL_ID,9)+1),9,0),"000000001") from labelmst where labelmst.COMPANY_CD = #{companyID,jdbcType=INTEGER}
+</select>
+ <select id="getCostMaxCode" resultType="String">
+	select concat('C',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(COST_NO,8,3))+1,3,'0'),'001') from costtrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND  substring(COST_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+<select id="getDeboursMaxCode" resultType="String">
+	select concat('R',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(INPUT_NO,8,3))+1,3,'0'),'001') from lendtrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(INPUT_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+<select id="getOncostMaxCode" resultType="String">
+	select concat('T',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(INPUT_NO,8,3))+1,3,'0'),'001') from trantrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(INPUT_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+<select id="getPayMaxInPutNo" resultType="String">
+	select concat('P',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(INPUT_NO,8,3))+1,3,'0'),'001') from paytrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(INPUT_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+<select id="getRecMaxCode" resultType="String">
+	select concat('R',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(INPUT_NO,8,3))+1,3,'0'),'001') from rectrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(INPUT_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+<select id="getReqMaxCode" resultType="String">
+	select concat('R',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(INPUT_NO,8,3))+1,3,'0'),'001') from reqtrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(INPUT_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+
+<select id="getSellMaxCode" resultType="String">
+	select concat('S',DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'),(select ifnull(lpad(max(substring(SALE_NO,8,3))+1,3,'0'),'001') from sellordertrn 
+	where COMPANY_CD = #{companyID,jdbcType=INTEGER} AND substring(SALE_NO,2,6)=DATE_FORMAT(#{sysDate,jdbcType=VARCHAR},'%y%m%d'))) as max_code;
+</select>
+
+<select id="selectNumberRules" resultType="Integer">
+  select 
+    NUMBER_RULES as isYearFlg
+   from 
+  companymst
+   where 
+    COMPANY_CD = #{company_cd,jdbcType=INTEGER} and DEL_FLG=0
+</select>
+<!-- 
+<select id="getSumcost" resultType="com.kaiwait.bean.jczh.entity.Cost">
+	SELECT ifnull(SUM(sumamt),'') sumamt, ifnull(MAX(updatetime),'') updatetime, ifnull(u.user_name,'') as costupdname, u.colorv as updusercolorv,ifnull(SUM(vat),'') as sumvat,ifnull(SUM(paymoney),'') as paysum,count(*) as costnum
+	from (
+	SELECT IFNULL(p.PAY_AMT,c.COST_RMB) sumamt,IFNULL(p.`UPDATE`,c.`UPDATE`) updatetime,
+   IFNULL(p.UPUSERCD,c.UPUSERCD) usercd,IFNULL(p.PAY_VAT_AMT,c.COST_VAT_AMT) as vat,
+   IFNULL(p.PAY_RMB,c.COST_PAY_AMT) as paymoney
+	FROM  costtrn c
+	LEFT JOIN paytrn p
+	ON c.INPUT_NO =p.INPUT_NO and p.COMPANY_CD = #{companyID} and p.DEL_FLG = 0
+	WHERE c.JOB_CD=#{job_cd}
+	AND c.COMPANY_CD =#{companyID} and c.DEL_FLG = 0
+	union all
+	SELECT l.LEND_AMT sumamt,l.`UPDATE` updatetime,l.UPUSERCD usercd,l.LEND_VAT_AMT as vat,
+  l.LEND_PAY_AMT as paymoney
+	FROM lendtrn l
+	WHERE l.JOB_CD =#{job_cd} and l.DEL_FLG = 0
+	AND l.COMPANY_CD=#{companyID}
+	UNION all
+	SELECT t.TRAN_AMT sumamt,t.UP_DATE updatetime,t.UP_USERCD usercd,"" as vat,"" as paymoney
+  
+	FROM trantrn t
+	WHERE t.COMPANY_CD=#{companyID}
+	AND t.JOB_CD =#{job_cd} and t.DEL_FLG = 0
+	ORDER BY updatetime DESC
+	) t
+	LEFT JOIN usermst u
+	on t.usercd =u.USERCD  
+</select>
+ -->
+ <select id="getSumcost" resultType="com.kaiwait.bean.jczh.entity.Cost">
+	select 
+		sum(topt.sumamt) as sumamt,
+		sum(topt.vat) as sumvat,
+		sum(topt.paymoney) as paysum,
+		bottomt.updatetime as updatetime,
+		usermst.COLORV as updusercolorv,
+		usermst.USER_NAME as costupdname,
+		count(*) as costnum
+	from
+	(
+		SELECT 
+			IFNULL(p.PAY_AMT,c.COST_RMB) sumamt,
+			IFNULL(p.PAY_VAT_AMT,c.COST_VAT_AMT) as vat,
+			IFNULL(p.PAY_RMB,c.COST_PAY_AMT) as paymoney
+		FROM  costtrn c
+			LEFT JOIN paytrn p ON c.INPUT_NO =p.INPUT_NO and p.COMPANY_CD = #{companyID} and p.DEL_FLG = 0
+		WHERE 
+			c.JOB_CD=#{job_cd}
+			AND c.COMPANY_CD =#{companyID} and c.DEL_FLG = 0
+		union all
+		SELECT 
+			l.LEND_AMT sumamt,
+			l.LEND_VAT_AMT as vat,
+  			l.LEND_PAY_AMT as paymoney
+		FROM lendtrn l
+		WHERE 
+			l.JOB_CD =#{job_cd} and l.DEL_FLG = 0
+			AND l.COMPANY_CD=#{companyID}
+		UNION all
+		SELECT 
+			t.TRAN_AMT sumamt,
+			0 as vat,
+			0 as paymoney
+		FROM trantrn t
+		WHERE 
+			t.COMPANY_CD=#{companyID}
+		AND t.JOB_CD =#{job_cd} 
+		and t.DEL_FLG = 0
+	) as topt
+		left join 
+	(
+		SELECT 
+			IFNULL(p.`UPDATE`,c.`UPDATE`) updatetime,
+			IFNULL(p.UPUSERCD,c.UPUSERCD) usercd
+		FROM  costtrn c 
+			LEFT JOIN paytrn p ON c.INPUT_NO =p.INPUT_NO and p.COMPANY_CD = #{companyID} and p.DEL_FLG = 0
+		WHERE 
+			c.JOB_CD=#{job_cd}
+			AND c.COMPANY_CD =#{companyID} and c.DEL_FLG = 0
+		union all
+		SELECT 
+			l.`UPDATE` updatetime,
+			l.UPUSERCD usercd
+		FROM lendtrn l
+		WHERE 
+			l.JOB_CD =#{job_cd} 
+			and l.DEL_FLG = 0
+			AND l.COMPANY_CD=#{companyID}
+		UNION all
+		SELECT 
+			t.UP_DATE updatetime,
+			t.UP_USERCD usercd
+		FROM trantrn t
+		WHERE 
+			t.COMPANY_CD=#{companyID}
+			AND t.JOB_CD =#{job_cd} 
+			and t.DEL_FLG = 0
+		order by updatetime desc
+		LIMIT 1
+	) as bottomt on 1 = 1
+	left join usermst on usermst.USERCD=bottomt.usercd
+ </select>
+ <!-- 查询job的得意先，以及更新者 -->
+<select id="selectCLDIV" resultType="com.kaiwait.bean.jczh.entity.Cost" >
+    select b.divnm,DATE_FORMAT(a.upddate,'%Y-%m-%d %H:%i:%S') upddate,usermst.user_name as username,a.job_name jobname,
+    usermst.colorv as updusercolorv
+    from 
+	jobtrn a
+	left join clmst b
+	on a.cldiv_cd = b.cldivcd
+	left join usermst
+	on usermst.usercd =a.updusercd
+	where a.job_cd=#{job_cd}
+	and a.company_cd=#{companyID}
+	and b.company_cd=#{companyID}
+ </select>
+ 
+ 
+ <select id="selColumns"  resultType="com.kaiwait.bean.jczh.entity.Columns">
+	select l.column_value field,
+	l.${colname} title,
+	ifnull(se.column_width,l.default_wide) width ,
+	ifnull(se.column_order,list_column_id) ordernum,
+	ifnull(se.show_numbers,50) page,
+	se.column_id columnid,
+	se.usercd,
+	se.level,
+	se.company_cd companycd
+	from usersettingtrn se
+	left join listcolumnmst l
+	on se.column_id =l.list_column_id
+	where se.company_cd=#{companyID}
+	and se.`level`=#{level}
+	and se.ison=#{ison}
+	and l.`level`=#{level}
+	and se.usercd =#{usercd}
+	order by se.column_order
+
+</select>
+<select id="getSystemDate" resultType="String">
+	select ITMVALUE from commonmst where commonmst.MSTCD = "0001" and commonmst.COMPANY_CD = #{companyID}
+</select>
+<select id="selectSkipByCd" resultType="com.kaiwait.bean.jczh.entity.Skip">
+  select 
+	companymst.MD_SKIP as md,
+	companymst.COST_SKIP as cost,
+	companymst.PAY_SKIP as pay,
+	companymst.CONFIRM_SKIP as confirm,
+	companymst.APPLY_SKIP as apply,
+	companymst.REQ_SKIP as req,
+	companymst.INVOICE_APPLY_SKIP as invoiceapply,
+	companymst.INVOICE_SKIP as invoice
+	 from companymst where COMPANY_CD = #{companyID}
+</select>
+
+<select id="searchNodeListByUser" resultMap="roleMap">
+	select 	* from (
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from userroletrn 
+			join rolemst on userroletrn.ROLE_ID = rolemst.ROLE_ID and rolemst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			join rolenodetrn on userroletrn.ROLE_ID = rolenodetrn.ROLE_ID and rolenodetrn.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			join nodemst on rolenodetrn.NODE_ID = nodemst.NODE_ID
+		where userroletrn.USERCD = #{userID,jdbcType=VARCHAR}
+		union all
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from userroletrn 
+			join rolecommst on userroletrn.ROLE_ID = rolecommst.ROLE_COM_ID 
+			join sysrolenodemst on userroletrn.ROLE_ID = sysrolenodemst.ROLE_ID
+			join nodemst on sysrolenodemst.NODE_ID = nodemst.NODE_ID
+			
+		where userroletrn.USERCD = #{userID,jdbcType=VARCHAR}
+	) as userNodeList
+	group by userNodeList.nodeID
+	</select>
+	<!-- 查询原价税率 -->
+	<select id="getCostTaxRate" resultType="String">
+	  select VAT_RATE as costRate from payeetaxmst 
+	  where
+	   USER_TAX_TYPE = #{num}  and INVOICE_TYPE= #{num} and INVOICE_TEXT = #{num} and COMPANY_CD = #{companycd} and DEL_FLG !=1
+	    
+	</select>
+	<select id="getPayeetaxRate" resultType="String">
+		select vat_rate rate from payeetaxmst where user_tax_type=#{num,jdbcType=VARCHAR}
+				and invoice_type=#{num,jdbcType=VARCHAR}and invoice_text=#{num,jdbcType=VARCHAR} 
+				and COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+	</select>
+	
+	
+	 <!-- 查询外货 -->
+  	<select id="selCostForeign" resultMap="resulForeignt" >
+		select  itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp,change_utin,aidcd from
+		commonmst
+		where mstcd=#{mstcd}
+		and company_cd=#{company_cd}
+  	</select> 
+  	<!-- 查询公司的自动月自动日 -->
+  	<select id="getAutoDate" resultType="com.kaiwait.bean.jczh.entity.Company">
+  	   select REGISTRATION_AUTOMATIC as registrationautomatic,AUTO_MONTH as automonth,AUTO_DAY as autoday,CURRENCY_CODE as currencycode  from companymst where COMPANY_CD =#{companycd} and DEL_FLG = 0
+  	</select>
+  	
+  		 <!-- 查询税金的各公司中的名称 -->
+  	<select id="seltaxName" resultType="com.kaiwait.bean.jczh.entity.JobList" >
+		select  ${itmname} as itmname from
+		commonmst
+		where mstcd=#{mstcd}
+		and itemcd =#{itemcd}
+		and company_cd=#{company_cd}
+		and del_flg=0
+  	</select> 
+  	<!-- 一览更新表头 -->
+  	<update id="updateTitleMsg" parameterType="com.kaiwait.bean.jczh.entity.TitleMsg">
+  	 <!-- <foreach collection="listTitleMsg" index="index" item="item"  separator=";"> 
+  	  update usersettingtrn 
+  	  set
+  	    COLUMN_WIDTH = #{item.columnwidth}
+  	  where USERCD  = #{item.usercd} 
+  	    and COLUMN_ID=#{item.columnid} 
+  	    and COMPANY_CD = #{item.companycd} 
+  	    and `LEVEL` = #{item.level}
+  	   </foreach> --> 
+  	   update usersettingtrn 
+  	  set
+  	    COLUMN_WIDTH = #{columnwidth}
+  	  where USERCD  = #{usercd} 
+  	    and COLUMN_ID=#{columnid} 
+  	    and COMPANY_CD =#{companycd}
+  	    and `LEVEL` = #{level}
+  	</update>
+  	<select id="getTimeZoneByCompany" resultType="String" >
+	select 
+		commonmst.ITMVALUE
+	from companymst
+		left join commonmst on companymst.TIME_ZONE = commonmst.ITEMCD 
+			and commonmst.MSTCD = "0006" and commonmst.COMPANY_CD = companymst.COMPANY_CD
+	where companymst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</select>
+	<select id="getStatusByUserSettingTab" resultType="INTEGER" >
+	select
+		${cluonmName} as itmname
+	from ${tabName}
+	where del_flg=0
+		and COMPANY_CD=#{companyID}
+		<if test="jobNo != '' and jobNo != null">
+			and JOB_CD=#{jobNo}
+		</if>
+		<if test="orderTyp != null and orderTyp!=''">
+			<if test="orderTyp == 'cost'">
+				<if test="costNo != '' and costNo != null">
+					and COST_NO=#{costNo}
+				</if>
+			</if>
+			<if test="orderTyp != 'cost'">
+				<if test="costNo != '' and costNo != null">
+					and INPUT_NO=#{costNo}
+				</if>
+			</if>
+		</if>
+	</select>
+	<!-- 根据 机上日和卖上种目cd查询 税率 -->
+	<select id="getRateByDateAndSaleID" resultMap="BaseResultMapSalemstVo">
+	  select 
+		salemst.SALE_CD as sale_cd,
+		salemst.SALE_NAME as sale_name,
+		salemst.TRAN_LEND as tranlend,
+		saleratemst.RATE1 as rate1,
+		saleratemst.RATE2 as rate2,
+		saleratemst.RATE3 as rate3,
+		vatratemst.VAT_RATE as vat_rate
+	from salemst 
+		left join saleratemst on salemst.SALE_CD = saleratemst.SALE_CD and saleratemst.COMPANY_CD = #{companycd} and saleratemst.START_DATE &lt;=#{dalday} and saleratemst.END_DATE &gt;=#{dalday}
+		left join vatratemst on salemst.SALE_CD = vatratemst.SALE_CD  and vatratemst.COMPANY_CD = #{companycd} and vatratemst.START_DATE &lt;=#{dalday} and vatratemst.END_DATE &gt;=#{dalday}
+	where 
+	  salemst.COMPANY_CD = #{companycd}
+	  and salemst.DEL_FLG != 1
+	  and salemst.SALE_CD = #{salecd}
+	 group by
+    SALE_CD
+	</select>
+	
+	<select id="selJobuser" resultType="String">
+	select ju.usercd 
+	from jobuserstrn  ju 
+	<if test="level_flg==3">
+	where ju.level_flg=3
+	</if>
+	<if test="level_flg!=3">
+	where ju.level_flg=1 or ju.level_flg=2
+	</if>
+	and ju.job_cd =#{job_cd}
+	and ju.company_cd=#{company_cd}
+	and ju.del_flg=0
+	</select>
+	
+	<select id="selUsercldiv" resultType="String">
+	select ucl.cldivcd 
+	from userclmst ucl 
+	where ucl.user_cd =#{user_cd}
+	and ucl.company_cd=#{company_cd}
+	</select>
+	
+	<select id="selJobcldiv" resultType="String">
+		select  cldiv_cd
+		from
+		jobtrn
+		where job_cd = #{job_cd}
+		and company_cd =#{company_cd}
+		and del_flg=0
+	</select>
+	<select id="getCalculateTaxInfo" resultType="com.kaiwait.bean.jczh.entity.Calculate">
+		select
+			sellordertrn.SALE_AMT as saleAmt,
+			jobtrn.PLAN_SALE as planSaleAmt,
+			sellordertrn.SALE_VAT_AMT as saleVatAmt,
+			jobtrn.PLAN_VAT_AMT as planSaleVatAmt,
+			jobtrn.PLAN_COST_AMT as planCostAmt,
+			jobtrn.PLAN_PAY_AMT as planPayAmt,
+			jobtrn.PLANCOST_TAX as planCostVatAmt,
+			sellordertrn.REQ_AMT as reqAmt,
+			jobtrn.PLAN_REQ_AMT as planReqAmt,
+			jobtrn.COST_FINISH_FLG as isCostFinsh,
+			saleratemst.RATE2 as rate,
+			saleratemst.RATE3 as rate1
+		from jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=#{companyID} and sellordertrn.DEL_FLG != 1
+			left join saleratemst on jobtrn.SALE_TYP = saleratemst.SALE_CD and saleratemst.COMPANY_CD=#{companyID}
+		where jobtrn.COMPANY_CD=#{companyID}
+			and ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY) BETWEEN saleratemst.START_DATE AND  saleratemst.END_DATE
+			and jobtrn.JOB_CD=#{jobNo}
+			and jobtrn.DEL_FLG != 1
+	</select>
+	<select id="getPointNumberByCompany" resultType="int">
+		select
+			commonmst.ITMVALUE
+		from companymst
+			left join commonmst on companymst.CURRENCY_CODE = commonmst.ITEMCD and commonmst.MSTCD = "0050" and commonmst.COMPANY_CD = companymst.COMPANY_CD
+		where companymst.COMPANY_CD = #{companyID}
+	</select>
+	<select id="searchStartTimeBySummaryMonth" resultType="String">
+		select ifnull(
+			(select
+				summary.CHECK_DATE
+			from summary
+			where summary.ACCOUNTYM = #{summaryMonth}
+				and summary.COMPANY_CD=#{companyID}
+			),"2018-01-01 01:01:01")
+		
+	</select>
+	<select id="searchEndTimeBySummaryMonth" resultType="String">
+	select ifnull(
+	(select
+			summary.CHECK_DATE
+		from summary
+		where summary.ACCOUNTYM = date_format(#{summaryMonth},"%Y%m")
+			and summary.COMPANY_CD=#{companyID}
+	),"2099-01-01 01:01:01")
+		
+	</select>
+	
+  		 <!-- 查询pdf是否默认选中 -->
+  	<select id="selPdfflg" resultType="String" >
+		select  itmvalue from
+		commonmst
+		where mstcd=#{mstcd}
+		and itemcd =#{itemcd}
+		and company_cd=#{company_cd}
+		and del_flg=0
+  	</select> 
+  	<select id="getOutMonthPayAmtAndCostVat" resultType="com.kaiwait.bean.jczh.entity.Calculate">
+  		select 
+			ifnull(sum(orderhistorytrn.COST_AMT),0) as costAmt,
+			ifnull(sum(orderhistorytrn.PAY_AMT),0) as payAmt,
+			ifnull(sum(orderhistorytrn.COST_VAT),0) as costVatAmt,
+			ifnull(sellordertrn.SALE_AMT,0) as saleAmt,
+			ifnull(sellordertrn.SALE_VAT_AMT,0) as saleVatAmt,
+			ifnull(sellordertrn.REQ_AMT,0) as reqAmt,
+			ifnull(jobratehistorytrn.RATE2,0) as rate,
+			ifnull(jobratehistorytrn.RATE3,0) as rate1
+			
+		from jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=jobtrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+			left join jobratehistorytrn on jobratehistorytrn.COMPANY_CD=jobtrn.COMPANY_CD and jobratehistorytrn.JOB_CD= jobtrn.JOB_CD
+			left join orderhistorytrn on jobtrn.JOB_CD=orderhistorytrn.JOB_NO and jobtrn.COMPANY_CD=orderhistorytrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH = date_format(#{outMonth},"%Y%m")
+		where
+			jobtrn.JOB_CD=#{jobNo}
+			and jobtrn.COMPANY_CD=#{companyID}
+			
+  	</select>
+	<select id="getBeforMonthPayAmtAndCostVat" resultType="com.kaiwait.bean.jczh.entity.Calculate">
+		select
+			ifnull(outMonth.outMonthPayAmt,0) as payAmt,
+			ifnull(outMonth.outMonthCostVatAmt,0) as costVatAmt,
+			ifnull(beforMonth.beforMonthPlanPayAmt,0) as planPayAmt,
+			ifnull(beforMonth.beforMonthPlanCostVatAmt,0) as planCostVatAmt,
+			ifnull(outMonth.rate,0) as rate,
+			ifnull(outMonth.rate1,0) as rate1
+		from (
+			select
+				jobratehistorytrn.JOB_CD as outMonthJobNo,
+				sum(ifnull(orderhistorytrn.PAY_AMT,0)) as outMonthPayAmt,
+				sum(ifnull(orderhistorytrn.COST_VAT,0)) as outMonthCostVatAmt,
+				jobratehistorytrn.RATE2 as rate,
+				jobratehistorytrn.RATE3 as rate1
+			from jobratehistorytrn
+				left join orderhistorytrn on jobratehistorytrn.JOB_CD=orderhistorytrn.JOB_NO and jobratehistorytrn.COMPANY_CD=orderhistorytrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+			where
+				jobratehistorytrn.JOB_CD = #{jobNo}
+				and jobratehistorytrn.COMPANY_CD=#{companyID}
+		) as outMonth
+		left join  (
+			select
+				jobratehistorytrn.JOB_CD as beforMonthJobNo,
+				sum(ifnull(orderhistorytrn.PAY_AMT,0)) as beforMonthPlanPayAmt,
+				sum(ifnull(orderhistorytrn.COST_VAT,0)) as beforMonthPlanCostVatAmt,
+				jobratehistorytrn.RATE2 as rate,
+				jobratehistorytrn.RATE3 as rate1
+			from jobratehistorytrn
+				left join orderhistorytrn on jobratehistorytrn.JOB_CD=orderhistorytrn.JOB_NO and jobratehistorytrn.COMPANY_CD=orderhistorytrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=#{beforDate} and orderhistorytrn.ORDER_STATUS = 0
+			where
+				jobratehistorytrn.JOB_CD = #{jobNo}
+				and jobratehistorytrn.COMPANY_CD=#{companyID}
+				
+		) as beforMonth on outMonth.outMonthJobNo = beforMonth.beforMonthJobNo
+	</select>
+	<select id="getLockFlg" resultType="Integer">
+	    select
+	     LOCK_FLG as lockFlg  from ${dbname}
+	    where  COMPANY_CD = #{companycd} and JOB_CD = #{jobcd} and DEL_FLG = 0
+	  
+	</select>
+	<update id="updateLockFlg" >
+update ${dbname} set  LOCK_FLG  = #{lockFlg} where JOB_CD = #{jobcd} AND COMPANY_CD = #{companycd}  and DEL_FLG = 0
+</update>
+<select id="getCostList" resultType="com.kaiwait.bean.jczh.entity.Cost">
+	select
+		orderhistorytrn.ORDER_NO as costno,
+		ifnull(orderhistorytrn.COST_STATUS,0) as status,
+		orderhistorytrn.COST_AMT as cost_rmb,
+		orderhistorytrn.CHECK_MONTH
+	from 
+		orderhistorytrn 
+	where 
+		orderhistorytrn.CHECK_MONTH=date_format(#{checkMonth},"%Y%m")
+		and orderhistorytrn.JOB_NO=#{jobcd} 
+		and orderhistorytrn.COMPANY_CD=#{companyID} 
+	<if test="monthFlg!='beforMonth'">
+		and orderhistorytrn.ORDER_TYPE=0
+	union all
+	select
+		IFNULL(lendtrn.OLD_INPUT_NO,lendtrn.INPUT_NO) as costno,
+		ifnull(orderhistorytrn.COST_STATUS,0) as status,
+		orderhistorytrn.COST_AMT as cost_rmb,
+		orderhistorytrn.CHECK_MONTH
+	from 
+		orderhistorytrn 
+		left join lendtrn on orderhistorytrn.ORDER_NO =lendtrn.INPUT_NO and lendtrn.COMPANY_CD=#{companyID} 
+	where 
+		orderhistorytrn.CHECK_MONTH=date_format(#{checkMonth},"%Y%m")
+		and orderhistorytrn.JOB_NO=#{jobcd} 
+		and orderhistorytrn.COMPANY_CD=#{companyID} 
+		and orderhistorytrn.ORDER_TYPE=1
+	</if>
+</select>
+<select id="validateClientFlg" resultType="Integer">
+   select count(*) from clmst where CLDIVCD = #{cldivcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+</select>
+</mapper>

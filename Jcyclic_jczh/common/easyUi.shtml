@@ -1,0 +1,29 @@
+<!--easyui模块-->
+<script type="text/javascript" src="../public/lib/easyUi1.5.3/jquery.easyui.min.js?v=2018092801" ></script>
+<script type="text/javascript" src="../public/lib/easyUi1.5.3/locale/easyui-lang-zh_CN.js" ></script>
+<link rel="stylesheet" type="text/css" href="../public/lib/easyUi1.5.3/themes/default/easyui.css?v=2018092801"/>
+<link rel="stylesheet" type="text/css" href="../public/lib/easyUi1.5.3/themes/icon.css"/>
+<!--默认所有datebox不可手动编辑-->
+<script>
+	$.fn.datebox.defaults.editable = false;
+	$.fn.datebox.defaults.width='103px';
+	var buttons = $.extend([], $.fn.datebox.defaults.buttons);  
+    buttons.splice(1, 0, {  
+	    text: '清空',  
+	    handler : function(target) {  
+	        $(target).datebox("setValue", ""); // 设置空值  
+	        $(target).datebox("hidePanel"); // 点击清空按钮之后关闭日期选择面板  
+	    }  
+	});  
+	$.fn.datebox.defaults.buttons = buttons; 
+	//默认format 实现格式化yyyy-mm-dd
+	$.fn.datebox.defaults.formatter = function(date){
+		if(date == null){
+			return date;
+		}
+		var y = date.getFullYear();
+		var m = date.getMonth()+1;
+		var d = date.getDate();
+		return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+	}
+</script>

@@ -1,0 +1,38 @@
+<style>
+	.icon-i:before{
+		content: "";
+	}
+</style>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span class="i18n fw icon-i tip_hover" name='order_register_CostInformation'></span>	
+		<!--根据需求是否显示icon  隐藏的话加给class加hidden-->
+<!--		<i class="iconfont icon-i ml-10 hidden" style="color: #1abc9c;"></i>-->
+	</div>
+	<div class="panel-body" style="padding: 15px;">
+		<div class="row bottom-15">
+			<div class="col-xs-12 form-group">
+				<label class="i18n" name='jobregistration_cost_amount'></label>
+				<div style="text-indent:10px;padding-top: 10px;" > 
+					<span id="sumamt"></span>
+					<span class="person_code"></span>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<label class="i18n" name='order_register_cost_Renewing'></label>
+				<div class="row">
+					<div class="clearfix col-xs-12" style="padding: 0;">
+						<div class="col-xs-1">
+							<i class="iconfont icon-ren"  id="costupdusercolor" style="cursor: default;"></i>
+						</div>
+						
+						<div class="clearfix col-xs-11 card">
+							<div id="costupdname"></div>
+							<small id="updatetime"></small>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>

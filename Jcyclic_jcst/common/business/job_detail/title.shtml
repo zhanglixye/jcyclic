@@ -1,0 +1,4 @@
+<ul class="breadcrumb" id="breadcrumb">
+	<li class="fs18 i18n" name='order_register_job_detail'></li>
+	<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+</ul>

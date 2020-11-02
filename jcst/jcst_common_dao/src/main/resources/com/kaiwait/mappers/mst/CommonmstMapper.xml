@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.CommonmstMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.Commonmst">
+		<id column="mstcd" property="mstcd" jdbcType="VARCHAR" />
+		<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+		<result column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemname_hk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="itmvalue" property="itmvalue" jdbcType="VARCHAR" />
+		<result column="orderno" property="orderno" jdbcType="VARCHAR" />
+		<result column="aidcd" property="aidcd" jdbcType="VARCHAR" />
+		<result column="change_utin" property="change_utin" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="TIMESTAMP" />
+		<result column="upddate" property="upddate" jdbcType="TIMESTAMP" />
+		<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+		<result column="updusercd" property="updusercd" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="INTEGER" />
+		<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="VARCHAR" />
+	</resultMap>
+   
+    	<resultMap id="BaseResultMapVo" type="com.kaiwait.bean.mst.vo.CommonmstVo">
+		<id column="MSTCD" property="mstcd" jdbcType="VARCHAR" />
+		<result column="MSTNAME" property="mstname" jdbcType="VARCHAR" />
+		<result column="ITEMCD" property="itemcd" jdbcType="VARCHAR" />
+		<result column="ITMNAME" property="itmname" jdbcType="VARCHAR" />
+		<result column="ITEMNAME_HK" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="ITEMNAME_EN" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="ITEMNAME_JP" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="ITMVALUE" property="itmvalue" jdbcType="VARCHAR" />
+		<result column="ORDERNO" property="orderno" jdbcType="VARCHAR" />
+		<result column="AIDCD" property="aidcd" jdbcType="VARCHAR" />
+		<result column="CHANGE_UTIN" property="change_utin" jdbcType="VARCHAR" />
+	</resultMap>
+ 	<sql id="Base_Column_List">
+		mstcd, mstname, itemcd, itmname,itemname_hk,itemname_en,itemname_jp,
+		itmvalue,orderno,aidcd,change_utin,adddate,upddate,addusercd,updusercd,company_cd,del_flg,lock_flg
+	</sql>
+
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from commonmst
+		where company_cd= #{company_cd}
+		and del_flg=0
+	</select>
+
+	<select id="selectBaseCommon" resultMap="BaseResultMapVo">
+	select 
+	    MSTCD as mstcd,
+		MSTNAME as mstname,
+		ITEMCD as itemcd,
+		ITMNAME as itmname,
+		ITEMNAME_HK as itemname_hk,
+		ITEMNAME_EN as itemname_en,
+		ITEMNAME_JP as itemname_jp,
+		ITMVALUE as itmvalue,
+		ORDERNO as orderno,
+		AIDCD as aidcd,
+		CHANGE_UTIN as change_utin
+		
+	 from syscommonmst
+		
+	</select>
+	<select id="selectComByCd" resultMap="BaseResultMap">
+		select * from commonmst where mstcd = #{mstcd} and itemcd = #{itemcd} and company_cd= #{company_cd,jdbcType=INTEGER}  order by ORDERNO
+	</select>
+
+	<insert id="insertNew" parameterType="com.kaiwait.bean.mst.entity.Commonmst" >
+		insert into Commonmst(
+		<include refid="Base_Column_List" />
+		) values(
+				#{mstcd},
+				#{mstname},
+				#{itemcd},
+				#{itmname},
+				#{itemname_hk},
+				#{itemname_en},
+				#{itemname_jp},
+				#{itmvalue},
+				#{orderno},
+				#{aidcd},
+				#{change_utin},
+				#{adddate,jdbcType=TIMESTAMP},
+				#{upddate,jdbcType=TIMESTAMP},
+				#{addusercd},
+				#{updusercd},
+				#{company_cd,jdbcType=INTEGER},
+				#{del_flg},
+				0
+		)
+	</insert>
+	
+	<update id="updateOldCom" parameterType="com.kaiwait.bean.mst.entity.Commonmst">
+		update Commonmst
+		<set>
+				mstcd=	#{mstcd},
+				mstname=	#{mstname},
+				itemcd=	#{itemcd},
+				itmname=	#{itmname},
+				itemname_hk=	#{itemname_hk},
+				itemname_en=	#{itemname_en},
+				itemname_jp=	#{itemname_jp},
+				itmvalue=	#{itmvalue},
+				orderno=	#{orderno},
+				aidcd=	#{aidcd},
+				change_utin=	#{change_utin},
+				upddate=	#{upddate,jdbcType=TIMESTAMP},
+				updusercd=	#{updusercd},
+				company_cd=	#{company_cd,jdbcType=INTEGER},
+				del_flg=	#{del_flg},
+				lock_flg =lock_flg+1
+		</set>
+		where mstcd = #{mstcd}
+		and itemcd = #{itemcd}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+		and del_flg=0
+	</update>
+	<update id="deleteCom" parameterType="com.kaiwait.bean.mst.entity.Commonmst">
+		update Commonmst
+		<set>
+			del_flg = '0',
+			upddate = #{upddate,jdbcType=TIMESTAMP},
+			updusercd = #{updusercd},
+			lock_flg =lock_flg+1
+		</set>
+		where mstcd = #{mstcd}
+		and itemcd = #{itemcd}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+		and del_flg=0
+	</update>
+	
+	
+	<select id="selectMstNameByCD" resultMap="BaseResultMapVo">
+		select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp 
+		from commonmst 
+		where mstcd = #{mstcd} and company_cd = #{company_cd,jdbcType=INTEGER} and del_flg=0
+		order by commonmst.ORDERNO asc
+		
+	</select>
+	
+	<select id="selectMstFromSysCom" resultMap="BaseResultMap">
+		select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp from syscommonmst where mstcd = #{mstcd}   order by ORDERNO
+		
+	</select>
+	
+	<select id="selectMstNameByCDNO" resultMap="BaseResultMap">
+		select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp 
+			from commonmst 
+			where mstcd = #{mstcd} 
+			and company_cd = #{company_cd,jdbcType=INTEGER} 
+			and del_flg=0
+			and itemcd not in ('901','902')
+		
+	</select>
+	<insert id="insertNewByCd" parameterType="com.kaiwait.bean.mst.vo.CommonmstVo" >
+		insert into commonmst(
+		<include refid="Base_Column_List" />
+		) values
+		<foreach collection="monmstVo" index="index" item="commonVo"  separator="," >
+		(
+				#{commonVo.mstcd},
+				#{commonVo.mstname},
+				#{commonVo.itemcd},
+				#{commonVo.itmname},
+				#{commonVo.itemname_hk},
+				#{commonVo.itemname_en},
+				#{commonVo.itemname_jp},
+				#{commonVo.itmvalue},
+				#{commonVo.orderno},
+				#{commonVo.aidcd},
+				#{commonVo.change_utin},
+				#{commonVo.adddate,jdbcType=TIMESTAMP},
+				#{commonVo.upddate,jdbcType=TIMESTAMP},
+				#{commonVo.addusercd},
+				#{commonVo.updusercd},
+				#{commonVo.company_cd},
+				#{commonVo.del_flg},
+				0
+		)
+		 </foreach>
+	</insert>
+	<update id="editSystemLock">
+		update commonmst set
+			commonmst.AIDCD = #{sysLockFlg,jdbcType=INTEGER},
+			commonmst.UPDUSERCD=#{userID,jdbcType=VARCHAR},
+			commonmst.UPDDATE = #{addDate,jdbcType=VARCHAR}
+		where commonmst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			and commonmst.MSTCD = "0001"
+	</update>
+	<select id="getLockFlg" resultType="Integer">
+	    select
+	     LOCK_FLG as lockFlg  from commonmst
+	    where mstcd = #{mstcd}  and  itemcd = #{itemcd} and company_cd = #{company_cd,jdbcType=INTEGER} 
+	    and del_flg= 0
+	</select>
+	
+	<update id="updateComdelflg">
+		update Commonmst
+		<set>
+			del_flg = #{del_flg},
+			upddate = #{upddate},
+			updusercd = #{updusercd},
+			lock_flg =lock_flg+1
+		</set>
+		where mstcd = #{mstcd}
+		and itemcd = #{itemcd}
+		and company_cd = #{company_cd}
+	</update>
+		
+</mapper>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='ltd_registration_title' id="company-title" ></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801" />
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/lib/easyUi1.5.3/themes/default/easyui-2.css?v=2018092801"/>
+		<script type="text/javascript" src="../public/javascript/master/ltd_registration.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->   
+	
+	</head>
+	<style>
+		.whether_the_skip .radio label {
+			padding: 0
+		}
+		.nav-tabs{
+			border: 0;
+		}
+		.form-group.whether_the_skip .col-md-3{
+			padding-left: 10px;
+    		padding-right: 10px;
+		}
+		.form-group.whether_the_skip .row{
+			margin-left: -10px;
+    		margin-right: -10px;
+		}
+		.breadcrumb>li+li:before {
+		    content: "";
+		    padding: 0 5px;
+		    color: #cccccc;
+		}
+		.mask{
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			z-index: 1;
+		}
+		.dn{
+			display: none;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n hidden" id="company_log"  name='ltd_registration_title'></li>
+					<li class="fs18 i18n hidden" id="company_change" name='ltd_registration_title_ch'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+							<div class="panel panel-default" style="position: relative;">
+								<div class="mask maskOne dn"></div>
+								<div class="panel-heading i18n" name='ltdRegistration_basic_information'></div>
+								<div class="panel-body" style="overflow: hidden;">
+
+									<div class="form-group" required=""><label class="control-label i18n" name='ltdRegistration_company_name_l'></label>
+										<input class="form-control" name="company_cd" type="hidden" />
+										<input maxlength="100" class="form-control company_name required" name="company_name" placeholder="" type="text" tabindex="1">
+									</div>
+									<div class="form-group" required=""><label class="control-label i18n" name='ltdRegistration_company_name'></label><input maxlength="100" class="form-control company_full_name required" tabindex="2" name="company_full_name" placeholder="" type="text"></div>
+									<div class="form-group" required=""><label class="control-label i18n" name='ltdRegistration_company_name_en'></label><input maxlength="100" class="form-control company_name_en required" tabindex="3" name="company_name_en" placeholder="" type="text"></div>
+									<div class="form-group" required=""><label class="control-label i18n" name='ltdList_main_language'></label>
+										<select id="cl_list" name="boostrap-select " tabindex="4" class="form-control common_language required">
+											<option  class="i18n" name="ltdRegistration_main_language"></option>
+
+										</select>
+									</div>
+									<div class="form-group" required=""><label class="control-label i18n" name='ltdRegistration_time_zone'></label>
+										<select  id="tz_list" name="boostrap-select " tabindex="5" class="form-control time_zone required">
+											<option  class="i18n" name="ltdRegistration_time_zone"></option>
+
+										</select>
+									</div>
+									<div class="form-group" required="">
+										<label class="control-label i18n" name="ltdRegistration_currency_code"></label>
+										<div class="row">
+											<div class="col-md-6">
+												<select id="cc_list" name="boostrap-select " tabindex="6" class="form-control currency_code required">
+													<option  value='1' class="i18n" name="ltdRegistration_currency_code"></option>
+
+												</select>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="form-group company_type" required="">
+										<label class="control-label i18n" name="ltdRegistration_group"></label>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="radio">
+													<label class="work-level-radio custom-radio nowrap">
+														<input type="radio" name="company_type" id="inlineRadio24" value="2" checked=""><span class="i18n" tabindex="7" name="ltdRegistration_for_management"></span>									
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio">
+													<label class="work-level-radio custom-radio nowrap">
+													  <input type="radio" name="company_type" id="inlineRadio23" value="1" ><span class="i18n" tabindex="8" name="ltdRegistration_but_DY_hakuhodo_group"></span>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio">
+													<label class="work-level-radio custom-radio nowrap">
+													  <input type="radio" name="company_type" id="inlineRadio22" value="0" ><span class="i18n" tabindex="9"  name="ltdRegistration_hakuhodo_DY_group" ></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group number_rules" required="">
+										<label class="control-label i18n" style="width: 100%" name="ltdRegistration_numbering_rules"></label>
+
+										<div class="row" style="line-height: 40px;">
+											<div class="col-md-5 startmonth">
+												<div class="col-md-4 custom-radio">
+													<label>
+													  <input type="radio" name="number_rules" id="ltdRegistration_numbering_rules" value="0" checked >
+													  <span class="i18n" tabindex="10" style="font-weight: normal; cursor: pointer" name="ltdRegistration_through_the_years"></span>
+													</label>
+												</div>
+												<div class="col-md-8">
+													<span class="i18n" name="ltdRegistration_start_month"></span>
+													<select name="boostrap-select" id="start_month" tabindex="11" class="form-control start_month" style="width: 70%; margin-left: 5px;">
+														<option >1</option>
+														<option >2</option>
+														<option >3</option>
+														<option >4</option>
+														<option >5</option>
+														<option >6</option>
+														<option >7</option>
+														<option >8</option>
+														<option >9</option>
+														<option >10</option>
+														<option >11</option>
+														<option >12</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<span class="work-level-radio custom-radio nowrap ">
+                                				<label>
+									  				<input type="radio" name="number_rules" id="ltdRegistration_numbering_rules" value="1">
+									  				<span class="i18n" tabindex="12" name="ltdRegistration_through_the_moon" style="font-weight: normal; cursor: pointer;position: relative;top: 6px;" ></span> 
+                                				</label>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group whether_the_skip" style="margin-bottom: 0;">
+										<label class="control-label i18n" name="ltdRegistration_whether_the_skip"></label>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="radio md_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+			                        
+														<span class="i18n" name="ltdRegistration_in_charge_of_the_allocation"></span>
+														<label>
+															<input type="radio" name="md_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="13" name="ltdRegistration_no"></span>
+														</label>
+														<label>
+															<input type="radio" name="md_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="14" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio cost_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n" name="ltdRegistration_complete_cost"></span>
+														<label>
+															<input type="radio" name="cost_skip" id="inlineRadio23" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="15" name="ltdRegistration_no" style="margin-left: 14px;"></span>	
+														</label>
+														<label>
+															<input type="radio" name="cost_skip" id="inlineRadio23" style="float: none; margin-left: 5px;" value="1">
+															<span class="i18n" tabindex="16" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio pay_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+													<span class="i18n" name="ltdRegistration_payment_application"></span>
+														<label>
+															<input type="radio" name="pay_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="17" name="ltdRegistration_no"></span>	
+														</label>
+														<label>
+															<input type="radio" name="pay_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="18" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio confirm_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n"  name="ltdRegistration_approval_sales"></span>
+														<label>
+															<input type="radio" name="confirm_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="19" name="ltdRegistration_no"></span>	
+														</label>
+														<label>	
+															<input type="radio" name="confirm_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="20" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="row hidden">
+											<div class="col-md-3 ">
+												<div class="radio apply_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n" name="ltdRegistration_application_request"></span>
+														<label>
+															<input type="radio" name="apply_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="21" name="ltdRegistration_no"></span>	
+														</label>
+														<label>			
+															<input type="radio" name="apply_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="22" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio req_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n" name="ltdRegistration_invoicing"></span>
+														<label>
+															<input type="radio" name="req_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="23" name="ltdRegistration_no"></span>	
+														</label>
+														<label>	
+															<input type="radio" name="req_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="24" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio invoice_apply_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n" name="ltdRegistration_departure_card_application"></span>
+														<label>
+															<input type="radio" name="invoice_apply_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+															<span class="i18n" tabindex="25" name="ltdRegistration_no"></span>	
+														</label>
+														<label>		
+															<input type="radio" name="invoice_apply_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="26" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="radio invoice_skip" style="margin-bottom:0;">
+													<label class="work-level-radio custom-radio nowrap" style="padding: 0;">
+														<span class="i18n" name="ltdRegistration_invoice_issue"></span>
+														<label>
+														<input type="radio" name="invoice_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="0" checked="">
+														<span class="i18n" tabindex="27" name="ltdRegistration_no"></span>	
+														</label>
+														<label>		
+															<input type="radio" name="invoice_skip" id="inlineRadio22" style="float: none; margin-left: 5px;" value="1" >
+															<span class="i18n" tabindex="28" name="ltdRegistration_yes" ></span>	
+														</label>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label i18n" name="ltdRegistration_must_title"></label>
+										<div class="row">
+											<div class="col-md-3 custom-radio-must" style="display: flex">
+												<label class="control-label i18n" name="ltdRegistration_must_text"></label>
+<!--												<input data-on="success"  class="boostrap-switch" id="switch-state-must" type="checkbox"  data-size="mini">-->
+												<label>
+													<input type="radio" name="md_skip_must" id="switch-state-must" style="float: none; margin-left: 5px;" value="0"  checked="">
+													<span class="i18n" tabindex="13" name="ltdRegistration_new_no"></span>
+												</label>
+												<label>
+													<input type="radio" name="md_skip_must" id="switch-state-must" style="float: none; margin-left: 5px;" value="1" >
+													<span class="i18n" tabindex="14" name="ltdRegistration_new_yes" ></span>
+												</label>
+											</div>
+											<div class="col-md-4 custom-radio-must" style="padding-left: 12px">
+												<label class="control-label i18n" name="ltdRegistration_must_text2"></label>
+<!--												<input data-on="success"  class="boostrap-switch" id="switch-state-must2" type="checkbox"  data-size="mini">-->
+												<label>
+													<input type="radio" name="md_skip_must2" id="switch-state-must2" style="float: none; margin-left: 5px;" value="0" checked="">
+													<span class="i18n" tabindex="13" name="ltdRegistration_new_no" style="margin-left: 14px"></span>
+												</label>
+												<label>
+													<input type="radio" name="md_skip_must2" id="switch-state-must2" style="float: none; margin-left: 5px;" value="1" >
+													<span class="i18n" tabindex="14" name="ltdRegistration_new_yes" ></span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="panel panel-default">
+								<div class="mask maskFour dn"></div>
+								<div class="panel-heading i18n" name='ltdRegistration_request_for_information'></div>
+								<div class="panel-body">
+									<div class="form-group" style="margin-bottom: 3px;">
+										<label class="control-label i18n" name='ltdRegistration_automatic_setting_of_the_scheduled_date_for'></label>
+										<input data-on="success"  class="boostrap-switch switch-state registration_automatic" name="registration_automatic" id="switch-state" type="checkbox"  data-size="mini">
+										<span class="i18n-input toolTipO"  selectname='ltdRegistration_automatic_setting_of_the_scheduled_date_for' selectattr='data-original-title'>
+		                              		<i class="iconfont icon-i"></i>	                             		
+		                              	</span>
+									</div>
+									<div class="form-group">
+										<span class="control-label i18n" name='ltdRegistration_from_date'></span>
+										<input max="12" min="0" value="1" tabindex="29" required class="form-control auto_month required" name="auto_month" type="number" oninput="this.value=/^(?:1[0-2]|[0-9])$/.test(this.value)?this.value:''">
+										<span class="i18n"  name='ltdRegistration_after_a_month'></span>
+										<input  max="31" min="1" value="31" tabindex="30" required class="form-control auto_day required" name="auto_day" type="number" oninput="this.value=/^(?:3[0-1]|2[0-9]|1[0-9]|[1-9])$/.test(this.value)?this.value:''">
+										<span class="i18n"  name='ltdRegistration_day'></span>
+										<span class="i18n-input toolTipT" selectname='ltdRegistration_from_date' selectattr='data-original-title'>
+	                              			<i class="iconfont icon-i"></i>
+	                              		</span>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='ltdRegistration_output_representation'></div>
+								<span class="tip_show" value = "1">
+											 <i class="iconfont icon-sanjiao no_animation rotate-180" style="font-size: 23px; color: rgb(14, 45, 95);float:right;margin-top: -32px;margin-right: 20px;"></i>
+										</span>
+								<div class="panel-body ltd_orders_part_lan supp_hide">
+									<div class="panel panel-default" style="position: relative;">
+										<div class="mask maskTwo dn"></div>
+										<div class="panel-heading i18n" name='ltdRegistration_for_orders'></div>				
+										<div class="panel-body">
+											<div class="p-3">
+												<ul class="nav nav-tabs" >
+													<li role="nav-tabs-en">
+														<a href="#" class="i18n" tabindex="31" name="ltdRegistration_english"></a>
+													</li>
+													<li role="nav-tabs-zc">
+														<a href="#" class="i18n" tabindex="32" name="suppliersRegistration_zh_c"></a>
+													</li>	
+													<li role="nav-tabs-zt">
+														<a href="#" class="i18n" tabindex="33" name="suppliersRegistration_zh_t"></a>
+													</li>
+													<li role="nav-tabs-jp" >
+														<a href="#" class="i18n" tabindex="34" name="ltdRegistration_main_language"></a>
+													</li>								
+												</ul>
+												<div class="tab-content">
+
+													<div id="tab1" class="tab-pane nav-tabs-en">
+														<div class="panel panel-default">
+															<div class="panel-body">
+																<div class="form-group"><label class="control-label i18n" name='ltdList_company_name'></label><input maxlength="100" class="form-control order_company_name_en" tabindex="35" name="order_company_name_en" placeholder="" type="text"></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address1'></label><input maxlength="200" class="form-control order_location_en" tabindex="36" name="order_location_en" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address2'></label><input maxlength="200" class="form-control order_location1_en" tabindex="37" name="order_location1_en" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address3'></label><input maxlength="200" class="form-control order_location2_en" tabindex="38" name="order_location2_en" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address4'></label><input maxlength="200" class="form-control contra_tel_en" tabindex="39" name="telnumberen" placeholder="" type="text"></div>
+															</div>
+														</div>
+													</div>
+													<div id="tab1" class="tab-pane nav-tabs-zc">
+														<div class="panel panel-default">
+															<div class="panel-body">
+																<div class="form-group"><label class="control-label i18n" name='ltdList_company_name'></label><input maxlength="100" class="form-control order_company_name" tabindex="35" name="order_company_name" placeholder="" type="text"></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address1'></label><input maxlength="200" class="form-control order_location" tabindex="36" name="order_location" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address2'></label><input maxlength="200" class="form-control order_location1" tabindex="37" name="order_location1" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address3'></label><input maxlength="200" class="form-control order_location2" tabindex="38" name="order_location2" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address4'></label><input maxlength="200" class="form-control contra_tel" tabindex="39" name="telnumber" placeholder="" type="text"></div>
+															</div>
+														</div>
+													</div>
+													<div id="tab1" class="tab-pane nav-tabs-zt">
+														<div class="panel panel-default">
+															<div class="panel-body">
+
+																<div class="form-group"><label class="control-label i18n" name='ltdList_company_name'></label><input maxlength="100" class="form-control order_company_name_hk" tabindex="35" name="order_company_name_hk" placeholder="" type="text"></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address1'></label><input maxlength="200" class="form-control order_location_hk" tabindex="36" name="order_location_hk" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address2'></label><input maxlength="200" class="form-control order_location1_hk" tabindex="37" name="order_location1_hk" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address3'></label><input maxlength="200" class="form-control order_location2_hk" tabindex="38" name="order_location2_hk" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address4'></label><input maxlength="200" class="form-control contra_tel_hk" tabindex="39" name="telnumberhk" placeholder="" type="text"></div>
+
+															</div>
+														</div>
+													</div>
+
+
+													<div id="tab1" class="tab-pane nav-tabs-jp">
+
+														<div class="panel panel-default">
+															<div class="panel-body">
+																<div class="form-group"><label class="control-label i18n" name='ltdList_company_name'></label><input maxlength="100" class="form-control order_company_name" tabindex="35" name="order_company_name_jp" placeholder="" type="text"></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address1'></label><input maxlength="200" class="form-control order_location" tabindex="36" name="order_location_jp" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address2'></label><input maxlength="200" class="form-control order_location1" tabindex="37" name="order_location1_jp" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address3'></label><input maxlength="200" class="form-control order_location2" tabindex="38" name="order_location2_jp" type="text" placeholder=""></div>
+																<div class="form-group"><label class="control-label i18n" name='ltdRegistration_address4'></label><input maxlength="200" class="form-control tel contra_tel_jp" tabindex="39" name="telnumberjp" id="tel" placeholder="" type="text"></div>
+															</div>
+														</div>
+													</div>
+
+													
+
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="panel panel-default" style="position: relative;">
+								<div class="mask maskThree dn"></div>
+								<div class="panel-heading i18n" name='ltdRegistration_invalid'></div>
+								<div class="panel-body">
+									<div class="form-group"><label class="control-label i18n" name='ltdRegistration_invalid_sign'></label>
+										<div class="checkbox">
+											<label class="checkbox-inline">
+												<input type="checkbox" tabindex="40" id="inlineCheckbox1" class="del_flg" name="del_flg" value="">
+												<span class="iconfont icon-duihaok"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="lastChild">
+								<button class="btn btn-success i18n submitCompany" name='ltdRegistration_login' tabindex="41" type="submit" ></button>
+								<button class="btn btn-default i18n " name='ltdRegistration_back' tabindex="42" onclick="window.location.href='../master/ltd_list.html'" type="submit"></button>
+							</div>						
+					</div>
+				</div>
+			</aside>
+		</div>
+	</body>
+	<script>
+		$(".supp_hide").hide();	
+//		console.log($(".tip_show").attr("value"))
+		$(".tip_show").click(function(){
+			if($(".tip_show").attr("value") == 1){
+				$(".no_animation").css({"transition":"all 0.5s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+				$(".supp_hide").show();
+				$(".tip_show").attr("value",0);
+			}else{
+				$(".no_animation").css({"transition":"all 0.5s ease-in-out","transform":"rotate(0deg)","display":"inline-block"});
+				$(".supp_hide").hide();
+				$(".tip_show").attr("value",1);
+			}
+		})
+		//获取falg		
+		/*var url = location.search;
+			var theRequest = new Object();
+			if ( url.indexOf( "?" ) != -1 ) {
+				var str = url.substr( 1 );
+				var strs = str.split( "&" );
+				for ( var i = 0; i < strs.length; i++ ) {
+			    theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
+			  }
+//				console.log( theRequest.flg );
+				if( theRequest.flg ==1){
+					 $('.fs18').attr('name','ltd_registration_title_ch'); 
+					 $('.submitCompany').attr('name','salescategoryList_change'); 
+				}			
+			}*/
+			var theRequestFlg = urlPars.parm("company_cd");
+			if( theRequestFlg !=undefined){
+				     $("#company-title").attr("name","ltd_registration_title_ch")
+					 $('#company_change').removeClass("hidden");
+					 $('.submitCompany').attr('name','salescategoryList_change'); 
+			}else{
+				     $("#company-title").attr("name","ltd_registration_title")
+					 $('#company_log').removeClass("hidden");
+			}
+			readLanguageFile();
+	</script>
+</html>

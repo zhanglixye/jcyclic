@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.CommonmstMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.jczh.entity.Commonmst">
+		<id column="mstcd" property="mstcd" jdbcType="VARCHAR" />
+		<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+		<result column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemname_hk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="itmvalue" property="itmvalue" jdbcType="VARCHAR" />
+		<result column="orderno" property="orderno" jdbcType="VARCHAR" />
+		<result column="aidcd" property="aidcd" jdbcType="VARCHAR" />
+		<result column="change_utin" property="change_utin" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="TIMESTAMP" />
+		<result column="upddate" property="upddate" jdbcType="TIMESTAMP" />
+		<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+		<result column="updusercd" property="updusercd" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="INTEGER" />
+		<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		mstcd, mstname, itemcd, itmname,itemname_hk,itemname_en,itemname_jp,
+		itmvalue,orderno,aidcd,change_utin,adddate,upddate,addusercd,updusercd,company_cd,del_flg
+	</sql>
+
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from commonmst
+		where company_cd= #{company_cd}
+	</select>
+	
+	<select id="selectComByCd" resultMap="BaseResultMap">
+		select * from commonmst where mstcd = #{mstcd} and itemcd = #{itemcd} and company_cd= #{company_cd,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insertNew" parameterType="com.kaiwait.bean.jczh.entity.Commonmst" >
+		insert into Commonmst(
+		<include refid="Base_Column_List" />
+		) values(
+				#{mstcd},
+				#{mstname},
+				#{itemcd},
+				#{itmname},
+				#{itemname_hk},
+				#{itemname_en},
+				#{itemname_jp},
+				#{itmvalue},
+				#{orderno},
+				#{aidcd},
+				#{change_utin},
+				#{adddate,jdbcType=TIMESTAMP},
+				#{upddate,jdbcType=TIMESTAMP},
+				#{addusercd},
+				#{updusercd},
+				#{company_cd,jdbcType=INTEGER},
+				#{del_flg}
+		)
+	</insert>
+	
+	<update id="updateOldCom" parameterType="com.kaiwait.bean.jczh.entity.Commonmst">
+		update Commonmst
+		<set>
+				mstcd=	#{mstcd},
+				mstname=	#{mstname},
+				itemcd=	#{itemcd},
+				itmname=	#{itmname},
+				itemname_hk=	#{itemname_hk},
+				itemname_en=	#{itemname_en},
+				itemname_jp=	#{itemname_jp},
+				itmvalue=	#{itmvalue},
+				orderno=	#{orderno},
+				aidcd=	#{aidcd},
+				change_utin=	#{change_utin},
+				upddate=	#{upddate,jdbcType=TIMESTAMP},
+				updusercd=	#{updusercd},
+				company_cd=	#{company_cd,jdbcType=INTEGER},
+				del_flg=	#{del_flg}
+		</set>
+		where mstcd = #{mstcd}
+		and itemcd = #{itemcd}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<update id="deleteCom" parameterType="com.kaiwait.bean.jczh.entity.Commonmst">
+		update Commonmst
+		<set>
+			del_flg = '0',
+			upddate = #{upddate,jdbcType=TIMESTAMP},
+			updusercd = #{updusercd}
+		</set>
+		where mstcd = #{mstcd}
+		and itemcd = #{itemcd}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	
+	
+	<select id="selectMstNameByCD" resultMap="BaseResultMap">
+		select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp from commonmst where mstcd = #{mstcd} and company_cd = #{company_cd,jdbcType=INTEGER}  order by ORDERNO
+	</select>
+		<insert id="insertNewByCd" parameterType="com.kaiwait.bean.jczh.vo.CommonmstVo" >
+		insert into Commonmst(
+		<include refid="Base_Column_List" />
+		) values
+		<foreach collection="monmstVo" index="index" item="commonVo"  separator="," >
+		(
+				#{commonVo.mstcd},
+				#{commonVo.mstname},
+				#{commonVo.itemcd},
+				#{commonVo.itmname},
+				#{commonVo.itemname_hk},
+				#{commonVo.itemname_en},
+				#{commonVo.itemname_jp},
+				#{commonVo.itmvalue},
+				#{commonVo.orderno},
+				#{commonVo.aidcd},
+				#{commonVo.change_utin},
+				#{commonVo.adddate,jdbcType=TIMESTAMP},
+				#{commonVo.upddate,jdbcType=TIMESTAMP},
+				#{commonVo.addusercd},
+				#{commonVo.updusercd},
+				#{company_cd,jdbcType=INTEGER},
+				#{commonVo.del_flg}
+		)
+		 </foreach>
+	</insert>
+	<select id="getforeignVatFormatFlg" resultType="String">
+		select aidcd from commonmst where mstcd = #{mstcd,jdbcType=VARCHAR}
+		and  itemcd = #{itemcd,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+	</select>
+	<select id="getforeignLen" resultType="com.kaiwait.bean.jczh.entity.Commonmst">
+		select mstcd,
+			mstname,
+			itemcd,
+			itmname,
+			itemname_hk,
+			itemname_en,
+			itemname_jp,
+			itmvalue,
+			orderno,
+			aidcd,
+			change_utin,
+			adddate,
+			upddate,
+			addusercd,
+			updusercd,
+			company_cd,
+			del_flg
+ 		from commonmst
+ 		where mstcd = '0050'
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+	</select>
+	<select id="getOrderInvoiceNoFlg" resultType="int">
+		select ifnull(INVOICE_IN_FLG,0) from companymst where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			
+	</select>
+	<select id="getJobInvoiceNoFlg" resultType="int">
+		select ifnull(INVOICE_FLG,0) from companymst where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			
+	</select>
+</mapper>

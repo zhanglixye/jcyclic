@@ -1,0 +1,35 @@
+	<div class="panel-body flex_col_center_1" style="padding: 15px;">
+		<label class='control-label i18n block' name='jobregistration_remarks' style="margin: 0 auto 5px;"></label>
+		<div class="form-group sale_pay_remark" style="border: 1px solid #ccc;margin: 0 auto;">
+			<div id="sale_remark1" class="job_text remark" style="padding: 5px;">
+			<pre></pre>
+			</div>
+			<hr style="width: 98%;margin: 0 auto;" />
+			<div class="text-center rotate-90 hidden">
+				<i class="iconfont icon-xiala"></i>
+			</div>
+		</div>		
+		<div class="row" style="margin: 10px auto 0;">
+			<div class="col-xs-5" style="padding: 0;">
+				<label class="i18n" name='order_register_Renewing'></label>
+			</div>
+			<div class="col-xs-12" style="padding: 0;">
+				<div class="row">
+					<div class="clearfix col-xs-12">
+						<div class="col-xs-1" style="padding:0;">
+							<i class="iconfont icon-ren colorone" id="payupdcolor"  style="cursor: default;"></i>
+						</div>									
+						<div class="clearfix col-xs-11" style="padding:0;">
+							<div id='sale_uper'></div>
+							<small class="sma" id="sale_uptime"></small>
+						</div>
+					</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var width_pay_infor = auto_small_remark_pay();
+		$('.sale_pay_remark').width(width_pay_infor);
+		$('.flex_col_center_1>label,.flex_col_center_1>div.row').width(auto_small_remark_pay());
+	</script>

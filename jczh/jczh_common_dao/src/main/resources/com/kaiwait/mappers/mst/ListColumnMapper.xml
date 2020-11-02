@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.ListColumnMapper">
+	<select id="searchListColumnListInit"   parameterType="String" resultType="java.util.Map" >
+		SELECT
+			b.LIST_COLUMN_ID COLUMN_ID,
+			b.LEVEL,
+			b.COLUMN_VALUE,
+			b.COLUMN_SHOW_NAME,
+			b.COLUMN_SHOW_NAME_EN,
+			b.COLUMN_SHOW_NAME_HK,
+			b.COLUMN_SHOW_NAME_JP,
+			b.DEFAULT_WIDE,
+			b.ison flag,
+			LIST_COLUMN_ID num,
+			'20'
+		FROM
+			listcolumnmst b
+		WHERE 1 = 1
+		AND b.COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+ 		AND b.LEVEL = '0'
+		ORDER BY num 
+	 </select>
+	<select id="searchListColumnList"   parameterType="String" resultType="java.util.Map" >
+		SELECT
+			a.COLUMN_ID,
+			b. LEVEL,
+			b.COLUMN_VALUE,
+			b.COLUMN_SHOW_NAME,
+			b.COLUMN_SHOW_NAME_EN,
+			b.COLUMN_SHOW_NAME_HK,
+			b.COLUMN_SHOW_NAME_JP,
+			COLUMN_WIDTH DEFAULT_WIDE,
+			a.ison AS flag,
+			COLUMN_ORDER num,
+			SHOW_NUMBERS
+		FROM
+			usersettingtrn a
+		LEFT JOIN listcolumnmst b ON a.COLUMN_ID = b.LIST_COLUMN_ID
+		AND a. LEVEL = b. LEVEL
+		WHERE 1 = 1
+		AND a. LEVEL = '0'
+		and a.COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+		AND USERCD =#{usercd,jdbcType=VARCHAR}
+		GROUP BY a.COLUMN_ID
+		ORDER BY num 
+	 </select> 
+	 <select id="searchListColumnListCostInit"   parameterType="String" resultType="java.util.Map" >
+		SELECT
+			b.LIST_COLUMN_ID COLUMN_ID,
+			b.LEVEL,
+			b.COLUMN_VALUE,
+			b.COLUMN_SHOW_NAME,
+			b.COLUMN_SHOW_NAME_EN,
+			b.COLUMN_SHOW_NAME_HK,
+			b.COLUMN_SHOW_NAME_JP,
+			b.DEFAULT_WIDE,
+			b.ison flag,
+			LIST_COLUMN_ID num,
+			'20'
+		FROM
+			listcolumnmst b
+		WHERE 1 = 1
+		and b.COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+		AND b.LEVEL = '1'
+		ORDER BY num
+	 </select>
+	<select id="searchListColumnListCost"   parameterType="String" resultType="java.util.Map" >
+		SELECT
+			a.COLUMN_ID,
+			b. LEVEL,
+			b.COLUMN_VALUE,
+			b.COLUMN_SHOW_NAME,
+			b.COLUMN_SHOW_NAME_EN,
+			b.COLUMN_SHOW_NAME_HK,
+			b.COLUMN_SHOW_NAME_JP,
+			COLUMN_WIDTH DEFAULT_WIDE,
+			a.ison AS flag,
+			COLUMN_ORDER num,
+			SHOW_NUMBERS
+		FROM
+			usersettingtrn a
+		LEFT JOIN listcolumnmst b ON a.COLUMN_ID = b.LIST_COLUMN_ID
+		AND a. LEVEL = b. LEVEL
+		WHERE 1 = 1
+		AND a. LEVEL = '1'
+		and a.COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+		AND USERCD =#{usercd,jdbcType=VARCHAR}
+		GROUP BY a.COLUMN_ID
+		ORDER BY num 
+	
+   </select> 
+    <!-- <insert id="addListColumn" parameterType="com.kaiwait.bean.jczh.entity.ListColumnMst" >
+     insert into ListColumnmst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="ListColumn_id != null" >
+        ListColumn_id,
+      </if> 
+      <if test="ListColumn_level != null" >
+        ListColumn_level,
+      </if>
+      <if test="ListColumn_text != null" >
+        ListColumn_text,
+      </if>
+      <if test="company_cd != null" >
+        company_cd,
+      </if>
+      <if test="ListColumn_type != null" >
+        ListColumn_type,
+      </if>
+      <if test="addusercd != null" >
+        addusercd,
+      </if>
+      <if test="updusercd != null" >
+        updusercd,
+      </if>
+      adddate,upddate
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="ListColumn_id != null" >
+        #{ListColumn_id,jdbcType=VARCHAR},
+      </if> 
+      <if test="ListColumn_level != null" >
+        #{ListColumn_level,jdbcType=VARCHAR},
+      </if>
+      <if test="ListColumn_text != null" >
+        #{ListColumn_text,jdbcType=VARCHAR},
+      </if>
+      <if test="company_cd != null" >
+        #{company_cd,jdbcType=INTEGER},
+      </if>
+      <if test="ListColumn_type != null" >
+        #{ListColumn_type,jdbcType=VARCHAR},
+      </if>  
+      <if test="addusercd != null" >
+        #{addusercd,jdbcType=INTEGER},
+      </if>
+      <if test="updusercd != null" >
+        #{updusercd,jdbcType=INTEGER},
+      </if>    
+      SYSDATE(),SYSDATE()
+    </trim>  
+  </insert>
+  
+   <delete id="deleteListColumn">
+		delete from ListColumn where id = #{num,jdbcType=VARCHAR}
+	</delete> 
+	
+	<update id="deleteListColumn" parameterType="String" >
+    	update ListColumnmst
+    	<set >
+    		del_flg = '1',upddate= SYSDATE()
+    	</set>
+    	where 1=1 and ListColumn_id = #{ListColumn_id,jdbcType=VARCHAR}
+  	</update>  -->
+	<insert id="insertusersettingtrn" >
+		insert into usersettingtrn 
+		(USERCD,COLUMN_ID,COMPANY_CD,COLUMN_WIDTH,COLUMN_ORDER,LEVEL,SHOW_NUMBERS,ISON,ADDDATE,ADDUSERCD)
+		values
+		 <foreach collection="clietList" index="index" item="client"  separator=","  >
+          	(#{addUserID,jdbcType=VARCHAR},
+			#{client.column_id,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},
+			#{client.column_width,jdbcType=VARCHAR},
+			#{client.column_order,jdbcType=VARCHAR},
+			#{client.level,jdbcType=VARCHAR},
+			#{client.show_numbers,jdbcType=VARCHAR},
+			#{client.onflag,jdbcType=VARCHAR},
+			#{adddate,jdbcType=VARCHAR},
+			#{userid,jdbcType=VARCHAR})
+	     </foreach>
+		
+	</insert>
+    <delete id="deletetusersettingtrn">
+		delete from usersettingtrn where usercd = #{userId,jdbcType=VARCHAR} and company_cd = #{companyID,jdbcType=VARCHAR} and level = #{level,jdbcType=VARCHAR}
+	</delete> 
+	<insert id="insertListColumnMst" >
+	insert into 
+		listcolumnmst(LIST_COLUMN_ID,LEVEL,COLUMN_VALUE,COLUMN_SHOW_NAME,COLUMN_SHOW_NAME_EN,COLUMN_SHOW_NAME_JP,COLUMN_SHOW_NAME_HK,DEFAULT_WIDE,ISON,COMPANY_CD) 
+	select
+		LIST_COLUMN_ID,LEVEL,COLUMN_VALUE,COLUMN_SHOW_NAME,COLUMN_SHOW_NAME_EN,COLUMN_SHOW_NAME_JP,COLUMN_SHOW_NAME_HK,DEFAULT_WIDE,ISON,#{companycd,jdbcType=VARCHAR}
+	from 
+		syslistcolumnmst
+	</insert>
+	
+	
+	
+</mapper>

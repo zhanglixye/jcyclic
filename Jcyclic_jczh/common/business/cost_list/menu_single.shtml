@@ -1,0 +1,29 @@
+<div id="menu" class="easyui-menu" hideOnUnhover="false" style="width:200px;text-align: center;border-radius: 5px; background-color: white;display: none;"> 
+   <label style="display: block;background-color:rgb(246,248,245);height: 27px;opacity: 1.0;border-bottom:2px solid rgb(241,241,241);">
+   	  <div style="float: left;width: 50%;height: 25px;margin-top: 3px;text-align: center;color: black;" disabled="disabled" >
+	    <span class="i18n" name='cost_dategrid_choice' style="margin-top: 1px;font-size: 15px;color: rgb(95,97,96);"></span>
+	  </div>
+      <div style="width: 16%;float: right;margin-top: 2px;text-align: center;color: black;">
+      	<span id="closeMenu" style="color: rgb(95,97,96);cursor: pointer;">×</span>
+      </div>  
+   </label>
+   <div class="directory price-detail i18n" name='menu19'></div>
+   <div class="directory cost-up i18n" name='menu18' id="title"></div>				   
+   <div class="directory cost-out i18n" name='menu20'></div>
+   <div class="directory pay-msg i18n" name='menu21'></div>
+   <div class="directory pay-msg-up">
+   	<span class="i18n" name='menu22'></span>
+   </div>
+   <div class="directory pay-req i18n" name='menu23'></div>
+   <div class="directory pay-ad i18n" name='menu24'></div>
+   <div class="directory pay-cal i18n" name='menu25'></div>
+   <div class="directory pay_handle i18n" name='menu26'></div>
+   <div class="directory lend-up i18n" name='menu27'></div>
+   <div class="directory lend-ad i18n" name='menu28'></div>
+   <div class="directory lend-cal i18n" name='menu29'></div>
+   <div class="directory tran-up i18n" name='menu30'></div>
+   <div class="directory tran-ad i18n" name='menu31'></div>
+   <div class="directory tran-cal i18n" name='menu32'></div>
+   <div class="directory lable-add i18n" name='menu16'></div>
+   <div class="footer_menu lable-set i18n" name='menu17'></div>
+</div>

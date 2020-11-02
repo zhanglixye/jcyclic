@@ -1,0 +1,67 @@
+<div style="box-shadow: 0px 3px 5px #d4d4d4;" class="business">
+	<div class="panel-body panel switch" style="height: 333px; background: #e2ffe6;  margin-bottom: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow: hidden;">
+		<div class="clearfix" style="padding: 10px 5px;margin-bottom: 4px;">
+			<!--<label class="control-label i18n col-md-3" style="padding: 0" name="jobregistration_input_amount">入力金額</label>-->
+			<div  class="col-md-5 position_sticky" style="padding: 0px;position: fixed">
+				<label class="control-label i18n" name="jobregistration_foreign_currency"></label>
+				<input data-on="success" class="boostrap-switch judge1" id="switch-state" type="checkbox" data-size="mini">
+			</div>
+			<select name="boostrap-select" disabled id="plansale_foreign_code" class="cal-sale" style="position: absolute;left: 162px; width: 80px; border: 1px solid #cccccc; background: rgb(238, 238, 238); border-radius: 4px; height: 22px;">
+			</select>
+		</div>
+		<div class="form-group clearfix position_30" style="padding: 0 5px 0px;margin-bottom: 13px;margin-top: 30px">
+			<label class="control-label i18n"  style="margin-bottom: 0;padding: 0;float:left;" name="jobregistration_amount"></label>
+			<div class="pull-left ml-5 m_top" align="right" style="">
+				<div class="btn-group sale_rate_click outsource" data-toggle="buttons">
+					<label class="btn btn-primary active out_first_sr" style="line-height: 0.5;">
+					<input type="radio" name="plan_sale_ishave" value="1"> 
+					<small class="i18n top out_first_sr_color" name='shuiru'></small>												
+					</label>
+					<label class="btn btn-primary " style="line-height: 0.5">
+					<input type="radio" name="plan_sale_ishave" value="0" >
+					<small class="i18n top" name='shuiba'></small>						 
+					</label>
+				</div>
+			</div>
+		</div>		
+		<div class="clearfix mb-5 setFixRate" style="padding: 0px 5px;">
+			<div class="input-group sale-input" style="float: left">
+				<input class="form-control easyui-numberbox saleMoment cal-sale-box hiddclass"  id="pcost" type="text"  style="border-right: 0px; width: 145px; text-align: right;box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075); border-right: 0;" data-options="value:0,precision:2,groupSeparator:','">
+				<span class="input-group-addon sale_person_code" id="need_change_code1" style="background: #eeeeee;
+				    display: inline-block;
+				    border-left: 1px solid #cccccc;
+				    width: 57px;
+				    height: 33px;
+				    line-height: 20px;">
+				  US
+				</span>
+			</div>
+		</div>
+		<div class="form-group col-md-12" id="exchange_rate" style="padding: 10px 5px; margin-bottom: 0; display: none">
+			<label class="control-label i18n" style="padding: 0" name="jobregistration_exchange_rate"></label><span class="after_css" style="vertical-align: middle; color: #E00;font-weight: bold;">＊</span>
+			<div class="col-md-12" style="padding: 0 0% 0 0%">
+				<input class="form-control col-md-6 plan_sale_cure_code cal-sale width_100_ml0" name="plan_sale_cure_code" placeholder="" type="number" oninput="this.value = number_va_length(this.value,10,5)">
+			</div>
+			<label class="control-label i18n col-md-12" style="padding: 10px 0 0 0px" name="jobregistration_application_day"></label>
+			<div class=" col-md-5 sale-day" style="padding-left:0px; padding-top:0; ">
+				<input id="common-day" type="text" name="plan_sale_use_date" class="form-control ">
+			</div>
+			<label class="control-label i18n col-md-12" style="padding: 10px 0 0 0px" name="jobregistration_reference_target"></label>
+			<div class="col-md-16" style="padding: 0 0% 0 0%">
+				<input class="form-control col-md-12 plan_sale_refer" maxlength="100" name="plan_sale_refer" placeholder="" type="text">
+			</div>
+		</div>
+	</div>
+	<div class="panel-body panel bus_color" style="background: #fff url(../public/images/triangle.png) top center no-repeat; border-top-right-radius: 0; border-top-left-radius: 0; border-top:none;background-position: 170px 0px;">
+		<div class="form-group col-md-12" style="padding: 10px 5px; margin-bottom: 0;">
+			<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_sales_amount"></label>
+			<label class="control-label col-md-9" style="width:204px;padding: 0; text-align: right; font-weight: normal"><span class="plan_sale_foreign_amt plan_cost_foreign_amt_job font_size default_decimal_reservation" id="sale_foreign_amt" style="font-size: 16px;"></span> <span class="person_code"></span> </label>
+			<label class="control-label i18n col-md-2 " style="padding: 0;clear: both;width: 20%;" name="jobregistration_value_added_tax"></label>
+			<label class="control-label i18n col-md-2 add_tax_bus" style="padding: 0 6px 0 0; text-align: center; color: #29bb9c; text-decoration: underline;" name="jobregistration_edit"></label>
+			<label class="control-label col-md-9" style="width:204px;padding: 0; clear: both; text-align: right; font-weight: normal"><span class="plansale_tax font_size default_decimal_reservation" id="sale_tax" style="font-size: 16px;"></span> <span class="person_code"></label>
+			<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_claim_amount"></label>
+			<label class="control-label col-md-9" style="width:204px;padding: 0; text-align: right; font-weight: normal"><span class="plan_req_amt font_size default_decimal_reservation" id='req_amt' style="font-size: 16px;"></span> <span class="person_code"></span></label>
+		</div>
+	</div>
+</div>
+	

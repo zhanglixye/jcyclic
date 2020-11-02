@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.MsgtrnMapper">
+
+	<select id="searchMsgtrnList"  resultType="com.kaiwait.bean.mst.entity.Msgtrn" >
+   
+	SELECT id,
+			MSG_LEVEL MSGLEVEL,
+			MSG_TITLE MSGTITLE,
+			MSG_TEXT MSGTEXT,
+			COMPANY_CD COMPANYCD,
+			ADDUSER,
+			UPUSER,
+			ADDDATE,
+			MSGTRN.UPDATE,
+			DEL_FLG DELFLG,
+			status,
+			DATE_FORMAT(msgtrn.update,'%Y/%m/%d') dateadd,
+			DATE_FORMAT(msgtrn.update,'%H:%i') addtime,
+			LOCK_FLG LOCK_FLG
+	from msgtrn where 1=1 and  (company_cd= #{companyid} or MSG_LEVEL='1')
+	and id=#{id}
+	order by msgtrn.update desc
+	
+   </select> 
+   <insert id="addMsgtrn" parameterType="com.kaiwait.bean.mst.entity.Msgtrn" >
+     insert into msgtrn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="msg_level != null" >
+        MSG_LEVEL,
+      </if> 
+      <if test="msg_title != null" >
+        MSG_TITLE,
+      </if>
+      <if test="msg_text != null" >
+        MSG_TEXT,
+      </if>
+      <if test="company_cd != null" >
+        COMPANY_CD,
+      </if>
+      <if test="adduser != null" >
+        ADDUSER,
+      </if>
+      <if test="upuser != null" >
+        UPUSER,
+      </if>
+      	ADDDATE,msgtrn.UPDATE,STATUS,
+      <if test="del_flg != null" >
+        DEL_FLG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="msg_level != null" >
+        #{msg_level,jdbcType=INTEGER},
+      </if> 
+      <if test="msg_title != null" >
+        #{msg_title,jdbcType=VARCHAR},
+      </if>
+      <if test="msg_text != null" >
+        #{msg_text,jdbcType=VARCHAR},
+      </if>
+      <if test="company_cd != null" >
+        #{company_cd,jdbcType=INTEGER},
+      </if>
+      <if test="adduser != null" >
+        #{adduser,jdbcType=INTEGER},
+      </if>
+      <if test="upuser != null" >
+        #{upuser,jdbcType=INTEGER},
+      </if>      
+       #{adddate,jdbcType=VARCHAR}, #{update,jdbcType=VARCHAR},0,
+      <if test="del_flg != null" >
+        #{del_flg,jdbcType=INTEGER},
+      </if> 
+    </trim>  
+  </insert>	
+	 <update id="deleteMsgtrn">
+   		update msgtrn set del_flg = 1 where id = #{num,jdbcType=VARCHAR}
+	</update> 
+	<update id="updateMsgtrn" parameterType="com.kaiwait.bean.mst.entity.Msgtrn" >
+    	update msgtrn
+    	<set >
+    		msgtrn.UPDATE = #{update,jdbcType=VARCHAR},
+    		upuser = #{upuser,jdbcType=VARCHAR},
+      	<if test="msg_title != null" >
+        	MSG_TITLE = #{msg_title,jdbcType=VARCHAR},
+      	</if>
+      	<if test="msg_text != null" >
+       		MSG_TEXT = #{msg_text,jdbcType=VARCHAR},
+      	</if>
+    	</set>
+   		WHERE ID = #{num,jdbcType=VARCHAR}
+  	</update>
+  	<select id="getcompanylevel" resultType="string" >
+  	select company_type from  companymst where company_cd= #{companyid,jdbcType=VARCHAR}
+  	</select>
+	<select id="queryLock"  resultType="java.lang.Integer">	
+		select 
+			IFNULL(MAX(lock_flg),999999)
+		from msgtrn 
+		where id = #{num,jdbcType=VARCHAR}
+   </select>
+    <update id="updateLock">
+    update msgtrn 
+    set lock_flg = lock_flg+1 
+    where id = #{num,jdbcType=VARCHAR}
+		
+   </update>
+   <delete id="deleteUsermsgtrn">
+		delete from usermsgtrn where msgid = #{num,jdbcType=VARCHAR}
+	</delete> 
+</mapper>

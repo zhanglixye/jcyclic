@@ -1,0 +1,6 @@
+<div class="switch_table">
+	<table id="cost_list_Two" style="width: 100%;"></table>
+</div>
+<div class="switch_table_none hidden">
+	<div style="text-align: center;"></div>
+</div>

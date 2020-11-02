@@ -1,0 +1,74 @@
+/*span.fw[name='salescategoryLogin_job_information'] + span:before{
+	content: '|';
+	padding: 0 5px;
+	color: #ccc;
+	font-size: 17px;
+}*/
+input.bord_no{
+	display: block;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+}
+div.bord_no{
+	display: block;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.over-anim{
+	height:66px;
+	overflow:hidden;
+}
+.job_text{
+	transition: height ease-in-out 1s;
+}
+.icon-xiala{
+	color:#148f77;
+	font-size: 18px;
+}
+@keyframes down{
+	from{transform:translateY(0px);opacity:1}
+	to{transform:translateY(10px);opacity:0}
+}
+.card{
+    border:1px solid;
+    box-shadow: 0px 3px 5px #d4d4d4;
+    margin-right: 10px;
+    padding: 10px !important;
+    background: #fff;
+}
+.card .col-xs-3,.card .col-xs-9{
+	padding: 0;
+}
+.card small{
+	font-size: 11px;
+	color:#ddd;
+}
+.person .person-b{
+	background-color: #e8e8e8;
+}
+.green_active{
+	padding: 2px 5px;
+	color: white;
+	background-color: #1abc9c;
+	border-radius: 15px;
+}
+#per{
+	display: flex;
+	flex-wrap: wrap;
+}

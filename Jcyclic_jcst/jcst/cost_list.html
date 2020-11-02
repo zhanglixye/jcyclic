@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='common_cost_list'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+		<link rel="stylesheet" href="../public/stylesheets/master/cost_list.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration_list.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		
+		
+	</head>
+	<body class="main page" style="overflow: hidden;">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+			<ul class="breadcrumb" id="breadcrumb">
+				<li class="fs18 i18n" name='common_cost_list'></li>
+			</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 25px;">
+				<!--#include virtual="../common/business/cost_list/title.shtml"-->
+				<div class="clearfix">
+					<!--#include virtual="../common/business/cost_list/sum_table.shtml"-->
+					<!--#include virtual="../common/business/cost_list/search.shtml"-->
+				</div>		
+				<!--#include virtual="../common/business/cost_list/input.shtml"-->			
+				<!--#include virtual="../common/business/cost_list/table.shtml"-->
+				<!--#include virtual="../common/business/cost_list/menu_single.shtml"-->
+				<!--#include virtual="../common/business/cost_list/menu_multi.shtml"-->
+			</aside>
+		</div>
+		<!--入金处理-->
+			<!--#include virtual="../common/jcst/payment_handle.shtml"-->
+		<!--支付处理-->
+			<!--#include virtual="../common/jcst/money.shtml"-->
+		<!--标签设定-->
+			<!--#include virtual="../common/business/label/label_set_o.shtml"-->
+		<!--标签添加-->
+			<!--#include virtual="../common/business/label/label_set_t.shtml"-->
+		<script>
+			$(function(){
+				$(".icon-xiala").css("color","#707070");
+			})
+			$('#menu2').css('height', null);
+			$.layerShowDiv('pay_handle','30%','auto',1,$('.pay_chuli'));
+			$.layerShowDiv('pay_handle2','30%','auto',1,$('.pay_chuli'));
+			$.layerShowDiv('label-add-T','400','auto',1,$('.label_set_o'));
+			$.layerShowDiv('lable-set-T','400','auto',1,$('.label_set_t'));
+			$.layerShowDiv('lable-add','400','auto',1,$('.label_set_o'));
+			$.layerShowDiv('lable-set','400','auto',1,$('.label_set_t'));
+			$("#closeMenu").click(function(){
+				$('#menu').menu('hide');				
+			})	
+			$("#closeMenu2").click(function(){
+				$('#menu2').menu('hide');				
+			})			
+			$("#setb1").on("click", function() {	
+				$(".icon-xiala").css("cursor","auto");
+				$(".icon-xiala").css("color","#707070");
+				$(".setb2").addClass('hidden');
+				$(".setb1").removeClass('hidden');
+				$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+				$(".easyui-fluid").css("margin-top","0px");
+			});
+			$("#setb2").on("click", function() {
+				$(".icon-xiala").css("cursor","pointer");
+				$(".icon-xiala").css("color","#28b89d");
+				if(!$(this).hasClass('active')){
+					$(".setb1").addClass('hidden');
+					$(".setb2").removeClass('hidden');	
+					$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(0deg)","display":"inline-block"});
+				}else{
+					if($(".setb2").css('display')=='block'){
+						return;
+					}
+					$('.tranform').click();
+				}				
+			});
+			//页面点击隐藏
+			$('.tranform').on('click',function(e){
+				hide(this);
+			})
+			function hide(ele){		
+				var a = $(ele).nextAll('.btn-group').find('label.active').attr('value');
+				if(a == 0){
+					if($(".setb2").hasClass('hidden')){
+						$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(0deg)","display":"inline-block"});
+						$(".setb2").removeClass('hidden');
+						$(".easyui-fluid").css("margin-top","0px");
+					}else{
+						$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+						$(".setb2").addClass('hidden');
+						$(".easyui-fluid").css("margin-top","65px");
+					}		
+				}else{
+					return;
+				}
+			}
+		</script>
+		<!--#include virtual="../common/language.shtml"-->  
+		<script type="text/javascript" src="../public/javascript/jcst/job/cost_list.js?v=2018092801" ></script>
+		<script type="text/javascript" src="../public/javascript/common/common_export_excel.js?v=2018092801"></script>	
+		
+	</body>
+</html>

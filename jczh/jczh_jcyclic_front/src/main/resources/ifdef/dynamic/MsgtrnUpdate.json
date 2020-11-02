@@ -1,0 +1,44 @@
+{
+  "definitionFilePath" : null,
+  "name" : "���԰����",
+  "path" : "MsgtrnUpdate",
+  "rootPath" : "dynamic",
+  "type" : "update",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "����",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "msg_title",
+      "comment" : "���԰����",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 100,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 10,
+      "name" : "contentBr",
+      "comment" : "���԰�����",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 500,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

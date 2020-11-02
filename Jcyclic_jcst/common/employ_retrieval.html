@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/language.shtml"-->  
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/employ_retrieval.css?v=2018092801"/>
+		<script type="text/javascript" src="../public/javascript/master/employ_retrieval.js?v=2018092801"></script>
+	</head>
+	<body>
+		<div class="common_se employee_search">
+			<div class="panel-heading clear" style="background-color: #ecf0f1;border-bottom-left-radius: 0px!important;border-bottom-right-radius: 0px!important;">
+				<span class="i18n fw" name='wedgemembersChange_select'></span>
+				<i class="iconfont icon-guanbi" style="font-size: 13px;"></i>
+			</div>
+			<div style="padding: 0 30px;">				
+				<div class="pane_ody" style="padding-bottom: 0;">
+					<div class="body-top">
+						<div class="form-group">
+							<div class="row_input clear">
+								<label name='employeeList_sector' class="i18n" for="exampleInputEmail1"></label>
+						    	<label name='employeeRegistration_full_name' for="exampleInputEmail1" class="i18n"></label>
+							</div>						    
+						    <div class="row_input clear">
+						    	<select id="departList" class="form-control itemcd">
+						    	</select>
+						    	<input maxlength="20" id="userName" type="text" class="form-control">
+						    	<input id="clientID" type="hidden" class="form-control">
+						    </div>
+						    
+						</div>
+						<div class="form-group clear">
+							<input selectname="suppliersRetrieval_cancel" id="person_clear" type="button" class="btn btn-default i18n-input btn-small" />
+						    <input onclick="searchEmployeeList()" selectname="ltdList_retrieval" type="button" class="btn btn-success mr-15 i18n-input btn-small"/>						    
+						</div>
+						<div style="margin-left: -45px;margin-right: -45px;">
+							<hr style="border-color: #eee;border-width: medium;" />
+						</div>
+					</div>
+					<div class="body-bottom">
+						<table id="employeeWindowTab" style="width: 100%;max-height: 300px;"></table>
+						<div class="form-group clear mt-15">
+							<input id="closeBtnInput" selectname="salescategoryRegistration_clsoe" type="button" class="btn btn-default i18n-input btn-small"/>
+						    <input onclick="setChooseInfo()" selectname="suppliersRetrieval_ok" type="button" class="btn btn-success mr-15 i18n-input btn-small"/>				    
+						</div>
+					</div>
+				</div>	
+			</div>					    
+		</div>	
+		<div>
+			<input type="hidden" id="pageFlg"/>
+			<input type="hidden" id="pd"/>
+		</div>
+	</body>
+	<script>
+		$("#person_clear").click(function(){
+			$("#userName").val("");
+		})
+			//height:203,
+	</script>
+</html>

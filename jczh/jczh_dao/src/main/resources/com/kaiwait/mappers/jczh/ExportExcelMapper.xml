@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.ExportExcelMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.jczh.entity.Role">
+		<result column="roleID" property="roleID" jdbcType="INTEGER" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleOrder" property="roleOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="eReportResultMap" type="com.kaiwait.bean.jczh.entity.ExcelReport">
+		<result column="isSellFlg" property="isSellFlg" jdbcType="INTEGER" />
+		<result column="jobNo" property="jobNo" jdbcType="VARCHAR" />
+	</resultMap>
+	    <resultMap id="ClientNames" type="com.kaiwait.bean.jczh.entity.Clmst">
+                <result column="divnm" property="divnm" jdbcType="VARCHAR" />
+                <result column="cldivcd" property="cldivcd" jdbcType="VARCHAR" />
+        </resultMap>
+	<select id="getNodesByRoles" resultMap="BaseResultMap">
+	select
+		usermst.MEMBER_ID as memberID,
+		usermst.USER_NAME as userName,
+		commonmst.ITMNAME as  departNamezc,
+		commonmst.ITEMNAME_HK as  departNamezt,
+		commonmst.ITEMNAME_EN as  departNameen,
+		commonmst.ITEMNAME_JP as  departNamejp,
+		levelCom.ITMNAME as  levelNamezc,
+		levelCom.ITEMNAME_HK as  levelNamezt,
+		levelCom.ITEMNAME_EN as  levelNameen,
+		levelCom.ITEMNAME_JP as  levelNamejp,
+		companymst.COMPANY_FULL_NAME as companyFullName,
+		CONCAT_WS(",",GROUP_CONCAT(distinct rolemst.ROLE_NAME order by rolenodetrn.NODE_ID),GROUP_CONCAT(distinct rolecom.ITMNAME order by sysrolenodemst.NODE_ID)) as roleNameListStrzc,
+		CONCAT_WS(",",GROUP_CONCAT(distinct rolemst.ROLE_NAME order by rolenodetrn.NODE_ID),GROUP_CONCAT(distinct rolecom.ITEMNAME_EN order by sysrolenodemst.NODE_ID)) as roleNameListStren,
+		CONCAT_WS(",",GROUP_CONCAT(distinct rolemst.ROLE_NAME order by rolenodetrn.NODE_ID),GROUP_CONCAT(distinct rolecom.ITEMNAME_JP order by sysrolenodemst.NODE_ID)) as roleNameListStrjp,
+		CONCAT_WS(",",GROUP_CONCAT(distinct rolemst.ROLE_NAME order by rolenodetrn.NODE_ID),GROUP_CONCAT(distinct rolecom.ITEMNAME_HK order by sysrolenodemst.NODE_ID)) as roleNameListStrzt,
+		CONCAT_WS(",",GROUP_CONCAT(distinct rolenodetrn.NODE_ID order by rolenodetrn.NODE_ID),GROUP_CONCAT(distinct sysrolenodemst.NODE_ID order by sysrolenodemst.NODE_ID)) as nodeListStr	
+	from usermst 
+		left join userroletrn on usermst.USERCD = userroletrn.USERCD
+		left join rolecommst on userroletrn.ROLE_ID = rolecommst.ROLE_COM_ID
+		left join commonmst as rolecom on rolecom.ITEMCD=rolecommst.ROLE_COM_NAME and rolecom.MSTCD="0007" and rolecom.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+		left join rolemst on userroletrn.ROLE_ID = rolemst.ROLE_ID and rolemst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		left join rolenodetrn on userroletrn.ROLE_ID = rolenodetrn.ROLE_ID and rolenodetrn.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		left join sysrolenodemst on userroletrn.ROLE_ID=sysrolenodemst.ROLE_ID
+		left join commonmst on usermst.DEPART_CD = commonmst.ITEMCD and commonmst.MSTCD="0005" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+		left join commonmst as levelCom on usermst.LEVEL = levelCom.ITEMCD and levelCom.MSTCD="0004" and levelCom.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		left join companymst on companymst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+	where usermst.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+		<if test="nickname != null and nickname != ''">
+			AND usermst.USER_NAME like CONCAT('%', #{nickname}, '%')
+		</if>
+		<if test="departCD != null and departCD != ''">
+			and usermst.DEPART_CD = #{departCD,jdbcType=VARCHAR}
+		</if>
+		<if test="level != null and level != ''">
+			and usermst.LEVEL = #{level,jdbcType=VARCHAR}
+		</if>
+		<if test="companyID != null and companyID != ''">
+			and usermst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+		</if>
+		<if test="delFlg != null and delFlg != ''">
+			and usermst.DEL_FLG = #{delFlg,jdbcType=VARCHAR}
+		</if>
+		<if test="userCD != null and userCD != ''">
+			and usermst.MEMBER_ID = #{userCD,jdbcType=VARCHAR}
+		</if>
+		<if test="roleID != null and roleID != ''">
+			and userroletrn.ROLE_ID = #{roleID,jdbcType=VARCHAR}
+		</if>
+	group by userroletrn.USERCD
+	</select>
+	
+	<select id="getNodes" resultMap="BaseResultMap">
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt,
+			nodemst.ORDER_ID as nodeOrder,
+			nodemst.NODE_COLOR as nodeColor
+		from nodemst
+		order by ORDER_ID asc
+	</select>
+	<select id="getReportListByJobs" resultMap="eReportResultMap">
+	select
+		clmst.ACCOUNT_CD as cldivAccountID,
+		clmst.CLDIVCD as cldivID,
+		clmst.DIVNM as dClientName,
+		jobtrn.JOB_CD as jobNo,
+		jobtrn.`ADDDATE` as jobCreateDate,
+		ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY)  as planDlvday,
+		case when sellordertrn.JOB_CD is not null then "1" else "0" end as isSellFlg,
+		jobtrn.JOB_NAME as jobName,
+		salemst.SALE_NAME as saleTypName,
+		reqClmst.DIVNM as rClientName,
+		gClmst.DIVNM as gClientName
+	from jobtrn
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+		left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and clmst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join clmst as reqClmst on jobtrn.PAYER_CD = reqClmst.CLDIVCD and reqClmst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join clmst as gClmst on jobtrn.G_COMPANY = gClmst.CLDIVCD and gClmst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join salemst on jobtrn.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = jobtrn.COMPANY_CD
+	where jobtrn.COMPANY_CD=#{companyID}  
+		and jobtrn.DEL_FLG != 1
+		<if test="accountCD!=null and accountCD!=''">
+	  	 and clmst.ACCOUNT_CD = #{accountCD}
+	    </if>
+	    <if test="startDate!=null and startDate!=''">
+	  	 and date_format(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") >=  date_format(#{startDate},"%Y%m")
+	    </if>
+	    <if test="endDate!=null and endDate!=''">
+	    and date_format(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") &lt;=  date_format(#{endDate},"%Y%m") 
+	    </if>
+	order by clmst.CLDIVCD asc ,jobtrn.JOB_CD asc
+	</select>
+	<select id="getReportListByJobsLabel" resultMap="eReportResultMap">
+		select
+			clmst.ACCOUNT_CD as cldivAccountID,
+			clmst.CLDIVCD as cldivID,
+			clmst.DIVNM as dClientName,
+			jobtrn.JOB_CD as jobNo,
+			joblabeltrn.LABEL_CD as labelID,
+			labelmst.LABEL_TEXT as labelName,
+			jobtrn.`ADDDATE` as jobCreateDate,
+			ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY)  as planDlvday,
+			case when sellordertrn.JOB_CD is not null then "1" else "0" end as isSellFlg,
+			jobtrn.JOB_NAME as jobName,
+			salemst.SALE_NAME as saleTypName,
+			reqClmst.DIVNM as rClientName,
+			gClmst.DIVNM as gClientName
+	
+		from jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+			left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and clmst.COMPANY_CD=jobtrn.COMPANY_CD
+			left join clmst as reqClmst on jobtrn.PAYER_CD = reqClmst.CLDIVCD and reqClmst.COMPANY_CD=jobtrn.COMPANY_CD
+			left join clmst as gClmst on jobtrn.G_COMPANY = gClmst.CLDIVCD and gClmst.COMPANY_CD=jobtrn.COMPANY_CD
+			left join salemst on jobtrn.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = jobtrn.COMPANY_CD
+			left join joblabeltrn on jobtrn.JOB_CD = joblabeltrn.JOB_CD and joblabeltrn.COMPANY_CD = jobtrn.COMPANY_CD
+			join labelmst on labelmst.LABEL_ID = joblabeltrn.LABEL_CD and labelmst.LABEL_TYPE=0 and labelmst.LABEL_LEVEL=1 and labelmst.COMPANY_CD=jobtrn.COMPANY_CD
+		where jobtrn.COMPANY_CD=#{companyID}   
+			  and jobtrn.DEL_FLG != 1
+			  <if test="accountCD!=null and accountCD!=''">
+			  	and clmst.ACCOUNT_CD = #{accountCD}
+			  </if>
+			  <if test="startDate!=null and startDate!=''">
+			  	and date_format(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") >=  date_format(#{startDate},"%Y%m")
+			  </if>
+			  <if test="endDate!=null and endDate!=''">
+			  	and date_format(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") &lt;=  date_format(#{endDate},"%Y%m") 
+			  </if>
+		order by labelmst.LABEL_TEXT asc,clmst.CLDIVCD asc ,jobtrn.JOB_CD asc
+	</select>
+	
+	
+	<select id="getCompanyName" resultType="String">
+	select
+		companymst.COMPANY_FULL_NAME as companyFullName
+	from companymst
+	where companymst.COMPANY_CD=#{companyID}
+	</select>
+	
+	
+	<select id="getReportListByPayable" resultMap="eReportResultMap">
+		select 
+			*
+		from(
+			select
+				0 as orderIndex,
+				clmst.DIVNM as pClientName,
+				clmst.ACCOUNT_CD as cldivAccountID,
+				clmst.CLDIVCD as pClientID,
+				date_format(paytrn.CONFIRMDATE,"%Y-%m-%d") as confirmDate,
+				costtrn.JOB_CD as jobNo,
+				costtrn.COST_NO as costNo,
+				paytrn.INPUT_NO as inputNo,
+				paytrn.PAY_AMT as payAmt
+			from costtrn
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD
+				left join clmst on costtrn.PAYEE_CD = clmst.CLDIVCD and costtrn.COMPANY_CD=clmst.COMPANY_CD
+			where
+				costtrn.COMPANY_CD=#{companyID}
+				and paytrn.CONFIRMDATE between #{startDate} and  #{endDate}
+				and paytrn.CONFIRMDATE is not null
+			union all
+			select
+				1 as orderIndex,
+				clmst.DIVNM as pClientName,
+				clmst.ACCOUNT_CD as cldivAccountID,
+				clmst.CLDIVCD as pClientID,
+				date_format(paytrn.CONFIRMDATE,"%Y-%m-%d") as confirmDate,
+				costtrn.JOB_CD as jobNo,
+				costtrn.COST_NO as costNo,
+				paytrn.INPUT_NO as inputNo,
+				sum(paytrn.PAY_AMT) as payAmt
+			from costtrn
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD
+				left join clmst on costtrn.PAYEE_CD = clmst.CLDIVCD and costtrn.COMPANY_CD=clmst.COMPANY_CD
+			where
+				costtrn.COMPANY_CD=#{companyID}
+				and paytrn.CONFIRMDATE between #{startDate} and  #{endDate}
+				and paytrn.CONFIRMDATE is not null
+			group by clmst.CLDIVCD
+		) as payabel
+		order by payabel.cldivAccountID,payabel.orderIndex,payabel.jobNo,payabel.costNo,payabel.inputNo
+	</select>
+	<select id="getReportListByPayableButton" resultMap="eReportResultMap">
+		select
+			clmst.DIVNM as pClientName,
+			clmst.ACCOUNT_CD as cldivAccountID,
+			clmst.CLDIVCD as pClientID,
+			date_format(paytrn.CONFIRMDATE,"%Y-%m-%d") as confirmDate,
+			costtrn.JOB_CD as jobNo,
+			costtrn.COST_NO as costNo,
+			paytrn.INPUT_NO as inputNo,
+			sum(paytrn.PAY_AMT) as PayAmt
+		from costtrn
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD
+			left join clmst on costtrn.PAYEE_CD = clmst.CLDIVCD and costtrn.COMPANY_CD=clmst.COMPANY_CD
+		where
+			costtrn.COMPANY_CD=#{companyID}
+			and paytrn.CONFIRMDATE is not null
+			and paytrn.CONFIRMDATE between #{startDate} and  #{endDate}
+		group by clmst.CLDIVCD
+		order by clmst.ACCOUNT_CD,DATE_FORMAT(paytrn.CONFIRMDATE,"%Y%m"),costtrn.JOB_CD,paytrn.INPUT_NO
+	</select>
+	<select id="getReportListByPayableTotal" resultMap="eReportResultMap">
+		select
+			clmst.DIVNM as pClientName,
+			clmst.ACCOUNT_CD as cldivAccountID,
+			clmst.CLDIVCD as pClientID,
+			date_format(paytrn.CONFIRMDATE,"%Y-%m-%d") as confirmDate,
+			costtrn.JOB_CD as jobNo,
+			costtrn.COST_NO as costNo,
+			paytrn.INPUT_NO as inputNo,
+			sum(paytrn.PAY_AMT) as PayAmt
+		from costtrn
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD
+			left join clmst on costtrn.PAYEE_CD = clmst.CLDIVCD and costtrn.COMPANY_CD=clmst.COMPANY_CD
+		where
+			costtrn.COMPANY_CD=#{companyID}
+			and paytrn.CONFIRMDATE is not null
+			and paytrn.CONFIRMDATE between #{startDate} and  #{endDate}
+		order by pClientID,confirmDate,jobNo,costNo,inputNo
+	</select>
+	
+	<select id="getReportListByHopleCost" resultMap="eReportResultMap">
+		select * from (
+			select
+			0 as orderIndex,
+			payee.CLDIVCD as payeeID,
+			payee.DIVNM as payeeName,
+			payee.ACCOUNT_CD as cldivAccountID,
+			costtrn.`ADDDATE` as orderAddDate,
+			costtrn.COST_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			0 as lastMonthResidual,
+			ifnull(orderhistorytrn.COST_AMT,0) as thisMonthHappened,
+			0 as thisMonthAccurate,
+			0 as isThisMonthAccurate,
+			ifnull(orderhistorytrn.COST_AMT,0) as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and jobtrn.COMPANY_CD=costtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD and paytrn.DEL_FLG != 1
+			left join clmst as payee on costtrn.PAYEE_CD=payee.CLDIVCD and jobtrn.COMPANY_CD=payee.COMPANY_CD
+			left join orderhistorytrn on costtrn.COST_NO=orderhistorytrn.ORDER_NO and orderhistorytrn.COMPANY_CD=costtrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m")
+			and ( paytrn.CONFIRMDATE is null  OR paytrn.CONFIRMDATE  BETWEEN  #{endDate} AND '2099-01-01 01:01:01')
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			
+			union all
+			
+			select
+			0 as orderIndex,
+			payee.CLDIVCD as payeeID,
+			payee.DIVNM as payeeName,
+			payee.ACCOUNT_CD as cldivAccountID,
+			costtrn.`ADDDATE` as orderAddDate,
+			costtrn.COST_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			case when paytrn.COMPANY_CD is not null and paytrn.CONFIRMDATE &lt; #{startDate} then 0 else ifnull(beforMonth.COST_AMT,0) end as lastMonthResidual,
+			case when paytrn.CONFIRMDATE is null or paytrn.CONFIRMDATE > #{endDate} then ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0) else 0 end as thisMonthHappened,
+			case when paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(outMonth.COST_AMT,0) else 0 end as thisMonthAccurate,
+			case when paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(beforMonth.COST_AMT,0)-ifnull(outMonth.COST_AMT,0) else 0 end as isThisMonthAccurate,
+			case when paytrn.CONFIRMDATE is null or paytrn.CONFIRMDATE > #{endDate} then ifnull(beforMonth.COST_AMT,0) + (ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0)) else 0 end as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and jobtrn.COMPANY_CD=costtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD and paytrn.DEL_FLG != 1
+			left join clmst as payee on costtrn.PAYEE_CD=payee.CLDIVCD and costtrn.COMPANY_CD=payee.COMPANY_CD
+			left join orderhistorytrn as outMonth on costtrn.COST_NO=outMonth.ORDER_NO and outMonth.COMPANY_CD=costtrn.COMPANY_CD and outMonth.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			left join orderhistorytrn as beforMonth on costtrn.COST_NO=beforMonth.ORDER_NO and beforMonth.COMPANY_CD=costtrn.COMPANY_CD and beforMonth.CHECK_MONTH=#{beforMonth}
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{choseDate},"%Y%m")
+			and costtrn.`ADDDATE` BETWEEN '2000-01-01 11:14:47' AND #{startDate}
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			
+			union all
+			
+			select 
+			1 as orderIndex,
+			orderList.payeeID,
+			orderList.payeeName,
+			orderList.cldivAccountID,
+			orderList.orderAddDate,
+			orderList.costNo,
+			orderList.cName,
+			orderList.jobNo,
+			sum(lastMonthResidual) as lastMonthResidual,
+			sum(thisMonthHappened) as thisMonthHappened,
+			sum(thisMonthAccurate) as thisMonthAccurate,
+			sum(isThisMonthAccurate) as isThisMonthAccurate,
+			sum(isThisMonthHappened) as isThisMonthHappened
+			
+			from (
+			select
+			payee.CLDIVCD as payeeID,
+			payee.DIVNM as payeeName,
+			payee.ACCOUNT_CD as cldivAccountID,
+			costtrn.`ADDDATE` as orderAddDate,
+			costtrn.COST_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			0 as lastMonthResidual,
+			ifnull(orderhistorytrn.COST_AMT,0) as thisMonthHappened,
+			0 as thisMonthAccurate,
+			0 as isThisMonthAccurate,
+			ifnull(orderhistorytrn.COST_AMT,0) as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and jobtrn.COMPANY_CD=costtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD and paytrn.DEL_FLG != 1
+			left join clmst as payee on costtrn.PAYEE_CD=payee.CLDIVCD and jobtrn.COMPANY_CD=payee.COMPANY_CD
+			left join orderhistorytrn on costtrn.COST_NO=orderhistorytrn.ORDER_NO and orderhistorytrn.COMPANY_CD=costtrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m")
+			and ( paytrn.CONFIRMDATE is null  OR paytrn.CONFIRMDATE  BETWEEN  #{endDate}  AND '2099-01-01 01:01:01')
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			
+			union all
+			
+			select
+			payee.CLDIVCD as payeeID,
+			payee.DIVNM as payeeName,
+			payee.ACCOUNT_CD as cldivAccountID,
+			costtrn.`ADDDATE` as orderAddDate,
+			costtrn.COST_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			case when paytrn.COMPANY_CD is not null and paytrn.CONFIRMDATE &lt; #{startDate} then 0 else ifnull(beforMonth.COST_AMT,0) end as lastMonthResidual,
+			case when paytrn.CONFIRMDATE is null or paytrn.CONFIRMDATE > #{endDate}  then ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0) else 0 end as thisMonthHappened,
+			case when paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}   then ifnull(outMonth.COST_AMT,0) else 0 end as thisMonthAccurate,
+			case when paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(beforMonth.COST_AMT,0)-ifnull(outMonth.COST_AMT,0) else 0 end as isThisMonthAccurate,
+			case when paytrn.CONFIRMDATE is null or paytrn.CONFIRMDATE >  #{endDate}  then ifnull(beforMonth.COST_AMT,0) + (ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0)) else 0 end as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and jobtrn.COMPANY_CD=costtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+			left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and costtrn.COMPANY_CD=paytrn.COMPANY_CD and paytrn.DEL_FLG != 1
+			left join clmst as payee on costtrn.PAYEE_CD=payee.CLDIVCD and costtrn.COMPANY_CD=payee.COMPANY_CD
+			left join orderhistorytrn as outMonth on costtrn.COST_NO=outMonth.ORDER_NO and outMonth.COMPANY_CD=costtrn.COMPANY_CD and outMonth.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			left join orderhistorytrn as beforMonth on costtrn.COST_NO=beforMonth.ORDER_NO and beforMonth.COMPANY_CD=costtrn.COMPANY_CD and beforMonth.CHECK_MONTH=#{beforMonth}
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{choseDate},"%Y%m")
+			and costtrn.`ADDDATE` BETWEEN '2000-01-01 11:14:47' AND #{startDate} 
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			) as orderList
+			group by orderList.payeeID
+			union all
+			select
+			2 as orderIndex,
+			"9999999" as payeeID,
+			"" as payeeName,
+			"" as cldivAccountID,
+			"" as orderAddDate,
+			lendtrn.NEW_INPUT_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			0 as lastMonthResidual,
+			ifnull(orderhistorytrn.COST_AMT,0) as thisMonthHappened,
+			0 as thisMonthAccurate,
+			0 as isThisMonthAccurate,
+			ifnull(orderhistorytrn.COST_AMT,0) as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+			left join orderhistorytrn on lendtrn.INPUT_NO=orderhistorytrn.ORDER_NO and orderhistorytrn.COMPANY_CD=lendtrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") =date_format(#{choseDate},"%Y%m")
+			and ( lendtrn.CONFIRMDATE is null  OR lendtrn.CONFIRMDATE  BETWEEN  #{endDate}  AND '2099-01-01 01:01:01')
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			
+			union all
+			
+			select
+			2 as orderIndex,
+			"9999999" as payeeID,
+			"" as payeeName,
+			"" as cldivAccountID,
+			"" as orderAddDate,
+			lendtrn.NEW_INPUT_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			case when lendtrn.COMPANY_CD is not null and lendtrn.CONFIRMDATE &lt; #{startDate} then 0 else ifnull(beforMonth.COST_AMT,0) end as lastMonthResidual,
+			case when lendtrn.CONFIRMDATE is null or lendtrn.CONFIRMDATE > #{endDate}  then ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0) else 0 end as thisMonthHappened,
+			case when lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(outMonth.COST_AMT,0) else 0 end as thisMonthAccurate,
+			case when lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(beforMonth.COST_AMT,0)-ifnull(outMonth.COST_AMT,0) else 0 end as isThisMonthAccurate,
+			case when lendtrn.CONFIRMDATE is null or lendtrn.CONFIRMDATE > #{endDate} then ifnull(beforMonth.COST_AMT,0) + (ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0)) else 0 end as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+			left join orderhistorytrn as outMonth on lendtrn.INPUT_NO=outMonth.ORDER_NO and outMonth.COMPANY_CD=lendtrn.COMPANY_CD and outMonth.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			left join orderhistorytrn as beforMonth on lendtrn.INPUT_NO=beforMonth.ORDER_NO and beforMonth.COMPANY_CD=lendtrn.COMPANY_CD and beforMonth.CHECK_MONTH=#{beforMonth}
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{choseDate},"%Y%m")
+			and lendtrn.`ADDDATE` BETWEEN '2000-01-01 11:14:47' AND  #{startDate} 
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			union all
+			
+			select 
+			3 as orderIndex,
+			lendList.payeeID,
+			lendList.payeeName,
+			"" as cldivAccountID,
+			lendList.orderAddDate,
+			lendList.costNo,
+			lendList.cName,
+			lendList.jobNo,
+			sum(lastMonthResidual) as lastMonthResidual,
+			sum(thisMonthHappened) as thisMonthHappened,
+			sum(thisMonthAccurate) as thisMonthAccurate,
+			sum(isThisMonthAccurate) as isThisMonthAccurate,
+			sum(isThisMonthHappened) as isThisMonthHappened
+			
+			from (
+			select
+			"9999999" as payeeID,
+			"" as payeeName,
+			"" as cldivAccountID,
+			"" as orderAddDate,
+			lendtrn.NEW_INPUT_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			0 as lastMonthResidual,
+			ifnull(orderhistorytrn.COST_AMT,0) as thisMonthHappened,
+			0 as thisMonthAccurate,
+			0 as isThisMonthAccurate,
+			ifnull(orderhistorytrn.COST_AMT,0) as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+			left join orderhistorytrn on lendtrn.INPUT_NO=orderhistorytrn.ORDER_NO and orderhistorytrn.COMPANY_CD=lendtrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") =date_format(#{choseDate},"%Y%m")
+			and ( lendtrn.CONFIRMDATE is null  OR lendtrn.CONFIRMDATE  BETWEEN #{endDate}  AND '2099-01-01 01:01:01')
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			
+			union all
+			
+			select
+			"9999999" as payeeID,
+			"" as payeeName,
+			"" as cldivAccountID,
+			"" as orderAddDate,
+			lendtrn.NEW_INPUT_NO as costNo,
+			clmst.DIVNM as cName,
+			jobtrn.JOB_CD as jobNo,
+			case when lendtrn.COMPANY_CD is not null and lendtrn.CONFIRMDATE &lt; #{startDate} then 0 else ifnull(beforMonth.COST_AMT,0) end as lastMonthResidual,
+			case when lendtrn.CONFIRMDATE is null or lendtrn.CONFIRMDATE > #{endDate}  then ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0) else 0 end as thisMonthHappened,
+			case when lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}   then ifnull(outMonth.COST_AMT,0) else 0 end as thisMonthAccurate,
+			case when lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE BETWEEN #{startDate} and  #{endDate}  then ifnull(beforMonth.COST_AMT,0)-ifnull(outMonth.COST_AMT,0) else 0 end as isThisMonthAccurate,
+			case when lendtrn.CONFIRMDATE is null or lendtrn.CONFIRMDATE > #{endDate} then ifnull(beforMonth.COST_AMT,0) + (ifnull(outMonth.COST_AMT,0) - ifnull(beforMonth.COST_AMT,0)) else 0 end as isThisMonthHappened
+			from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+			left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+			left join orderhistorytrn as outMonth on lendtrn.INPUT_NO=outMonth.ORDER_NO and outMonth.COMPANY_CD=lendtrn.COMPANY_CD and outMonth.CHECK_MONTH=date_format(#{choseDate},"%Y%m")
+			left join orderhistorytrn as beforMonth on lendtrn.INPUT_NO=beforMonth.ORDER_NO and beforMonth.COMPANY_CD=lendtrn.COMPANY_CD and beforMonth.CHECK_MONTH=#{beforMonth}
+			where
+			date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{choseDate},"%Y%m")
+			and lendtrn.`ADDDATE` BETWEEN '2000-01-01 11:14:47' AND  #{startDate}
+			and jobtrn.COMPANY_CD=#{companyID}
+			and  jobtrn.DEL_FLG != 1 
+			) as lendList
+			group by lendList.payeeID
+			) as hopleCostList
+			order by hopleCostList.payeeID asc,hopleCostList.orderIndex asc,hopleCostList.costNo asc
+	</select>
+	<select id="getRportJobList" resultMap="eReportResultMap">
+	select 
+		jobList.cldivID,
+		jobList.cldivAccountID,
+		jobList.dClientName,
+		jobList.jobNo,
+		jobList.jobName,
+		jobList.sellupdate,
+		jobList.saleTypName,
+		jobList.isInvoicePublish,
+		jobList.isReqPublish,
+		ifnull(jobList.saleAmt,'') as saleAmt,
+		ifnull(jobList.saleVat,'') as saleVat,
+		jobList.isThisMonthJob,
+		jobList.DLVDAY
+	from (
+	select
+		clmst.CLDIVCD as cldivID,
+		clmst.ACCOUNT_CD as cldivAccountID,
+		clmst.DIVNM as dClientName,
+		jobtrn.JOB_CD as jobNo,
+		jobtrn.JOB_NAME as jobName,
+		sellordertrn.SALEUPDDATE as sellupdate,
+		salemst.SALE_NAME as saleTypName,
+			sellordertrn.DLVDAY as DLVDAY,
+		case when invoicetrn.INVOICD_NO is not null then 1 else 0 end  as isInvoicePublish,
+		case when reqtrn.REQ_CD is not null then 1 else 0 end as isReqPublish,
+		case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_AMT else 0 end as saleAmt,
+		case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_VAT_AMT else 0 end as saleVat,
+		case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then 1 else 0 end as isThisMonthJob
+	from jobtrn
+		left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=jobtrn.COMPANY_CD  and sellordertrn.DEL_FLG != 1
+		left join salemst on jobtrn.SALE_TYP=salemst.SALE_CD and salemst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join invoicetrn on jobtrn.JOB_CD=invoicetrn.JOB_CD and invoicetrn.COMPANY_CD=jobtrn.COMPANY_CD
+		left join reqtrn on jobtrn.JOB_CD=reqtrn.JOB_CD and reqtrn.COMPANY_CD=jobtrn.COMPANY_CD
+	where 
+		date_format(sellordertrn.DLVDAY,"%Y%m") &lt;= date_format(#{choseDate},"%Y%m")
+		and jobtrn.DEL_FLG != 1
+		and jobtrn.COMPANY_CD=#{companyID}
+		and (jobtrn.JOBEND_FLG = 0 or jobtrn.JOBEND_DATE >= date_format(#{startDate},"%Y-%m-%d"))
+	union all
+	select
+		clmst.CLDIVCD as cldivID,
+		clmst.ACCOUNT_CD as cldivAccountID,
+		clmst.DIVNM as dClientName,
+		"J999999998" as jobNo,
+		jobtrn.JOB_NAME as jobName,
+		sellordertrn.SALEUPDDATE as sellupdate,
+		salemst.SALE_NAME as saleTypName,
+		sellordertrn.DLVDAY as DLVDAY,
+		case when invoicetrn.INVOICD_NO is not null then 1 else 0 end  as isInvoicePublish,
+		case when reqtrn.REQ_CD is not null then 1 else 0 end as isReqPublish,
+		sum(case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_AMT else 0 end) as saleAmt,
+		sum(case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_VAT_AMT else 0 end) as saleVat,
+		case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then 1 else 0 end as isThisMonthJob
+	from jobtrn
+		left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=jobtrn.COMPANY_CD  and sellordertrn.DEL_FLG != 1
+		left join salemst on jobtrn.SALE_TYP=salemst.SALE_CD and salemst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join invoicetrn on jobtrn.JOB_CD=invoicetrn.JOB_CD and invoicetrn.COMPANY_CD=jobtrn.COMPANY_CD
+		left join reqtrn on jobtrn.JOB_CD=reqtrn.JOB_CD and reqtrn.COMPANY_CD=jobtrn.COMPANY_CD
+	where 
+		date_format(sellordertrn.DLVDAY,"%Y%m") &lt;= date_format(#{choseDate},"%Y%m")
+		and jobtrn.DEL_FLG != 1
+		and jobtrn.COMPANY_CD=#{companyID}	
+		and (jobtrn.JOBEND_FLG = 0 or jobtrn.JOBEND_DATE >= date_format(#{startDate},"%Y-%m-%d"))
+	group by jobtrn.CLDIV_CD	
+	union all
+	select
+		"9999999999" as cldivID,
+		clmst.ACCOUNT_CD as cldivAccountID,
+		clmst.DIVNM as dClientName,
+		"J999999999" as jobNo,
+		jobtrn.JOB_NAME as jobName,
+		sellordertrn.SALEUPDDATE as sellupdate,
+		salemst.SALE_NAME as saleTypName,
+		sellordertrn.DLVDAY as DLVDAY,
+		case when invoicetrn.INVOICD_NO is not null then 1 else 0 end  as isInvoicePublish,
+		case when reqtrn.REQ_CD is not null then 1 else 0 end as isReqPublish,
+		sum(case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_AMT else 0 end) as saleAmt,
+		sum(case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then sellordertrn.SALE_VAT_AMT else 0 end) as saleVat,
+		case when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{choseDate},"%Y%m") then 1 else 0 end as isThisMonthJob
+	from jobtrn
+		left join clmst on jobtrn.CLDIV_CD=clmst.CLDIVCD and jobtrn.COMPANY_CD=clmst.COMPANY_CD
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD=jobtrn.COMPANY_CD  and sellordertrn.DEL_FLG != 1
+		left join salemst on jobtrn.SALE_TYP=salemst.SALE_CD and salemst.COMPANY_CD=jobtrn.COMPANY_CD
+		left join invoicetrn on jobtrn.JOB_CD=invoicetrn.JOB_CD and invoicetrn.COMPANY_CD=jobtrn.COMPANY_CD
+		left join reqtrn on jobtrn.JOB_CD=reqtrn.JOB_CD and reqtrn.COMPANY_CD=jobtrn.COMPANY_CD
+	where 
+		date_format(sellordertrn.DLVDAY,"%Y%m") &lt;= date_format(#{choseDate},"%Y%m")
+		and jobtrn.DEL_FLG != 1
+		and jobtrn.COMPANY_CD=#{companyID}
+		and (jobtrn.JOBEND_FLG = 0 or jobtrn.JOBEND_DATE >= date_format(#{startDate},"%Y-%m-%d"))
+	) as jobList	
+	order by jobList.cldivID asc,jobList.jobNo asc
+	
+	</select>
+	<select id="getConfirmAmtAndConfirmVatByJoB" resultMap="eReportResultMap">
+		select 
+			orderList.jobNo,
+			sum(orderList.orderAmt) as confirmCostTotalAmt,
+			sum(orderList.orderVat) as costVatTotal
+		from (
+			select
+				jobtrn.JOB_CD as jobNo,
+				case 
+					when date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m") and paytrn.CONFIRMDATE BETWEEN #{startDate} AND  #{endDate} then paytrn.PAY_AMT
+					when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m") and paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE &lt; #{endDate} then paytrn.PAY_AMT
+					else 0 
+				end as orderAmt,
+				case 
+					when date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m") and paytrn.CONFIRMDATE BETWEEN #{startDate} AND  #{endDate} then paytrn.PAY_VAT_AMT
+					when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m") and paytrn.CONFIRMDATE is not null and paytrn.CONFIRMDATE &lt;  #{endDate} then paytrn.PAY_VAT_AMT
+					else 0 
+				end as orderVat
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+				left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and costtrn.COMPANY_CD=jobtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+				join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and paytrn.COMPANY_CD=costtrn.COMPANY_CD and paytrn.DEL_FLG != 1
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and date_format(sellordertrn.DLVDAY,"%Y%m") &lt;= date_format(#{outMonth},"%Y%m")
+				and jobtrn.DEL_FLG != 1
+				and jobtrn.COMPANY_CD=#{companyID}
+			union all
+			select
+				jobtrn.JOB_CD as jobNo,
+				case 
+					when date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m") and lendtrn.CONFIRMDATE BETWEEN #{startDate} AND  #{endDate} then lendtrn.LEND_AMT
+					when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m") and lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE &lt; #{endDate} then lendtrn.LEND_AMT
+					else 0 
+				end as orderAmt,
+				case 
+					when date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m") and lendtrn.CONFIRMDATE BETWEEN #{startDate} AND  #{endDate} then lendtrn.LEND_VAT_AMT
+					when date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m") and lendtrn.CONFIRMDATE is not null and lendtrn.CONFIRMDATE &lt; #{endDate} then lendtrn.LEND_VAT_AMT
+					else 0 
+				end as orderVat
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+				left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and lendtrn.COMPANY_CD=jobtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and date_format(sellordertrn.DLVDAY,"%Y%m") &lt;= date_format(#{outMonth},"%Y%m")
+				and jobtrn.DEL_FLG !=1 
+				and jobtrn.COMPANY_CD=#{companyID}
+			union all
+			select
+				jobtrn.JOB_CD as jobNo,
+				trantrn.TRAN_AMT as orderAmt,
+				'' as orderVat
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG != 1
+				left join trantrn on jobtrn.JOB_CD=trantrn.JOB_CD and trantrn.COMPANY_CD=jobtrn.COMPANY_CD and trantrn.DEL_FLG != 1
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG !=1 
+				and date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m")
+				and jobtrn.COMPANY_CD=#{companyID}
+		) as orderList
+	</select>
+	<!-- 
+	<select id="getNotConfirmAmtByJoB" resultMap="eReportResultMap">
+		select 
+			sum(orderList.orderAmt) as notConfirmCostTotalAmt 
+		from(
+			select
+				sum(orderhistorytrn.COST_AMT) as orderAmt
+			from jobtrn 
+				left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and costtrn.COMPANY_CD=jobtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and paytrn.COMPANY_CD=costtrn.COMPANY_CD and paytrn.DEL_FLG != 1
+				left join orderhistorytrn on costtrn.COST_NO = orderhistorytrn.ORDER_NO and costtrn.COMPANY_CD=orderhistorytrn.COMPANY_CD
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and ((paytrn.`ADDDATE` BETWEEN #{startDate} AND  #{endDate}  and paytrn.CONFIRMDATE is null)  
+					or (paytrn.`ADDDATE` is null  and costtrn.`ADDDATE` BETWEEN #{startDate} AND  #{endDate} ) 
+					or (paytrn.`ADDDATE` BETWEEN #{startDate} AND  #{endDate} and paytrn.CONFIRMDATE >  #{endDate} ))
+				and jobtrn.COMPANY_CD=#{companyID}
+				and orderhistorytrn.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+			union all
+
+			select
+				sum(orderhistorytrn.COST_AMT) as orderAmt
+			from jobtrn 
+				left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and lendtrn.COMPANY_CD=jobtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+				left join orderhistorytrn on lendtrn.INPUT_NO = orderhistorytrn.ORDER_NO and lendtrn.COMPANY_CD=orderhistorytrn.COMPANY_CD
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and ((lendtrn.`ADDDATE` BETWEEN #{startDate} AND  #{endDate} and lendtrn.CONFIRMDATE is null) 
+					or (lendtrn.`ADDDATE` BETWEEN #{startDate} AND  #{endDate} and lendtrn.CONFIRMDATE > #{endDate})) 
+				and jobtrn.COMPANY_CD=#{companyID}
+				and orderhistorytrn.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+			union all
+			
+			select
+				sum(nowOrder.COST_AMT) - sum(beforOrder.COST_AMT) as orderAmt
+			from jobtrn 
+				left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and costtrn.COMPANY_CD=jobtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and paytrn.COMPANY_CD=costtrn.COMPANY_CD and paytrn.DEL_FLG != 1
+				left join orderhistorytrn as beforOrder on costtrn.COST_NO=beforOrder.ORDER_NO and beforOrder.COMPANY_CD=costtrn.COMPANY_CD and beforOrder.ORDER_TYPE=0  and beforOrder.CHECK_MONTH=#{beforDate}  
+				left join orderhistorytrn as nowOrder on costtrn.COST_NO=nowOrder.ORDER_NO and nowOrder.COMPANY_CD=costtrn.COMPANY_CD and nowOrder.ORDER_TYPE=0  and nowOrder.CHECK_MONTH= date_format(#{outMonth},"%Y%m")
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and (( paytrn.`ADDDATE` is null and costtrn.`ADDDATE` &lt; #{startDate})
+					or (paytrn.`ADDDATE` &lt; #{startDate} and paytrn.CONFIRMDATE > #{endDate})
+					or (paytrn.`ADDDATE` &lt; #{startDate} and paytrn.CONFIRMDATE is null))
+				and jobtrn.COMPANY_CD=#{companyID}
+			
+			
+			union all
+			
+			select
+				sum(nowOrder.COST_AMT) - sum(beforOrder.COST_AMT) as orderAmt
+			from jobtrn 
+				join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and lendtrn.COMPANY_CD=jobtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+				left join orderhistorytrn as beforOrder on lendtrn.INPUT_NO=beforOrder.ORDER_NO and beforOrder.COMPANY_CD=lendtrn.COMPANY_CD and beforOrder.ORDER_TYPE=0  and beforOrder.CHECK_MONTH=#{beforDate} 
+				left join orderhistorytrn as nowOrder on lendtrn.INPUT_NO=nowOrder.ORDER_NO and nowOrder.COMPANY_CD=lendtrn.COMPANY_CD and nowOrder.ORDER_TYPE=0  and nowOrder.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and ((lendtrn.`ADDDATE` &lt; #{startDate}  and lendtrn.CONFIRMDATE is null)
+					or (lendtrn.`ADDDATE` &lt; #{startDate}  and lendtrn.CONFIRMDATE > #{endDate}))
+				and jobtrn.COMPANY_CD=#{companyID}
+		) as orderList
+	
+	</select>
+	 -->
+	 <select id="getNotConfirmAmtByJoB" resultMap="eReportResultMap">
+		select 
+			sum(orderList.orderAmt) as notConfirmCostTotalAmt 
+		from(
+			select
+				sum(orderhistorytrn.COST_AMT) as orderAmt
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+				left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and costtrn.COMPANY_CD=jobtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and paytrn.COMPANY_CD=costtrn.COMPANY_CD and paytrn.DEL_FLG != 1
+				left join orderhistorytrn on costtrn.COST_NO = orderhistorytrn.ORDER_NO and costtrn.COMPANY_CD=orderhistorytrn.COMPANY_CD
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m")
+				and jobtrn.COMPANY_CD=#{companyID}
+				and orderhistorytrn.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+				and orderhistorytrn.ORDER_STATUS = 0
+			union all
+
+			select
+				sum(orderhistorytrn.COST_AMT) as orderAmt
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+				left join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and lendtrn.COMPANY_CD=jobtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+				left join orderhistorytrn on lendtrn.INPUT_NO = orderhistorytrn.ORDER_NO and lendtrn.COMPANY_CD=orderhistorytrn.COMPANY_CD
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and date_format(sellordertrn.DLVDAY,"%Y%m") = date_format(#{outMonth},"%Y%m")
+				and jobtrn.COMPANY_CD=#{companyID}
+				and orderhistorytrn.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+				and orderhistorytrn.ORDER_STATUS = 0
+			union all
+			
+			select
+				sum(case when nowOrder.ORDER_STATUS = 0 then nowOrder.COST_AMT else 0 end - beforOrder.COST_AMT) as orderAmt
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+				left join costtrn on jobtrn.JOB_CD=costtrn.JOB_CD and costtrn.COMPANY_CD=jobtrn.COMPANY_CD and costtrn.DEL_FLG != 1
+				left join paytrn on costtrn.INPUT_NO=paytrn.INPUT_NO and paytrn.COMPANY_CD=costtrn.COMPANY_CD and paytrn.DEL_FLG != 1
+				left join orderhistorytrn as beforOrder on costtrn.COST_NO=beforOrder.ORDER_NO and beforOrder.COMPANY_CD=costtrn.COMPANY_CD and beforOrder.ORDER_STATUS = 0 and beforOrder.ORDER_TYPE=0  and beforOrder.CHECK_MONTH=#{beforDate}  
+				left join orderhistorytrn as nowOrder on costtrn.COST_NO=nowOrder.ORDER_NO and nowOrder.COMPANY_CD=costtrn.COMPANY_CD and nowOrder.ORDER_TYPE=0  and nowOrder.CHECK_MONTH= date_format(#{outMonth},"%Y%m")
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m")
+				and jobtrn.COMPANY_CD=#{companyID}
+			
+			union all
+			
+			select
+				sum(case when nowOrder.ORDER_STATUS = 0 then nowOrder.COST_AMT else 0 end - beforOrder.COST_AMT) as orderAmt
+			from jobtrn 
+				left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+				join lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and lendtrn.COMPANY_CD=jobtrn.COMPANY_CD and lendtrn.DEL_FLG != 1
+				left join orderhistorytrn as beforOrder on lendtrn.INPUT_NO=beforOrder.ORDER_NO and beforOrder.COMPANY_CD=lendtrn.COMPANY_CD and beforOrder.ORDER_TYPE=1 and beforOrder.ORDER_STATUS = 0 and beforOrder.CHECK_MONTH=#{beforDate} 
+				left join orderhistorytrn as nowOrder on lendtrn.INPUT_NO=nowOrder.ORDER_NO and nowOrder.COMPANY_CD=lendtrn.COMPANY_CD and nowOrder.ORDER_TYPE=1  and nowOrder.CHECK_MONTH=date_format(#{outMonth},"%Y%m")
+			where 
+				jobtrn.JOB_CD=#{jobNo}
+				and jobtrn.DEL_FLG != 1
+				and date_format(sellordertrn.DLVDAY,"%Y%m") &lt; date_format(#{outMonth},"%Y%m")
+				and jobtrn.COMPANY_CD=#{companyID}
+		) as orderList
+	
+	</select>
+	<select id="getReportListBymadeCost" resultMap="eReportResultMap">
+	SELECT * from (
+		SELECT
+			divClmst.CLDIVCD as cldivID,
+			divClmst.DIVNM as dClientName,
+			reqClmst.DIVNM as rClientName,
+			jobtrn.JOB_CD as jobNo,
+			journal.ORDER_NO as costNo,
+			CASE WHEN journal.TYPE_FLG = 2 THEN paytrn.INPUT_NO
+				WHEN journal.TYPE_FLG = 3 THEN lendtrn.NEW_INPUT_NO
+				WHEN journal.TYPE_FLG = 4 THEN trantrn.NEW_INPUT_NO 
+			END  as inputNo,
+			0 as lastMonthResidual,
+			journal.DEBTOR_AMOUNT as thisMonthHappened,
+			CASE WHEN journal.TYPE_FLG = 2 THEN DATE_FORMAT(paytrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 3 THEN DATE_FORMAT(lendtrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 4 THEN DATE_FORMAT(trantrn.CONFIRMDATE,"%Y-%m-%d") 
+			END as confirmDate,
+			journal.DEBTOR_AMOUNT as thisMonthAccurate,
+			IFNULL(DATE_FORMAT(SALEADDDATE,"%Y-%m-%d"),"") as planDlvday,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst as divClmst on jobtrn.CLDIV_CD = divClmst.CLDIVCD and jobtrn.COMPANY_CD = divClmst.COMPANY_CD
+			left join clmst as reqClmst on jobtrn.PAYER_CD = reqClmst.CLDIVCD and jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+			join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+			left join paytrn on journal.INPUT_NO = paytrn.INPUT_NO and journal.COMPANY_CD = paytrn.COMPANY_CD
+			left join lendtrn on journal.INPUT_NO = lendtrn.INPUT_NO and journal.COMPANY_CD = lendtrn.COMPANY_CD
+			left join trantrn on journal.INPUT_NO = trantrn.INPUT_NO and journal.COMPANY_CD = trantrn.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") &lt;= DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		union all 
+			
+		SELECT
+			divClmst.CLDIVCD as cldivID,
+			divClmst.DIVNM as dClientName,
+			reqClmst.DIVNM as rClientName,
+			jobtrn.JOB_CD as jobNo,
+			journal.ORDER_NO as costNo,
+			CASE WHEN journal.TYPE_FLG = 2 THEN paytrn.INPUT_NO
+				WHEN journal.TYPE_FLG = 3 THEN lendtrn.NEW_INPUT_NO
+				WHEN journal.TYPE_FLG = 4 THEN trantrn.NEW_INPUT_NO 
+			END  as inputNo,
+			CASE WHEN journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m") then 0 else journal.DEBTOR_AMOUNT END as lastMonthResidual,
+			CASE WHEN journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m") then journal.DEBTOR_AMOUNT else 0 END as thisMonthHappened,
+			CASE WHEN journal.TYPE_FLG = 2 THEN DATE_FORMAT(paytrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 3 THEN DATE_FORMAT(lendtrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 4 THEN DATE_FORMAT(trantrn.CONFIRMDATE,"%Y-%m-%d") 
+			END as confirmDate,
+			0 as thisMonthAccurate,
+			IFNULL(DATE_FORMAT(SALEADDDATE,"%Y-%m-%d"),"") as planDlvday,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst as divClmst on jobtrn.CLDIV_CD = divClmst.CLDIVCD and jobtrn.COMPANY_CD = divClmst.COMPANY_CD
+			left join clmst as reqClmst on jobtrn.PAYER_CD = reqClmst.CLDIVCD and jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+			join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+			left join paytrn on journal.INPUT_NO = paytrn.INPUT_NO and journal.COMPANY_CD = paytrn.COMPANY_CD
+			left join lendtrn on journal.INPUT_NO = lendtrn.INPUT_NO and journal.COMPANY_CD = lendtrn.COMPANY_CD
+			left join trantrn on journal.INPUT_NO = trantrn.INPUT_NO and journal.COMPANY_CD = trantrn.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") > DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.FISCAL_MONTH &lt;= DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		union all
+			
+		SELECT
+			divClmst.CLDIVCD as cldivID,
+			divClmst.DIVNM as dClientName,
+			reqClmst.DIVNM as rClientName,
+			jobtrn.JOB_CD as jobNo,
+			journal.ORDER_NO as costNo,
+			CASE WHEN journal.TYPE_FLG = 2 THEN paytrn.INPUT_NO
+				WHEN journal.TYPE_FLG = 3 THEN lendtrn.NEW_INPUT_NO
+				WHEN journal.TYPE_FLG = 4 THEN trantrn.NEW_INPUT_NO 
+			END  as inputNo,
+			journal.DEBTOR_AMOUNT as lastMonthResidual,
+			0 as thisMonthHappened,
+			CASE WHEN journal.TYPE_FLG = 2 THEN DATE_FORMAT(paytrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 3 THEN DATE_FORMAT(lendtrn.CONFIRMDATE,"%Y-%m-%d") 
+				WHEN journal.TYPE_FLG = 4 THEN DATE_FORMAT(trantrn.CONFIRMDATE,"%Y-%m-%d") 
+			END as confirmDate,
+			journal.DEBTOR_AMOUNT as thisMonthAccurate,
+			IFNULL(DATE_FORMAT(SALEADDDATE,"%Y-%m-%d"),"") as planDlvday,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst as divClmst on jobtrn.CLDIV_CD = divClmst.CLDIVCD and jobtrn.COMPANY_CD = divClmst.COMPANY_CD
+			left join clmst as reqClmst on jobtrn.PAYER_CD = reqClmst.CLDIVCD and jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+			join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+			left join paytrn on journal.INPUT_NO = paytrn.INPUT_NO and journal.COMPANY_CD = paytrn.COMPANY_CD
+			left join lendtrn on journal.INPUT_NO = lendtrn.INPUT_NO and journal.COMPANY_CD = lendtrn.COMPANY_CD
+			left join trantrn on journal.INPUT_NO = trantrn.INPUT_NO and journal.COMPANY_CD = trantrn.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") = DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.FISCAL_MONTH &lt; DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		) as madeCostList
+		order by madeCostList.cldivID ASC,madeCostList.jobNo ASC,costNo,inputNo
+	</select>
+	<select id="getReportListBymadeCostButtom" resultMap="eReportResultMap">
+	SELECT 
+		madeCostList.cldivAccountID AS cldivAccountID,
+		madeCostList.cldivID AS cldivID,
+		madeCostList.dClientName AS dClientName,
+		sum(madeCostList.lastMonthResidual) as lastMonthResidual,
+		sum(madeCostList.thisMonthHappened) as thisMonthHappened,
+		sum(madeCostList.thisMonthAccurate) as thisMonthAccurate,
+		sum(madeCostList.isThisMonthHappened) as isThisMonthHappened
+	from (
+		SELECT
+			clmst.ACCOUNT_CD AS cldivAccountID,
+			clmst.CLDIVCD as cldivID,
+			clmst.DIVNM as dClientName,
+			0 as lastMonthResidual,
+			journal.DEBTOR_AMOUNT as thisMonthHappened,
+			journal.DEBTOR_AMOUNT as thisMonthAccurate,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and jobtrn.COMPANY_CD = clmst.COMPANY_CD
+			join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") &lt;= DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		union all 
+			
+		SELECT
+			clmst.ACCOUNT_CD AS cldivAccountID,
+			clmst.CLDIVCD as cldivID,
+			clmst.DIVNM as dClientName,
+			CASE WHEN journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m") then 0 else journal.DEBTOR_AMOUNT END as lastMonthResidual,
+			CASE WHEN journal.FISCAL_MONTH = DATE_FORMAT(#{choseDate},"%Y%m") then journal.DEBTOR_AMOUNT else 0 END as thisMonthHappened,
+			0 as thisMonthAccurate,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and jobtrn.COMPANY_CD = clmst.COMPANY_CD
+			left join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") > DATE_FORMAT(#{choseDate},"%Y%m") 
+			and journal.FISCAL_MONTH &lt;= DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		union all
+			
+		SELECT
+			clmst.ACCOUNT_CD AS cldivAccountID,
+			clmst.CLDIVCD as cldivID,
+			clmst.DIVNM as dClientName,
+			journal.DEBTOR_AMOUNT as lastMonthResidual,
+			0 as thisMonthHappened,
+			journal.DEBTOR_AMOUNT as thisMonthAccurate,
+			0 as isThisMonthHappened
+		from jobtrn 
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD
+			left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and jobtrn.COMPANY_CD = clmst.COMPANY_CD
+			join journal on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+		where 
+			jobtrn.COMPANY_CD=#{companyID}
+			and DATE_FORMAT(ifnull(sellordertrn.DLVDAY,jobtrn.PLAN_DALDAY),"%Y%m") = DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.FISCAL_MONTH &lt; DATE_FORMAT(#{choseDate},"%Y%m")
+			and journal.DEBTOR_CD = "009"
+		) as madeCostList
+		GROUP BY madeCostList.cldivID
+		order by madeCostList.cldivID ASC
+	</select>
+	<select id="isExportExcelFlg" resultType="int">
+		SELECT
+			case when DATE_FORMAT(#{endDate},"%Y%m") &lt;= max(summary.ACCOUNTYM) then 0
+			else 1
+			end
+		from summary
+		WHERE
+			COMPANY_CD = #{companyID}
+		and summary.FROM_JPP = 1
+	</select>
+	<select id="getFromJppMaxAccountMonth" resultType="String">
+		SELECT
+			ifnull(max(summary.ACCOUNTYM),"")
+		from summary
+		WHERE
+			COMPANY_CD = #{companyID}
+		and summary.FROM_JPP = 1
+	</select>
+	   <select id="getAccountIDs"  resultType="String">        
+                select  GROUP_CONCAT(ACCOUNT_CD) AccountID  from clmst where  company_cd = #{companyID}
+                and DEL_FLG = 0
+                        and  clmst.account_Cd = #{accountCd}
+                        and  CLIENT_FLG = '1'
+   </select>
+   <select id="getClientNames" resultMap="ClientNames">        
+                select divnm,cldivcd  from clmst where  company_cd = #{companyID}
+                and DEL_FLG = 0
+                        and clmst.account_Cd = #{accountCd}
+                        and  CLIENT_FLG = '1'
+   </select>
+   <select id="getClmstlength"  resultType="java.lang.Integer">        
+                select 
+                        count(1)
+                from clmst 
+                where  company_cd = #{companyID}
+                and DEL_FLG = 0
+                       and clmst.account_Cd = #{accountCd}
+                        and  CLIENT_FLG = '1'
+   </select>
+	
+</mapper>

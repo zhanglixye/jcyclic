@@ -1,0 +1,47 @@
+<div class="hid rujin">
+	<ul class="breadcrumb" id="breadcrumb">
+		<li class="fs18 i18n" name='advance_processing'></li>
+		<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+	</ul>
+	<div style="padding: 0 20px 20px;">
+		<div class="row">
+			<div class="col-xs-12 mb-10">
+				<span class="i18n" name='advance_finish'></span>				
+				<label>
+					<input type="checkbox" name="" id="rec_flg" value="" />
+					<span style="position: relative;top: 2px;" class="iconfont icon-duihaok"></span>
+				</label>
+			</div>
+			<div class="col-xs-12 mb-5">
+				<span class="i18n" name='advance_day' ></span>
+			</div>
+			<div class="col-xs-12 mb-10">
+				<input class="costDate form-control" type="text" id="rec_date" name="rec_date"/>
+				<script>
+					$('#rec_date').datebox({width:'115px'})
+				</script>				
+				<span class="ml-30">
+					<label style="margin-bottom: 0 !important;">
+						<input type="checkbox" name="" id="deleteRecdate" value="" />
+						<span class="iconfont icon-duihaok"></span>
+						<span style="margin-left: -5px;font-weight: 400;" class="i18n" name='tag_flag'></span>
+					</label>						
+				</span>	
+			</div>
+			<div class="col-xs-12">
+				<span class="mb-5 i18n" name='jobregistration_remarks'></span>
+				<textarea maxlength="500" style="padding:0px 12px;" id="recremark" class="form-control" name="" rows="3" cols=""></textarea>
+			</div>
+			<div class="col-xs-12" style="margin: 20px 0 0 0;text-align: center;">
+				<div class="model_width">
+					<button style="margin-left: 16px;float: right;" id="closeBtnInput" class="btn btn-default i18n" name='salescategoryRegistration_clsoe'></button>
+					<button style="float: right;" class="btn btn-success i18n log_job" name='salescategoryRegistration_login' onclick="recEdit()"></button>			
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>		 
+		var width_pay_chuli = auto_smalll_remark_T();
+		$('#recremark,.model_width').width(width_pay_chuli);
+	</script>
+</div>

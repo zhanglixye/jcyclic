@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='suppliers_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--百度编辑器-->
+		
+        <link rel="stylesheet" href="../public/lib/umeditor/umeditor.css?v=2018092801" />
+		<script type="text/javascript" src="../public/lib/umeditor/template.min.js" ></script>
+		<script type="text/javascript" src="../public/lib/umeditor/umeditor.config.js?v=2018092801" ></script>
+		<script type="text/javascript" src="../public/lib/umeditor/umeditor.js" ></script>
+		<!--语言支持-->
+		<script type="text/javascript" src="../public/lib/umeditor/lang/zh-cn.js" ></script>
+		<script type="text/javascript" src="../public/javascript/jcst/job/board.js?v=2018092801" ></script>
+		
+		<!--dataGrid 表格js-->
+        <script type="text/javascript" src="../public/javascript/master/suppliers_list.js?v=2018092801"></script>
+        <script type="text/javascript" src="../public/javascript/common/common_export_excel.js?v=2018092801" ></script>
+        <script type="text/javascript" src="../public/lib/csv_json/player.js?v=2018092801"></script>
+        <script type="text/javascript" src="../public/lib/csv_json/papaparse.js?v=2018092801"></script>
+        	
+        <!--#include virtual="../common/language.shtml"-->   
+	</head>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='suppliers_list_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<div class="supplier_sum_hei1">
+					<form class="form-inline">
+						<div class="mr-20 form-group">
+							<label class="i18n" name='suppliersList_suppliers_system_number' for="qyfInput" style="margin-right: 5px;"></label>
+							<input oninput="this.value=ToCDB(this.value)" style="width: 110px;" class="form-control" tabindex="1" type="text" name="account_cd" id="account_cd"  maxlength="10" value=""  />
+						</div>
+						<div class="mr-20 form-group">
+							<label class="i18n" name='suppliersList_suppliers_name' for="qyfInput1" style="margin-right: 5px;"></label>
+							<input maxlength="100"  class="form-control" type="text" name="divnm" tabindex="2" id="divnm" />
+						</div>
+					</form>
+					<form class="form-inline top-15 in_bl">
+						<div class="mr-30 form-group radio">
+							<label class="marRight i18n" name='suppliersList_suppliers_type'></label>
+							<label class="radio">
+					            <input type="radio" name="radio" id="client_flg" value="1">
+					           <!-- <i></i>-->
+					            <span class="i18n" name='suppliersList_customer'></span>
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio" id="contra_flg" value="1">
+					           <!-- <i></i>	-->	                              
+					            <span class="i18n" name='suppliersList_contractor'></span>
+					        </label>
+					         <label class="radio">
+					            <input type="radio" name="radio" id="pay_flg" value="1">
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_payer'></span>		                              
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio" id="hdy_flg" value="1">
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_HDY_group'></span>		                              
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio" checked="checked" id="clientall" value="1">
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_all'></span>			                            
+					        </label>
+						</div>			
+					</form>
+					<form class="form-inline top-15 in_bl">
+						<div class="form-group radio">
+							<label class="marRight i18n" name='suppliersList_Y_N_Effect'></label>
+							<label class="radio">
+					            <input type="radio" name="radio_xiao" id="delflag" value="0" checked="checked">
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_effective'></span>
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio_xiao" id="delflag1" value="1" >
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_invalid'></span>				                              
+					        </label>
+					        <label class="radio">
+					            <input type="radio" name="radio_xiao"id="delflagall" value="2" >
+					            <!--<i></i>-->
+					            <span class="i18n" name='suppliersList_all'></span>
+					        </label>
+						</div>	
+					</form>
+					<form class="form-inline top-15 bottom-15 ov">
+						<input selectname='suppliersList_eliminate' class="btn btn-default pull-right marleft i18n-input" type="button" tabindex="4" onclick="cleartest()" value="">
+						<input style="width: 7%;" selectname='suppliersList_retrieval' class="btn btn-success pull-right search i18n-input" type="button" tabindex="3" onclick="queryform()" value="">
+					</form>
+				</div>
+				<table class="tableObj" id="suppliersListTab" style="width: 100%;"></table>	
+				<div class="switch_table_none hidden">
+					<center style="margin-top: 20px;"></center>
+				</div>
+				<div class="supplier_sum_hei2">
+					<form class="form-inline top-15 ov">
+						<label class="marRight i18n uploadhid" name='suppliersList_suppliers_batch_upload_information'></label>
+						<input class="btn btn-success pull-right i18n-input clmstadd" selectname='suppliersList_add' onclick="clmstadd()" tabindex="8" type="button" value="">
+					</form>
+					<form class="form-inline lastChild">
+						<div class="form-group">
+							<input style="visibility: hidden;" type="file" name="fileSheet1" id="files" accept="" data-btnClass="btn-primary">
+							<i class="iconfont icon-shangchuan green" onclick="uploadclmst()" id="submit-parse" tabindex="10"></i>
+						</div>
+					</form>
+				</div>		       
+				<script>
+					playCsvUpload("submit-parse","files");
+					var objTop = $('.supplier_sum_hei1').height();
+					var objBot = $('.supplier_sum_hei2').height();
+					var tableObj = $('.tableObj');
+					auto_tableHei(objTop,objBot,25,tableObj);
+				</script>
+			</aside>
+		</div>	
+	</body>
+</html>

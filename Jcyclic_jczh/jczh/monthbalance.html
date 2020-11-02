@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='common_monthly_treatment'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<script type="text/javascript" src="../public/javascript/jczh/monthBalance/monthBalance.js?v=2018092801"></script>	
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jczh/MonthBalance.css?v=2018092801"/>
+		<!--#include virtual="../common/language.shtml"-->  
+	</head>
+	<style>
+		#payReqNotConfirmNums,#notConfirmLendNums,#notConfirmTranNums,.cu_hovrt{
+			color: #1abc9c!important;
+			text-decoration: underline!important;
+		}
+		#payReqNotConfirmNums:hover{
+			color: #000000!important;
+		}
+		#notConfirmLendNums:hover{
+			color: #000000!important;
+		}
+		#notConfirmTranNums:hover{
+			color: #000000!important;
+		}
+		.cu_hovrt:hover{
+			color: #000000!important;
+		}
+		.ov .dot_body{
+			cursor: default;
+			background-color: white;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='common_monthly_treatment'></li>
+				</ul>
+			</section>
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="panel panel-default">						
+							<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 15px 18px;">
+								<div class="row mb-10">
+									<div class="col-xs-6 one" style="padding-right: 5px;">
+										<!--#include virtual="../common/business/MonthBalance/job.shtml"-->
+									</div>
+									<div class="col-xs-6 two" style="padding-left: 5px;">
+										<!--#include virtual="../common/business/MonthBalance/cost.shtml"-->
+									</div>
+								</div>
+							</div>	
+						</div>
+						<div class="lastChild" style="margin-top: 10px;">
+							<button onclick="checkOutMonth()" class="btn btn-success i18n" name='common_monthly_treatment'></button>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>		
+	</body>
+</html>

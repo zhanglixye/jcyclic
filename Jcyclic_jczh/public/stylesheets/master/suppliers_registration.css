@@ -1,0 +1,414 @@
+.form-group[required] .control-label::after {
+  content: "＊";
+  vertical-align: middle;
+  color: #E00;
+}
+
+.title {
+  border-radius: 0;
+  padding: 15px 20px 15px 20px;
+  border-bottom: 1px solid #dddddd;
+  background-color: #ecf0f1;
+  font-size: large;
+}
+
+/* id=tool内に指定するとFWのCSSが反映される為、別途定義 */
+.base-label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.panel {
+  margin-bottom: 15px;
+}
+
+.panel-heading {
+  padding: 5px 5px 5px 7px;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.panel-body,.panel-body1{
+  padding: 5px 5px 5px 7px;
+}
+
+.panel-small {
+  font-size: 12px;
+}
+
+.panel-title-small {
+  font-size: 12px;
+}
+
+.base-value {
+  margin-left: 12px;
+  border-bottom: 1px solid #E6E6E6;
+  font-size: 16px;
+}
+
+/* 参照コンテナ[開始] */
+.base-container dl {
+  margin: 0px 0px 2px 0px;
+}
+
+/* 項目名 */
+.base-container dt {
+
+}
+
+/* 値 */
+.base-container dl dd {
+  margin-left: 7px;
+  border-bottom: 1px solid #E6E6E6;
+
+}
+/* 参照コンテナsmall[終了] */
+
+/* 参照コンテナsmall[開始] */
+.base-container-small dl {
+  margin: 0px 0px 2px 0px;
+}
+
+/* 項目名 */
+.base-container-small dt {
+  font-size: 12px;
+}
+
+/* 値 */
+.base-container-small dl dd {
+  margin-left: 7px;
+  border-bottom: 1px solid #E6E6E6;
+  font-size: 12px;
+}
+/* 参照コンテナsmall[終了] */
+
+.line-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.idt-1 {
+  margin-left: 12px;
+}
+
+.row-eq-height {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 0 !important;
+}
+
+.row-eq-height .col-md-3,.row-eq-height .col-md-4{
+	border-radius: 0 !important;
+}
+
+.actual {
+  font-size: 20px;
+}
+
+/** 列タイトル */
+.sales-simple-table>div:nth-child(1)>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/** 行タイトル */
+.sales-simple-table>div:nth-child(n+2)>div:nth-child(1) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/** 値(実績) */
+.sales-simple-table>div:nth-child(n+2)>div:nth-child(2) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/** 値(実績以外) */
+.sales-simple-table>div:nth-child(n+2)>div:nth-child(n+3) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/** 罫線(開始) */
+.sales-simple-table>div:nth-child(n+2)>div {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.sales-simple-table>div:nth-child(2)>div {
+  border-top: 1px solid #E6E6E6;
+}
+
+.sales-simple-table>div>div:nth-child(n+2) {
+  border-left: 1px solid #E6E6E6;
+}
+/** 罫線(終了) */
+
+
+/** 列タイトル */
+.sales-simple-table2>div:nth-child(1)>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/** 行タイトル */
+.sales-simple-table2>div:nth-child(n+2)>div:nth-child(1) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/** 値(実績) */
+.sales-simple-table2>div:nth-child(n+2)>div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/** 値(実績以外) */
+.sales-simple-table2>div:nth-child(n+2)>div:nth-child(n+3) {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/** 罫線(開始) */
+.sales-simple-table2>div:nth-child(n+2)>div {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.sales-simple-table2>div:nth-child(2)>div {
+  border-top: 1px solid #E6E6E6;
+}
+
+.sales-simple-table2>div>div:nth-child(n+2) {
+  border-left: 1px solid #E6E6E6;
+}
+
+/** employee_registration[end]*/
+
+.compare-budget-actual-table {
+  /**text-align: center;*/
+  margin-bottom: 15px;
+}
+
+.compare-budget-actual-table>table {
+  border-color: grey;
+}
+
+.compare-budget-actual-table>table>thead>tr>th {
+  text-align: center;
+  border-bottom: 1px solid #E6E6E6;
+  padding: 2px 7px 2px 7px;
+}
+
+.compare-budget-actual-table>table>thead>tr>th:nth-child(n+3) {
+  border-left: 1px solid #E6E6E6;
+  vertical-align: bottom;
+}
+
+.compare-budget-actual-table>table>tbody>tr>td {
+  text-align: right;
+  border-bottom: 1px solid #E6E6E6;
+  padding: 2px 7px 2px 7px;
+}
+
+.compare-budget-actual-table>table>tbody>tr>td:nth-child(1) {
+  text-align: left;
+  padding: 2px 0px 2px 7px;
+}
+
+.compare-budget-actual-table>table>tbody>tr>td:nth-child(2) {
+  text-align: center;
+  padding: 2px 0px 2px 0px;
+}
+
+.compare-budget-actual-table>table>tbody>tr>td:nth-child(n+3) {
+  border-left: 1px solid #E6E6E6;
+  vertical-align: bottom;
+}
+
+
+.sales-detail-table {
+}
+
+.sales-detail-table>div:nth-child(n+2)>div {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.sales-detail-table>div:nth-child(2)>div {
+  border-top: 1px solid #E6E6E6;
+}
+
+.sales-detail-table>div>div:nth-child(n+2) {
+  border-left: 1px solid #E6E6E6;
+}
+
+.sales-detail-foreign-currency {
+  margin: 3px 0px 3px 0px;
+}
+
+.sales-detail-foreign-currency-table {
+}
+
+.sales-detail-foreign-currency-table>div {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.sales-detail-foreign-currency-table>div>div:nth-child(n+2) {
+  border-left: 1px solid #E6E6E6;
+  border-right: 1px solid #E6E6E6;
+}
+
+.dashboard1 {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.dashboard1-contents {
+  /*position:absolute;*/
+}
+
+.dashboard1>div>div {
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-bottom: 0px;
+}
+
+.dashboard1>div>div>div {
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-bottom: 0px;
+}
+
+.arrow-ok {
+  color: #5cb85c;
+  padding-left: 4px;
+}
+
+.arrow-alert {
+  color: #d9534f;
+  padding-left: 4px;
+}
+
+.log-sidebar {
+  position: fixed;
+/*  background-color: white;*/
+  width: 27%;
+}
+
+.col-md-4 .log-sidebar{
+	right: auto;
+}
+
+.log-sidebar2 {
+  position: fixed;
+  background-color: white;
+  width: 35%;
+}
+
+.log-box {
+	margin-bottom: 10px;
+}
+
+.log-user {
+  display: flex;
+  align-items: center;
+}
+
+.log-tag {
+  margin-right: 10px;
+}
+.log-tag i{
+	cursor:default;
+}
+.user-box {
+  display: flex;
+}
+.user-icon i{
+	cursor:default;
+}
+.log-contents i{
+	cursor: default;
+}
+.user-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 7px;
+}
+
+.user-username {
+  font-size: 12px;
+}
+
+.user-timestamp {
+  font-size: 7px;
+  color: gray
+}
+
+.log-contents {
+  margin-left: 1em;
+  word-wrap: break-word;
+}
+
+.bootstrap-switch-label{
+	width: 0 !important;
+}
+.panel-default .panel-body .form-group input[type='number']{
+	width: 20%;
+	display: inline-block;
+	margin-left: 10px;
+}
+select[name='boostrap-select']{
+	width: 20%;
+	display: inline-block;
+}
+/*.icon-i{
+	position: relative;
+    top: 4px;
+    cursor: pointer;
+}*/
+.form-group p{
+	border-bottom: 1px solid #ccc;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	height: 34px;
+}
+
+#tb,#tb+.modal-footer{
+	background-color:white;
+}
+#tb a.iconfont.icon-tianjia{
+	margin-left: 20px;
+	cursor: pointer;
+}
+.modal-footer{
+	padding-top: 0;
+}
+.tab-content .panel.panel-default{
+	border-top-left-radius:0 !important;
+}
+
+div.panel-body.supp_hide .p-3 .nav>li{
+	width: 140px;
+	text-align: center;
+}

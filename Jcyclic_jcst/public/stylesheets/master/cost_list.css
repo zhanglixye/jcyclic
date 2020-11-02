@@ -1,0 +1,136 @@
+.menu-shadow{
+	height: auto!important;
+}
+#menu{
+	height: auto!important;
+}
+#menu2{
+	height: auto!important;
+}
+.mr_bottom{
+	margin-bottom: 10px!important;
+	padding-left: 10px!important;
+	padding-right: 10px!important;
+}
+.mr_top{
+	margin-top: -5px!important;
+}
+.left_width{
+	width: 0px;
+}
+.margin_left{
+	margin-left: 75px!important;
+}
+.datagrid-btable .datagrid-cell span.manager{
+	background-color: #f97923;
+	padding: 3px;
+	color: white;
+	border-radius: 5px;
+	margin-right: 3px;
+}
+.datagrid-btable .datagrid-cell span.requestor{
+	background-color: #00b0f0;
+	padding: 3px;
+	color: white;
+	border-radius: 5px;
+	margin-right: 3px;
+}
+div.datagrid-body{
+	overflow-y: hidden;
+}
+td[field='lable']{
+	padding-right: 4px;
+}
+.table_fix_top{
+	position: fixed;
+	top: 112px;
+	z-index: 8;
+}
+.table_fix_header{
+	position: fixed;
+	top: 151px;
+	z-index: 8;
+}
+.top-40{
+	top:40px;
+}
+.icon-xiala{
+	cursor: auto;
+}
+
+
+.btn1 {
+	width: 120px;
+}
+
+.btn2 {
+	width: 120px;
+}
+
+
+#myTabContent{
+	border: solid #c6c6c6 1px;
+	border-top: 0;
+}
+
+#home {
+	margin-top: 30px;
+	padding: 15px;
+}
+
+.search2 {
+	float: left;
+	position: relative;
+	top: -32px;
+	left: 12.5%;
+}
+
+#ios {
+	margin-top: 30px;
+	padding: 15px;	
+}
+
+.content {
+	position: relative;
+	top: 30px;
+}
+
+.btn_color{
+	background-color:rgb(28,186,155);
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+	border-bottom-color: transparent;
+}
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+.icon-xiazai1,.icon-bianji{
+	color: #1abc9c;
+}
+
+.datagrid-header .datagrid-cell span.i18n[name='timesheet_list_no']{
+	font-size: 13px;
+	font-weight: bold;
+}
+.btn-group.sale_rate_click .btn-primary{
+	padding: 1px 22px;
+}
+
+a{
+	color: #000000;
+}
+
+@media (min-width: 1366px) {
+		#dalday + span,#dalday1 + span{
+			width: 93px !important;
+		}
+		#invoicedate + span,#invoicedate1 + span{
+			width: 90px !important;
+		}	
+		#dalday + span input,#dalday1 + span input,#invoicedate + span input,#invoicedate1 + span input{
+			font-size: 12px;
+		}		
+	}
+

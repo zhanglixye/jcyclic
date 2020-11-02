@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.ClmstMapper" >
+	<resultMap id="clmstByPop" type="com.kaiwait.bean.mst.entity.Clmst">
+		<result column="cldivcd" property="cldivcd" jdbcType="INTEGER" />
+		<result column="account_cd" property="account_cd" jdbcType="VARCHAR" />
+		<result column="divnm" property="divnm" jdbcType="VARCHAR" />
+		<result column="divname_full" property="divname_full" jdbcType="VARCHAR" />
+		<result column="CLIENT_FLG" property="client_flg" jdbcType="INTEGER" />
+		<result column="PAY_FLG" property="pay_flg" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.User">
+		<result column="MEMBER_ID" property="memberID" jdbcType="VARCHAR" />
+	</resultMap>
+   <select id="querymaxno" resultType="java.util.Map" >
+   
+	SELECT IFNULL(max(cldivcd),null) num from clmst
+	
+   </select> 
+   <insert id="insertClmst" parameterType="com.kaiwait.bean.mst.entity.Clmst" >
+     insert into clmst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="cldivcd != null" >
+        cldivcd,
+      </if> 
+      <if test="account_cd != null" >
+        account_cd,
+      </if>
+      <if test="divnm != null" >
+        divnm,
+      </if>
+      <if test="divnm_en != null" >
+        divnm_en,
+      </if>
+      <if test="divname_full != null" >
+        divname_full,
+      </if>
+      <if test="divadd != null" >
+        divadd,
+      </if>
+      <if test="divadd1 != null" >
+        divadd1,
+      </if>
+      <if test="divadd2 != null" >
+        divadd2,
+      </if>
+      <if test="div_tel != null" >
+        div_tel,
+      </if>
+      <if test="contacts_name != null" >
+        contacts_name,
+      </if>
+      <if test="contacts_name_en != null" >
+        contacts_name_en,
+      </if> 
+      <if test="contacts_name_jp != null" >
+        contacts_name_jp,
+      </if>
+      <if test="contacts_name_hk != null" >
+        contacts_name_hk,
+      </if>
+      <if test="self_company_name != null" >
+        self_company_name,
+      </if>
+      <if test="self_company_name_en != null" >
+        self_company_name_en,
+      </if>
+      <if test="self_company_name_jp != null" >
+        self_company_name_jp,
+      </if>
+      <if test="self_company_name_hk != null" >
+        self_company_name_hk,
+      </if>
+      <if test="contacts_address != null" >
+        contacts_address,
+      </if> 
+      <if test="contacts_address_en != null" >
+        contacts_address_en,
+      </if>
+      <if test="contacts_address_jp != null" >
+        contacts_address_jp,
+      </if>
+      <if test="contacts_address_hk != null" >
+        contacts_address_hk,
+      </if>
+      <if test="tel_number != null" >
+        tel_number,
+      </if>
+      <if test="tel_number_en != null" >
+        tel_number_en,
+      </if>
+      <if test="tel_number_jp != null" >
+        tel_number_jp,
+      </if>
+      <if test="tel_number_hk != null" >
+        tel_number_hk,
+      </if> 
+      <if test="Date_auto_setting != null" >
+        Date_auto_setting,
+      </if>
+      <if test="auto_month != null" >
+        auto_month,
+      </if>
+      <if test="auto_day != null" >
+        auto_day,
+      </if>
+      <if test="contra_contacts_name != null" >
+        contra_contacts_name,
+      </if>
+      <if test="contra_contacts_name_en != null" >
+        contra_contacts_name_en,
+      </if>
+      <if test="contra_contacts_name_jp != null" >
+        contra_contacts_name_jp,
+      </if>
+      <if test="contra_contacts_name_hk != null" >
+        contra_contacts_name_hk,
+      </if> 
+      <if test="contra_self_company_name != null" >
+        contra_self_company_name,
+      </if>
+      <if test="contra_self_company_name_en != null" >
+        contra_self_company_name_en,
+      </if>
+      <if test="contra_self_company_name_jp != null" >
+        contra_self_company_name_jp,
+      </if>
+      <if test="contra_self_company_name_hk != null" >
+        contra_self_company_name_hk,
+      </if>
+      <if test="contra_address != null" >
+        contra_address,
+      </if>
+      <if test="contra_address_en != null" >
+        contra_address_en,
+      </if>
+      <if test="contra_address_jp != null" >
+        contra_address_jp,
+      </if> 
+      <if test="contra_address_hk != null" >
+        contra_address_hk,
+      </if>
+      <if test="contra_address1 != null" >
+        contra_address1,
+      </if>
+      <if test="contra_address_en1 != null" >
+        contra_address_en1,
+      </if>
+      <if test="contra_address_jp1 != null" >
+        contra_address_jp1,
+      </if> 
+      <if test="contra_address_hk1 != null" >
+        contra_address_hk1,
+      </if>
+      <if test="contra_address2 != null" >
+        contra_address2,
+      </if>
+      <if test="contra_address_en2 != null" >
+        contra_address_en2,
+      </if>
+      <if test="contra_address_jp2 != null" >
+        contra_address_jp2,
+      </if> 
+      <if test="contra_address_hk2 != null" >
+        contra_address_hk2,
+      </if>
+      <if test="contra_tel != null" >
+        contra_tel,
+      </if>
+      <if test="contra_tel_en != null" >
+        contra_tel_en,
+      </if>
+      <if test="contra_tel_jp != null" >
+        contra_tel_jp,
+      </if>
+      <if test="contra_tel_hk != null" >
+        contra_tel_hk,
+      </if>
+      <if test="pay_auto_setting != null" >
+        pay_auto_setting,
+      </if>
+      <if test="pay_Date_flg != null" >
+        pay_Date_flg,
+      </if> 
+      <if test="pay_auto_month != null" >
+        pay_auto_month,
+      </if>
+      <if test="pay_auto_day != null" >
+        pay_auto_day,
+      </if>
+      <if test="bank_into_one != null" >
+        bank_into_one,
+      </if>
+      <if test="bank_info_two != null" >
+        bank_info_two,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="pay_info != null" >
+        pay_info,
+      </if>
+      <if test="other_note != null" >
+        other_note,
+      </if> 
+      <if test="other_note1 != null" >
+        other_note1,
+      </if>
+      <if test="other_note2 != null" >
+        other_note2,
+      </if>
+      <if test="addDate != null" >
+        addDate,
+      </if>
+      <if test="upDate != null" >
+        clmst.upDate,
+      </if>
+      <if test="addusercd != null" >
+        addusercd,
+      </if>
+      <if test="updusercd != null" >
+        updusercd,
+      </if>
+      <if test="client_flg != null" >
+        client_flg,
+      </if>
+      <if test="contra_flg != null" >
+        contra_flg,
+      </if>
+      <if test="pay_flg != null" >
+        pay_flg,
+      </if>
+      <if test="hdy_flg != null" >
+        hdy_flg,
+      </if>
+      <if test="company_cd != null" >
+        company_cd,
+      </if>
+      <if test="del_flg != null" >
+        del_flg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="cldivcd != null" >
+        #{cldivcd,jdbcType=INTEGER},
+      </if> 
+      <if test="account_cd != null" >
+        #{account_cd,jdbcType=VARCHAR},
+      </if>
+      <if test="divnm != null" >
+        #{divnm,jdbcType=VARCHAR},
+      </if>
+      <if test="divnm_en != null" >
+        #{divnm_en,jdbcType=VARCHAR},
+      </if>
+      <if test="divname_full != null" >
+        #{divname_full,jdbcType=VARCHAR},
+      </if>
+      <if test="divadd != null" >
+        #{divadd,jdbcType=VARCHAR},
+      </if>
+       <if test="divadd1 != null" >
+        #{divadd1,jdbcType=VARCHAR},
+      </if>
+       <if test="divadd2 != null" >
+        #{divadd2,jdbcType=VARCHAR},
+      </if>
+      <if test="div_tel != null" >
+        #{div_tel,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name != null" >
+        #{contacts_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name_en != null" >
+        #{contacts_name_en,jdbcType=VARCHAR},
+      </if> 
+      <if test="contacts_name_jp != null" >
+        #{contacts_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name_hk != null" >
+        #{contacts_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name != null" >
+        #{self_company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_en != null" >
+        #{self_company_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_jp != null" >
+        #{self_company_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_hk != null" >
+        #{self_company_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address != null" >
+        #{contacts_address,jdbcType=VARCHAR},
+      </if> 
+      <if test="contacts_address_en != null" >
+        #{contacts_address_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address_jp != null" >
+        #{contacts_address_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address_hk != null" >
+        #{contacts_address_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number != null" >
+        #{tel_number,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_en != null" >
+        #{tel_number_en,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_jp != null" >
+        #{tel_number_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_hk != null" >
+        #{tel_number_hk,jdbcType=VARCHAR},
+      </if> 
+      <if test="Date_auto_setting != null" >
+        #{Date_auto_setting,jdbcType=INTEGER},
+      </if>
+      <if test="auto_month != null" >
+        #{auto_month,jdbcType=INTEGER},
+      </if>
+      <if test="auto_day != null" >
+        #{auto_day,jdbcType=INTEGER},
+      </if>
+      <if test="contra_contacts_name != null" >
+        #{contra_contacts_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_en != null" >
+        #{contra_contacts_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_jp != null" >
+        #{contra_contacts_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_hk != null" >
+        #{contra_contacts_name_hk,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_self_company_name != null" >
+        #{contra_self_company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_en != null" >
+        #{contra_self_company_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_jp != null" >
+        #{contra_self_company_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_hk != null" >
+        #{contra_self_company_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address != null" >
+        #{contra_address,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en != null" >
+        #{contra_address_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp != null" >
+        #{contra_address_jp,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk != null" >
+        #{contra_address_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address1 != null" >
+        #{contra_address1,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en1 != null" >
+        #{contra_address_en1,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp1 != null" >
+        #{contra_address_jp1,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk1 != null" >
+        #{contra_address_hk1,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address2 != null" >
+        #{contra_address2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en2 != null" >
+        #{contra_address_en2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp2 != null" >
+        #{contra_address_jp2,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk2 != null" >
+        #{contra_address_hk2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel != null" >
+        #{contra_tel,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_en != null" >
+        #{contra_tel_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_jp != null" >
+        #{contra_tel_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_hk != null" >
+        #{contra_tel_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_auto_setting != null" >
+        #{pay_auto_setting,jdbcType=INTEGER},
+      </if>
+      <if test="pay_Date_flg != null" >
+        #{pay_Date_flg,jdbcType=INTEGER},
+      </if> 
+      <if test="pay_auto_month != null" >
+        #{pay_auto_month,jdbcType=INTEGER},
+      </if>
+      <if test="pay_auto_day != null" >
+        #{pay_auto_day,jdbcType=INTEGER},
+      </if>
+      <if test="bank_into_one != null" >
+        #{bank_into_one,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_info_two != null" >
+        #{bank_info_two,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_info != null" >
+        #{pay_info,jdbcType=VARCHAR},
+      </if>
+      <if test="other_note != null" >
+        #{other_note,jdbcType=VARCHAR},
+      </if> 
+      <if test="other_note1 != null" >
+        #{other_note1,jdbcType=VARCHAR},
+      </if>
+      <if test="other_note2 != null" >
+        #{other_note2,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="upDate != null" >
+        #{upDate,jdbcType=VARCHAR},
+      </if>
+      <if test="addusercd != null" >
+        #{addusercd,jdbcType=VARCHAR},
+      </if>
+      <if test="updusercd != null" >
+        #{updusercd,jdbcType=VARCHAR},
+      </if>
+      <if test="client_flg != null" >
+        #{client_flg,jdbcType=INTEGER},
+      </if>
+      <if test="contra_flg != null" >
+        #{contra_flg,jdbcType=INTEGER},
+      </if>
+      <if test="pay_flg != null" >
+        #{pay_flg,jdbcType=INTEGER},
+      </if>
+      <if test="hdy_flg != null" >
+        #{hdy_flg,jdbcType=INTEGER},
+      </if>
+      <if test="company_cd != null" >
+        #{company_cd,jdbcType=INTEGER},
+      </if>
+      <if test="del_flg != null" >
+        #{del_flg,jdbcType=INTEGER},
+      </if>
+    </trim>  
+  </insert>
+  
+   <select id="clmstQuery" resultType="java.util.Map" parameterType="com.kaiwait.bean.mst.entity.Clmst">
+   
+	SELECT 
+		cldivcd,
+		account_cd,
+		divnm,
+		divnm_en,
+		divname_full,
+		IFNULL(divadd,"") divadd,
+		IFNULL(divadd1,"") divadd1,
+		IFNULL(divadd2,"") divadd2,
+		div_tel,
+		contacts_name,
+		contacts_name_en,
+		contacts_name_jp,
+		contacts_name_hk,
+		self_company_name,
+		self_company_name_en,
+		self_company_name_jp,
+		self_company_name_hk,
+		contacts_address,
+		contacts_address_en,
+		contacts_address_jp,
+		contacts_address_hk,
+		tel_number,
+		tel_number_en,
+		tel_number_jp,
+		tel_number_hk,
+		Date_auto_setting,
+		auto_month,
+		auto_day,
+		contra_contacts_name,
+		contra_contacts_name_en,
+		contra_contacts_name_jp,
+		contra_contacts_name_hk,
+		contra_self_company_name,
+		contra_self_company_name_en,
+		contra_self_company_name_jp,
+		contra_self_company_name_hk,
+		contra_address,
+		contra_address_en,
+		contra_address_jp,
+		contra_address_hk,
+		contra_address1,
+		contra_address_en1,
+		contra_address_jp1,
+		contra_address_hk1,
+		contra_address2,
+		contra_address_en2,
+		contra_address_jp2,
+		contra_address_hk2,
+		contra_tel,
+		contra_tel_en,
+		contra_tel_jp,
+		contra_tel_hk,
+		pay_auto_setting,
+		pay_Date_flg,
+		pay_auto_month,
+		pay_auto_day,
+		bank_into_one,
+		bank_info_two,
+		note,
+		pay_info,
+		other_note,
+		other_note1,
+		other_note2,
+		addDate,
+		addusercd,
+		updusercd,
+		client_flg client_flg,
+		contra_flg contra_flg,
+		pay_flg pay_flg,
+		hdy_flg hdy_flg,
+		company_cd,
+		del_flg,
+		lock_flg
+	FROM clmst WHERE 1 = 1
+	and company_cd = #{company_cd,jdbcType=INTEGER}
+      <if test="account_cd != null and account_cd != ''" >
+       and ACCOUNT_CD = #{account_cd,jdbcType=VARCHAR}
+      </if>
+       <if test="divnm != null and divnm != ''" >
+       and (divnm LIKE concat(concat('%',#{divnm,jdbcType=VARCHAR}),'%') or divname_full LIKE concat(concat('%',#{divnm,jdbcType=VARCHAR}),'%') )
+      </if> 
+       <if test="client_flg == 1" >
+       and CLIENT_FLG = #{client_flg,jdbcType=INTEGER}
+      </if> 
+      <if test="contra_flg == 1" >
+       and CONTRA_FLG = #{contra_flg,jdbcType=INTEGER}
+      </if>
+      <if test="pay_flg == 1" >
+       and PAY_FLG = #{pay_flg,jdbcType=INTEGER}
+      </if>
+      <if test="hdy_flg == 1" >
+       and HDY_FLG = #{hdy_flg,jdbcType=INTEGER}
+      </if>
+      <if test="cldivcd != null and cldivcd != '' and cldivcd != 0" >
+       and cldivcd = #{cldivcd,jdbcType=VARCHAR}
+      </if>  
+      <if test="del_flg ==2" >
+       and del_flg = '0'
+      </if>
+      <if test="del_flg ==1" >
+       and del_flg = '1'
+      </if>                          	
+   </select>
+   
+   <update id="updateClmst" parameterType="com.kaiwait.bean.mst.entity.Clmst" >
+    update clmst
+    <set >
+    	clmst.update = #{addDate,jdbcType=VARCHAR}, 
+      <if test="account_cd != null" >
+        account_cd = #{account_cd,jdbcType=VARCHAR},
+      </if>
+      <if test="divnm != null" >
+        divnm = #{divnm,jdbcType=VARCHAR},
+      </if>
+      <if test="divnm_en != null" >
+        divnm_en = #{divnm_en,jdbcType=VARCHAR},
+      </if>
+      <if test="divname_full != null" >
+        divname_full = #{divname_full,jdbcType=VARCHAR},
+      </if>
+      <if test="divadd != null" >
+        divadd = #{divadd,jdbcType=VARCHAR},
+      </if>
+      <if test="divadd1 != null" >
+        divadd1 = #{divadd1,jdbcType=VARCHAR},
+      </if>
+      <if test="divadd2 != null" >
+        divadd2 = #{divadd2,jdbcType=VARCHAR},
+      </if>
+      <if test="div_tel != null" >
+        div_tel = #{div_tel,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name != null" >
+        contacts_name = #{contacts_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name_en != null" >
+        contacts_name_en = #{contacts_name_en,jdbcType=VARCHAR},
+      </if> 
+      <if test="contacts_name_jp != null" >
+        contacts_name_jp = #{contacts_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_name_hk != null" >
+        contacts_name_hk = #{contacts_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name != null" >
+        self_company_name = #{self_company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_en != null" >
+        self_company_name_en = #{self_company_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_jp != null" >
+        self_company_name_jp = #{self_company_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="self_company_name_hk != null" >
+        self_company_name_hk = #{self_company_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address != null" >
+        contacts_address = #{contacts_address,jdbcType=VARCHAR},
+      </if> 
+      <if test="contacts_address_en != null" >
+        contacts_address_en = #{contacts_address_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address_jp != null" >
+        contacts_address_jp = #{contacts_address_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts_address_hk != null" >
+        contacts_address_hk = #{contacts_address_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number != null" >
+        tel_number = #{tel_number,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_en != null" >
+        tel_number_en = #{tel_number_en,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_jp != null" >
+        tel_number_jp = #{tel_number_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="tel_number_hk != null" >
+        tel_number_hk = #{tel_number_hk,jdbcType=VARCHAR},
+      </if> 
+      <if test="Date_auto_setting != null" >
+        date_auto_setting = #{Date_auto_setting,jdbcType=INTEGER},
+      </if>
+      <if test="auto_month != null" >
+        auto_month = #{auto_month,jdbcType=INTEGER},
+      </if>
+      <if test="auto_day != null" >
+        auto_day = #{auto_day,jdbcType=INTEGER},
+      </if>
+      <if test="contra_contacts_name != null" >
+        contra_contacts_name = #{contra_contacts_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_en != null" >
+        contra_contacts_name_en = #{contra_contacts_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_jp != null" >
+        contra_contacts_name_jp = #{contra_contacts_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_contacts_name_hk != null" >
+        contra_contacts_name_hk = #{contra_contacts_name_hk,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_self_company_name != null" >
+        contra_self_company_name = #{contra_self_company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_en != null" >
+        contra_self_company_name_en = #{contra_self_company_name_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_jp != null" >
+        contra_self_company_name_jp = #{contra_self_company_name_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_self_company_name_hk != null" >
+        contra_self_company_name_hk = #{contra_self_company_name_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address != null" >
+        contra_address = #{contra_address,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en != null" >
+        contra_address_en = #{contra_address_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp != null" >
+        contra_address_jp = #{contra_address_jp,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk != null" >
+        contra_address_hk = #{contra_address_hk,jdbcType=VARCHAR},
+      </if>
+       <if test="contra_address1 != null" >
+        contra_address1 = #{contra_address1,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en1 != null" >
+        contra_address_en1 = #{contra_address_en1,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp1 != null" >
+        contra_address_jp1 = #{contra_address_jp1,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk1 != null" >
+        contra_address_hk1 = #{contra_address_hk1,jdbcType=VARCHAR},
+      </if>
+       <if test="contra_address2 != null" >
+        contra_address2 = #{contra_address2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_en2 != null" >
+        contra_address_en2 = #{contra_address_en2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_address_jp2 != null" >
+        contra_address_jp2 = #{contra_address_jp2,jdbcType=VARCHAR},
+      </if> 
+      <if test="contra_address_hk2 != null" >
+        contra_address_hk2 = #{contra_address_hk2,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel != null" >
+        contra_tel = #{contra_tel,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_en != null" >
+        contra_tel_en = #{contra_tel_en,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_jp != null" >
+        contra_tel_jp = #{contra_tel_jp,jdbcType=VARCHAR},
+      </if>
+      <if test="contra_tel_hk != null" >
+        contra_tel_hk = #{contra_tel_hk,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_auto_setting != null" >
+        pay_auto_setting = #{pay_auto_setting,jdbcType=INTEGER},
+      </if>
+      <if test="pay_Date_flg != null" >
+        pay_Date_flg = #{pay_Date_flg,jdbcType=INTEGER},
+      </if> 
+      <if test="pay_auto_month != null" >
+        pay_auto_month = #{pay_auto_month,jdbcType=INTEGER},
+      </if>
+      <if test="pay_auto_day != null" >
+        pay_auto_day = #{pay_auto_day,jdbcType=INTEGER},
+      </if>
+      <if test="bank_into_one != null" >
+       bank_into_one = #{bank_into_one,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_info_two != null" >
+        bank_info_two = #{bank_info_two,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_info != null" >
+       pay_info =  #{pay_info,jdbcType=VARCHAR},
+      </if>
+      <if test="other_note != null" >
+       other_note =  #{other_note,jdbcType=VARCHAR},
+      </if> 
+      <if test="other_note1 != null" >
+       other_note1 = #{other_note1,jdbcType=VARCHAR},
+      </if>
+      <if test="other_note2 != null" >
+       other_note2 = #{other_note2,jdbcType=VARCHAR},
+      </if>
+      <if test="updusercd != null" >
+        updusercd = #{updusercd,jdbcType=VARCHAR},
+      </if>
+      <if test="client_flg != null" >
+       client_flg = #{client_flg,jdbcType=INTEGER},
+      </if>
+      <if test="contra_flg != null" >
+       contra_flg = #{contra_flg,jdbcType=INTEGER},
+      </if>
+      <if test="pay_flg != null" >
+       pay_flg = #{pay_flg,jdbcType=INTEGER},
+      </if>
+      <if test="hdy_flg != null" >
+       hdy_flg = #{hdy_flg,jdbcType=INTEGER},
+      </if>
+      <if test="company_cd != null" >
+       company_cd = #{company_cd,jdbcType=INTEGER},
+      </if>
+      <if test="del_flg != null" >
+       del_flg = #{del_flg,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cldivcd = #{cldivcd,jdbcType=INTEGER}
+  </update>
+  
+   <select id="getWedgemembersleft"  resultType="java.util.Map" >
+   
+	select * from (SELECT  1 type,
+					usercd member_id,
+					member_id user_cd,
+					user_name user_name,
+					a.COMPANY_CD,
+					com.company_name  company_name,
+					con.itmname level
+				from usermst a 
+				LEFT JOIN companymst com on  com.company_cd=a.company_cd
+				LEFT JOIN commonmst con on  mstcd = '0004' and con.company_cd = a.company_cd and con.itemcd = a.level
+				where 1=1 
+					and a.depart_cd = '004'
+			 		and not exists(select 1 from userclmst where  cldivcd = #{Cldivcd,jdbcType=INTEGER} and user_cd =a.usercd )
+					and a.del_flg = '0'
+					and a.COMPANY_CD=#{companyID,jdbcType=VARCHAR}) t1
+			UNION
+			select * from (SELECT  2 type,
+					usercd member_id,
+					member_id user_cd,
+					user_name user_name,
+					a.COMPANY_CD,
+					com.company_name  company_name,
+					con.itmname level
+				from usermst a 
+				LEFT JOIN companymst com on  com.company_cd=a.company_cd
+				LEFT JOIN commonmst con on  mstcd = '0004' and con.company_cd = a.company_cd and con.itemcd = a.level
+				where 1=1 
+					and a.depart_cd = '004'
+			 		and not exists(select 1 from userclmst where cldivcd = #{Cldivcd,jdbcType=INTEGER} and user_cd =a.usercd )
+					and  exists(select 1 from usercompanymst where company_cd = #{companyID,jdbcType=VARCHAR} and user_cd =a.usercd)
+					and a.del_flg = '0'
+			and a.COMPANY_CD &lt;&gt; #{companyID,jdbcType=VARCHAR}) t2 ORDER BY type ,company_name, user_cd
+	
+   </select> 
+   
+   <select id="getWedgemembersright"  resultType="java.util.Map" >
+   
+		select * from (SELECT 1 type,
+					usercd member_id,
+					member_id user_cd,
+					user_name user_name,
+					a.COMPANY_CD,
+					com.company_name  company_name,
+					con.itmname level
+				from usermst a 
+				LEFT JOIN companymst com on  com.company_cd=a.company_cd
+				LEFT JOIN commonmst con on  mstcd = '0004' and con.company_cd = a.company_cd and con.itemcd = a.level
+				where 1=1 
+					and a.depart_cd = '004'
+			 		and  exists(select 1 from userclmst where  cldivcd = #{Cldivcd,jdbcType=INTEGER} and user_cd =a.usercd )
+					and a.del_flg = '0'
+					and a.COMPANY_CD=#{companyID,jdbcType=VARCHAR}) t1
+			UNION
+			select * from (SELECT 2 type,
+					usercd member_id,
+					member_id user_cd,
+					user_name user_name,
+					a.COMPANY_CD,
+					com.company_name  company_name,
+					con.itmname level
+				from usermst a 
+				LEFT JOIN companymst com on  com.company_cd=a.company_cd
+				LEFT JOIN commonmst con on  mstcd = '0004' and con.company_cd = a.company_cd and con.itemcd = a.level
+				where 1=1 
+					and a.depart_cd = '004'
+			 		and  exists(select 1 from userclmst where cldivcd = #{Cldivcd,jdbcType=INTEGER} and user_cd =a.usercd )
+					and  exists(select 1 from usercompanymst where company_cd = #{companyID,jdbcType=VARCHAR} and user_cd =a.usercd)
+					and a.del_flg = '0'
+			and a.COMPANY_CD &lt;&gt; #{companyID,jdbcType=VARCHAR}) t2 ORDER BY type ,company_name, user_cd
+	
+   </select>
+   
+   	<delete id="deleteWedgemembersTx">
+		delete from userclmst where cldivcd = #{Cldivcd,jdbcType=INTEGER} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</delete> 
+	
+ 	<insert id="insertWedgemembersTx" >
+		insert into userclmst 
+		(CLDIVCD,USER_CD,ADDUSERCD,COMPANY_CD,ADDDATE)
+		values
+		 <foreach collection="clietList" index="index" item="client"  separator=","  >
+          	(#{Cldivcd,jdbcType=VARCHAR},
+			#{client.member_id,jdbcType=VARCHAR},
+			#{addUserID,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR})
+	     </foreach>
+		
+	</insert>
+	
+	<insert id="insertTaxTypeTx" >
+		insert into taxtype 
+			values
+		 <foreach collection="taxList" index="index" item="client"  separator=","  >
+          	(#{Cldivcd,jdbcType=VARCHAR},
+			#{client.start_date,jdbcType=VARCHAR},
+			#{client.end_date,jdbcType=VARCHAR},
+			#{client.tax_type,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{CompanyID,jdbcType=VARCHAR},
+			'0')
+	     </foreach>
+		
+	</insert>
+	
+	<delete id="deleteTaxTypeTx">
+		delete from taxtype where payeecd = #{Cldivcd,jdbcType=INTEGER}
+	</delete>
+	<select id="QueryTaxtype" parameterType="int" resultType="java.util.Map" >  
+		select
+			payeecd,
+			start_date,
+			end_date,
+			tax_type,
+			itmname,
+			itemname_hk,
+			itemname_en,
+			itemname_jp
+			FROM
+			taxtype a,commonmst b
+		WHERE
+			a.payeecd = #{Cldivcd,jdbcType=INTEGER} 
+			and b.itemcd = a.tax_type
+			and b.company_cd = a.company_cd
+			and b.mstcd = '0060'
+			and b.company_cd = #{companyID,jdbcType=VARCHAR}
+			order by start_date desc
+   </select>
+   <select id="getUserHistoryByInsert"  resultMap="BaseResultMap">
+   select * from(
+			select
+				1 as statusFlg,
+				clmst.divnm as nickname ,
+				date_format(clmst.adddate,'%Y-%m-%d %H:%i:%s')addTime,
+				(select user_name FROM usermst where usercd = clmst.UPDUSERCD) as addUserName,
+				clmst.ACCOUNT_CD as addUserCD,
+				(select colorv from usermst where usercd = clmst.updusercd) usercolor
+			from clmst
+			where 
+				clmst.company_cd = #{companyID,jdbcType=VARCHAR}
+			union all
+			select
+				0 as statusFlg,
+				clmst.divnm as nickname ,
+				date_format(clmst.update,'%Y-%m-%d %H:%i:%s') addTime,
+				(select user_name FROM usermst where usercd = clmst.UPDUSERCD) as upUserName,
+				clmst.ACCOUNT_CD as upUserCD,
+				(select colorv from usermst where usercd = clmst.updusercd) usercolor		
+			from clmst
+			where 
+				clmst.company_cd = #{companyID,jdbcType=VARCHAR}
+					and clmst.update!=clmst.adddate
+			) as hisUser 	
+			order by hisUser.addTime desc
+				limit 10
+	</select>
+	<select id="getUserHistoryByUp"  resultMap="BaseResultMap">
+			select
+				clmst.divnm as nickname ,
+				date_format(clmst.update,'%Y-%m-%d %H:%i:%s') upTime,
+				(select user_name FROM usermst where usercd = clmst.UPDUSERCD) as upUserName,
+				clmst.cldivcd as upUserCD,
+				(select colorv from usermst where usercd = clmst.updusercd) usercolor		
+			from clmst
+			where 
+				clmst.company_cd = #{companyID,jdbcType=VARCHAR}
+			order by  upTime desc
+				limit 3
+	</select>
+	<select id="searchClmstByPop" resultMap="clmstByPop">
+		select
+			clmst.cldivcd as cldivcd,
+			clmst.divnm as divnm,
+			clmst.divname_full as divname_full,
+			clmst.CLIENT_FLG as client_flg,
+			clmst.PAY_FLG as pay_flg
+		from clmst
+		
+			<if test="departCD != null and departCD == '004'">
+				left join userclmst on clmst.CLDIVCD = userclmst.CLDIVCD
+				left join usermst on userclmst.USER_CD = usermst.USERCD 
+			</if>
+			where 
+				clmst.del_flg != 1  
+				and clmst.company_cd = #{companyID,jdbcType=VARCHAR}
+		 <if test="pd !=null and pd =='searchClient'"><!-- 查询客户 -->		
+			<if test="departCD != null and departCD == '004'">
+				and usermst.DEPART_CD = #{departCD,jdbcType=VARCHAR} 
+				and usermst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+				and clmst.CLIENT_FLG = 1
+			</if>
+	    
+			
+	    </if>
+	    <if test="divnm != null and divnm != ''">
+			and (clmst.DIVNM like CONCAT('%', #{divnm,jdbcType=VARCHAR}, '%')
+			or clmst.DIVNAME_FULL like CONCAT('%', #{divnm,jdbcType=VARCHAR}, '%')
+			or clmst.DIVNM_EN like CONCAT('%', #{divnm,jdbcType=VARCHAR}, '%'))
+		</if>
+	   <if test="pd !=null and pd =='searchContra'"><!-- 查询承包方 -->
+	            and clmst.CONTRA_FLG = 1
+	   </if>
+	   <if test="pd !=null and pd =='searchPay'"><!-- 查询付款方 -->
+	            and clmst.PAY_FLG = 1
+	   </if>
+	     <if test="pd !=null and pd =='searchHDY'"><!-- 查询付款方 -->
+	            and clmst.HDY_FLG = 1
+	   </if>
+	   <if test="pd !=null and pd == 'searchClient'">
+	         and clmst.CLIENT_FLG = 1
+	   </if>	
+	</select>
+	<select id="clmstCheck"  resultType="java.lang.String">
+			select count(*) from clmst 
+				where account_cd= #{account_cd,jdbcType=VARCHAR} 
+				and company_cd= #{companyid,jdbcType=VARCHAR}
+				and cldivcd &lt;&gt; #{clidivcd,jdbcType=VARCHAR}
+	</select>
+	<select id="queryLock"  resultType="java.lang.Integer">
+			select lock_flg from clmst 
+				where  company_cd= #{companyid,jdbcType=VARCHAR}
+				and cldivcd = #{cldivcd,jdbcType=VARCHAR}
+	</select>
+	<update id="updateLock">
+    update clmst set lock_flg = lock_flg+1 
+    where  company_cd= #{companyid,jdbcType=VARCHAR}
+		   and cldivcd = #{cldivcd,jdbcType=VARCHAR}
+  </update>
+  <insert id="ClmstUpload" >
+		insert into clmst 
+		(cldivcd,
+		account_cd,
+		divname_full,
+		divnm,
+		divnm_en,
+		client_flg,
+		contra_flg,
+		pay_flg,
+		hdy_flg,
+		divadd1,
+		divadd2,
+		divadd,
+		div_tel,
+		pay_auto_month,
+		pay_auto_day,
+		contra_contacts_name_en,
+		contra_self_company_name_en,
+		contra_address_en,
+		contra_address_en1,
+		contra_address_en2,
+		contra_tel_en,
+		contra_contacts_name,
+		contra_self_company_name,
+		contra_address,
+		contra_address1,
+		contra_address2,
+		contra_tel,
+		contra_contacts_name_hk,
+		contra_self_company_name_hk,
+		contra_address_hk,
+		contra_address_hk1,
+		contra_address_hk2,
+		contra_tel_hk,
+		contra_contacts_name_jp,
+		contra_self_company_name_jp,
+		contra_address_jp,
+		contra_address_jp1,
+		contra_address_jp2,
+		contra_tel_jp,
+		del_flg,
+		company_cd,
+		adddate,
+		clmst.update,
+		addusercd,
+		updusercd,
+		pay_auto_setting,
+		PAY_DATE_FLG
+		)
+		values
+		 <foreach collection="clietList" index="index" item="client"  separator=","  >
+		 	(#{client.cldivcd,jdbcType=VARCHAR},
+			#{client.account_cd,jdbcType=VARCHAR},
+			#{client.divname_full,jdbcType=VARCHAR},
+			#{client.divnm,jdbcType=VARCHAR},
+			#{client.divnm_en,jdbcType=VARCHAR},
+			#{client.client_flg,jdbcType=VARCHAR},
+			#{client.contra_flg,jdbcType=VARCHAR},
+			#{client.pay_flg,jdbcType=VARCHAR},
+			#{client.hdy_flg,jdbcType=VARCHAR},
+			#{client.divadd1,jdbcType=VARCHAR},
+			#{client.divadd2,jdbcType=VARCHAR},
+			#{client.divadd,jdbcType=VARCHAR},
+			#{client.div_tel,jdbcType=VARCHAR},
+			#{client.pay_auto_month,jdbcType=VARCHAR},
+			#{client.pay_auto_day,jdbcType=VARCHAR},
+			#{client.contra_contacts_name_en,jdbcType=VARCHAR},
+			#{client.contra_self_company_name_en,jdbcType=VARCHAR},
+			#{client.contra_address_en,jdbcType=VARCHAR},
+			#{client.contra_address_en1,jdbcType=VARCHAR},
+			#{client.contra_address_en2,jdbcType=VARCHAR},
+			#{client.contra_tel_en,jdbcType=VARCHAR},
+			#{client.contra_contacts_name,jdbcType=VARCHAR},
+			#{client.contra_self_company_name,jdbcType=VARCHAR},
+			#{client.contra_address,jdbcType=VARCHAR},
+			#{client.contra_address1,jdbcType=VARCHAR},
+			#{client.contra_address2,jdbcType=VARCHAR},
+			#{client.contra_tel,jdbcType=VARCHAR},
+			#{client.contra_contacts_name_hk,jdbcType=VARCHAR},
+			#{client.contra_self_company_name_hk,jdbcType=VARCHAR},
+			#{client.contra_address_hk,jdbcType=VARCHAR},
+			#{client.contra_address_hk1,jdbcType=VARCHAR},
+			#{client.contra_address_hk2,jdbcType=VARCHAR},
+			#{client.contra_tel_hk,jdbcType=VARCHAR},
+			#{client.contra_contacts_name_jp,jdbcType=VARCHAR},
+			#{client.contra_self_company_name_jp,jdbcType=VARCHAR},
+			#{client.contra_address_jp,jdbcType=VARCHAR},
+			#{client.contra_address_jp1,jdbcType=VARCHAR},
+			#{client.contra_address_jp2,jdbcType=VARCHAR},
+			#{client.contra_tel_jp,jdbcType=VARCHAR},
+			#{client.del_flg,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{addUserID,jdbcType=VARCHAR},
+			#{addUserID,jdbcType=VARCHAR},
+			#{client.pay_auto_setting,jdbcType=VARCHAR},
+			#{client.pay_Date_flg,jdbcType=VARCHAR})
+	     </foreach>
+		
+	</insert>
+	<insert id="TaxTypeUpload" >
+		insert into taxtype 
+			values
+		 <foreach collection="taxList" index="index" item="client"  separator=","  >
+          	(#{client.payeecd,jdbcType=VARCHAR},
+			#{client.start_date,jdbcType=VARCHAR},
+			#{client.end_date,jdbcType=VARCHAR},
+			#{client.tax_type,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{AddDate,jdbcType=VARCHAR},
+			#{CompanyID,jdbcType=VARCHAR},
+			'0')
+	     </foreach>
+		
+	</insert>
+	<select id="querycomm"  resultType="java.lang.String">
+			select GROUP_CONCAT(itemcd separator ',') 
+			from commonmst 
+			where mstcd = '0060' 
+			and COMPANY_CD=#{companyid,jdbcType=VARCHAR} 
+			and itemcd not in ('902','901')
+	</select>
+	<select id="queryClientflg"  resultType="java.lang.Integer">
+			select count(1)
+			from clmst 
+			where client_flg = '1'
+			and cldivcd = #{cldivcd,jdbcType=VARCHAR} 
+			and company_cd=#{companyid,jdbcType=VARCHAR} 
+	</select>
+</mapper>

@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+	<div class="panel-heading i18n" name='toplogin_JOB_label_management' style="font-size: 17px; font-weight: bold;">
+		
+	</div>
+	<div class="panel-body setblock gl" style="padding:10px">
+		<ul id="syslable">
+			
+		</ul>
+	</div>
+</div>

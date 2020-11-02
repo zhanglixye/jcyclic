@@ -1,0 +1,23 @@
+<div class="createInvoiceNoDialog hid">
+	<ul class="breadcrumb" id="breadcrumb">
+		<li id="popUpTitle" class="fs18 i18n" name='joblist_menu'></li>
+		<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+	</ul>
+	<div style="padding: 0 20px 20px;">
+		<div class="row">
+			<div class="col-xs-12 mb-10">
+				<span class="i18n red_star" name='joblist_menu_pop' id="menu_pop_title"></span>
+				<label style="width: 80%">
+					<input style="font-weight: normal" class="form-control" type="text" name="" id="invoiceNo" value=""/>
+				</label>
+			</div>
+			<div class="col-xs-12" style="margin: 20px 0 0 0;text-align: center;">
+				<div class="model_width">
+					<button style="float: right;" id="closeBtnInput" class="btn btn-default i18n" name='salescategoryRegistration_clsoe'></button>
+					<button style="float: right;margin-right: 10px" id="deleteBtnInput" class="btn btn-warning i18n hidden" name='calcel' onclick="createInvoiceNoHandler('cancelInvoice')"></button>
+					<button style="margin-right: 16px;float: right;" class="btn btn-success i18n" id="createInvoiceBtn" onclick="createInvoiceNoHandler('createInvoice')" name='salescategoryRegistration_login'></button>											
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

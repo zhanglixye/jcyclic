@@ -1,0 +1,132 @@
+<div class="form-inline top-10 ser" style="margin-top: -5px;">
+	<img style="position: absolute;left: 260px;top: 120px;" src="../public/images/top.png"/>
+	<div class="col-md-12" style="padding-left: 0px;padding-right: 9px;">
+		<div class="clearfix">
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;padding-left: 9px;">
+				<label class="control-label i18n" name="joblist_job_no"></label><input oninput="this.value=ToCDB(this.value)" class="form-control" name="job_cd" id="job_cd" placeholder="" type="text" maxlength="10">
+			</div>
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+				<label class="control-label i18n" name="joblist_event_sales"></label>
+				<select class="form-control costSelect_sale_cd" name="sale_cd" id="sale_cd">
+				</select>
+			</div>
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+				<label class="control-label i18n" name="joblist_customer"></label>
+				<div class="input-group">
+					<input maxlength="100" name="cldiv_name" id="cldiv_name" class="form-control" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+	<i class="iconfont icon-sousuo" id="searchClient" ></i>
+	</span>
+				</div>
+			</div>
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+				<label class="control-label i18n" name="joblist_destination_G_company"></label>
+				<div class="input-group">
+					<input maxlength="100" name="g_company_name" id="g_company_name" class="form-control" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+	<i class="iconfont icon-sousuo" id="searchHDY"></i>
+	</span>
+				</div>
+			</div>
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+				<label class="control-label i18n" name="joblist_billing_address"></label>
+				<div class="input-group">
+					<input maxlength="100" name="payer_name" id="payer_name" class="form-control" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+	<i class="iconfont icon-sousuo" id="searchPay" ></i>
+	</span>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix">
+			<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;padding-left: 9px;">
+				<label class="control-label dm" style="display: block;">
+	<div class="btn-group " data-toggle="buttons">
+		<label class="btn btn-primary active" id="jzd">
+		<input type="radio" id="option1"> 
+		<small class="i18n" name='jishangd'></small>
+		</label>
+				<label class="btn btn-primary " id="jzy">
+		<input type="radio" id="option2"> 
+		<small class="i18n" name='jishangy'></small>			
+		</label>
+			</div>
+			</label>
+			<label class="control-label" id="zy" style="margin-bottom: 0px!important;">
+				<input id="ddd_job" name="dlvmon_sta" type="text" class="form-control easyui-datebox">
+				<span class="line" style="padding: 0 3px;"></span>
+				<input id="d1_job" name="dlvmon_end" type="text" class="form-control easyui-datebox">
+			</label>
+			<label class="control-label" id="zd" style="margin-bottom: 0px!important;position: absolute;opacity: 0;">
+				<input data-options="formatter:format_u,parser:parser_u" id="ddda_job" name="dlvday" type="text" class="form-control">
+			</label>
+		</div>
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_subject"></label><input maxlength="100" class="form-control" placeholder="" type="text" id="job_name" name="job_name">
+		</div>
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="ying_ye_change"></label>
+			<div class="input-group">
+				<input maxlength="100" class="form-control" id="ddname" name="ddname" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+				<span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+	<i class="iconfont icon-sousuo" id="searchDD"></i>
+	</span>
+			</div>
+		</div>
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_label"></label><input maxlength="50" class="form-control" placeholder="" type="text" id="label_text" name="label_text">
+		</div>
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_in_charge_of_the_flag"></label>
+			<div class="input-group" style=" padding-top: 6px;margin-bottom: 20px;">				
+				<label class="checkbox-inline" style="padding: 0;position: absolute;">
+					<input type="checkbox" id="ddflag" value="1" style="display: block;">
+					<span class="iconfont icon-duihaok"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div class="form-group col-md-5 mr_top mr_bottom" style="width: 20%;padding-right: 0;padding-left: 9px;">
+			<label class="control-label i18n" name="joblist_status_report">
+</label>
+			<select name="dlvfalg" id="dlvfalg" class="form-control costSelect_dlvfalg">
+			</select>
+		</div>
+		<div class="form-group col-md-5 mr_top mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_allocation_status"></label>
+			<select name="assign_flg" id="assign_flg" class="form-control costSelect_assign_flg">
+			</select>
+		</div>
+		<div class="form-group col-md-5 mr_top mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_bill_invoice_status"></label>
+			<select name="invpd" id="invpd" class="form-control costSelect_invpd">
+			</select>
+		</div>
+		<div class="form-group col-md-5 mr_top mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_cost_of_completion_status"></label>
+			<select name="cost_finish_flg" id="cost_finish_flg" class="form-control costSelect_cost_finish_flg">
+			</select>
+		</div>
+		<div class="form-group col-md-5 mr_top mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_payment_status"></label>
+			<select name="rjpd" id="rjpd" class="form-control costSelect_rjpd">
+			</select>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;padding-left: 9px;">
+			<label class="control-label i18n" name="joblist_menu_pop"></label>
+			<input maxlength="20" onkeyup="this.value = this.value.replace(/[^a-z0-9A-Z]/g,'')" maxlength="50" class="form-control" placeholder="" type="text" id="jobInvoiceNo" name="" autocomplete="off">
+		</div>
+		<div class="form-group col-md-5 mr_bottom" style="width: 20%;padding-right: 0;">
+			<label class="control-label i18n" name="joblist_invoice_input"></label>
+			<select id="sellInvoiceflg" class="form-control">
+			</select>
+		</div>
+	</div>
+	<div class="form-inline ov" style=" float: left; width: 100%;">
+		<input selectname="suppliersList_eliminate" class="btn btn-default pull-right marleft i18n-input" type="button" value="" onclick="clearSearch()" style="width: 70px">
+		<input selectname="suppliersList_retrieval" class="btn btn-success pull-right search i18n-input" type="button" value="" id="selectDetail" onclick="selectDetail()">
+	</div>
+</div>
+<div>
+</div>
+</div>

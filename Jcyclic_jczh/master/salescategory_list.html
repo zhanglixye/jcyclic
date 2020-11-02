@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='salescategory_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--dataGrid 表格js-->
+		<!--#include virtual="../common/language.shtml"-->
+		<script type="text/javascript" src="../public/javascript/master/salescategory_list_service.js?v=2018092801"></script>
+		   
+	</head>
+	<style>
+		.form-control{
+			width: 100%;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='salescategory_list_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<div class="supplier_sum_hei1">
+					<div class="clearfix">
+							<div class="selInput1 form-group pull-left" style="display: flex;">
+								<label class="i18n" name='salescategoryList_sales_line_code' for="qyfInput" style="width: 115px;"></label>
+								<input oninput="this.value=ToCDB(this.value)" style="width: 185px;" class="form-control mt--5" type="text" name="" id="sale_cd" value="" maxlength="10"/>
+							</div>
+							<div class="selInput2 form-group pull-left" style="display: flex;">
+								<label class="i18n" name='salescategoryList_sales_line_accounting_code' for="qyfInput1" style="width: 145px;"></label>
+								<input oninput="this.value=ToCDB(this.value)" style="width: 185px;" class="form-control mt--5" type="text" name="" id="sale_account_cd" value="" maxlength="10"/>
+							</div>			
+					</div>	
+					<div class="clearfix mt-5">
+						<div class="selInput2 form-group pull-left" style="display: flex;">
+							<label class="i18n" name='salescategoryList_event_name' for="qyfInput1" style="width: 115px;"></label>
+							<input style="width: 185px;" class="form-control mt--5" type="text" name="" id="sale_name" value="" maxlength="20"/>
+						</div>
+				
+						<div class="selInput2 form-group radio pull-left" style="display: flex;">
+							<label class="marRight i18n" name='salescategoryList_Y_N_Effect'></label>
+							<label class="radio" style="margin-right: 35px;">
+					            <input type="radio" id="effective" name="radio"  value="0" checked="checked">
+					            <!--<i></i>-->
+					            <span class="i18n" name='salescategoryList_effective'></span>
+					        </label>
+					        <label class="radio" style="margin-top: 0;margin-right: 35px;" >
+					            <input type="radio" name="radio" value="1">
+					            <!--<i></i>-->
+					            <span class="i18n" name='salescategoryList_invalid' style=""></span>				                              
+					        </label>
+					        <label class="radio" style="margin-top: 0;">
+					            <input type="radio" name="radio" value="">
+					           <!-- <i></i>-->
+					            <span class="i18n" name='suppliersList_all' style=""></span>
+					        </label>
+						</div>	
+					</div>
+					<div style="width: 100%;" class="form-inline ov bottom-15">
+						<input selectname='salescategoryList_eliminate' class="btn btn-default pull-right marleft i18n-input" type="button"  onclick="clearSearch()" value="" style="width: 120px;" />
+						<input selectname='salescategoryList_retrieval' class="btn btn-success pull-right search i18n-input" type="button" onclick="salemstSel()" value="" style="width: 120px;" />
+					</div>
+				</div>
+				<table class="tableObj" id="saleTypTab" style="width: 100%;"></table>
+				<div class="switch_table_none hidden">
+					<center style="margin-top: 20px;"></center>
+				</div>
+				<div class="form-inline mt-10 ov bottom-15 supplier_sum_hei2">
+					<input class="btn btn-success pull-right i18n-input" selectname='salescategoryList_add' type="button" onclick="saleEdit(0)" value="">
+				</div>			
+			</aside>
+		</div>
+		<script>
+			var objTop = $('.supplier_sum_hei1').height();
+			var objBot = $('.supplier_sum_hei2').height();
+			var tableObj = $('.tableObj');
+			auto_tableHei(objTop,objBot,45,tableObj);
+		</script>
+	</body>
+</html>

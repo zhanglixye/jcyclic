@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+				<div class="panel-heading">						
+					<span class="i18n" name='jobregistration_person_in_charge1'></span>
+				</div>	
+				<div class="panel-body " style="padding: 15px 23px 0px 23px; ">
+					<div class="panel panel-default col-md-12" id="per" style="background: #f5f5f5; border: 1px solid #dddddd; padding-top: 10px; padding-bottom: 20px;display: flex;">
+						<div class="col-md-4 panel person" style="padding: 5px; margin-bottom: 0; width: 225px;background: #fff;">
+							<div class="person-t">								
+								<span class="text-center block i18n" name="jobregistration_business_ren"></span>
+							</div>
+							<div class="person-m">
+								<div class="person-m-l">
+									<i class="iconfont icon-ren"></i>
+								</div>
+								<div class="person-m-m">
+									<div class="userlevel">
+										管理
+									</div>
+									<div class="usercd"></div>
+									<div class="username">
+										
+									</div>
+								</div>
+							</div>
+							<div class="person-b">
+								<label>
+								<input type="checkbox" id="inlineCheckbox44" class="level_flg" value="option4">
+								<span class="iconfont icon-duihaok"></span>
+								<span class="i18n" name="jobregistration_person_in_charge"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

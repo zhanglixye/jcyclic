@@ -1,0 +1,478 @@
+.panel-header, .panel-body{
+	border: none;
+	font-size: 14px;
+}
+small{
+	font-size: 14px;
+}
+small.sma{
+	font-size: 11px;
+	color: #ddd;;
+}
+nav.log-sidebar {
+  width: 29%;
+}
+@media screen and (max-width: 1540px) {
+	.jobregistration_amount_of_schedule>.col-md-4:first-child{
+		 width: 40%;
+	}
+	
+	.jobregistration_amount_of_schedule>.col-md-4:nth-child(2){
+		 width: 40%;
+	}	
+	.jobregistration_amount_of_schedule>.col-md-4:last-child{
+		 width: 40%;
+	}  
+}
+.log-sidebar-l {
+	float: right;
+	height: 25px;
+	line-height: 25px;
+	margin: 20px 0 10px 0;
+}
+
+.log-sidebar-l-l {
+	width: 50%;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	text-align: right;
+	padding-right: 3px;
+}
+
+.log-sidebar-l-r {
+	width: 50%;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	text-align: left;
+	padding-left: 3px;
+}
+
+.log-sidebar-l .btn {
+	padding: 1px 14px;
+}
+
+.mySelect {
+	width: 100%;
+	float: left;
+	border: 1px solid #dddddd;
+	border-top: none;
+	height: 250px;
+	overflow-y: auto;
+	    position: relative;
+}
+
+.mySelect .mySelect-option {
+	opacity: 1!important;
+}
+	
+	.mySelect .mySelect-option .s1 span{
+	color:#00b0f0!important;
+}
+	
+		.mySelect .mySelect-option .s2 span{
+	color:#f97923!important;
+}
+	
+	.setblock .s1 {
+	background:#00b0f0!important;
+}
+	
+		.setblock  .s2 {
+	background:#f97923!important;
+}
+
+.mySelect .inputWrap {
+	position: absolute;
+	margin-top: 100px;
+	display: none;
+	width: 482px;
+}
+
+.mySelect .inputWrap ul {
+	width: 100%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.mySelect .inputWrap ul li {
+	width: 31%;
+	float: left;
+	list-style: none;
+	background: #00b0f0;
+	padding: 0 3px;
+	margin: 5px;
+	border-radius: 4px;
+}
+
+.mySelect .inputWrap ul li span {
+	height: 27px;
+	line-height: 27px;
+	padding-left: 5px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.mySelect .inputWrap ul li button {
+	height: 27px;
+	line-height: 27px;
+	color: #fff;
+	font-weight: normal;
+	opacity: 1!important;
+}
+
+.mySelect .inputWrap ul li button:hover {
+	height: 27px;
+	line-height: 27px;
+	color: #fff!important;
+	font-weight: normal;
+	opacity: 1!important;
+}
+
+.setblock ul {
+	width: 100%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.setblock ul li {
+	/*width: 29.5%;*/
+	float: left;
+	list-style: none;
+	background: #00b0f0;
+	padding: 0 3px;
+	border-radius: 4px;
+}
+	.setblock ul li:nth-child(3n+1){
+		 margin-left: 18px;
+	}
+	.setblock ul li:nth-child(-n+3){
+		 margin-top: 20px;
+	}
+	.setblock ul li:nth-last-child(1){
+		 margin-bottom: 10px;
+	}
+	
+	
+.setblock ul li span {
+	height: 27px;
+	line-height: 27px;
+	padding-left: 5px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.setblock ul li button {
+	height: 27px;
+	line-height: 27px;
+	color: #fff;
+	font-weight: normal;
+	opacity: 1!important;
+	font-size: 18px;
+	padding-right: 5px;
+	margin-left: 5px;
+}
+
+.setblock  ul li button:hover {
+	height: 27px;
+	line-height: 27px;
+	color: #fff!important;
+	font-weight: normal;
+	opacity: 1!important;
+}
+
+.mySelect .mySelect-option div {
+	float: left;
+	width: 100%;
+	/*height: 35px;
+	line-height: 35px;*/
+	border-bottom: 1px solid #dddddd;
+}
+
+.mySelect .mySelect-option div:nth-of-type(odd) {
+	background: #f5f5f5;
+}
+
+.mySelect .mySelect-option div:nth-of-type(even) {
+	background: #ffffff;
+}
+
+.mySelect .mySelect-option span {
+	width: 55%;
+/*	height: 35px;*/
+	line-height: 35px;
+	font-size: 14px;
+	color: #00b0f0;
+}
+
+.mySelect .mySelect-option input {
+	float: right;
+	margin-top: 12px;
+	margin-right: 7%;
+}
+
+.l-right i {
+	color: #24b195;
+	font-size: 16px;
+}
+
+.l-right .close {
+	font-size: 32px;
+	color: #939392;
+	opacity: 1;
+	margin-right: 13px;
+	margin-top: 2px;
+}
+
+.person {
+	padding: 0!important;
+	border: 1px solid;
+	box-shadow: 0px 3px 5px #d4d4d4;
+	margin-left: 11px;
+	padding: 5px;
+	margin-bottom: 0;
+	width: 225px;
+	height: auto !important;
+	background: #fff;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.person div {
+	float: left;
+}
+
+.person .person-t {
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	border-bottom: 1px solid #efefef;
+}
+
+.person-t-l {
+	width: 170px;
+	height: 45px;
+	line-height: 45px;
+}
+
+.person-t-l select {
+	width: 140px;
+	float: right;
+	margin-top: 7px;
+	height: 30px;
+	line-height: 30px;
+	padding-top: 4px;
+}
+
+.person-t-r {
+	width: 45px;
+	height: 45px;
+	line-height: 45px;
+	padding: 4px;
+}
+
+.person-t-r .close {
+	font-size: 28px;
+	color: #24b195;
+	opacity: 1;
+}
+
+.person .person-m {
+	width: 100%;
+	display: flex;
+	line-height: 85px;
+	border-bottom: 1px solid #efefef;
+	flex: 1;
+}
+
+.person-m-l {
+	width: 33px;
+	text-align: right;
+	vertical-align: middle;
+}
+
+.person-m-l .icon-user {
+	font-size: 24px;
+	color: #177e43;
+}
+
+.person-m-m {
+	width: 150px;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+.person-m-m div {
+	width: 135px;
+	text-align: left;
+	line-height: 22px;
+	vertical-align: middle;
+}
+
+.person-m-r {
+	width: 41px;
+	border-left: 1px solid #efefef;
+	line-height: 85px;
+	vertical-align: middle;
+	text-align: center;
+	color: #29b397;
+	border-radius: 0 !important;
+}
+
+.person .person-b {
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.person .person-b input {
+	float: left;
+	margin: 10px 5px 0 -10px;
+}
+
+.person .person-b span {
+	font-weight: normal;
+}
+
+.addp {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin-left: 11px;
+	float: left;
+	vertical-align: bottom;
+	color: #177e43;
+	margin-top: 155px;
+}
+
+.textbox {
+	width: 137px;
+	height: 32px;
+    font-size: 14px;
+    padding: 0 12px 0px 0px;
+	line-height: 1.428571429;
+	color: #555555;
+	background-color: white;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+}
+
+span.textbox.numberbox{
+	height: 31px;
+	padding:0;
+}
+
+.textbox .textbox-text {
+	margin: 0px 18px 0px 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 100% !important;
+	line-height: 25px;
+	width: 119px;
+	font-size: 14px;
+}
+
+.datebox .combo-arrow {
+	width: 36px!important;
+	height: 32px!important;
+	background-color: #eeeeee;
+	border-left: 1px solid #cccccc;
+	border-radius: 2px;
+}
+
+.numberbox {
+	border-right: 0!important;
+	box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.btn-group .btn-primary {
+	padding:6px;
+	border: 1px solid #cccccc!important;
+	background: #fff;
+	color: #000;
+}
+
+.btn-group .active {
+	padding:6px;
+	border: 1px solid #17a689;
+	background: #1abc9c;
+	color: #fff;
+}
+
+.panel-heading span {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.panel-heading input {
+	position: absolute;
+	margin-top: 6px;
+}
+
+nav::-webkit-scrollbar {
+	display: none;
+}
+.btn-group .activeT{
+   /* padding: 3px 6px;*/
+    background: #ccc !important;
+    color: #000 !important;
+}
+/*
+ * 右键菜单样式
+ */
+/*.menu{
+	max-height: 302px;
+	overflow-y: auto !important;
+}	*/
+.menu-text {
+	height: 20px;
+	line-height: 20px;
+	float: none;
+	padding-left: 0px;
+}
+.menu-line {
+	display: none;
+}
+
+.menu-text {
+	text-align: center;
+}
+
+.directory {
+	border: solid #C6C6C6 1px;
+	border-radius: 5px;
+	margin: 1px 15px 1px 15px;
+}
+
+.title_menu {
+	border: solid #C6C6C6 1px;
+	border-radius: 5px;
+	margin: 20px 15px 1px 15px;
+}
+
+.footer_menu {
+	border: solid #C6C6C6 1px;
+	border-radius: 5px;
+	margin: 1px 15px 20px 15px;
+}
+.btn_color{
+	background-color:rgb(28,186,155);
+}
+.menu-shadow{
+   background:white;
+   -webkit-box-shadow:none;
+   box-shadow:none;
+}

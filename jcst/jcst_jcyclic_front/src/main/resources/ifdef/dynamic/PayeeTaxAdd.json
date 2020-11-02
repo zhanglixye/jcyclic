@@ -1,0 +1,66 @@
+{
+  "definitionFilePath" : null,
+  "name" : "增值税新增",
+  "path" : "PayeeTaxAdd",
+  "rootPath" : "dynamic",
+  "type" : "upload",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "vat_rate",
+      "comment" : "增值税率",
+      "type" : "String",
+      "description" : "notCheckPoint",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "^\\d+(\\.\\d{1,4})?$",
+      "length" : 7,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 10,
+      "name" : "user_tax_type",
+      "comment" : "纳税人种类",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 10,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 11,
+      "name" : "invoice_type",
+      "comment" : "发票种类",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 10,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 12,
+      "name" : "invoice_text",
+      "comment" : "发票内容",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 10,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

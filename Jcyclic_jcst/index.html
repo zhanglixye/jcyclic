@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta id="i18n_pagename" content="master-common-jcst-msg-msg_icon-msg_title">
+		<title>Sign in</title>
+		<!--#include virtual="./loginHeader.shtml"-->
+		<script type="text/javascript" src="public/lib/properties_language/jquery.i18n.properties-1.0.9.js"></script>
+		<link rel="stylesheet" href="./public/stylesheets/common/commonBase.css?v=2018092801" />
+	</head>
+	<style>
+		.margin_line{
+			margin: 0 0 5px;
+		}
+		.index_font_size{
+			font-size: 13px;
+		}
+	</style>
+	<body onload="init_login_language_load('en')" class="login" onkeydown="keyDownHandler();">
+		<div style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;display: flex;align-items: center;justify-content: center;">
+			<div>
+			<div class="wrapper" style="margin-bottom: 15px;">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="brand text-center">
+							<h1>
+								<div class="logo-icon">
+									<i class="iconfont icon-J-LOGO"></i>
+								</div>
+								<span class="h_span">J-CYCLIC</span>
+							</h1>
+						</div>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-lg-12'>
+							<fieldset class='text-center'>
+								<div class='form-group mb-40 ov'>
+									<label for="inputEmail" class="col-lg-2 control-label" style="padding-right: 0;"><i class="iconfont icon-zhanghao"></i></label>
+									<div class="col-lg-10">
+										<input maxlength="100" id='inputEmail' name="userName" class='form-control required' placeholder='Login ID' type='text'>
+									</div>
+								</div>
+								<div class='form-group mb-40 ov'>
+									<label for="inputPwd" class="col-lg-2 control-label" style="padding-right: 0;"><i class="iconfont icon-mima"></i></label>
+									<div class="col-lg-10">
+										<input maxlength="32" id="inputPwd" name="password" class='form-control required login_pwd' placeholder='Password' type='password'>
+									</div>
+								</div>
+								<div class='text-center'>
+									<div class='checkbox'>
+										<label>
+						                    <input type='checkbox'>
+						                    <span class="iconfont icon-duihaok">Save this ID and Password</span>
+						                  </label>
+									</div>
+									<button onclick="userLogin()" class="btn btn-success padding-36"><strong>Login</strong></button>
+									<br>
+									<a href="password.html" class="a_login" style="text-decoration: underline;">Change Password</a>
+								</div>
+							</fieldset>
+					</div>
+				</div>
+			</div>
+			<div style="text-align: center;width: 370px;margin: 0 auto;color: #000000;">
+				<p  class="margin_line" style="font-weight: bold;">Recommended environment</p>
+				<p class="margin_line index_font_size">[OS]&nbsp;&nbsp;Windows 7, Windows 10</p>
+				<p class="margin_line index_font_size">[Browser]&nbsp;&nbsp;Google Chrome latest edition</p>
+				<p class="margin_line index_font_size">[Screen  resolution]&nbsp;&nbsp;1366 × 768, 1920 × 1080</p>
+				<p class="margin_line index_font_size">[Excel]&nbsp;&nbsp;Excel2010, Excel2016</p>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>

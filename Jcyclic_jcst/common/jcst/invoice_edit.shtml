@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--#include virtual="./zh_header.shtml"-->
+	<!--#include virtual="./zh_easyUi.shtml"-->		
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>
+	<link rel="stylesheet" href="../../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+	<link rel="stylesheet" href="../../public/stylesheets/jcst/salescategory_registration.css?v=2018092801" />
+	<script type="text/javascript" src="../../public/lib/properties_language/jquery.i18n.properties-1.0.9.js"></script>
+	<script type="text/javascript" src="../../public/javascript/master/zh_language.js?v=2018092801"></script>
+	<style>
+		.panel.panel-default{
+			border:1px solid #dddddd !important;
+		}
+		.invoice_body{
+			border: 1px solid #ccc;
+			box-shadow: 0px 3px 5px #d4d4d4;
+		}
+		.invoice_body .invoice_body_T{
+			background: #e2ffe6;			
+			padding: 5px 5px 0px 5px;
+		}
+		.invoice_body .invoice_body_S{
+			background: url(../../public/images/triangle.png) top center no-repeat;
+			padding: 5px 5px 15px 5px;
+		}
+		#deduction.hidden{
+			height: 20px;
+			display: block !important;
+		}
+	</style>
+</head>
+<body style="overflow: auto;">
+	<ul class="breadcrumb" id="breadcrumb">
+		<li class="fs18 i18n" name='order_register_orderEm'></li>
+		<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+	</ul>
+	<div style="width: 70%;margin-left: 20px;">
+		<div class="row">
+			<div class="col-md-12">
+				<label class="i18n" name='invoice_edit_date'></label>
+				<div class="input-group" style="margin-bottom: 5px;">
+					<input class="inputReceive form-control" type="text" id="invoice_date" name="invoice_date" />
+				</div>
+				<label class="i18n" name='invoice_edit_fanhao'></label>
+				<input maxlength="15" oninput="this.value=this.value.replace(/\D/g,'')" class="form-control form-group" type="text" id="invoice_no" name="invoice_no" />
+				<div class="invoice_body">
+					<div class="invoice_body_T">
+						<label class="i18n" name='invoice_edit_type'></label>
+						<select class="form-control mb-10" id="invoice_type" name="payeeType">					
+						</select>
+						<label class="i18n" name='invoice_edit_content'></label>
+						<select class="form-control mb-10" id="invoice_text" name="invoice_text">						
+						</select>
+						<label class="i18n" name='invoice_edit_ny' for=""></label>
+						<div class="hidden" id="deduction"></div>
+						<div class="hidden" id="deductionvalue"  hidden="hidden"></div>
+					</div>					
+					<div class="invoice_body_S" style="padding: 30px 5px 15px 5px;">
+						<label class="i18n" name='salescategoryRegistration_tax_rate' style="margin-top: 10px;">税率</label>
+						<input oninput="this.value = number_va_length(this.value,7,2)" style="width: 50%;display: inline-block;" id="vat_rate" name="vat_rate" class="form-control" type="number"/>
+						<span class="" name="" style="margin-top: 10px;">%</span>
+					</div>					
+				</div>
+				<h5>
+					<label class="i18n" name="jobregistration_remarks" style="margin:0;"></label>
+				</h5>
+				<textarea maxlength="500" class="form-control order_infor_remark" id="remark" name="remark" rows="3" cols="" style="padding:0px 12px;"></textarea>
+				<div style="margin: 20px 0 0 0;text-align: center;">
+					<div class="model_width">
+						<button style="margin-left: 16px;float: right;" id="closeBtnInput" class="btn btn-default i18n log_job" name='salescategoryRegistration_clsoe' style="width: 80px;"></button>					
+						<button style="float: right;" class="btn btn-success i18n" name="invoice_edit_btnF" id="invoicebtn" style="width: 80px;"></button>	
+					</div>
+				</div>
+			</div>						
+		</div>
+	</div>
+	<script>
+		$('input.inputReceive').datebox({});
+		$('.order_infor_remark,.model_width').width(auto_smalll_remark_T());		
+	</script>
+</body>
+</html>
+

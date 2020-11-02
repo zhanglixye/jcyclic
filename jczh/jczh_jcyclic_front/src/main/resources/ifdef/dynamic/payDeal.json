@@ -1,0 +1,66 @@
+{
+  "definitionFilePath" : null,
+  "name" : "支付处理",
+  "path" : "payDeal",
+  "rootPath" : "dynamic",
+  "type" : "update",
+  "method" : "POST",
+  "paging" : false,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "参数",
+    "type" : "Object",
+    "description" : "",
+    "required" : false,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "payInput",
+      "comment" : "payInput",
+      "type" : "Array",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : [ {
+        "defineLine" : 10,
+        "name" : "paydate",
+        "comment" : "paydate",
+        "type" : "String",
+        "description" : "",
+        "required" : false,
+        "format" : "Date",
+        "formatPattern" : "yyyy-mm-dd",
+        "length" : 10,
+        "detailParamList" : null
+      } ]
+    }, {
+      "defineLine" : 12,
+      "name" : "payInput",
+      "comment" : "payInput",
+      "type" : "Array",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : [ {
+        "defineLine" : 13,
+        "name" : "payremark",
+        "comment" : "payremark",
+        "type" : "String",
+        "description" : "",
+        "required" : false,
+        "format" : null,
+        "formatPattern" : "",
+        "length" : 500,
+        "detailParamList" : null
+      } ]
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

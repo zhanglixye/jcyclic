@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='customerwedge_change_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--保证datagrid title_head language 转化成功 多加载一次-->
+        <script type="text/javascript" src="../public/javascript/master/language.js?v=2018092801"></script>
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/master/customerwedge_change_dataGrid.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->   
+		<style type="text/css">
+			tr[datagrid-row-index="0"].datagrid-row-selected{
+				background:none;
+			}
+			tr[datagrid-row-index="0"] div{
+				height: 100% !important;
+				padding: 0;
+			}
+			tr[datagrid-row-index="0"] div input.rng{
+				height: 40px;
+			    border: 1px solid #ccc !important;
+			    width: 100% !important;
+			}
+			tr[datagrid-row-index="0"] div input[type='checkbox']{
+				display: none;
+			}
+			.easyui-fluid div{
+				border-radius: 0 !important;
+			}
+			#content .panel-htop .panel-header .panel-title{			
+				border-bottom: solid #c6c6c6 1px;
+				text-align: center;
+				height: 35px;
+				line-height: 35px;
+				background-color: rgb(236,240,243);
+				border-radius: 0 !important;
+			}
+			.panel-header{
+				padding: 0;
+			}
+			input.rng{
+				text-align: left !important;
+			}
+		</style>
+	</head>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='customerwedge_change_title'>得意先紐付変更</li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<form class="form-inline">
+					<div class="selInput1 form-group">
+						<label class="i18n" name='employeeList_employee_number' for="qyfInput" style="margin-right: 10px;"></label>
+						<label id="userCD" style="border-bottom: 1px solid #cccccc;padding-bottom: 5px;"></label>
+						<input id="lockFlg" name="lockFlg" type="hidden"/>
+					</div>
+					<div class="selInput2 form-group">
+						<label class="i18n" name='employeeList_employee_name' for="qyfInput1" style="margin-right: 10px;"></label>
+						<label id="nickName" style="border-bottom: 1px solid #cccccc;padding-bottom: 5px;"></label>
+					</div>
+						<div class="selInput1 form-group">
+						<label class="i18n" name='employeeList_Businesslevel' for="qyfInput1" style="margin-right: 10px;"></label>
+						<label id="levelName" style="border-bottom: 1px solid #cccccc;padding-bottom: 5px;"></label>
+					</div>
+			
+				</form>
+				<form class="form-inline top-15 bottom-15 ov"></form>
+				<table class="i18n-input" selectattr='title' selectname='customerwedgeChange_title' id="irrelevantTab" style="height: 67.8%;width: 42.3%; float: left"></table>
+					<div  class="turn" >	
+						<div class="turn-left">
+							<span tabindex="1" style="outline: none;" class="iconfont icon-niufuzhuijia-" onclick="changeClientLeftOrRight('left','irrelevantTab','relevancedTab','1',true)"></span>
+						</div>
+						<div class="turn-right">
+							<span tabindex="2" style="outline: none;" class="iconfont icon-niufushanchu-" onclick="changeClientLeftOrRight('right','irrelevantTab','relevancedTab','1',true)"></span>
+						</div>
+						<!--
+						<input onclick="changeClientLeftOrRight('left','irrelevantTab','relevancedTab')" type="button" class="turn-left" value="">
+						<input onclick="changeClientLeftOrRight('right','irrelevantTab','relevancedTab')" type="button" class="turn-right"  value="">
+						-->
+					</div>
+				<table class="i18n-input" selectattr='title' selectname='customerwedgeChange_title2' id="relevancedTab" style="height: 67.8%;width: 42.3%;float: left"></table>
+		       <form class="form-inline top-15 ov" style="padding-right: 3px;">					
+					<input tabindex="3" onclick="goBackPageHandler()" class="btn btn-default pull-right i18n-input" selectname='customerwedgeChange_add' type="button"  style="width: 7%" value="戻る">
+					<input tabindex="4" onclick="relevanceClient()" class="btn btn-success pull-right i18n-input" selectname='customerwedgeChange_update' style="margin-right: 15px; width: 7%" type="button" value="更新">
+				</form>				
+			</aside>
+		</div>	
+	</body>
+</html>

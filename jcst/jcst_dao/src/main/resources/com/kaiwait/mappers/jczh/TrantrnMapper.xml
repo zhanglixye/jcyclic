@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.TrantrnMapper">
+<resultMap type="com.kaiwait.bean.jczh.entity.Trantrn" id="Trantrn">
+		<id column="job_cd" property="job_cd" jdbcType="VARCHAR" />
+		<result column="input_no" property="input_no" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="VARCHAR" />
+		<result column="tran_date" property="tran_date" jdbcType="VARCHAR" />
+		<result column="item_code" property="item_code" jdbcType="VARCHAR" />
+		<result column="tran_amt" property="tran_amt" jdbcType="VARCHAR" />
+		<result column="tran_name" property="tran_name" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="add_date" property="add_date" jdbcType="VARCHAR" />
+		<result column="up_date" property="up_date" jdbcType="VARCHAR" />
+		<result column="add_usercd" property="add_usercd" jdbcType="VARCHAR" />
+		<result column="up_usercd" property="up_usercd" jdbcType="VARCHAR" />
+		<result column="tran_status" property="tran_status" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemname_hk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="itemnamehk" property="itemnamehk" jdbcType="VARCHAR" />
+		<result column="itemnameen" property="itemnameen" jdbcType="VARCHAR" />
+		<result column="itemnamejp" property="itemnamejp" jdbcType="VARCHAR" />
+		<result column="confirusername" property="confirusername" jdbcType="VARCHAR" />
+		<result column="cancelUserName" property="cancelUserName" jdbcType="VARCHAR" />
+		<result column="confirmdate" property="confirmdate" jdbcType="VARCHAR" />
+		<result column="cancel_confirm_date" property="cancel_confirm_date" jdbcType="VARCHAR" />
+		<result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+		<result column="addusername" property="addusername" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+		<result column="upddate" property="upddate" jdbcType="VARCHAR" />
+		<result column="cancelconfirmdate" property="cancelconfirmdate" jdbcType="VARCHAR" />
+		<result column="cancelconfirmemp" property="cancelconfirmemp" jdbcType="VARCHAR" />
+		<result column="costfinishflg" property="costfinishflg" jdbcType="VARCHAR" />
+		<result column="addusername" property="addusername" jdbcType="VARCHAR" />
+		<result column="upusername" property="upusername" jdbcType="VARCHAR" />
+		<result column="addusernamecolor" property="addusernamecolor" jdbcType="VARCHAR" />
+		<result column="upusernamecolor" property="upusernamecolor" jdbcType="VARCHAR" />
+		<result column="confirusernamecolor" property="confirusernamecolor" jdbcType="VARCHAR" />
+		<result column="cancelUserNamecolor" property="cancelUserNamecolor" jdbcType="VARCHAR" />
+		<result column="itemname" property="itemname" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+		<result column="old_input_no" property="old_input_no" jdbcType="VARCHAR" />
+		
+	</resultMap>
+
+   <insert id="insertusersettingtrn" parameterType="com.kaiwait.bean.jczh.entity.Trantrn" >
+     insert into trantrn
+		(job_cd,
+        input_no,
+        company_cd,
+        tran_date,
+        item_code,
+        tran_amt,
+        tran_name,
+        remark,
+        add_date,
+        up_date,
+        add_usercd,
+        up_usercd,
+        tran_status
+        )
+        values
+        (
+         #{job_cd,jdbcType=INTEGER},
+         #{input_no,jdbcType=VARCHAR},
+         #{company_cd,jdbcType=INTEGER},
+         #{tran_date,jdbcType=TIMESTAMP},
+         #{item_code,jdbcType=VARCHAR},
+         #{tran_amt,jdbcType=VARCHAR},
+         #{tran_name,jdbcType=VARCHAR},
+         #{remark,jdbcType=VARCHAR},         
+         #{add_date,jdbcType=TIMESTAMP},
+         #{up_date,jdbcType=TIMESTAMP},
+         #{add_usercd,jdbcType=VARCHAR},
+         #{add_usercd,jdbcType=VARCHAR},
+         #{tran_status,jdbcType=VARCHAR} 
+        )
+  </insert>
+  <select id="trantrnquery"  parameterType="com.kaiwait.bean.jczh.entity.Trantrn" resultMap="Trantrn" >
+SELECT
+	a.TRAN_DATE,
+	a.ITEM_CODE,
+	a.TRAN_AMT,
+	a.TRAN_NAME,
+	a.REMARK,
+	IFNULL(a.old_input_no,0) old_input_no,
+	b.itmname,
+	b.itmname as  itemname,
+	b.itemname_hk,
+	b.itemname_en,
+	b.itemname_jp,
+	b.itemname_hk as itemnamehk,
+	b.itemname_en as itemnameen,
+	b.itemname_jp as itemnamejp,
+	a.cancel_confirm_date,
+	a.confirmdate,
+	(select user_name from usermst where USERCD=a.add_usercd) addusername,
+	(select user_name from usermst where USERCD=a.up_usercd) upusername,
+	(select colorv from usermst where USERCD=a.add_usercd) addusernamecolor,
+	(select colorv from usermst where USERCD=a.up_usercd) upusernamecolor,
+	u.user_name AS confirusername,
+	u.colorv as confirusernamecolor,
+	us.user_name AS cancelUserName,
+	us.colorv as cancelUserNamecolor,
+  	updUSE.user_name AS updateuser,
+	USER.user_name AS addusername,
+	a.ADD_DATE as adddate,
+	a.UP_DATE as upddate,
+	(select cost_finish_flg from jobtrn where job_cd=a.job_cd and company_cd=a.company_cd) costfinishflg,
+	a.lock_flg lock_flg
+	FROM
+	trantrn a
+	join commonmst b on a.ITEM_CODE = b.ITEMCD AND b.company_cd = #{company_cd,jdbcType=INTEGER} and b.del_flg=0
+	LEFT JOIN usermst u ON a.CONFIRMEMP = u.USERCD 
+	LEFT JOIN usermst us ON a.cancel_confirm_emp = us.USERCD  
+	LEFT JOIN usermst updUSE on a.UP_USERCD = updUSE .USERCD  
+	LEFT JOIN usermst USER ON a.UP_USERCD = USER .USERCD  
+	WHERE b.mstcd = '9002'
+	and a.input_no =  #{input_no,jdbcType=VARCHAR} 
+	and a.company_cd = #{company_cd,jdbcType=INTEGER}
+	and a.job_cd = #{job_cd,jdbcType=VARCHAR} 
+	and a.del_flg = 0
+  </select> 
+  
+   <select id="trantrnDate" resultType="com.kaiwait.bean.jczh.entity.Trantrn" >
+ SELECT
+	a.cancel_confirm_date as cancelconfirmdate,
+	a.confirmdate as confirmdate,
+	a.ADD_DATE as adddate,
+	a.UP_DATE as upddate
+	FROM
+	trantrn a
+	WHERE a.input_no =  #{input_no,jdbcType=VARCHAR} 
+	and a.company_cd = #{company_cd,jdbcType=INTEGER}
+	and a.job_cd = #{job_cd,jdbcType=VARCHAR} 
+	and a.del_flg = 0
+  </select> 
+  <update id="trantrnapproval" parameterType="com.kaiwait.bean.jczh.entity.Trantrn">
+		update trantrn 
+		<set>
+				tran_status='1',
+				CONFIRMDATE = #{up_date,jdbcType=VARCHAR},
+	    		CONFIRMEMP = #{add_usercd,jdbcType=INTEGER},
+	    		CANCEL_CONFIRM_DATE =null,
+	    		CANCEL_CONFIRM_EMP = ""
+		</set>
+		where input_no = #{input_no}
+		and job_cd = #{job_cd,jdbcType=VARCHAR} 
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+  </update>
+  <update id="updateDelete" parameterType="com.kaiwait.bean.jczh.entity.Trantrn">
+		update trantrn 
+		<set>
+				DEL_FLG='1',
+				up_date =  #{datenow,jdbcType=VARCHAR},
+				up_usercd = #{usercd,jdbcType=INTEGER}
+		</set>
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and job_cd = #{jobcd,jdbcType=VARCHAR} 
+		and company_cd = #{companyID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateTrantrn" parameterType="com.kaiwait.bean.jczh.entity.Trantrn">
+		update trantrn
+		<set>
+				tran_date=	#{tran_date},
+				item_code=	#{item_code},
+				tran_amt=	#{tran_amt},
+				tran_name=	#{tran_name},
+				old_input_no = #{old_input_no},
+				input_no = #{new_input_no},
+				remark=	#{remark},
+				up_date = #{up_date,jdbcType=VARCHAR},
+				up_usercd = #{add_usercd,jdbcType=INTEGER}
+		</set>
+		where input_no = #{input_no}
+		and job_cd = #{job_cd,jdbcType=VARCHAR} 
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+  </update>
+  <update id="cancelTran" parameterType="com.kaiwait.bean.jczh.entity.Trantrn">
+    update trantrn
+    <set>
+        TRAN_STATUS = 0,
+	    CONFIRMDATE = null,
+	    CONFIRMEMP= null,
+	    CANCEL_CONFIRM_DATE = #{cancelconfirmdate},
+	    CANCEL_CONFIRM_EMP = #{cancelconfirmemp}
+    </set>
+     where JOB_CD = #{job_cd} and INPUT_NO = #{input_no} and COMPANY_CD = #{company_cd} and DEL_FLG=0
+  </update>
+  <select id="getstatus"  resultType="String">
+		select tran_status
+		from trantrn
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companyID,jdbcType=INTEGER}
+		and job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	<select id="TrantrnConfirmPDF" resultType="com.kaiwait.bean.jczh.entity.TrantrnConfirmBeen">
+	select 
+	<!-- //インプット確認票No. -->
+		t.INPUT_NO inputNo,
+		<!-- //登録日 -->
+		IFNULL(DATE_FORMAT(t.ADD_DATE,'%Y-%m-%d'),'') addDate,
+		<!-- //登録者 -->
+		IFNULL((select user_name from usermst where usercd =t.ADD_USERCD ),'') addUserName,
+		
+		<!--  得意先コード -->
+		IFNULL(j.CLDIV_CD,'') dClCode,
+		<!--  得意先 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select CLDIV_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') dClName,
+		<!--  jobNo -->
+		IFNULL(j.JOB_CD,'') jobNo,
+		<!--  件名 -->
+		IFNULL(j.JOB_NAME,'') jobName,
+		<!--  売上種目 -->
+		IFNULL((select SALE_NAME from salemst where SALE_CD =j.SALE_TYP ),'') saleTypeName,
+		<!--  請求先 -->
+		 IFNULL((select DIVNM from clmst where CLDIVCD=(select PAYER_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') rClName,
+		<!--  相手先G会社 -->
+		IFNULL((select DIVNM from clmst where CLDIVCD=(select G_COMPANY from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') hClName,
+		<!--  計上予定日 -->
+		IFNULL(j.PLAN_DALDAY,'') planDlvDay,
+		<!--  計上日 -->
+		IFNULL((select DLVDAY from sellordertrn where JOB_CD = t.job_cd and DEL_FLG = '0' and COMPANY_CD = t.COMPANY_CD),'') dlvDay,
+		<!--  責任者  -->
+	 	 IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='1' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') zUserName,
+		<!--  営業担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='2' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') yUserName,
+		<!--  割当担当 -->
+	 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='3' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') mdUserName,
+	 	
+		<!-- //経費科目 -->
+		IFNULL((select itmname from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyType,
+		IFNULL((select itemname_en from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypeen,
+		IFNULL((select itemname_jp from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypejp,
+		IFNULL((select itemname_hk from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypehk,
+		<!-- //案件名 -->
+		IFNULL(t.TRAN_NAME,'') caseName,
+		<!-- //振替日 -->
+		IFNULL(t.TRAN_DATE,'') trantrnDate,
+		<!-- //振替金額 -->
+		IFNULL(t.TRAN_AMT,'') trantrnNum,	
+		<!-- //備考 -->
+		IFNULL(t.REMARK,'') remark,
+		<!--   新No. -->
+		IFNULL(t.INPUT_NO,'') newNo,
+		<!--   旧No. -->
+		IFNULL(t.OLD_INPUT_NO,'') oldNo,
+		IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =(select CURRENCY_CODE from companymst where company_cd =t.company_cd) and company_cd = t.company_cd),'') mylen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd =(select currency_code from companymst where company_cd = t.company_cd) and company_cd = t.company_cd) currencycode,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='002' and company_cd = t.company_cd) currencycodejp,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='003' and company_cd = t.company_cd) currencycodeen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='004' and company_cd = t .company_cd) currencycodehk,
+		(select company_full_name from companymst where company_cd = t.COMPANY_CD) companyfullname
+	from trantrn t
+		LEFT JOIN jobtrn j on t.job_cd = j.JOB_CD and t.COMPANY_CD = j.COMPANY_CD
+		where t.input_no = #{inputno,jdbcType=VARCHAR}
+		and t.company_cd = #{companycd,jdbcType=INTEGER}
+		and t.job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	<select id="TrantrnApprovalPDF" resultType="com.kaiwait.bean.jczh.entity.TrantrnApprovalBeen">
+	    select 
+		  	<!-- インプット確認票No. -->
+			IFNULL(t.INPUT_NO,'') inputNo,
+			<!--  承認日 -->
+			IFNULL(DATE_FORMAT(t.CONFIRMDATE,'%Y-%m-%d'),'') approvalDate,
+			<!--  承認者 -->
+			IFNULL((select user_name from usermst where usercd =t.CONFIRMEMP ),'') approvalUser,
+			
+			<!--  得意先コード -->
+			IFNULL(j.CLDIV_CD,'') dClCode,
+			<!--  得意先 -->
+			IFNULL((select DIVNM from clmst where CLDIVCD=(select CLDIV_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') dClName,
+			<!--  jobNo -->
+			IFNULL(j.JOB_CD,'') jobNo,
+			<!--  件名 -->
+			IFNULL(j.JOB_NAME,'') jobName,
+			<!--  売上種目 -->
+			IFNULL((select SALE_NAME from salemst where SALE_CD =j.SALE_TYP ),'') saleTypeName,
+			<!--  請求先 -->
+			 IFNULL((select DIVNM from clmst where CLDIVCD=(select PAYER_CD from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') rClName,
+			<!--  相手先G会社 -->
+			IFNULL((select DIVNM from clmst where CLDIVCD=(select G_COMPANY from jobtrn where job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') hClName,
+			<!--  計上予定日 -->
+			IFNULL(j.PLAN_DALDAY,'') planDlvDay,
+			<!--  計上日 -->
+			IFNULL((select DLVDAY from sellordertrn where JOB_CD = t.job_cd and DEL_FLG = '0' and COMPANY_CD = t.COMPANY_CD),'') dlvDay,
+			<!--  責任者  -->
+		 	 IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='1' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') zUserName,
+			<!--  営業担当 -->
+		 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='2' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') yUserName,
+			<!--  割当担当 -->
+		 	IFNULL((select GROUP_CONCAT(DISTINCT USER_NAME )from usermst u where 1=1 and EXISTS (select 1 from jobuserstrn where LEVEL_FLG='3' and USERCD=u.USERCD and job_cd = t.JOB_CD and COMPANY_CD = t.COMPANY_CD)),'') mdUserName,
+			<!--  経費科目 -->
+			IFNULL((select itmname from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyType,
+			IFNULL((select itemname_en from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypeen,
+			IFNULL((select itemname_jp from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypejp,
+			IFNULL((select itemname_hk from commonmst where mstcd = '9002' and company_cd =t.company_cd and ITEMCD = t.ITEM_CODE),'') moneyTypehk,
+			<!--  案件名 -->
+			IFNULL(t.TRAN_NAME,'') caseName,
+			<!--  振替日 -->
+			IFNULL(t.TRAN_DATE,'') trantrnDate,
+			<!--  振替金額 -->
+			IFNULL(t.TRAN_AMT,'') trantrnNum,	
+			<!--  備考 -->
+			IFNULL(t.REMARK,'') remark,
+			<!--  科目 -->
+			IFNULL(t.ITEM_CODE,'') type,
+			<!--   新No. -->
+			IFNULL(t.INPUT_NO,'') newNo,
+			<!--   旧No. -->
+			IFNULL(t.OLD_INPUT_NO,'') oldNo,
+			<!--  借方 -->
+			'1' debit,
+			<!--  貸方 -->
+			'1' credit,
+			IFNULL((select itmvalue from commonmst where mstcd = '0050' and itemcd =(select CURRENCY_CODE from companymst where company_cd =t.company_cd) and company_cd = t.company_cd),'') mylen,
+			(select itmname from commonmst where mstcd = '0050' and itemcd =(select currency_code from companymst where company_cd = t.company_cd) and company_cd = t.company_cd) currencycode,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='002' and company_cd = t.company_cd) currencycodejp,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='003' and company_cd = t.company_cd) currencycodeen,
+		(select itmname from commonmst where mstcd = '0050' and itemcd ='004' and company_cd = t.company_cd) currencycodehk,
+			(select company_full_name from companymst where company_cd = t.COMPANY_CD) companyfullname
+		from trantrn t
+		LEFT JOIN jobtrn j on t.job_cd = j.JOB_CD and t.COMPANY_CD = j.COMPANY_CD
+		where t.input_no = #{inputno,jdbcType=VARCHAR}
+		and t.company_cd = #{companycd,jdbcType=INTEGER}
+		and t.job_cd = #{jobcd,jdbcType=VARCHAR}
+	</select>
+	<select id="queryLock"  resultType="java.lang.Integer">	
+		select 
+			lock_flg
+		from trantrn 
+		where input_no = #{inputno,jdbcType=VARCHAR}
+			and company_cd = #{companycd,jdbcType=INTEGER}
+			and job_cd = #{jobcd,jdbcType=VARCHAR}
+   </select>
+    <update id="updateLock">
+    update trantrn 
+    set lock_flg = lock_flg+1 
+    where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=INTEGER}
+		and job_cd = #{jobcd,jdbcType=VARCHAR}
+   </update>
+</mapper>

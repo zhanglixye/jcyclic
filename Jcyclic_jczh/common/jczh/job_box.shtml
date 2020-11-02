@@ -1,0 +1,28 @@
+<div class="card col-xs-3 box" id="addhidden">
+	<div class="i18n" id="languageNameAdd" name="salescategoryLogin_jobLogon">
+		
+	</div>
+	<div class="clearfix">
+		<div class="col-xs-3">
+			<i class="iconfont icon-ren"  id="addcolor"></i>
+		</div>
+		<div class="clearfix col-xs-9">
+			<div id="adduser"></div>
+			<small id="adddate"></small>
+		</div>
+	</div>
+</div>
+<div class="card col-xs-3 box" id="updhidden">
+	<div class="i18n" id="languageNameUpd" name="salescategoryLogin_jobUpdate">
+		
+	</div>
+	<div class="clearfix" id="jobuper">
+		<div class="col-xs-3">
+			<i class="iconfont icon-ren" id="updcolor"></i>
+		</div>
+		<div class="clearfix col-xs-9">
+			<div id="upduser"></div>
+			<small id ="update"></small>
+		</div>
+	</div>
+</div>

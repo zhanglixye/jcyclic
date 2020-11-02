@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='lable_manage_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+        <link rel="stylesheet" type="text/css" href="../public/stylesheets/master/label_manage.css?v=2018092801"/>
+        <!--#include virtual="../common/language.shtml"-->  
+        <script type="text/javascript" src="../public/javascript/master/lable_management.js?v=2018092801" ></script>
+        
+	</head>
+	<style>
+		.panel-htop .panel-header .panel-title{
+			text-align: left!important;
+		}
+		#my_lable{
+			border-bottom-left-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+		#admin_lable{
+			border-bottom-right-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		.add_radius{
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='lable_manage_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<ul class="labeltypeul nav nav-tabs">
+					<li class="labeltype active" value="0" id="job_lable">
+						<a class="i18n" name="job_lable"></a>
+					</li>
+					<li class="labeltype" value="1" id="cost_lable">
+						<a class="i18n" name="cost_lable"></a>
+					</li>
+				</ul>
+				<div  class="body">
+					<div class="box supplier_sum_hei1">
+						<ul class="change-btn clearfix labellevel">
+							<li class="i18n" value="0" id="my_lable" name='my_lable'></li>
+							<li class="active i18n" value="1" id="admin_lable" name='admin_lable'></li>
+						</ul>
+						 <div class="input-group" style="margin-top: 5px;">
+					      <input style="border-right: 0;" maxlength="50" type="text" class="form-control" id="labeltest">
+					      <span style="" class="input-group-addon i18n add_radius" name='add' onclick="add()"></span>
+					    </div>
+					</div>
+					<table class="tableObj" id="label_management" style="width: 100%;"></table>
+					<div class="switch_table_none hidden">
+						<center>検索処理を実行してください</center>
+					</div>
+				</div>				
+			</aside>
+		</div>	
+		<script>
+			var objTop = $('.supplier_sum_hei1').height();
+			var tableObj = $('.tableObj');
+			var auto_tableHei = function(objTop,num,tableObj){
+				var sum_height = $('div.body').height();
+				var height = sum_height - objTop - num;
+				tableObj.css('max-height',height);
+			}
+			auto_tableHei(objTop,70,tableObj);
+		</script>
+	</body>
+</html>

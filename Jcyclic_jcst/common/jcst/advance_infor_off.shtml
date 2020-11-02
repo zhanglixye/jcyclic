@@ -1,0 +1,11 @@
+<div class="panel panel-default" style="border:1px solid #dddddd;">
+	<div class="panel-heading i18n" name='payment_info_evidence_by_evidence'>
+		
+	</div>
+	<div class="panel-body setblock1" style="padding: 15px 23px 15px 14px; ">
+		<ul class="advance_url">
+		</ul>
+	</div>
+</div>
+	
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title class="i18n" name='ticket_output'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jcst/Invoice_output.css?v=2018092801" />
+		<!--#include virtual="../common/language.shtml" -->
+	</head>
+
+	<body class="main page" style="height: 100%;">
+		<!--Navbar-->
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='ticket_output'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#fff;">
+				<!--第一部分-->
+				<div class="panel panel-default first_cont">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+				            <span class="i18n" name='daily_report' style="font-size: 16px;color: black;"></span>
+				        </h3>
+					</div>
+					<!--第一行-->
+					<div class="cont_first">
+						<div class="first">
+							<label class="control-label first_time i18n" name='final_expected_month'></label>
+							<div class="input-group first_time1">
+								<input class="inputDate form-control" type="text" id="order_date1" />
+							</div>
+
+							<div class="time_one">
+								&nbsp;&nbsp;—&nbsp;&nbsp;
+							</div>
+
+							<div class="input-group time_two">
+								<input class="inputDate form-control" type="text" id="order_date2" />
+							</div>
+							<script>
+								$('#order_date1').datebox({
+									width: '110px'
+								})
+								$('#order_date2').datebox({
+									width: '110px'
+								})
+							</script>
+							<div class="text_title">
+								<label class="control-label text_title1 i18n" name='customlist_list_of_items_title-23-N'></label>
+								<div class="input-group text-cont">
+									<input class=" form-control" type="text" style="border-right: 0;"/>
+									<span class="input-group-addon text-iconi">
+												<i class="iconfont icon-sousuo"></i>
+											</span>
+									<input type="text" hidden="hidden" />
+								</div>
+							</div>
+							<div class="first_last">
+								<span class="i18n" name='ticket_output_sentenceA'></span>
+							</div>
+						</div>
+					</div>
+					<div class="cont_first_2">
+						<label class="control-label i18n" name='report_type' style="height: 20px;margin-bottom: 10px;"></label>
+						<div class="input-group" style="margin-bottom: -10px;">
+							<div class="selInput2 form-group radio" style="width: 100%;">
+								<label class="radio" style="display: inline-block;white-space:nowrap;">
+									    <input type="radio" name="radio_xiao" value="0" checked="checked">
+										<span class="radio-1 i18n" name='ticket_output_sentenceB'></span>
+									</label>
+								<label class="radio radio_ot" style="white-space:nowrap;">
+										<input type="radio" name="radio_xiao"  value="1" >
+										<span class="radio-1 i18n" name='ticket_output_sentenceC'></span>				                              
+									</label>
+							</div>
+						</div>
+					</div>
+					<!--第三行-->
+					<button class="btn btn-success cont_first_btn i18n" name='report'></button>
+				</div>
+				<!--第二部分-->
+				<div class="panel panel-default first_cont" style="	margin-top: 2%;">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+				            <span class="i18n" name='monthly_report' style="font-size: 16px;color: black;"></span>
+				        </h3>
+					</div>
+					<!--第一行-->
+					<div class="cont_first">
+						<div class="first">
+							<label class="control-label second_cont i18n" name='final_expected_month'></label>
+							<div class="input-group second_cont_one">
+								<input class="inputDate form-control" type="text" id="order_date3" />
+							</div>
+							<script>
+								$('#order_date3').datebox({
+									width: '110px'
+								})
+							</script>
+						</div>
+					</div>
+					<div class="cont_first_2">
+						<label class="control-label i18n" name='report_type' style="margin-bottom: 10px;"></label>
+						<div class="input-group" style="margin-bottom: -10px;">
+							<div class="selInput2 form-group radio" style="width: 100%;">
+								<label class="radio" style="display: inline-block;">
+									    <input type="radio" name="radio_xiao1" value="0" checked="checked">
+										<span class="radio-1 i18n" name='ticket_output_sentenceD'></span>
+									</label>
+								<label class="radio radio_ot">
+										<input type="radio" name="radio_xiao1"  value="1" >
+										<span class="radio-1 i18n" name='ticket_output_sentenceE'></span>				                              
+									</label>
+								<label class="radio radio_ot">
+										<input type="radio" name="radio_xiao1"  value="1" >
+										<span class="radio-1 i18n" name='ticket_output_sentenceF'></span>				                              
+									</label>
+								<label class="radio radio_ot">
+										<input type="radio" name="radio_xiao1"  value="1" >
+										<span class="radio-1 i18n" name='ticket_output_sentenceG'></span>				                              
+									</label>
+							</div>
+						</div>
+					</div>
+					<!--第三行-->
+					<button class="btn btn-success cont_first_btn i18n" name='report'></button>
+				</div>
+			</aside>
+		</div>
+	</body>
+
+</html>

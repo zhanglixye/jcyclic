@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='commoncode_registration_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801" />
+		<!--#include virtual="../common/language.shtml"-->   
+		<script type="text/javascript" src="../public/lib/easyUi1.5.3/jquery.easyui.min.js?v=2018092801" ></script>		
+		<script type="text/javascript" src="../public/javascript/master/commoncode_service.js?v=2018092801"></script>
+	</head>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='commoncode_registration_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+							<!--隐藏域-->
+							<input id="company_cd" name="company_cd" class="form-control" placeholder="" type="text" value="" style="display:none">
+							<!--隐藏域-->
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='commoncodeRegistration_basic_information'></div>
+								<div class="panel-body">
+									
+										
+											<div class="form-group" required="">
+												<label class="control-label i18n" name='commoncodeRegistration_master_class_code'></label>
+												<input oninput="this.value=ToCDB(this.value)" id="mstcd" name="mstcd" class="form-control required" placeholder="" type="text" maxlength="4" value="">
+											</div>
+										
+
+									
+
+									<div class="form-group" required="">
+										<label class="control-label i18n" name='commoncodeRegistration_master_segment_name'></label>
+
+										<input id="mstname"  name="mstname" class="form-control required" placeholder="" type="text"  value="" maxlength="50">
+
+									</div>
+
+									
+										
+											<div class="form-group" required="">
+												<label class="control-label i18n" name='commoncodeRegistration_system_code'></label>
+												<input oninput="this.value=ToCDB(this.value)" id="itemcd" name="itemcd" class="form-control required" placeholder="" type="text" value="" maxlength="10">
+											</div>
+										
+
+									
+
+									<div class="form-group" required=""><label class="control-label i18n" name='commoncodeRegistration_item_name'></label>
+
+										<input id="itemname_jp" name="itemname_jp" class="form-control required" placeholder="" type="text" value="" maxlength="50">
+
+									</div>
+
+									<div class="form-group" required=""><label class="control-label i18n" name='commoncodeRegistration_zh_name'></label>
+
+										<input id="itmname" name="itmname" class="form-control required" placeholder="" type="text"  value="" maxlength="50">
+
+									</div>
+
+									<div class="form-group" required=""><label class="control-label i18n" name='commoncodeRegistration_zt_name'></label>
+
+										<input id="itemname_hk" name="itemname_hk" class="form-control required" placeholder="" type="text" value="" maxlength="50">
+
+									</div>
+
+									<div class="form-group" required=""><label class="control-label i18n" name='commoncodeRegistration_en_name'></label>
+
+										<input id="itemname_en" name="itemname_en" class="form-control required" placeholder="" type="text"  value="" maxlength="50">
+
+									</div>
+
+									
+										
+											<div class="form-group">
+												<label class="control-label i18n" name='commoncodeRegistration_auxiliary_code'></label>
+												<input oninput="this.value=ToCDB(this.value)" id="itmvalue" name="itmvalue" class="form-control" placeholder="" type="text" required="" value="" maxlength="50">
+											</div>
+									
+
+									
+
+									<div class="form-group"><label class="control-label i18n" name='commoncodeRegistration_numerical'></label>
+
+										<input id="aidcd" name="aidcd" class="form-control width_100_ml0" placeholder="" type="number" required="" value="" oninput="this.value = number_va_length(this.value,10)">
+
+									</div>
+
+									<div class="form-group"><label class="control-label i18n" name='commoncodeRegistration_unit_conversion'></label>
+
+										<input id="change_utin" name="change_utin" class="form-control width_100_ml0" placeholder="" type="number" value="" oninput="this.value = number_va_length(this.value,50)">
+
+									</div>
+
+									<div class="form-group"><label class="control-label i18n" name='commoncodeRegistration_display_order'></label>
+
+										<input id="orderno" name="orderno" class="form-control width_100_ml0" placeholder="" type="number" value="" oninput="this.value = number_va_length(this.value,2)">
+
+									</div>
+
+								</div>
+							</div>
+
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='commoncodeRegistration_invalid'></div>
+								<div class="panel-body">
+									<div class="form-group"><label class="control-label i18n" name='commoncodeRegistration_invalid_sign'></label>
+										<div class="checkbox">
+											<label class="checkbox-inline">
+												<input type="checkbox" id="del_flg" name="del_flg" value="1">
+												<span class="iconfont icon-duihaok"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="lastChild">
+								<button class="btn btn-success i18n btn_change" name='commoncodeRegistration_login' type="button" onclick="saleSave()" ></button>
+								<button class="btn btn-default i18n" name='commoncodeRegistration_back' type="submit" onclick="javascript :history.back(-1);"></button>
+							</div>
+
+					</div>
+				</div>
+			</aside>
+		</div>
+	</body>
+
+</html>

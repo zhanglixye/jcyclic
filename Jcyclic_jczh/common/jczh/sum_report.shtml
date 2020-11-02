@@ -1,0 +1,292 @@
+<div class="hid sum_rep">
+	<ul class="breadcrumb" id="breadcrumb" style="border-radius:0">
+		<li class="fs18 i18n" name='timesheet_list_time_popup_title'></li>
+		<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+	</ul>
+	<div style="padding: 0 20px 20px;">
+		<div class="row sumdate">
+			<div class ="title">
+				<p name ="">
+					<span class="i18n" name="timesheet_list_sum_date"></span>	
+					<span class ="timesheet_list_max_month i18n"name ="timesheet_list_max_month">最大3ヶ月</span>
+				</p>
+			</div>
+			<input type="text" id="startDate">
+		    <b>-</b>
+		    <input type="text" id="endDate">
+		    <p class="prompt i18n" name="timesheet_list_content">参照権限のある社員のタイムシートデータを出力します</p>
+        	<button id="closeBtnInput" class="btn btn-success i18n" name="report" onclick="outputtimesheet()"></button>
+		</div>
+		<style>
+			.sumdate{
+				margin:0;
+			}
+			.sumdate .title{
+				margin:0;
+				font-weight:bold;
+			}
+			.sumdate .title .timesheet_list_max_month{
+				font-weight:normal;
+				padding-left:20px;
+			}
+			.sumdate .title .timesheet_list_max_month:before{
+				content:" * ";
+				display:inline;
+				color:red;
+			}
+			.sumdate .prompt{
+				margin-top:15px;
+			}
+		</style>
+	</div>
+</div>
+<script>
+var datetime = 0;
+     initYearMonth();
+     function initYearMonth() {
+         //小于三个月 code
+         var tds1 = false,tds2 = false;
+         $("#startDate").datebox({
+             onShowPanel: function() {
+                 getKuaiDate($('#startDate'));
+                 var p = $('#startDate').datebox('panel');
+                 var flag = p.find('.calendar-menu').css('display');
+                 if(flag == 'block'){
+                     return;
+                 }
+                 p.find('span.calendar-text').trigger('click');
+                 p.find(".datebox-button-a").eq(0).hide();
+                 p.find(".datebox-button-a").eq(0).closest('td').css('width','0%');
+                 p.find(".datebox-button-a").eq(1).hide();
+                 p.find(".datebox-button-a").eq(1).closest('td').css('width','0%');
+                 p.find(".datebox-button-a").eq(2).closest('td').css('width','100%');
+                 objV.s($('#endDate').datebox('getText'));
+                 var span = p.find('span.calendar-text');
+                 //屏蔽选择今天的按钮
+                 //p.find('.calendar-text').hide();
+                 //输入框原本可填，会触发事件，屏蔽掉
+                 p.find('.calendar-menu-year').attr("readonly", "readonly");
+                 //结束日没有多国语言化问题
+                 //p.find('a.datebox-button-a').eq(1).text(part_language_change_new('boxclear'));
+                 //p.find('a.datebox-button-a').eq(2).text(part_language_change_new('boxclose'));
+                 if (!tds2) //初始化只需要捆绑一次事件就够了
+                     setTimeout(function() {
+                         tds2 = p.find('div.calendar-menu-month-inner td');
+                         tds2.click(function(e) {
+                             e.stopPropagation(); //禁止冒泡执行easyui给月份绑定的事件
+                             var year = /\d{4}/.exec(span.html())[0] //得到年份
+                             month = parseInt($(this).attr('abbr'), 10); //月份
+                             if($(this).css('cursor') == 'default'){
+                                 return;
+                             }
+                             $('#startDate').datebox('hidePanel').datebox('setValue', year + '-' + month + '-' + '01'); //设置日期的值
+                         });
+                     });
+             },
+             formatter: function(d) { //设置格式
+                 if(d == null){
+                     return;
+                 }
+                 return d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1));
+             }
+         });
+         $("#endDate").datebox({
+             onShowPanel: function() {
+                 getKuaiDate($('#endDate'));
+                 var p = $('#endDate').datebox('panel');
+                 var flag = p.find('.calendar-menu').css('display');
+                 if(flag == 'block'){
+                     return;
+                 }
+                 p.find('span.calendar-text').trigger('click');
+                 p.find(".datebox-button-a").eq(0).hide();
+                 p.find(".datebox-button-a").eq(0).closest('td').css('width','0%');
+                 p.find(".datebox-button-a").eq(1).hide();
+                 p.find(".datebox-button-a").eq(1).closest('td').css('width','0%');
+                 p.find(".datebox-button-a").eq(2).closest('td').css('width','100%');
+                 objV.e(initDate());
+                 var span = p.find('span.calendar-text');
+                 //屏蔽选择今天的按钮
+                 //p.find('.calendar-text').hide();
+                 //输入框原本可填，会触发事件，屏蔽掉
+                 p.find('.calendar-menu-year').attr("readonly", "readonly");
+                 if (!tds1) //初始化只需要捆绑一次事件就够了
+                     setTimeout(function() {
+                         tds1 = p.find('div.calendar-menu-month-inner td');
+                         tds1.click(function(e) {
+                             e.stopPropagation(); //禁止冒泡执行easyui给月份绑定的事件
+                             var year = /\d{4}/.exec(span.html())[0] //得到年份
+                             month = parseInt($(this).attr('abbr'), 10); //月份
+                             if($(this).css('cursor') == 'default'){
+                                 return;
+                             }
+                             $('#endDate').datebox('hidePanel').datebox('setValue', year + '-' + month + '-' + '01'); //设置日期的值
+                         });
+                     });
+             },
+             formatter: function(d) { //设置格式
+                 if(d == null){
+                     return;
+                 }
+                 return d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1));
+             },
+             onChange:function(date){
+                 if(date == undefined){
+                     //$("#endDate").attr('data_fl',0);
+                     return;
+                 }
+                 if(date.split('-')[1] == '02'){
+                     var ert = '12';
+                     var ert2 = Number(date.split('-')[0]) - 1;
+                 }else if(date.split('-')[1] == '01'){
+                     var ert = '11';
+                     var ert2 = Number(date.split('-')[0]) - 1;
+                 }else{
+                     var ert =  Number(date.split('-')[1]) - 2<10?'0'+(Number(date.split('-')[1]) - 2):Number(date.split('-')[1]) - 2;
+                     var ert2 = date.split('-')[0];
+                 }
+                 var a = ert2 +'-'+ ert + '-01 00:00:00';//小三个月
+                 var aa = new Date(a);
+                 var bb = new Date(date+'-01 00:00:00');
+                 $('#startDate').datebox().datebox('calendar').calendar({
+                     validator: function(date) {
+                         if(date >= aa && date <= bb){
+                             return date;
+                         }
+                     }
+                 });
+                 $('#startDate').datebox('setValue',date+'-01');
+             }
+         });
+         
+         
+         
+         
+         
+         
+         var objV = validateShowInit();
+         function validateShowInit(){
+             var objV = {};
+             //开始日validate展示显示   開始日
+             objV.s = function(endDate,num){
+                 if(endDate.split('-')[1] == '02'){
+                     var ert = '12';
+                     var ert2 = Number(endDate.split('-')[0]) - 1;
+                 }else if(endDate.split('-')[1] == '01'){
+                     var ert = '11';
+                     var ert2 = Number(endDate.split('-')[0]) - 1;
+                 }else{
+                     var ert =  Number(endDate.split('-')[1]) - 2<10?'0'+(Number(endDate.split('-')[1]) - 2):Number(endDate.split('-')[1]) - 2;
+                     var ert2 = endDate.split('-')[0];
+                 }
+                 var a = ert2 +'-'+ ert + '-01 00:00:00';//小三个月
+                 var monthDateS = new Date(a);
+                 var monthDateE = new Date(endDate+'-01 00:00:00');
+                 var p = $('#startDate').datebox('panel');
+                 var monthList = p.find('div.calendar-menu-month-inner td');
+                 //删除不用的按钮
+                 p.find('.calendar-nav.calendar-prevmonth,.calendar-nav.calendar-nextmonth,.calendar-nav.calendar-nextyear,.calendar-nav.calendar-prevyear').remove();
+                 if(num == 1){
+                     var year = Number(p.find('.calendar-menu-year').val()) - 1;
+                 }else if(num == 0){
+                     var year = Number(p.find('.calendar-menu-year').val()) + 1;
+                 }else{
+                     var year = p.find('.calendar-menu-year').val();
+                 }
+                 monthList.each(function(index,ele){
+                     var month = parseInt($(ele).text());
+                     if(isNaN(month)){
+                         month = index + 1;
+                     }
+                     var Cdate = new Date(year+'-'+month+'-01 00:00:00');
+                     if(Cdate >= monthDateS && Cdate <= monthDateE){
+                         $(ele).css('opacity','1');
+                         $(ele).css('cursor','pointer');
+                     }else{
+                         $(ele).css('opacity','0.6');
+                         $(ele).css('cursor','default');
+                     }
+                 })
+             }
+             
+             
+             
+             
+             //后退绑定
+             $('#startDate').datebox('panel').find('.calendar-nav.calendar-menu-prev').click(function(){
+                 //后退 1 前进 0
+                 objV.s($('#endDate').datebox('getText'),1);
+             })
+             //前进绑定
+             $('#startDate').datebox('panel').find('.calendar-nav.calendar-menu-next').click(function(){
+                 //后退 1 前进 0
+                 objV.s($('#endDate').datebox('getText'),0);
+             })
+             
+             
+             
+             
+             
+             //结束日validate展示显示  結束日樣式調整
+             objV.e = function(endDate,num){
+            	 if(datetime==0){
+            		 datetime = $("#endDate").val();
+            	 }
+            	 //暫時寫死   自己取值
+                 var initialize_time_e = new Date(datetime);
+                 var p = $('#endDate').datebox('panel');
+                 var monthList = p.find('div.calendar-menu-month-inner td');
+                 //删除不用的按钮
+                 p.find('.calendar-nav.calendar-prevmonth,.calendar-nav.calendar-nextmonth,.calendar-nav.calendar-nextyear,.calendar-nav.calendar-prevyear').remove();
+                 if(num == 1){
+                     var year = Number(p.find('.calendar-menu-year').val()) - 1;
+                 }else if(num == 0){
+                     var year = Number(p.find('.calendar-menu-year').val()) + 1;
+                 }else{
+                     var year = p.find('.calendar-menu-year').val();
+                 }
+                 monthList.each(function(index,ele){
+                     var month = parseInt($(ele).text());
+                     var Cdate = new Date(year+'-'+month+'-01 00:00:00');
+                     if(Cdate <= initialize_time_e){
+                     $(ele).css('opacity','1');
+                     $(ele).css('cursor','pointer');
+                     }else{
+                     	$(ele).css('opacity','0.6');
+                     	$(ele).css('cursor','default');
+                     }
+                 })
+             }
+             //后退绑定
+             $('#endDate').datebox('panel').find('.calendar-nav.calendar-menu-prev').click(function(){
+                 //后退 1 前进 0
+                 objV.e(initDate(),1);
+             })
+             //前进绑定
+             $('#endDate').datebox('panel').find('.calendar-nav.calendar-menu-next').click(function(){
+                 //后退 1 前进 0
+                 objV.e(initDate(),0);
+             })
+             return objV;
+         }
+         var getKuaiDate = function(obj) {
+             var d = obj.datebox('getText')+'-01';
+             obj.datebox('setValue',d);
+         }
+     }
+     //init now Date yyyy-mm
+     function initDate() {
+    	 var myDate = new Date();
+    	 var year = myDate.getFullYear();
+         var month = myDate.getMonth();
+         if (month === 0) {
+             month = 12;
+             year = year-1;
+         } else if (month < 10) {
+             month = '0'+month;
+         }
+         var monthDate = new Date(year, month, 0);
+         beginTime = year+'-'+month+'-01';
+         return new Date(beginTime).format('yyyy-MM-dd');
+     }
+   </script>

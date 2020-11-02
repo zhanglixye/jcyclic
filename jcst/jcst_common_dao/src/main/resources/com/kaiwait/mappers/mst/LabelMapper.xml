@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.LabelMapper">
+  <resultMap id="LabelBaseResultMap" type="com.kaiwait.bean.mst.entity.LabelMst" >
+	<result column="label_id" property="label_id" jdbcType="VARCHAR" />
+	<result column="label_level" property="label_level" jdbcType="VARCHAR" />
+	<result column="label_text" property="label_text" jdbcType="VARCHAR" />
+	<result column="company_cd" property="company_cd" jdbcType="VARCHAR" />
+	<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+	<result column="upddate" property="upddate" jdbcType="VARCHAR" />
+	<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+	<result column="updusercd" property="updusercd" jdbcType="VARCHAR" />
+	<result column="label_type" property="label_type" jdbcType="VARCHAR" />
+	<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+  </resultMap>
+	<select id="searchLabelList"   resultMap="LabelBaseResultMap" >
+   	SELECT
+		label_id label_id, 
+		label_level label_level,
+		label_text label_text,
+		company_cd company_cd,
+		DATE_FORMAT(adddate, '%Y-%m-%d %H:%i:%s') adddate,
+		DATE_FORMAT(upddate, '%Y-%m-%d %H:%i:%s') upddate,
+		(select user_name from usermst where usercd =labelmst.addusercd ) addusercd,
+		(select user_name from usermst where usercd =labelmst.updusercd ) updusercd,
+		label_type label_type,
+		lock_flg lock_flg
+	FROM
+		labelmst
+	WHERE
+		del_flg = '0'
+	AND label_type = #{labeltype,jdbcType=VARCHAR}
+	AND label_level = '0' 
+	and addusercd = #{userid,jdbcType=VARCHAR}
+	and company_cd = #{companycd,jdbcType=VARCHAR}
+	ORDER BY adddate desc
+   </select> 
+   	<select id="searchLabelListmanage"   resultMap="LabelBaseResultMap"  >   
+	SELECT
+		label_id label_id,
+		label_level label_level,
+		label_text label_text,		
+		company_cd company_cd,
+		DATE_FORMAT(adddate, '%Y-%m-%d %H:%i:%s') adddate,
+		DATE_FORMAT(upddate, '%Y-%m-%d %H:%i:%s') upddate,
+		(select user_name from usermst where usercd =labelmst.addusercd ) addusercd,
+		(select user_name from usermst where usercd =labelmst.updusercd ) updusercd,
+		label_type label_type,
+		lock_flg lock_flg
+	FROM
+		labelmst
+	WHERE
+		del_flg = '0'
+	AND label_type = #{labeltype,jdbcType=VARCHAR}
+	AND (label_level = '1' OR addusercd = #{userid,jdbcType=VARCHAR})
+	and company_cd = #{companycd,jdbcType=VARCHAR}
+	ORDER BY label_level desc,adddate desc
+   </select> 
+   
+    <insert id="addLabel" parameterType="com.kaiwait.bean.mst.entity.LabelMst" >
+     insert into labelmst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="label_id != null" >
+        label_id,
+      </if> 
+      <if test="label_level != null" >
+        label_level,
+      </if>
+      <if test="label_text != null" >
+        label_text,
+      </if>
+      <if test="company_cd != null" >
+        company_cd,
+      </if>
+      <if test="label_type != null" >
+        label_type,
+      </if>
+      <if test="addusercd != null" >
+        addusercd,
+      </if>
+      <if test="updusercd != null" >
+        updusercd,
+      </if>
+      adddate,upddate
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="label_id != null" >
+        #{label_id,jdbcType=VARCHAR},
+      </if> 
+      <if test="label_level != null" >
+        #{label_level,jdbcType=VARCHAR},
+      </if>
+      <if test="label_text != null" >
+        #{label_text,jdbcType=VARCHAR},
+      </if>
+      <if test="company_cd != null" >
+        #{company_cd,jdbcType=INTEGER},
+      </if>
+      <if test="label_type != null" >
+        #{label_type,jdbcType=VARCHAR},
+      </if>  
+      <if test="addusercd != null" >
+        #{addusercd,jdbcType=INTEGER},
+      </if>
+      <if test="updusercd != null" >
+        #{updusercd,jdbcType=INTEGER},
+      </if>    
+       #{adddate,jdbcType=INTEGER}, #{upddate,jdbcType=INTEGER}
+    </trim>  
+  </insert>
+  
+   <!-- <delete id="deleteLabel">
+		delete from Label where id = #{num,jdbcType=VARCHAR}
+	</delete> 
+	-->
+	<update id="deleteLabel"  >   	
+	 	update labelmst 
+	 	set 
+	 	del_flg = '1',
+	 	labelmst.UPDDATE= #{deletedate,jdbcType=VARCHAR} 
+	    where 
+	    label_id = #{labelid,jdbcType=VARCHAR}
+    	
+    	
+  	</update> 
+	<update id="updateLabel"  >   	
+	 	update labelmst 
+	 	set 
+	 	label_text = #{labelname,jdbcType=VARCHAR},
+	 	labelmst.UPDDATE= #{deletedate,jdbcType=VARCHAR} 
+	    where 
+	    label_id = #{labelid,jdbcType=VARCHAR}	
+  	</update> 
+	<select id="getMaxLableCode" resultType="String">
+	select ifnull(lpad(max(substring(LABEL_ID,9)+1),9,0),"000000001") from labelmst where labelmst.COMPANY_CD = #{companyID,jdbcType=INTEGER}
+	</select>
+	<select id="checkLabel" resultType="java.lang.Integer">
+	select count(*) from labelmst where label_type = #{labeltype,jdbcType=VARCHAR} 
+	and label_text= #{name,jdbcType=VARCHAR} 
+	and company_cd =#{companycd,jdbcType=VARCHAR} 
+	and label_level =#{labellevel,jdbcType=VARCHAR}
+	and addusercd =#{usercd,jdbcType=VARCHAR}
+	</select>
+	<select id="queryLock"  resultType="java.lang.Integer">	
+		select 
+			lock_flg
+		from labelmst 
+		where label_id = #{label_id,jdbcType=VARCHAR}
+			and company_cd = #{companycd,jdbcType=VARCHAR}
+   </select>
+    <update id="updateLock"  >
+    update labelmst 
+    set lock_flg = lock_flg+1 
+    where label_id = #{label_id,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+   </update>
+</mapper>

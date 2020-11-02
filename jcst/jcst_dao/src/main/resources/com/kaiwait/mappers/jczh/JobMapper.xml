@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.JobMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.jczh.entity.JobList">
+		<id column="jobcd" property="job_cd" jdbcType="VARCHAR" />
+		<result column="cldiv" property="cldiv" jdbcType="VARCHAR" />
+		<result column="cldiven" property="cldiv_en" jdbcType="VARCHAR" />
+		<result column="cldivfull" property="cldiv_full" jdbcType="VARCHAR" />
+		<result column="gcompany	" property="g_company	" jdbcType="INTEGER" />
+		<result column="payer" property="payer" jdbcType="INTEGER" />
+		<result column="payeren" property="payer_en" jdbcType="VARCHAR" />
+		<result column="payerfull" property="payer_full" jdbcType="VARCHAR" />
+		<result column="jobname" property="job_name" jdbcType="VARCHAR" />
+		<result column="salename" property="sale_name" jdbcType="VARCHAR" />
+		<result column="dlvday" property="dlvday" jdbcType="VARCHAR" />
+		<result column="saleamt" property="sale_amt" jdbcType="VARCHAR" />
+		<result column="vatamt" property="vat_amt" jdbcType="VARCHAR" />
+		<result column="reqamt" property="req_amt" jdbcType="VARCHAR" />
+		<result column="plancostamt" property="plan_cost_amt" jdbcType="INTEGER" />
+		<result column="accountflg" property="account_flg" jdbcType="VARCHAR" />
+		<result column="jobendflg" property="jobend_flg" jdbcType="VARCHAR" />
+		<result column="saleno" property="sale_no" jdbcType="VARCHAR" />
+		<result column="assignflg" property="assign_flg" jdbcType="VARCHAR" />
+		<result column="reqflg " property="req_flg " jdbcType="VARCHAR" />
+		<result column="recflg" property="rec_flg" jdbcType="VARCHAR" />
+		<result column="invflg " property="inv_flg " jdbcType="VARCHAR" />
+		<result column="costfinishflg" property="cost_finish_flg" jdbcType="VARCHAR" />
+		<result column="cldivcd" property="cldiv_cd" jdbcType="VARCHAR" />
+		<result column="zrusername" property="zrusername" jdbcType="VARCHAR" />
+		<result column="zrusernameen" property="zrusername_en" jdbcType="VARCHAR" />
+		<result column="ddusername" property="ddusername" jdbcType="VARCHAR" />
+		<result column="ddusernameen" property="ddusername_en" jdbcType="VARCHAR" />
+		<result column="plansale" property="plan_sale" jdbcType="VARCHAR" />
+		<result column="jobadduser" property="jobadduser" jdbcType="VARCHAR" />
+		<result column="jobadduseren" property="jobadduser_en" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+		<result column="seladduser" property="seladduser" jdbcType="VARCHAR" />
+		<result column="seladduseren" property="seladduser_en" jdbcType="VARCHAR" />
+		<result column="adminuser" property="adminuser" jdbcType="VARCHAR" />
+		<result column="adminuseren" property="adminuser_en" jdbcType="VARCHAR" />
+		<result column="saleadmitdate" property="sale_admit_date" jdbcType="VARCHAR" />
+		<result column="dlvmon" property="dlvmon" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="saletax" property="sale_tax" jdbcType="VARCHAR" />
+		<result column="departcd" property="depart_cd" jdbcType="VARCHAR" />
+		<result column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+		<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemnamehk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemnameen" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemnamejp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="salecd" property="sale_cd" jdbcType="VARCHAR" />
+		<result column="costTotalAmt" property="costTotalAmt" jdbcType="VARCHAR" />
+		<result column="costVatTotal" property="costVatTotal" jdbcType="VARCHAR" />
+		<result column="tax1" property="tax1" jdbcType="VARCHAR" />
+		<result column="tax2" property="tax2" jdbcType="VARCHAR" />
+		<result column="tax3" property="tax3" jdbcType="VARCHAR" />
+		<result column="taxTotal" property="taxTotal" jdbcType="VARCHAR" />
+		<result column="payAmtSum" property="payAmtSum" jdbcType="VARCHAR" />
+		<result column="rate2" property="rate2" jdbcType="VARCHAR" />
+		<result column="rate3" property="rate3" jdbcType="VARCHAR" />
+		<result column="saleadddate" property="saleadddate" jdbcType="VARCHAR" />
+		<result column="costno" property="cost_no" jdbcType="VARCHAR" />
+		<result column="lenddate" property="lend_date" jdbcType="VARCHAR" />
+		<result column="trandate" property="tran_date" jdbcType="VARCHAR" />
+		<result column="recdate" property="rec_date" jdbcType="VARCHAR" />
+		<result column="recremark" property="recremark" jdbcType="VARCHAR" />
+		<result column="reccd" property="rec_cd" jdbcType="VARCHAR" />
+		<result column="tranlend" property="tran_lend" jdbcType="VARCHAR" />
+		<result column="saleaddflg" property="saleaddflg" jdbcType="VARCHAR" />
+		<result column="saleadmitflg" property="saleadmitflg" jdbcType="VARCHAR" />
+		<result column="lableid" property="lableid" jdbcType="VARCHAR" />
+		<result column="lable" property="lable" jdbcType="VARCHAR" />
+		<result column="delflg" property="del_flg" jdbcType="VARCHAR" />
+		<result column="upddate" property="upddate" jdbcType="VARCHAR" />
+		<result column="jobenddate" property="jobend_date" jdbcType="VARCHAR" />
+		<result column="planpayamt" property="plan_pay_amt" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="costnum" property="costnum" jdbcType="VARCHAR" />
+		<result column="lablelevel" property="lablelevel" jdbcType="VARCHAR" />
+		<result column="mdnum" property="mdnum" jdbcType="VARCHAR" />
+		<result column="historyrate3" property="historyrate3" jdbcType="VARCHAR" />
+		<result column="historyrate2" property="historyrate2" jdbcType="VARCHAR" />
+		<result column="lockflg" property="LOCK_FLG" jdbcType="VARCHAR" />
+		<result column="reclockflg" property="reclockflg" jdbcType="VARCHAR" />
+		
+		
+		
+		
+		
+		
+		
+	</resultMap>
+
+	<!--壳上表字段   -->
+	<sql id="salemst">
+		sale_cd,
+		sale_account_cd,sale_name,tran_lend,cost_reduction,common_type,del_flg
+	</sql>
+	<sql id="jobListColum">
+	jobtrn.job_cd,
+	<!--  得意先 -->
+	cldiv.divnm cldiv,
+	cldiv.divnm_en cldiv_en,
+	cldiv.divname_full cldiv_full,
+	<!--  相手先g会社 -->
+	g_company.divnm as g_company ,
+	<!-- 请求先 -->
+	payer.divnm payer,
+	payer.divnm_en payer_en,
+	payer.divname_full payer_full,
+	 <!-- 件名 -->
+	job_name,
+	<!--  売上種目 -->
+	salemst.sale_name,
+	<!--  计上日 -->
+	ifnull(sel.dlvday,jobtrn.plan_dalday) dlvday,
+	 <!-- 壳上 -->
+	ifnull(sel.sale_amt,jobtrn.plan_sale) sale_amt,
+	 <!-- 壳上增值税 -->
+	ifnull(sel.SALE_VAT_AMT,jobtrn.plan_vat_amt) vat_amt,
+	 <!-- 请求金额 -->
+	ifnull(sel.req_amt,jobtrn.plan_req_amt) req_amt,
+	 <!-- 予定原価 -->
+	 jobtrn.plan_cost_amt  as plan_cost_amt,
+	 <!-- 计上状态 -->
+	CASE WHEN (JOBEND_FLG='1') THEN  '005'<!-- 終了 -->
+	WHEN (jobtrn.ACCOUNT_FLG='1')  THEN '004'<!-- 计上计 -->
+	WHEN (sel.sale_admit_date is not null )THEN '003'<!-- 已承认 -->
+	WHEN (sel.SALE_NO != 1)  THEN '002' <!-- 已登录 -->
+	WHEN (sel.SALE_NO is null)  THEN '001'<!-- 未登录 -->
+	END jsflag,
+<!-- 	CASE WHEN (JOBEND_FLG='1') THEN  '终了' 
+	WHEN (ACCOUNT_FLG='1')  THEN '计上计'
+	WHEN (SALE_NO='')  THEN '未'
+	WHEN (SALE_NO!='')  THEN '已' 
+	END jsflag_en,
+	CASE WHEN (JOBEND_FLG='1') THEN  '终了' 
+	WHEN (ACCOUNT_FLG='1')  THEN '计上计'
+	WHEN (SALE_NO='')  THEN '未'
+	WHEN (SALE_NO!='')  THEN '已' 
+	END jsflag_jp,
+	CASE WHEN (JOBEND_FLG='1') THEN  '终了' 
+	WHEN (ACCOUNT_FLG='1')  THEN '计上计'
+	WHEN (SALE_NO='')  THEN '未'
+	WHEN (SALE_NO!='')  THEN '已' 
+	END jsflag_hk, -->
+	 <!-- 支付金额合计 -->
+		 <!-- 支付金额合计，有实际原价就用实际，没实际原价用预计 -->
+	(IF (SUM(DISTINCT(IFNULL(p.PAY_RMB,co.COST_PAY_AMT)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_RMB,co.COST_PAY_AMT)))) )+(IF (SUM(DISTINCT(le.LEND_PAY_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_PAY_AMT))) ) payAmtSum,
+	<!-- 预计支付金额 -->
+	jobtrn.plan_pay_amt,
+	 <!-- 原価合计，有实际原价就用实际，没实际原价用预计） -->
+	(IF (SUM(DISTINCT(IFNULL(p.PAY_AMT,co.COST_RMB)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_AMT,co.COST_RMB)))) )+(IF (SUM(DISTINCT(le.LEND_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_AMT))) )+(IF (SUM(DISTINCT(tr.TRAN_AMT))IS NULL, 0, SUM(DISTINCT(tr.TRAN_AMT)))) costTotalAmt,
+	 <!-- 增值税（仕入）合计 (实际的) -->
+	(IF (SUM(DISTINCT(IFNULL(p.PAY_VAT_AMT,co.COST_VAT_AMT)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_VAT_AMT,co.COST_VAT_AMT)))) )+(IF (SUM(DISTINCT(le.LEND_VAT_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_VAT_AMT)))) costVatTotal,
+	<!-- 增值税（仕入）合计 (預計的) -->
+		jobtrn.PLANCOST_TAX as plancosttax,
+     <!-- 营业税。 -->
+      0  tax1,
+     <!-- 文化城址建設費税。 -->
+      ifnull(sel.sale_tax1,jobtrn.plan_sale_tax1) tax2, 
+     <!-- 増値付加税。 -->
+      ifnull(sel.sale_tax2,jobtrn.plan_sale_tax2) tax3,
+	 <!-- 税金合计：job终了时，取数据库的税金，job未终了，税金是实时计算的。 -->
+	ifnull(sel.sale_tax1,jobtrn.plan_sale_tax1)  + ifnull(sel.sale_tax2,jobtrn.plan_sale_tax2)  taxTotal,
+	<!--  营收 -->
+	<!-- ifnull(sale_amt-成本合计-(sale_tax1+sale_tax2),plan_sale-成本合计-(plan_sale_tax1+plan_sale_tax2)) -->
+	 <!-- 营收率 -->
+	<!-- ifnull((sale_amt-成本合计-(sale_tax1+sale_tax2))/sale_amt*100,(plan_sale-成本合计-(plan_sale_tax1+plan_sale_tax2))/plan_sale*100) -->
+	<!--  计上状态 -->
+	<!-- ACCOUNT_FLG表示洗壳终了，1表示终了 机上状态是 ‘计上计’  JOBEND_FLG表示job终了状态，1是‘终了’.SALE_NO有是‘计’。没有是‘未’ -->
+	account_flg,
+	jobend_flg,
+	sale_no,
+	<!-- 担当割当状态 -->
+	if(count(mdjobuser.usercd)>0,1,assign_flg) as assign_flg,
+	 <!-- 请求状态 -->
+	if(req.req_amt is null,0,1) req_flg,<!-- //0:未，1入金完了 -->
+	<!--  入金状态 -->
+	if(rec.job_cd is null,0,rec.rec_status) rec_flg,
+	 <!-- 发票状态 -->
+	if(inv.job_cd is null,0,1) inv_flg,
+	<!--  原価完了状态 -->
+	cost_finish_flg,
+	<!--  得以先编号 -->
+	cldiv_cd,
+	<!--  责任者 -->
+	zruser.user_name zrusername,
+	zruser.user_name_en zrusername_en,
+	<!--  担当者 -->
+	dduser.user_name ddusername,
+	dduser.user_name_en ddusername_en,
+	 <!-- 壳上予定额 -->
+	jobtrn.plan_sale as plan_sale,
+	<!--  job登录者 -->
+	jobadduser.user_name jobadduser,
+	jobadduser.user_name_en jobadduser_en,
+	 <!-- job登录日 -->
+	date_format(jobtrn.adddate, '%Y-%m-%d %H:%i:%S') adddate,
+	<!--  壳上登录者 -->
+	seladduser.user_name seladduser,
+	seladduser.user_name_en seladduser_en,
+	<!--  壳上承认者 -->
+	admituser.user_name adminuser,
+	admituser.user_name_en adminuser_en,
+	 <!-- 壳上承认日 -->
+	date_format(sel.sale_admit_date, '%Y-%m-%d %H:%i:%S') sale_admit_date,
+	<!-- 壳上承认狀態 -->
+	if(sel.sale_admit_date is null,0,1) saleadmitflg,
+	 <!-- 壳上登录 -->
+	date_format(sel.saleadddate, '%Y-%m-%d %H:%i:%S') saleadddate,
+	 <!-- 壳上登录狀態 -->
+	if(sel.saleadddate is null,0,1) saleaddflg,
+	<!--  计上月 -->
+	date_format(ifnull(sel.dlvday,plan_dalday),'%Y-%m') dlvmon,
+	 <!-- 备考 -->
+	jobtrn.remark,
+	 <!-- ラベル（标签） -->
+	saleratemst.rate2,
+	saleratemst.rate3,
+	jobratehistorytrn.rate2 as historyrate2,
+	jobratehistorytrn.rate3 as historyrate3,
+	tr.tran_date,
+	le.lend_date,
+	co.cost_no,
+	rec.rec_date,
+	rec.recremark,
+	rec.rec_cd,
+	a.lable,
+	a.lableid,
+	a.lablelevel,
+	group_concat(time.job_date,',',time.time_per) timelist,
+	salemst.tran_lend,
+	jobtrn.del_flg,
+	jobtrn.upddate,
+	jobend_date,
+	co.status,
+	count(co.COST_RMB)+count(le.LEND_AMT)+count(tr.TRAN_AMT) as costnum,
+	count(mdjobuser.usercd) as mdnum,
+	sel.LOCK_FLG,
+	rec.LOCK_FLG as reclockflg,
+	req.REQ_TIMES as reqtimes,
+	inv.INVOICE_TIMES as invoicetimes
+	</sql>
+	<!-- 条件检索  -->
+	<select id="searchJobList" resultMap="BaseResultMap">
+	select
+    <include refid="jobListColum" />
+	from
+	jobtrn
+	left join sellordertrn sel
+	on jobtrn.job_cd =sel.job_cd and jobtrn.company_cd=sel.company_cd and
+	sel.del_flg=jobtrn.del_flg
+	<!--  壳上表关联 -->
+	left join salemst
+	on salemst.sale_cd=jobtrn.sale_typ and jobtrn.COMPANY_CD = salemst.COMPANY_CD and salemst.del_flg=jobtrn.del_flg
+	<!--  得意先关联条件 -->
+	left join clmst cldiv
+	on cldiv.cldivcd=jobtrn.cldiv_cd and cldiv.company_cd=jobtrn.company_cd
+	and cldiv.CLIENT_FLG =1 
+	<!--   相手先g会社 关联条件-->
+	left join clmst g_company
+	on g_company.cldivcd=jobtrn.G_COMPANY and g_company.company_cd=jobtrn.company_cd
+	and g_company.HDY_FLG=1
+	 <!-- 请求先关联条件 -->
+	left join clmst payer
+	on payer.cldivcd=jobtrn.PAYER_CD and payer.company_cd=jobtrn.company_cd
+	and payer.PAY_FLG =1
+	left join invoicetrn inv
+	on jobtrn.job_cd =inv.job_cd and jobtrn.company_cd=inv.company_cd and
+	inv.del_flg=jobtrn.del_flg
+	left join rectrn rec on jobtrn.job_cd =rec.job_cd and jobtrn.company_cd=rec.company_cd and rec.del_flg=jobtrn.del_flg
+	<!--  责任者的关联条件 -->
+	left join jobuserstrn zrjobuser
+	on jobtrn.job_cd =zrjobuser.job_cd and
+	zrjobuser.level_flg='1' and zrjobuser.del_flg=jobtrn.del_flg and jobtrn.company_cd=zrjobuser.company_cd
+	left join usermst zruser
+	on zruser.usercd =zrjobuser.usercd
+	<!--  担当者的关联条件 -->
+	left join jobuserstrn ddjobuser
+	on jobtrn.job_cd =ddjobuser.job_cd and
+	ddjobuser.level_flg='2' and ddjobuser.del_flg=jobtrn.del_flg  and jobtrn.company_cd=ddjobuser.company_cd
+	left join usermst dduser
+	on dduser.usercd =ddjobuser.usercd
+	<!--  MD分配的关联条件 -->
+	LEFT JOIN jobuserstrn mdjobuser
+	ON jobtrn.JOB_CD =mdjobuser.JOB_CD AND
+	mdjobuser.LEVEL_FLG='3' AND
+	mdjobuser.DEL_FLG=jobtrn.del_flg  and jobtrn.company_cd=mdjobuser.company_cd
+	LEFT JOIN usermst mduser
+	ON mduser.USERCD =mdjobuser.USERCD
+	<!--  job登录者关联条件 -->
+	left join usermst jobadduser
+	on jobadduser.usercd = jobtrn.addusercd
+	<!--  壳上登录者关联条件 -->
+	left join usermst seladduser
+	on seladduser.usercd = sel.saleaddusercd
+	<!--  承认者关联条件 -->
+	left join usermst admituser
+	on admituser.usercd = sel.sale_admit_usercd
+	left join costtrn co on co.job_cd =jobtrn.job_cd and co.company_cd = jobtrn.company_cd and co.del_flg =jobtrn.del_flg
+	left join paytrn p on co.input_no =p.input_no and co.company_cd =p.company_cd and p.del_flg=jobtrn.del_flg
+	left join lendtrn le on jobtrn.job_cd =le.job_cd  and le.company_cd = jobtrn.company_cd and le.del_flg=jobtrn.del_flg
+	left join trantrn tr on jobtrn.job_cd =tr.job_cd  and tr.company_cd = jobtrn.company_cd and  tr.del_flg=jobtrn.del_flg
+	LEFT JOIN saleratemst ON saleratemst.SALE_CD = jobtrn.SALE_TYP AND saleratemst.COMPANY_CD = jobtrn.COMPANY_CD 
+	AND IFNULL(sel.DLVDAY,jobtrn.PLAN_DALDAY) &lt;=saleratemst.END_DATE AND IFNULL(sel.DLVDAY,jobtrn.PLAN_DALDAY)&gt;=saleratemst.START_DATE
+	left join timesheettrn time on time.job_no =jobtrn.job_cd and time.company_cd = jobtrn.company_cd
+	LEFT JOIN reqtrn req on jobtrn.JOB_CD=req.JOB_CD AND req.company_cd = jobtrn.company_cd and req.del_flg =jobtrn.del_flg
+	LEFT JOIN  jobratehistorytrn ON   jobtrn.JOB_CD = jobratehistorytrn.job_cd and jobratehistorytrn.COMPANY_CD = jobtrn.COMPANY_CD 
+	
+	LEFT JOIN (select  
+	jobtrn.JOB_CD as job_cd,
+	jobtrn.COMPANY_CD as COMPANY_CD,
+	 group_concat(label_text  ORDER BY label_level DESC separator '  ') lable,
+	 group_concat(labelmst.label_id ORDER BY label_level DESC separator '  ') lableid,
+	 group_concat(labelmst.label_level ORDER BY label_level DESC separator '  ') lablelevel
+	FROM jobtrn
+	LEFT JOIN joblabeltrn ON jobtrn.job_cd = joblabeltrn.job_cd
+	AND jobtrn.company_cd = joblabeltrn.company_cd
+	LEFT JOIN labelmst ON joblabeltrn.label_cd = labelmst.label_id
+	AND labelmst.company_cd = jobtrn.company_cd
+	WHERE jobtrn.COMPANY_CD=#{companyID}
+	GROUP BY
+		jobtrn.job_cd
+	ORDER BY
+	jobtrn.job_cd DESC  ) a on jobtrn.JOB_CD=a.job_cd and a.COMPANY_CD=jobtrn.COMPANY_CD
+	where 1=1
+    <if test="all==null or all==''">
+	and ( 
+	<trim prefixOverrides="and |or">
+	<if test="dyqx!=null">
+	<!-- 得意先牛輔 -->
+	jobtrn.cldiv_cd in (select ucl.cldivcd 
+	from userclmst ucl 
+	where ucl.user_cd =#{userID}
+	and ucl.company_cd=#{companyID})
+	</if>
+	<if test="ddqx!=null">
+	
+	 or dduser.usercd=#{ddqxcd} or zruser.usercd=#{ddqxcd} 
+	
+	</if>
+	<if test="gdqx!=null">
+	or mduser.USERCD=#{ddqxcd}
+	</if>
+	
+	</trim >
+	)
+	</if>
+	<if test="job_cd!=null and job_cd!=''">
+	and jobtrn.job_cd like CONCAT('%', #{job_cd}, '%')	
+	</if>
+	<if test="sale_cd!=null and sale_cd!=''">
+	<!--  売上種目 -->
+	and salemst.sale_cd=#{sale_cd}
+	</if>
+	<choose>
+	 <when test="cldiv_cd!=null and cldiv_cd!=''">
+                 and cldiv.cldivcd =#{cldiv_cd}
+      </when>
+      <otherwise>
+                <if test="cldiv_name!=null and cldiv_name!=''">
+					<!--      得意先名字 -->
+					and(cldiv.divnm like CONCAT('%', #{cldiv_name}, '%')
+					or cldiv.divname_full like CONCAT('%', #{cldiv_name}, '%'))
+				</if> 
+      </otherwise>
+	</choose>
+	<choose>
+	 <when test="g_company!=null and g_company!=''">
+                <!-- 相手先g会社 -->
+	            and g_company=#{g_company}
+      </when>
+      <otherwise>
+                <if test="g_company_name!=null and g_company_name!=''">
+					<!--      得意先名字 -->
+					and (g_company.divnm like CONCAT('%', #{g_company_name}, '%')
+					or g_company.divname_full like CONCAT('%', #{g_company_name}, '%'))
+					
+				</if> 
+      </otherwise>
+	</choose>
+	<choose>
+	 <when test="payer_cd!=null and payer_cd!=''">
+                 <!-- 請求先 -->
+				 and payer.cldivcd =#{payer_cd}
+      </when>
+      <otherwise>
+                <if test="payer_name!=null and payer_name!=''">
+					<!--      得意先名字 -->
+					and (payer.divnm like CONCAT('%', #{payer_name}, '%')
+					or payer.divname_full like CONCAT('%', #{payer_name}, '%'))
+					
+				</if> 
+      </otherwise>
+	</choose>
+	<if test="dlvday!=null and dlvday!=''">
+   	 <!-- 計上月（予定） from to -->
+	and  DATE_FORMAT(ifnull(sel.dlvday, plan_dalday),"%Y-%m") =#{dlvday}
+	</if>
+	<if test="dlvmon_sta!=null and dlvmon_sta!=''">
+   	 <!-- 計上日（予定） from to -->
+	and DATE_FORMAT(ifnull(sel.dlvday, plan_dalday),"%Y%m%d") between DATE_FORMAT(#{dlvmon_sta},"%Y%m%d") and DATE_FORMAT(#{dlvmon_end},"%Y%m%d")
+	</if>
+	<if test="job_name!=null and job_name!=''">
+   <!--   件名 -->
+	and job_name  like CONCAT('%',#{job_name},'%')
+	</if>
+	
+	<!-- usercd与username从前台传过来的只有一个有值，因为担当者的查询条件即可下拉又可以录入。当录入时传入name。当下拉选择时直接传入cd查询 -->
+	
+	<choose>
+	 <when test="ddcd!=null and ddcd!=''">
+               		 <!-- 担当者（責任者、営業担当者、スタッフ） -->
+					and (dduser.usercd=#{ddcd} or zruser.usercd=#{ddcd} or mduser.USERCD=#{ddcd})
+      </when>
+      <otherwise>
+                <if test="ddname!=null and ddname!=''">
+					<!-- 担当者（責任者、営業担当者、スタッフ）,当录入时，按名称查询，模糊查询 -->
+					and (dduser.user_name like CONCAT('%', #{ddname}, '%')   or zruser.user_name like CONCAT('%', #{ddname}, '%') or mduser.user_name like CONCAT('%', #{ddname}, '%'))
+				</if> 
+      </otherwise>
+	</choose>
+	<if test="mdcd!=null and mdcd!=''">
+		and mduser.USERCD=#{mdcd}
+	</if>
+	<if test="label_text!=null and label_text!=''">
+  	 <!-- ラベル（标签） -->
+	and a.lable like CONCAT('%', #{label_text}, '%')
+	</if>
+	<if test="dlvfalg!=null and dlvfalg!=''">
+	  	<if test="dlvfalg==001"><!--  进行中 --> 
+	  	and jobend_flg ='0'
+		</if>
+		<if test="dlvfalg==002"><!--  登録待（壳上未登录） -->
+		 and sale_no is null
+		</if>
+		<if test="dlvfalg==003"><!-- 承認待（壳上未承认） -->
+	  	and sale_admit_date is null
+	  	and sale_no is not null
+		</if>
+		<if test="dlvfalg==004"><!-- 計上待（洗壳未终了） -->
+		  and account_flg ='0'
+	      and sale_no is not null
+	     
+		</if>
+		<if test="dlvfalg==005"><!-- 計上済 -->
+	  	and account_flg ='1' and jobend_flg ='0'
+		</if>
+		<if test="dlvfalg==006"><!-- 終了 -->
+	  	 and jobend_flg='1'
+		</if>
+	</if>
+	
+    <if test="assign_flg!=null and assign_flg!=''">
+  	<!--  割当ステータス -->
+  		<if test="assign_flg==001">
+	  		and mdjobuser.usercd is null
+	  		and assign_flg=0
+	  	</if>
+		<if test="assign_flg==002">
+		  	and (assign_flg=1
+		  	or mdjobuser.usercd is not null)
+		</if>
+	  
+	</if>
+	  <!-- 請求・発票ステータス -->
+	<if test="invpd!=null and invpd!=''">
+		<if test="invpd==001">  <!-- 請求未指示 -->
+		   and req.JOB_CD is null
+		</if>
+		<if test="invpd==002">  <!-- 請求指示済 -->
+	       and req.JOB_CD is not null
+		</if>
+		<if test="invpd==003">  <!-- 発票未依頼 -->
+		   and inv.job_cd is null
+		</if>
+		<if test="invpd==004">
+		   and inv.job_cd is not null  <!-- 発票依頼済 -->
+		</if>
+	</if>
+    <if test="cost_finish_flg!=null and cost_finish_flg!=''">
+	    <if test="cost_finish_flg==001">  <!-- 登录待 -->
+	    <!--  原価完了ステータス -->
+		and cost_finish_flg='0'
+		</if>
+		<if test="cost_finish_flg==002">  <!-- 登陆计 -->
+	 <!--  原価完了ステータス -->
+		and cost_finish_flg='1'
+		</if>
+		
+	</if>	
+    <if test="rjpd!=null and rjpd!=''">
+	    <if test="rjpd==001">
+		<!--  入金ステータス -->
+		and (rec.REC_STATUS = 0 or rec.job_cd is null)
+		</if>
+		 <if test="rjpd==003">
+		 <!-- 入金ステータス -->
+		and rec.REC_STATUS =1
+		</if>
+	</if>
+	 <if test="del_flg!=null and del_flg!=''">
+		and jobtrn.del_flg=#{del_flg}
+	</if>
+	and jobtrn.company_cd=#{companyID}
+	group by job_cd
+	
+	order by dlvday asc,job_cd DESC 
+	</select>
+
+
+<!-- 条件检索  -->
+	<select id="searchJobByKeyWord" resultMap="BaseResultMap">
+	select
+    <include refid="jobListColum" />
+	from
+	jobtrn
+	left join sellordertrn sel
+	on jobtrn.job_cd =sel.job_cd and jobtrn.company_cd=sel.company_cd and
+	sel.del_flg=jobtrn.del_flg
+	<!--  壳上表关联 -->
+	left join salemst
+	on salemst.sale_cd=jobtrn.sale_typ and jobtrn.COMPANY_CD = salemst.COMPANY_CD and salemst.del_flg=jobtrn.del_flg
+	<!--  得意先关联条件 -->
+	left join clmst cldiv
+	on cldiv.cldivcd=jobtrn.cldiv_cd and cldiv.company_cd=jobtrn.company_cd
+	and cldiv.CLIENT_FLG =1 
+	<!--   相手先g会社 关联条件-->
+	left join clmst g_company
+	on g_company.cldivcd=jobtrn.G_COMPANY and g_company.company_cd=jobtrn.company_cd
+	and g_company.HDY_FLG=1
+	 <!-- 请求先关联条件 -->
+	left join clmst payer
+	on payer.cldivcd=jobtrn.PAYER_CD and payer.company_cd=jobtrn.company_cd
+	and payer.PAY_FLG =1
+	left join invoicetrn inv
+	on jobtrn.job_cd =inv.job_cd and jobtrn.company_cd=inv.company_cd and
+	inv.del_flg=jobtrn.del_flg
+	left join rectrn rec
+	on jobtrn.job_cd =rec.job_cd and jobtrn.company_cd=rec.company_cd and
+	rec.del_flg=jobtrn.del_flg
+	<!--  责任者的关联条件 -->
+	left join jobuserstrn zrjobuser
+	on jobtrn.job_cd =zrjobuser.job_cd and
+	zrjobuser.level_flg='1' and
+	zrjobuser.del_flg=jobtrn.del_flg and jobtrn.company_cd=zrjobuser.company_cd
+	left join usermst zruser
+	on zruser.usercd =zrjobuser.usercd 
+	<!--  担当者的关联条件 -->
+	left join jobuserstrn ddjobuser
+	on jobtrn.job_cd =ddjobuser.job_cd and
+	ddjobuser.level_flg='2' and
+	ddjobuser.del_flg=jobtrn.del_flg and jobtrn.company_cd=ddjobuser.company_cd
+	left join usermst dduser
+	on dduser.usercd =ddjobuser.usercd 
+	<!--  timesheet关联条件 -->
+	left join jobuserstrn timesheetjobuser
+	on jobtrn.job_cd =timesheetjobuser.job_cd and
+	jobtrn.company_cd=timesheetjobuser.company_cd and (timesheetjobuser.level_flg='2' or timesheetjobuser.level_flg='3')
+	<!--  MD分配的关联条件 -->
+	LEFT JOIN jobuserstrn mdjobuser
+	ON jobtrn.JOB_CD =mdjobuser.JOB_CD AND
+	mdjobuser.LEVEL_FLG='3' AND
+	mdjobuser.DEL_FLG=jobtrn.del_flg and jobtrn.company_cd=mdjobuser.company_cd
+	LEFT JOIN usermst mduser
+	ON mduser.USERCD =mdjobuser.USERCD
+	<!--  job登录者关联条件 -->
+	left join usermst jobadduser
+	on jobadduser.usercd = jobtrn.addusercd 
+	<!--  壳上登录者关联条件 -->
+	left join usermst seladduser
+	on seladduser.usercd = sel.saleaddusercd 
+	<!--  承认者关联条件 -->
+	left join usermst admituser
+	on admituser.usercd = sel.sale_admit_usercd 
+	left join joblabeltrn
+	on jobtrn.job_cd =joblabeltrn.job_cd and
+	jobtrn.company_cd=joblabeltrn.company_cd
+	left join labelmst on joblabeltrn.label_cd = labelmst.label_id and labelmst.company_cd=jobtrn.company_cd and labelmst.del_flg=jobtrn.del_flg and labelmst.LABEL_TYPE=0
+	left join costtrn co on co.job_cd =jobtrn.job_cd and co.company_cd = jobtrn.company_cd and co.del_flg =jobtrn.del_flg
+	left join paytrn p on co.input_no =p.input_no and co.company_cd =p.company_cd and p.del_flg=jobtrn.del_flg
+	left join lendtrn le on jobtrn.job_cd =le.job_cd  and le.company_cd = jobtrn.company_cd and le.del_flg=jobtrn.del_flg
+	left join trantrn tr on jobtrn.job_cd =tr.job_cd  and tr.company_cd = jobtrn.company_cd and  tr.del_flg=jobtrn.del_flg
+	LEFT JOIN saleratemst ON saleratemst.SALE_CD = jobtrn.SALE_TYP AND saleratemst.COMPANY_CD = jobtrn.COMPANY_CD 
+	AND IFNULL(sel.DLVDAY,jobtrn.PLAN_DALDAY) &lt;=saleratemst.END_DATE AND IFNULL(sel.DLVDAY,jobtrn.PLAN_DALDAY)&gt;=saleratemst.START_DATE
+	left join timesheettrn time on time.job_no =jobtrn.job_cd and time.company_cd = jobtrn.company_cd
+	LEFT JOIN reqtrn req on jobtrn.JOB_CD=req.JOB_CD AND req.company_cd = jobtrn.company_cd and req.del_flg =jobtrn.del_flg
+	LEFT JOIN  jobratehistorytrn ON   jobtrn.JOB_CD = jobratehistorytrn.job_cd and jobratehistorytrn.COMPANY_CD = jobtrn.COMPANY_CD 
+	LEFT JOIN (select  
+	jobtrn.JOB_CD as job_cd,
+	jobtrn.COMPANY_CD as COMPANY_CD,
+	 group_concat(label_text ORDER BY label_level DESC separator '  ') lable,
+	 group_concat(labelmst.label_id ORDER BY label_level DESC separator '  ') lableid,
+	 group_concat(labelmst.label_level ORDER BY label_level DESC separator '  ') lablelevel
+	FROM jobtrn
+	LEFT JOIN joblabeltrn ON jobtrn.job_cd = joblabeltrn.job_cd
+	AND jobtrn.company_cd = joblabeltrn.company_cd
+	LEFT JOIN labelmst ON joblabeltrn.label_cd = labelmst.label_id
+	AND labelmst.company_cd = jobtrn.company_cd
+	WHERE jobtrn.COMPANY_CD=#{companyID}
+	GROUP BY
+		jobtrn.job_cd
+	ORDER BY
+	jobtrn.job_cd DESC  ) a on jobtrn.JOB_CD=a.job_cd and a.COMPANY_CD=jobtrn.COMPANY_CD
+	where 1=1 
+ <if test="all==null or all==''">
+	and ( 
+	<trim prefixOverrides="and |or">
+	<if test="dyqx!=null">
+	<!-- 得意先牛輔 -->
+	jobtrn.cldiv_cd in (select ucl.cldivcd 
+	from userclmst ucl 
+	where ucl.user_cd =#{userID}
+	and ucl.company_cd=#{companyID})
+	</if>
+	<if test="ddqx!=null">
+	
+	 or dduser.usercd=#{ddqxcd} or zruser.usercd=#{ddqxcd} 
+	
+	</if>
+	<if test="gdqx!=null">
+	or mduser.USERCD=#{ddqxcd}
+	</if>
+	
+	</trim >
+	)
+	</if>
+	<if test="del_flg!=null and del_flg!=''">
+		and jobtrn.del_flg=#{del_flg}
+	</if>
+	<if test="timesheet!=null and timesheet!=''">
+		and timesheetjobuser.usercd=#{userid}
+	</if>
+	and jobtrn.company_cd=#{companyID}
+	<if test="keyword!=null and keyword!=''">
+	<!--  jobcd -->
+	and (jobtrn.job_cd like CONCAT('%', #{keyword}, '%')	
+	<!--  売上種目 -->
+	or salemst.sale_name like CONCAT('%', #{keyword}, '%')	
+	<!--  得意先名字 -->
+	or cldiv.divnm like CONCAT('%', #{keyword}, '%')
+	or cldiv.divname_full like CONCAT('%', #{keyword}, '%')
+	<!-- 相手先g会社 -->
+	or g_company.divnm like CONCAT('%', #{keyword}, '%')
+	or g_company.divname_full like CONCAT('%', #{keyword}, '%')
+	<!-- 請求先 -->
+	or payer.divnm like CONCAT('%', #{keyword}, '%')
+	or payer.divname_full like CONCAT('%', #{keyword}, '%')
+	<!-- 件名 -->
+	or job_name  like CONCAT('%',#{keyword},'%')
+	<!-- 担当者（責任者、営業担当者、スタッフ） -->
+	or (dduser.user_name like CONCAT('%', #{keyword}, '%')   or zruser.user_name like CONCAT('%', #{keyword}, '%') or mduser.user_name like CONCAT('%', #{keyword}, '%'))
+	 <!-- ラベル（标签） -->
+	or a.lable like CONCAT('%',#{keyword},'%')
+	 <!-- job登录者 -->
+	OR jobAddUser.USER_NAME LIKE  CONCAT('%', #{keyword}, '%')
+	<!-- 備考 ※頭20文字、 -->
+	OR IF(LENGTH(jobtrn.REMARK)>20,substring(jobtrn.REMARK, 1, 20),jobtrn.REMARK) LIKE concat('%', #{keyword}, '%')
+	)
+	</if>
+	<if test="jobenddate!=null and jobenddate!='' and jobendmonth!=null and jobendmonth!=''">
+	and ((jobtrn.jobend_flg ='0'and DATE_FORMAT(jobtrn.adddate,"%Y%m%d") &lt;= DATE_FORMAT(#{jobenddate,jdbcType=VARCHAR},"%Y%m%d"))
+	or(jobtrn.jobend_flg ='1' and DATE_FORMAT(jobtrn.adddate,"%Y%m%d") &lt;=DATE_FORMAT(#{jobenddate,jdbcType=VARCHAR},"%Y%m%d") and DATE_FORMAT(jobtrn.jobend_date,"%Y%m%d") &lt;=DATE_FORMAT(#{jobendmonth,jdbcType=VARCHAR},"%Y%m%d")))
+	</if>
+	group by job_cd
+	order by dlvday asc,job_cd DESC
+	</select>
+
+
+	<select id="selectMstNameByCD" resultMap="BaseResultMap">
+		select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp from commonmst where mstcd = #{mstcd} and company_cd = #{company_cd,jdbcType=INTEGER} and del_flg=0 order by orderno
+	</select>
+	
+	
+	<select id="selectUserDPM" resultMap="BaseResultMap">
+		select depart_cd from usermst where usercd = #{usercd}
+	</select>
+
+    <select id="selectSaleName" resultMap="BaseResultMap">
+		select sale_cd,sale_name from salemst where COMPANY_CD = #{companyID} and del_flg=0
+	</select>
+	<select id="searchJobInfoByNo" resultType="com.kaiwait.bean.jczh.entity.JobInfo" >
+		select
+		    count(co.COST_RMB)+count(le.LEND_AMT)+count(tr.TRAN_AMT) as costnum,
+		    account_flg as accountflg,
+		    assign_flg as assignflg, 
+			jobend_flg as jobEndFlg,
+			sale_no as saleno,
+			saltrue.rate2,
+			saltrue.rate3,
+			salplan.rate2 as planrate2,
+			salplan.rate3 as planrate3,
+			<!-- 结账税率记录 -->
+			jobratehistorytrn.rate2 as historyrate2,
+			jobratehistorytrn.rate3 as historyrate3,
+			<!-- 实际支付金额 -->
+			(IF (SUM(DISTINCT(IFNULL(p.PAY_RMB,co.COST_PAY_AMT)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_RMB,co.COST_PAY_AMT)))) )+(IF (SUM(DISTINCT(le.LEND_PAY_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_PAY_AMT))) ) truePayAmtSum,
+			<!-- 原価合计，有实际原价就用实际，没实际原价用预计） -->
+			(IF (SUM(DISTINCT(IFNULL(p.PAY_AMT,co.COST_RMB)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_AMT,co.COST_RMB)))) )+(IF (SUM(DISTINCT(le.LEND_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_AMT))) )+(IF (SUM(DISTINCT(tr.TRAN_AMT))IS NULL, 0, SUM(DISTINCT(tr.TRAN_AMT)))) trueCostTotalAmt,
+			<!-- 实际增值税（仕入）合计 --> 
+			(IF (SUM(DISTINCT(IFNULL(p.PAY_VAT_AMT,co.COST_VAT_AMT)))IS NULL, 0, SUM(DISTINCT(IFNULL(p.PAY_VAT_AMT,co.COST_VAT_AMT)))) )+(IF (SUM(DISTINCT(le.LEND_VAT_AMT))IS NULL, 0, SUM(DISTINCT(le.LEND_VAT_AMT)))) truecostVatTotal,
+			jobtrn.JOB_CD AS jobcd,
+			jobtrn.JOB_NAME as jobname,
+			case when sellordertrn.SALE_ADMIT_USERCD != null then 1 else 0 end as confirmFlg,
+			jobtrn.ACCOUNT_FLG as dlvFlg,
+			jobtrn.COST_FINISH_FLG as costFinshFlg,
+			jobtrn.JOBEND_FLG as jobEndFlg,
+			jobtrn.SALE_TYP as saletyp,
+			salemst.SALE_NAME as saleName,
+			clmst.DIVNM as clName,
+			reqclmst.DIVNM as payerName,
+			gclmst.DIVNM as gName,
+			jobtrn.CLDIV_CD as cldivcd,
+			jobtrn.REMARK as remark,
+			jobtrn.PLAN_DALDAY as plandalday,
+			sellordertrn.dlvday,
+			sellordertrn.plan_req_date as planreqdate,
+			rectrn.rec_date as recdate,
+			if(rectrn.job_cd is null,0,rectrn.rec_status) recflg,
+			jobtrn.plan_sale as plansale,
+			sellordertrn.sale_amt as saleamt,
+			jobtrn.PLAN_VAT_AMT as planSaleVat,
+			sellordertrn.sale_admit_remark as saleadmitremark,
+			jobtrn.PLAN_REQ_AMT as planreqamt,
+			jobtrn.PLAN_SALE_CURE_CODE as plansalecurecode,
+			jobtrn.PLAN_SALE_FOREIGN_AMT as plansaleforeignamt,
+			jobtrn.PLAN_SALE_FOREIGN_TYPE as plansaleforeigncode,
+			jobtrn.PLAN_SALE_USE_DATE as plansaleusedate,
+			jobtrn.PLAN_SALE_REFER as plansalerefer,
+			jobtrn.PLAN_SALE_ISHAVE as plansaleishave,
+			jobtrn.PLAN_COST_AMT as plancostamt,<!-- 刘实把plan_cost_amt与Plan——cost——foreign_amt存反了.所以我反着取值 -->
+			jobtrn.PLANCOST_TAX as plancosttax,
+			jobtrn.PLAN_PAY_AMT as planpayamt,
+			jobtrn.PLAN_SALE_TAX1 as plansaletax1,
+			jobtrn.PLAN_SALE_TAX2 as plansaletax2,
+			addusermst.USER_NAME as addUserName,
+			addusermst.colorv as addusercolorv,
+			jobtrn.upddate,
+			jobtrn.adddate,
+			costFinshUser.USER_NAME as costFinshUser,
+			costFinshUser.colorv as costFinshusercolorv,
+			upusermst.USER_NAME as upUserName,
+			upusermst.colorv as upUsercolorv,
+			rectrn.recremark,
+			<!-- 入金更新者 -->
+			recName.USER_NAME as recupdName,
+			recName.colorv as reccolorv,
+			rectrn.UPDATE as recupddate
+		from jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and jobtrn.del_flg=sellordertrn.del_flg
+			left join salemst on jobtrn.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = #{companyID}
+			left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and clmst.COMPANY_CD = #{companyID}
+			left join clmst as reqclmst on jobtrn.PAYER_CD = reqclmst.CLDIVCD and reqclmst.COMPANY_CD = #{companyID} 
+			left join clmst as gclmst on jobtrn.G_COMPANY = gclmst.CLDIVCD and gclmst.COMPANY_CD = #{companyID}
+			left join usermst as addusermst on jobtrn.ADDUSERCD = addusermst.USERCD 
+			left join usermst as upusermst on jobtrn.UPDUSERCD = upusermst.USERCD
+			left join usermst as costFinshUser on jobtrn.COST_FINISH_USERCD = costFinshUser.USERCD
+		    left join rectrn on jobtrn.JOB_CD = rectrn.JOB_CD and rectrn.COMPANY_CD = #{companyID} and jobtrn.del_flg=rectrn.del_flg
+			left join usermst as  recName on rectrn.UPUSERCD = recName.USERCD
+			LEFT JOIN saleratemst saltrue ON saltrue.SALE_CD= jobtrn.SALE_TYP AND saltrue.COMPANY_CD = sellordertrn.COMPANY_CD
+	        AND sellordertrn.DLVDAY &lt;=saltrue.END_DATE AND sellordertrn.DLVDAY&gt;=saltrue.START_DATE 
+	        LEFT JOIN saleratemst salplan ON salplan.SALE_CD=jobtrn.SALE_TYP AND salplan.COMPANY_CD = jobtrn.COMPANY_CD 
+	        AND jobtrn.PLAN_DALDAY &lt;=salplan.END_DATE AND jobtrn.PLAN_DALDAY&gt;=salplan.START_DATE
+	        LEFT JOIN  jobratehistorytrn ON   jobtrn.JOB_CD = jobratehistorytrn.job_cd and jobratehistorytrn.COMPANY_CD = jobtrn.COMPANY_CD 
+	        LEFT JOIN costtrn co on co.JOB_CD = jobtrn.job_cd and co.COMPANY_CD = jobtrn.COMPANY_CD and  jobtrn.del_flg=co.del_flg
+			LEFT JOIN paytrn p on p.INPUT_NO = co.INPUT_NO and co.COMPANY_CD = p.COMPANY_CD and  jobtrn.del_flg=p.del_flg
+			left join lendtrn le on jobtrn.job_cd =le.job_cd  and le.company_cd = jobtrn.company_cd and  jobtrn.del_flg=le.del_flg
+			left join trantrn tr on jobtrn.job_cd =tr.job_cd  and tr.company_cd = jobtrn.company_cd and  jobtrn.del_flg=tr.del_flg
+		where jobtrn.JOB_CD = #{jobNo} and jobtrn.COMPANY_CD = #{companyID} and jobtrn.del_flg=0
+		
+					
+	</select>
+
+	<select id="searchSellOrderByJobNo" resultType="com.kaiwait.bean.jczh.entity.SaleInfo">
+	select
+		sellordertrn.DLVDAY as dlvday,
+		sellordertrn.SALE_AMT as saleamt,
+	    sellordertrn.SALE_VAT_AMT as salevatamt,
+		sellordertrn.REQ_AMT as reqamt,
+		sellordertrn.SALE_FOREIGN_AMT as saleforeignamt,
+		sellordertrn.SALE_CURE_CODE as salecurecode,
+		sellordertrn.SALE_FOREIGN_CODE as saleforeigncode,
+		sellordertrn.SALE_FOREIGN_TYPE as saleforeigntype,
+		sellordertrn.SALE_ISHAVE as saleishave,
+		sellordertrn.SALE_REFER as salerefer,
+		sellordertrn.SALE_USE_DATE as saleusedate,
+		sellordertrn.SALE_REMARK as saleremark,
+		<!-- 壳上登录者 -->
+		if(sellordertrn.saleadddate is null,0,1) as seladdflag,
+		addSellOrder.USER_NAME as saleadduserName,
+		addSellOrder.colorv as saleadduserNamecolor,
+		sellordertrn.saleadddate,
+		<!-- 壳上更新者 -->
+		upSellOrder.USER_NAME as saleupduserName,
+		upSellOrder.colorv as saleupduserNamecolor,
+		sellordertrn.saleupddate,
+		<!-- 壳上承认者 -->
+		admitSellOrder.USER_NAME as saleadmituserName,
+		admitSellOrder.colorv as saleadmituserNamecolor,
+		sellordertrn.sale_admit_date as saleadmitdate,
+		if(sellordertrn.sale_admit_date is null,0,1) as seladmitflag,
+		<!-- 请求申请取消者 -->
+		admitSellOrderCancel.USER_NAME as saleadmitcanceluserName,
+		admitSellOrderCancel.colorv as saleadmitcanceluserNamecolor,
+		sellordertrn.sale_cancel_date as salecanceldate,
+		<!-- 请求申请者 -->
+		requser.USER_NAME as reqUserName,
+		requser.colorv as reqUserNamecolor,
+		reqtrn.update as reqdate,
+		reqtrn.req_times as reqtimes,
+		<!-- 发票发行者 -->
+		invoiceuser.USER_NAME as invoiceUserName,
+		invoiceuser.colorv as invoiceUserNamecolor,
+		invoicetrn.update as invoicedate,
+		invoicetrn.invoice_times as invoicetimes,
+		<!-- 原价完了处理者 -->
+	    costfinish.USER_NAME as costfinishuserName,
+	    costfinish.colorv as costfinishuserNamecolor,
+	    jobtrn.cost_finish_date as costfinishdate
+	from jobtrn
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID} and jobtrn.del_flg=sellordertrn.del_flg
+		left join reqtrn on jobtrn.JOB_CD = reqtrn.JOB_CD  and reqtrn.COMPANY_CD = #{companyID} and jobtrn.del_flg=reqtrn.del_flg
+		left join invoicetrn on jobtrn.JOB_CD = invoicetrn.JOB_CD and invoicetrn.COMPANY_CD =#{companyID}
+		left join usermst as requser on reqtrn.UPUSERCD = requser.USERCD
+		left join usermst as invoiceuser on invoicetrn.UPUSERCD = invoiceuser.USERCD 
+		left join usermst as addSellOrder on sellordertrn.SALEADDUSERCD = addSellOrder.USERCD 
+		left join usermst as upSellOrder on sellordertrn.SALEUPDUSERCD = upSellOrder.USERCD 
+		left join usermst as admitSellOrder on sellordertrn.SALE_ADMIT_USERCD = admitSellOrder.USERCD 
+		left join usermst as admitSellOrderCancel on sellordertrn.SALE_CANCEL_USERCD = admitSellOrderCancel.USERCD 
+	 	left join usermst as  costfinish on jobtrn.cost_finish_usercd = costfinish.USERCD 
+	where jobtrn.JOB_CD = #{jobNo} and jobtrn.COMPANY_CD=#{companyID} and jobtrn.del_flg=0 
+				
+	</select>
+	<select id="searchOrderNosByJobNo" resultType="com.kaiwait.bean.jczh.entity.Cost">
+	select
+	    jobtrn.JOB_NAME as jobname,
+		costtrn.COST_NO as costno,
+		"cost" as orderTyp,
+		costtrn.COST_NAME as costname
+	from jobtrn
+		left join costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.COMPANY_CD=#{companyID} and costtrn.DEL_FLG != 1
+	where jobtrn.JOB_CD = #{jobNo} and jobtrn.COMPANY_CD=#{companyID}
+	
+	union all
+	
+	select
+	jobtrn.JOB_NAME,
+		lendtrn.INPUT_NO as costno,
+		"lend" as orderTyp,
+		lendtrn.LEND_NAME as costname
+	from jobtrn
+		left join lendtrn on jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.COMPANY_CD=#{companyID} and lendtrn.DEL_FLG != 1
+	where jobtrn.JOB_CD = #{jobNo} and jobtrn.COMPANY_CD=#{companyID}
+	
+	union all
+	
+	select
+	jobtrn.JOB_NAME,
+		trantrn.INPUT_NO as costno,
+		"tran" as orderTyp,
+		trantrn.TRAN_NAME as costname
+	from jobtrn
+		left join trantrn on jobtrn.JOB_CD = trantrn.JOB_CD and trantrn.COMPANY_CD=#{companyID} and trantrn.DEL_FLG != 1
+		where jobtrn.JOB_CD = #{jobNo} and jobtrn.COMPANY_CD=#{companyID} and jobtrn.del_flg=0
+	</select>
+	<!-- 壳上取消 -->
+	<update id="saleCancel">
+	update   sellordertrn 
+	set del_flg=1,
+	LOCK_FLG =LOCK_FLG+1
+    WHERE job_cd = #{job_cd}
+    and sale_no= #{sale_no}
+    and company_cd = #{companyID}
+    and del_flg=0
+	</update>
+	<!-- 壳上承认取消 -->
+	<update id="saleAdmitCancel">
+	update sellordertrn
+	<set>
+	 sale_cancel_usercd=#{userID},
+	 sale_cancel_date = #{sale_cancel_date},
+	 sale_admit_usercd =null, 
+	 sale_admit_date  =null,
+	 LOCK_FLG =LOCK_FLG+1
+	</set>
+    WHERE job_cd = #{job_cd}
+    and sale_no= #{sale_no}
+    and company_cd = #{companyID}
+    and del_flg=0
+	</update>
+	
+	<update id="costFinish">
+	update jobtrn
+	<set>
+		cost_finish_flg = 1,
+		cost_finish_usercd=#{userID},
+		cost_finish_date= #{cost_finish_date},
+		LOCK_FLG =LOCK_FLG+1
+	</set>
+	where job_cd = #{job_cd}
+	and company_cd =#{companyID}
+	and del_flg=0
+</update>
+
+	<update id="costFinishCancel">
+		update jobtrn
+		<set>
+			cost_finish_flg = 0,
+			cost_finish_usercd=null,
+			cost_finish_date= null,
+			LOCK_FLG =LOCK_FLG+1
+		</set>
+		where job_cd = #{job_cd}
+		and company_cd =#{companyID}
+		and del_flg=0
+	</update>
+  <select id="selectjobStatus" resultMap="BaseResultMap">
+  select job_cd  from jobtrn
+  left join sellordertrn on sellordertrn.job_cd=sellordertrn.job_cd
+  where  job_cd = #{job_cd}
+  and  company_cd =#{companyID}
+  and del_flg=0
+  	<if test="dlvfalg!=null and dlvfalg!=''">
+	  	<if test="dlvfalg==001"><!--  进行中 --> 
+	  	and jobend_flg ='0'
+		</if>
+		<if test="dlvfalg==002"><!--  登録待（壳上未登录） -->
+		 and sale_no is null
+		</if>
+		<if test="dlvfalg==003"><!-- 承認待（壳上未承认） -->
+	  	and sale_admit_date is null
+	  	and sale_no is not null
+		</if>
+		<if test="dlvfalg==004"><!-- 計上待（洗壳未终了） -->
+	  	and account_flg ='0'
+		</if>
+		<if test="dlvfalg==005"><!-- 計上済 -->
+	  	and account_flg ='1' and jobend_flg ='0'
+		</if>
+		<if test="dlvfalg==006"><!-- 終了 -->
+	  	 and jobend_flg='1'
+		</if>
+	</if>
+  </select>	
+  
+  <delete id="deleteratehistory">
+  delete from jobratehistorytrn where job_cd= #{job_cd} and company_cd=#{company_cd}
+  </delete>
+  
+  <select id="selectLOCKFLG" resultType="com.kaiwait.bean.jczh.entity.Pay">
+  select LOCK_FLG as lockflg,sellordertrn.SALE_NO as inputno from sellordertrn   
+  WHERE job_cd = #{job_cd}
+  and sale_no= #{sale_no}
+  and company_cd = #{companyID}
+  and del_flg=0
+  </select>
+</mapper>

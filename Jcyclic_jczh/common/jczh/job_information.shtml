@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span style="padding-right: 5px;" class="i18n fw" name="salescategoryLogin_job_information"></span>
+		<span class="job_detail" style="color: #1abc9c;cursor: pointer;text-decoration: underline;" id="jobcd"></span>
+		<span id='job_name'></span> 
+	</div>
+	<div class="panel-body" style="padding: 15px;padding-bottom: 0;">
+		<div class="row bottom-15">
+			<div class="col-xs-6 form-group" style="width: 100%;">
+				<label class="i18n" name="joblist_customer"></label>
+				<div class="bord_no" style="padding: 0;padding-left: 10px;font-size: 20px;height: auto;" id="divnm"></div>
+			</div>
+			<div class="col-xs-12">
+				<label class="i18n" name='order_register_Renewing'></label>
+				<div class="row">
+					<div class="clearfix col-xs-12">
+						<div class="col-xs-1" style="padding:0;">
+							<i class="iconfont icon-ren " id="jobupdusercolor" style="cursor: default;"></i>
+						</div>									
+						<div class="clearfix col-xs-11" style="padding:0;">
+							<div id="username"></div>
+							<small class="sma" id="upddate" ></small>
+						</div>
+					</div>
+				</div>							
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,55 @@
+{
+  "definitionFilePath" : null,
+  "name" : "卖上承认",
+  "path" : "doSaleAdmin",
+  "rootPath" : "dynamic",
+  "type" : "upload",
+  "method" : "POST",
+  "paging" : false,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "卖上参数",
+    "type" : "Object",
+    "description" : "",
+    "required" : false,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "sale_admit_remark",
+      "comment" : "卖上承认备考",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 500,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 10,
+      "name" : "jlTrn",
+      "comment" : "lableset",
+      "type" : "Array",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : [ {
+        "defineLine" : 11,
+        "name" : "lablecd",
+        "comment" : "lableCd",
+        "type" : "String",
+        "description" : "",
+        "required" : false,
+        "format" : "Regular",
+        "formatPattern" : "[0-9A-Za-z]+",
+        "length" : 12,
+        "detailParamList" : null
+      } ]
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n hidden" name='advance_approval' id='advance_approval' >立替承认</title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>	
+		<link rel="stylesheet" href="../public/stylesheets/jczh/job_registration.css?v=2018092801" />
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>	
+		<script type="text/javascript" src="../public/javascript/jczh/job/advance_approval.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->  
+	</head>
+	<style>
+		.btn-group .btn-primary{
+			padding: 6px;
+		}
+		.numberbox{
+			width: 145px!important;
+		}
+		.setblock ul li{
+			width: auto!important;
+			margin-top: 10px!important;
+			margin-left: 15px!important;
+		}
+		.setblock1 ul li span{
+			padding-right: 4px;
+			cursor: pointer;
+		}
+		.setblock1 ul li span:hover{
+			text-decoration: underline;
+		}
+		.switchot_off{
+			height: auto!important;
+		}
+		.log-sidebar .panel-default{
+			border: 0 !important;
+		}
+		.liti_employee_d span{
+			padding: 0 5px;
+			border-right: 1px solid #ddd;
+		}
+		.liti_employee_d span:last-of-type{
+			border-right: 0;
+		}
+		#exchange_rate2 div{
+			padding: 0px!important;
+		}
+		.padding_top{
+			padding: 0px 5px 10px 5px!important;
+		}
+		.block_liti{
+			display: block!important;
+		}
+		.breadcrumb>li+li:before{
+			content: "";
+		}
+		.card.col-xs-3{
+		    border:1px solid;
+		    box-shadow: 0px 3px 5px #d4d4d4;
+		    margin-right: 10px;
+		    padding: 10px !important;
+		    background: #fff;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n hidden" name='advance_approval' id='advanceapproval' ></li>
+					<li class="fs18 i18n hidden" name='menu29' id='menu29' ></li>
+				</ul>
+			</section>
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="font-size: 17px; font-weight: bold">
+								<span class="i18n" name='suppliersRegistration_basic_information'></span>
+								&nbsp;&nbsp;
+								<span id="aujob" style="margin-left: -5px;">R171204001</span>
+							</div>
+							<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 0px 18px;">
+								<div class="col-md-6" style="padding: 0 14px;">								
+										<div class="panel col-md-12 " style="margin-left: 0px;padding: 0;">											
+													<label class="i18n" name='liti_date'></label>										
+														<div class="bord_no mb-5 inputDate" style="width: 30%;">
+															
+														</div>
+													<label class="i18n" name='zhenti_pro'></label>									
+													<div class="bord_no mb-5 itemList">
+															
+													</div>											
+													<label class="i18n" name='order_register_caseName'></label>			
+													<div class="bord_no mb-5 advancename">
+															
+													</div>
+													<label class="i18n" name='liti_employee'></label>	
+													<div class="bord_no mb-5 advanceperson">
+														<i class="iconfont icon-ren minute pull-left" style="line-height: 1em;" id="personicon"></i>
+														<div class="liti_employee_d pull-left" style="margin-top: 3px;" >
+															<span id="userlevel"></span>
+															<span id="memberid"></span>
+															<span id="username"></span>
+														</div>	
+													</div>
+								
+													<label class="i18n" name="jobregistration_remarks"></label>
+													<div id="cost_remark" class="form-group" style="border: 1px solid #ccc;">
+														<div class="job_text remark" style="padding: 5px;">
+															<pre></pre>
+														</div>
+														<hr style="width: 98%;margin: 0 auto;" />
+														<div class="text-center rotate-90 hidden">
+															<i class="iconfont icon-xiala"></i>
+														</div>
+													</div>
+												</div>
+								</div>	
+								<div class="col-md-6" style="padding: 0 15px;">
+									<div class="panel panel-default col-md-12 form-group" style="background: #f5f5f5">
+										<div class="panel-heading" style="border: none; font-size: 16px; font-weight: bold;">
+											<span class="i18n" name='liti_cost'></span>
+										</div>
+										<!--#include virtual="../common/jczh/price.shtml"-->
+									</div>
+								</div>												
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading i18n" name='liti_puzu' style="font-size: 16px; font-weight: bold;">
+								
+							</div>
+							<div class="panel-body " style="padding: 15px 23px 0px 23px; ">
+								<!--#include virtual="../common/jczh/advance_infor_off.shtml"-->
+							</div>
+						</div>
+						<div class="clearfix form-group">
+							<!--#include virtual="../common/jczh/job_box.shtml"--> 
+						</div>
+						<div class="lastChild i18n" name='salescategoryLogin_person' id='jobregistration_person'></div>
+						<div class="lastChild">
+							<button class="btn btn-success i18n log_job approval" name='salescategoryApproval_approval'  type="button" onclick="advanceApproval()"></button>
+							<button class="btn btn-success i18n log_job cancel" name='calcel'  type="button" onclick="advanceCancel()"></button>
+							<button class="btn btn-default i18n" name='salescategoryRegistration_back'  type="button" onclick="goCostlist();"></button>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding: 0;">
+						<!--#include virtual="../common/business/label/label_set_extend.shtml"-->
+					</div>
+				</div>
+			</aside>			
+		</div>	
+		<!--#include virtual="../common/business/label/label_set_t.shtml"--> 
+		<!--#include virtual="../common/jczh/pingzheng.shtml"-->
+	</body>
+</html>

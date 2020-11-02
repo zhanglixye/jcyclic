@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='zhenti_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>	
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>	
+		<script type="text/javascript" src="../public/javascript/jcst/job/transfer_register.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->  
+	</head>
+	<style>
+		.setblock ul li{
+			width: auto!important;
+			margin-top: 10px!important;
+			margin-left: 15px!important;
+		}	
+		small{
+			color: #000000!important;
+		}
+		.numberbox{
+			border-right: 0px!important;
+		}
+		.cost_person_code{
+			border-radius: 4px!important;
+			border-bottom-left-radius: 0!important;
+    		border-top-left-radius: 0!important;
+		}
+		.log-sidebar .panel-default{
+			border: 0px!important;
+		}
+		.panel  label[name=zhenti_date]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=zhenti_pro]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=jobregistration_amount]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=order_register_caseName]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='zhenti_title'></li>
+				</ul>
+			</section>
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="panel panel-default">
+							<div class="panel-heading i18n" name='suppliersRegistration_basic_information' style="font-size: 17px; font-weight: bold">
+								
+							</div>
+							<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 0px 18px;">
+								<div class="col-md-6" style="padding:0px;">
+									<div class="panel col-md-12 " style="margin-left: 0px;padding: 0px;">
+										<div class="panel col-md-12 " style="margin-bottom: 0px;padding: 0 14px">											
+													<label class="control-label i18n" name='zhenti_date'></label>			
+													<div class="input-group mb-5 ">
+														<input  class="inputDate form-control todaynew easyui-datebox date-box-required" type="text" id="order_date" name="order_date"/>
+													</div>
+													<label class="i18n control-label" name='zhenti_pro'></label>									
+													<select id="itemList" name="itemList" class="form-control mb-5 required" style="">
+														<option value=""></option>
+													</select>
+													<label class="i18n" name="jobregistration_remarks"></label>
+														<textarea maxlength="500" class="form-control remark" name="" rows="3" cols="" id="cost_remark" name="cost_remark" style="padding:0px 12px;height: 66px;"></textarea>
+											</div>
+									</div>
+								</div>	
+								<div class="col-md-6" style="padding: 0 0px;">
+									<div class="panel col-md-12 form-group" style="padding: 0px;">
+										<div class="panel col-md-12 " style="margin-left: 0px;">											
+													<label class="control-label i18n" name='jobregistration_amount'></label>			
+													<div class="input-group setFixRate">	
+														<input class="form-control easyui-numberbox saleMoment cal-sale-box " placeholder="" type="text" style="border-right: 0px; width: 145px; text-align: right;box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075); border-right: 0;" data-options="groupSeparator:','">
+														<span class="input-group-addon cost_person_code " style="background: #eeeeee;
+														    display: inline-block;
+														    border-left: 1px solid #cccccc;
+														    width: 57px;
+														    height: 33px;
+														    line-height: 20px;">
+														  RMB
+														</span>
+														<script>
+															var preNumber = localStorage.getItem('defaultPoint');
+															var str = '0.';
+															for(var i = 0;i < preNumber;i ++){
+																str += '0'
+															}
+															if(str == '0.'){
+																str = '0';
+															}
+															$('input.saleMoment').numberbox({
+																'precision':preNumber,
+																'value':str
+															})
+														</script>
+													</div>
+													<label class="control-label i18n" name='order_register_caseName' style="margin-top: 5px;"></label>			
+														<input maxlength="100" class="mb-5 form-control tranname required" type="text"  id="cost_name" name="cost_name" style="width: 100%;"/>
+												</div>
+									</div>
+								</div>
+												
+							</div>
+	
+						</div>
+						<div class="lastChild i18n" name='jobregistration_person_in_charge2'></div>
+						<div class="lastChild">
+							<button class="btn btn-success i18n log_job" name='salescategoryRegistration_login' type="submit" onclick="transferAdd()" ></button>
+							<button class="btn btn-default i18n" name='salescategoryRegistration_back' id="" type="submit" onclick="goJoblist();"></button>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding: 0;">
+						<!--#include virtual="../common/business/label/label_set_extend.shtml"-->
+					</div>
+				</div>
+			</aside>			
+		</div>	
+		<!--#include virtual="../common/business/label/label_set_t.shtml"-->
+	</body>
+</html>

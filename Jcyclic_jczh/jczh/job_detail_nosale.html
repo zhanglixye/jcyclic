@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--#include virtual="../common/header.shtml"-->
+	<!--#include virtual="../common/easyUi.shtml"-->
+	<!--#include virtual="../common/boostrap_switch.shtml"-->
+	<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>
+	<link rel="stylesheet" href="../public/stylesheets/jczh/job_registration.css?v=2018092801" />
+	<link rel="stylesheet" href="../public/stylesheets/jczh/salescategory_registration.css?v=2018092801" />
+	<script type="text/javascript" src="../public/javascript/jczh/job/salescategory_registration.js?v=2018092801"></script>
+	<script type="text/javascript" src="../public/javascript/jczh/job/job_detail.js?v=2018092801"></script>
+	<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>
+	<!--#include virtual="../common/language.shtml"-->  
+	<style>
+		.panel.panel-default{
+			border:1px solid #dddddd !important;
+		}
+	    .activeT{
+	    	cursor: default;
+	    }	
+	    .m_top label:nth-child(2){
+	    	cursor: default;
+	    }
+	    .cost_rate_click_off label:nth-child(2){
+	    	cursor: default;
+	    }
+		div{
+			border-radius:inherit !important;
+		}
+	</style>
+</head>
+<body>
+	<!--#include virtual="../common/business/job_detail/title.shtml"-->
+	<aside id="content" style="padding-bottom: 0;left: 0;">
+	<div class="main_remark_wid" style="margin: auto;">
+		<div class="row">
+			<div class="col-md-12">
+				<!--#include virtual="../common/business/job_detail/job_information.shtml"--> 
+				<!--#include virtual="../common/business/job_detail/sale_information.shtml"-->
+				<!--#include virtual="../common/business/job_detail/ren.shtml"--> 
+				<!--#include virtual="../common/business/job_detail/joc_remark.shtml"--> 
+				<div class="lastChild">
+					<button style="float: right;margin-bottom: 12px;" class="btn btn-default i18n" name='salescategoryRegistration_clsoe' id="closeBtnInput"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="display: none;">
+		<div>
+		<div class="input-group">
+			<input disabled="true" type="text" id="dalday" name="dateD" class="form-control required hiddclass date-box-required" />
+		</div>
+		</div>
+		<div class="pull-left ml-30">
+			<label for="dateR" class="i18n" name="salescategoryLogin_qingjiu"></label>
+		<div class="input-group">
+			<input disabled="true" type="text" id="plan_dalday" name="dateR" class="form-control hiddclass date-box-required" />
+		</div>
+		</div>
+	</div>
+	</aside>
+	<script>
+		var remark_wid = parent.$('aside#content .row').width() * 0.6666666667 - 30;
+		$('.main_remark_wid').width(remark_wid);
+		$(".salenohidden").remove();
+	</script>
+</body>
+</html>

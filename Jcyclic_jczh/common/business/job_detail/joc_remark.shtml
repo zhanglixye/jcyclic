@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+				<div class="panel-heading i18n" name="salescategoryLogin_buzu">
+					job满足情报
+				</div>
+				<div class="panel-body " style="padding: 15px 24px">
+					<div class="form-group job_detail_remark" style="border: 1px solid #ccc;">
+						<div class="job_text remark" style="padding: 5px;">
+							<pre></pre>
+						</div>
+						<hr style="width: 98%;margin: 0 auto;" />
+						<div class="text-center rotate-90 hidden">
+							<i class="iconfont icon-xiala"></i>
+						</div>
+					</div>	
+					<div>
+						<!--#include virtual="../../jczh/job_box.shtml"--> 
+					</div>
+				</div>
+			</div>

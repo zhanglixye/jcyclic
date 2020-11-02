@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.AccountEntriesMapper">
+	<resultMap id="accountEntriesMap" type="com.kaiwait.bean.jczh.entity.AccountEntries">
+		<result column="invFlg" property="invFlg" jdbcType="INTEGER" />
+		<result column="jobNo" property="jobNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getInfomation" resultMap="accountEntriesMap">
+	select 
+		ifnull(companymst.INVOICE_FLG,0) as invFlg,
+		jobtrn.JOB_CD as jobNo,
+		"" as inputNo,
+		"" as orderNo,
+		jobtrn.CLDIV_CD as  divCD,
+		"" as application,
+		DATE_FORMAT(commonmst.ITMVALUE,"%Y%m") as fiscalMonth,
+		#{userId} as addUser,
+		#{companyID} as companyID,
+		usermst.MEMBER_ID as membrId,
+		1 as typeFlg,
+		sellordertrn.SALE_AMT as salveAmt,
+		sellordertrn.SALE_VAT_AMT as saleVatAmt,
+		sellordertrn.REQ_AMT as reqAmt,
+		(SELECT EXISTS
+			(
+				SELECT 
+					journal.JOB_NO 
+				from journal 
+				where 
+					journal.COMPANY_CD = #{companyID} and journal.DEBTOR_CD = "017" 
+					and journal.CREDIT_CD = "018"
+			)) as isHaveBeforInvoice
+	from jobtrn 
+	left join sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = jobtrn.COMPANY_CD and sellordertrn.DEL_FLG = 0
+	left join companymst on jobtrn.COMPANY_CD = companymst.COMPANY_CD
+	left join commonmst on commonmst.COMPANY_CD = jobtrn.COMPANY_CD and commonmst.MSTCD = "0001"
+	left join usermst on usermst.USERCD=#{userId}
+	where 
+		jobtrn.COMPANY_CD = #{companyID}
+	and
+		jobtrn.JOB_CD = #{jobNo}
+	and
+		jobtrn.DEL_FLG = 0
+	</select>
+	<select id="isAccountDataWithJobSale" resultType="int">
+	select 
+		count(*)
+	from 
+		journal
+	where 
+		COMPANY_CD = #{companyID}
+	and
+		JOB_NO = #{jobNo} 
+	and 
+		((DEBTOR_CD = "001" and CREDIT_CD = "017") or (DEBTOR_CD = "001" and CREDIT_CD = "007"))
+	
+	</select>
+	<insert id="createAccountEntriesData" >
+		INSERT INTO journal
+			(JOB_NO,INPUT_NO,ORDER_NO,DIVCD,APPLICATION,DEBTOR_CD,DEBTOR_AMOUNT,CREDIT_CD,
+				CREDIT_AMOUNT,ADD_DATE,ADD_USERCD,FISCAL_MONTH,MEMBERID,TYPE_FLG,COMPANY_CD)
+		VALUES
+			(#{accountEntries.jobNo},#{accountEntries.inputNo},#{accountEntries.orderNo},#{accountEntries.divCD},
+				#{accountEntries.application},#{accountEntries.debtorCD},#{accountEntries.debtorAmt},#{accountEntries.creditCD},
+				#{accountEntries.creditAmt},#{accountEntries.addDate},#{accountEntries.addUser},#{accountEntries.fiscalMonth},
+				#{accountEntries.membrId},#{accountEntries.typeFlg},#{accountEntries.companyID})
+	</insert>
+	<select id="getPayAccountInfomation" resultMap="accountEntriesMap">
+		SELECT
+			costtrn.JOB_CD as jobNo,
+			costtrn.INPUT_NO as inputNo,
+			costtrn.COST_NO as orderNo,
+			costtrn.PAYEE_CD as  divCD,
+			paytrn.REMARK as application,
+			usermst.USERCD as addUser,
+			#{companyID} as companyID,
+			usermst.MEMBER_ID as membrId,
+			2 as typeFlg,
+			paytrn.PAY_AMT as salveAmt,
+			paytrn.PAY_VAT_AMT as vatAmt,
+			paytrn.PAY_RMB as reqAmt
+		FROM costtrn
+			left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and costtrn.COMPANY_CD = paytrn.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			costtrn.JOB_CD=#{jobNo}
+			and costtrn.COST_NO=#{costNo}
+			and costtrn.COMPANY_CD=#{companyID}
+	</select>
+	<select id="getLendAccountInfomation" resultMap="accountEntriesMap">
+		SELECT
+			lendtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			lendtrn.ITEM_CODE as application,
+			usermst.USERCD as addUser,
+			#{companyID} as companyID,
+			usermst.MEMBER_ID as membrId,
+			3 as typeFlg,
+			lendtrn.LEND_AMT as salveAmt,
+			lendtrn.LEND_VAT_AMT as vatAmt,
+			lendtrn.LEND_PAY_AMT as reqAmt
+		FROM lendtrn
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			lendtrn.JOB_CD=#{jobNo}
+			and lendtrn.INPUT_NO=#{inputNo}
+			and lendtrn.COMPANY_CD=#{companyID}
+			
+	</select>
+	<select id="getTranAccountInfomation" resultMap="accountEntriesMap">
+		SELECT
+			trantrn.JOB_CD as jobNo,
+			trantrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			trantrn.REMARK as application,
+			"009" as debtorCD,
+			trantrn.TRAN_AMT as debtorAmt,
+			trantrn.ITEM_CODE as creditCD,
+			trantrn.TRAN_AMT as creditAmt,
+			usermst.USERCD as addUser,
+			#{companyID} as companyID,
+			usermst.MEMBER_ID as membrId,
+			4 as typeFlg
+		FROM trantrn
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			trantrn.JOB_CD=#{jobNo}
+			and trantrn.INPUT_NO=#{inputNo}
+			and trantrn.COMPANY_CD=#{companyID}
+			
+	</select>
+	<delete id="dropAccountDatasByCancel">
+		delete from journal 
+		where 
+			journal.JOB_NO=#{jobNo}
+			and journal.INPUT_NO=#{inputNo}
+			and journal.COMPANY_CD=#{companyID}
+	</delete>
+	<select id="getPayAccountDataInfomationByMonthCheckout" resultMap="accountEntriesMap">
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			ifnull(costtrn.INPUT_NO,"") as inputNo,
+			costtrn.COST_NO as orderNo,
+			costtrn.PAYEE_CD as  divCD,
+			ifnull(paytrn.REMARK,"") as application,
+			"014" as debtorCD,
+			IFNULL(paytrn.PAY_AMT,costtrn.COST_RMB) as debtorAmt,
+			"010" as creditCD,
+			IFNULL(paytrn.PAY_AMT,costtrn.COST_RMB) as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			2 as typeFlg,
+			#{companyID} as companyID
+			from jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG = 0
+			LEFT JOIN costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and jobtrn.COMPANY_CD = costtrn.COMPANY_CD and costtrn.DEL_FLG = 0
+			LEFT JOIN paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and costtrn.COMPANY_CD = paytrn.COMPANY_CD and paytrn.DEL_FLG = 0
+			LEFT JOIN usermst on usermst.USERCD=#{userId}
+			left join orderhistorytrn as nowOrder on jobtrn.JOB_CD = nowOrder.JOB_NO and costtrn.COST_NO = nowOrder.ORDER_NO 
+				and nowOrder.CHECK_MONTH = DATE_FORMAT(#{thisMonth},"%Y%m")  and jobtrn.COMPANY_CD = nowOrder.COMPANY_CD
+			left join orderhistorytrn as beforOrder on jobtrn.JOB_CD = beforOrder.JOB_NO and costtrn.COST_NO = beforOrder.ORDER_NO 
+				and beforOrder.CHECK_MONTH = #{beforMonth}  and jobtrn.COMPANY_CD = beforOrder.COMPANY_CD
+			WHERE
+			costtrn.`STATUS` &lt; 3
+			and sellordertrn.DLVDAY IS NOT NULL
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt;= DATE_FORMAT(#{thisMonth},"%Y%m")
+			and jobtrn.COMPANY_CD = #{companyID}
+			and ((ifnull(nowOrder.PAY_AMT,0) - ifnull(beforOrder.PAY_AMT,0)) != 0 
+				or DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m"))
+		union all
+		
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			ifnull(costtrn.INPUT_NO,"") as inputNo,
+			costtrn.COST_NO as orderNo,
+			costtrn.PAYEE_CD as  divCD,
+			"" as application,
+			"010" as debtorCD,
+			IFNULL(orderhistorytrn.COST_AMT,0) as debtorAmt,
+			"014" as creditCD,
+			IFNULL(orderhistorytrn.COST_AMT,0) as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			2 as typeFlg,
+			#{companyID} as companyID
+			from jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG = 0
+			LEFT JOIN costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and jobtrn.COMPANY_CD = costtrn.COMPANY_CD and costtrn.DEL_FLG = 0
+			LEFT JOIN paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and costtrn.COMPANY_CD = paytrn.COMPANY_CD and paytrn.DEL_FLG = 0
+			LEFT JOIN orderhistorytrn on jobtrn.JOB_CD = orderhistorytrn.JOB_NO and costtrn.COST_NO = orderhistorytrn.ORDER_NO 
+										and jobtrn.COMPANY_CD = orderhistorytrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH = #{beforMonth}
+			left join orderhistorytrn as nowOrder on jobtrn.JOB_CD = nowOrder.JOB_NO and costtrn.COST_NO = nowOrder.ORDER_NO 
+				and nowOrder.CHECK_MONTH = DATE_FORMAT(#{thisMonth},"%Y%m")  and jobtrn.COMPANY_CD = nowOrder.COMPANY_CD and nowOrder.ORDER_STATUS = 0
+			LEFT JOIN usermst on usermst.USERCD=#{userId}
+			WHERE
+			(costtrn.`STATUS` &lt; 3 or paytrn.CONFIRMDATE >  #{monthDate})
+			and sellordertrn.DLVDAY IS NOT NULL
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt; DATE_FORMAT(#{thisMonth},"%Y%m")
+			and jobtrn.COMPANY_CD = #{companyID}
+			and (ifnull(nowOrder.PAY_AMT,0) - ifnull(orderhistorytrn.PAY_AMT,0)) != 0
+			union all
+			
+			SELECT
+			jobtrn.JOB_CD as jobNo,
+			ifnull(costtrn.INPUT_NO,"") as inputNo,
+			costtrn.COST_NO as orderNo,
+			costtrn.PAYEE_CD as  divCD,
+			"" as application,
+			"008" as debtorCD,
+			IFNULL(paytrn.PAY_AMT,costtrn.COST_RMB) as debtorAmt,
+			"009" as creditCD,
+			IFNULL(paytrn.PAY_AMT,costtrn.COST_RMB) as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			2 as typeFlg,
+			#{companyID} as companyID
+			from jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and jobtrn.COMPANY_CD = sellordertrn.COMPANY_CD and sellordertrn.DEL_FLG = 0
+			LEFT JOIN costtrn on jobtrn.JOB_CD = costtrn.JOB_CD and jobtrn.COMPANY_CD = costtrn.COMPANY_CD and costtrn.DEL_FLG = 0
+			LEFT JOIN paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO and costtrn.COMPANY_CD = paytrn.COMPANY_CD and paytrn.DEL_FLG = 0
+			LEFT JOIN usermst on usermst.USERCD=#{userId}
+			WHERE
+			costtrn.`STATUS` > 2
+			and sellordertrn.DLVDAY IS NOT NULL
+			and paytrn.CONFIRMDATE >  #{monthDate}
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt;= DATE_FORMAT(#{thisMonth},"%Y%m")
+			and jobtrn.COMPANY_CD = #{companyID}
+			
+	</select>
+	<select id="getLendAccountDataInfomationByMonthCheckout" resultMap="accountEntriesMap">
+		SELECT
+			lendtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			lendtrn.ITEM_CODE as application,
+			"014" as debtorCD,
+			lendtrn.LEND_AMT as debtorAmt,
+			"016" as creditCD,
+			lendtrn.LEND_AMT as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			3 as typeFlg,
+			#{companyID} as companyID
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			LEFT JOIN lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG=0
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			lendtrn.`STATUS` != 1 and lendtrn.`STATUS` != 3
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			and sellordertrn.DLVDAY IS NOT NULL
+			and	jobtrn.COMPANY_CD=#{companyID}
+			
+		union all
+		
+		SELECT
+			lendtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			"" as application,
+			"016" as debtorCD,
+			IFNULL(orderhistorytrn.COST_AMT,0) as debtorAmt,
+			"014" as creditCD,
+			IFNULL(orderhistorytrn.COST_AMT,0) as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			3 as typeFlg,
+			#{companyID} as companyID
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			LEFT JOIN lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG=0
+			left join usermst on usermst.USERCD=#{userId}
+			LEFT JOIN orderhistorytrn on jobtrn.JOB_CD = orderhistorytrn.JOB_NO and lendtrn.INPUT_NO = orderhistorytrn.ORDER_NO 
+										and jobtrn.COMPANY_CD = orderhistorytrn.COMPANY_CD and orderhistorytrn.CHECK_MONTH = #{beforMonth}
+		WHERE
+			lendtrn.CONFIRMDATE IS NOT NULL
+			and lendtrn.CONFIRMDATE > #{monthDate}
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt; DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DLVDAY IS NOT NULL 
+			and sellordertrn.DEL_FLG != 1
+			and	jobtrn.COMPANY_CD=#{companyID}	
+			
+		union all
+					
+		SELECT
+			lendtrn.JOB_CD as jobNo,
+			lendtrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			"" as application,
+			"008" as debtorCD,
+			lendtrn.LEND_AMT as debtorAmt,
+			"009" as creditCD,
+			lendtrn.LEND_AMT as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			3 as typeFlg,
+			#{companyID} as companyID
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			LEFT JOIN lendtrn on jobtrn.JOB_CD=lendtrn.JOB_CD and jobtrn.COMPANY_CD=lendtrn.COMPANY_CD and lendtrn.DEL_FLG=0
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			lendtrn.CONFIRMDATE IS NOT NULL
+			and lendtrn.CONFIRMDATE > #{monthDate}
+			and sellordertrn.DLVDAY IS NOT NULL 
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt;= DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			and	jobtrn.COMPANY_CD=#{companyID}			
+	</select>
+	<select id="getTranAccountDataInfomationByMonthCheckout" resultMap="accountEntriesMap">
+		SELECT
+			trantrn.JOB_CD as jobNo,
+			trantrn.INPUT_NO as inputNo,
+			"" as orderNo,
+			"" as  divCD,
+			"" as application,
+			"008" as debtorCD,
+			trantrn.TRAN_AMT as debtorAmt,
+			"009" as creditCD,
+			trantrn.TRAN_AMT as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			4 as typeFlg,
+			#{companyID} as companyID
+		FROM jobtrn
+			left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = jobtrn.COMPANY_CD and sellordertrn.DEL_FLG = 0
+			left join trantrn on jobtrn.JOB_CD = trantrn.JOB_CD AND jobtrn.COMPANY_CD = trantrn.COMPANY_CD and trantrn.DEL_FLG=0
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			jobtrn.DEL_FLG = 0
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")
+			and trantrn.CONFIRMDATE is not null
+			and	jobtrn.COMPANY_CD=#{companyID}
+	</select>
+	<select id="getTaxAccountDataInfomationByMonthCheckout" resultMap="accountEntriesMap">
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			"005" as debtorCD,
+			0 as debtorAmt,
+			"006" as creditCD,
+			0 as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			5 as typeFlg,
+			jobtrn.JOBEND_FLG as jobEndFlg,
+			#{companyID} as companyID,
+			0 as isThisMonthEndFlg
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID}
+			
+		union all
+		
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			"015" as debtorCD,
+			0 as debtorAmt,
+			"004" as creditCD,
+			0 as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			5 as typeFlg,
+			jobtrn.JOBEND_FLG as jobEndFlg,
+			#{companyID} as companyID,
+			0 as isThisMonthEndFlg
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			and jobtrn.COMPANY_CD=#{companyID}
+			
+		union all
+		
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			"005" as debtorCD,
+			0 as debtorAmt,
+			"006" as creditCD,
+			0 as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			5 as typeFlg,
+			jobtrn.JOBEND_FLG as jobEndFlg,
+			#{companyID} as companyID,
+			1 as isThisMonthEndFlg
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt; DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			<!-- and (jobtrn.JOBEND_DATE is null or DATE_FORMAT(jobtrn.JOBEND_DATE,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")) 
+			结账日期在会计月之后（比如3月的帐，4月份结的），JOBEND_DATE就和当前会计月相等了，但是一旦END的job、 是不需要产生差额税的所以出现了无效数据 -->
+			and jobtrn.JOBEND_DATE is null 
+			and jobtrn.COMPANY_CD=#{companyID}
+			
+		union all
+		
+		SELECT
+			jobtrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			"015" as debtorCD,
+			0 as debtorAmt,
+			"004" as creditCD,
+			0 as creditAmt,
+			#{thisMonthTime} as addDate,
+			usermst.USERCD as addUser,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			usermst.MEMBER_ID as membrId,
+			5 as typeFlg,
+			jobtrn.JOBEND_FLG as jobEndFlg,
+			#{companyID} as companyID,
+			1 as isThisMonthEndFlg
+		FROM jobtrn
+			LEFT JOIN sellordertrn on jobtrn.JOB_CD=sellordertrn.JOB_CD and jobtrn.COMPANY_CD=sellordertrn.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") &lt; DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1
+			<!-- and (jobtrn.JOBEND_DATE is null or DATE_FORMAT(jobtrn.JOBEND_DATE,"%Y%m") = DATE_FORMAT(#{thisMonth},"%Y%m")) 
+			结账日期在会计月之后（比如3月的帐，4月份结的），JOBEND_DATE就和当前会计月相等了，但是一旦END的job、 是不需要产生差额税的所以出现了无效数据 -->
+			and jobtrn.JOBEND_DATE is null 
+			and jobtrn.COMPANY_CD=#{companyID}
+	</select>
+	<select id="getJobsForAccountEntries" resultMap="accountEntriesMap">
+		select
+			jobtrn.JOB_CD as jobNo
+		from jobtrn
+			join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.COMPANY_CD = #{companyID}
+		WHERE 
+			DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m")=DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1	
+			AND jobtrn.COMPANY_CD = #{companyID}
+	</select>
+	<select id="getAccountJobDetailsList" resultMap="accountEntriesMap">
+SELECT
+	b.clientAccountCode,
+	b.clientName,
+	b.reqClientCode,
+	b.reqClientName,
+	b.jobNo,
+	b.jobName,
+	b.accountNote,
+	b.accountCode,
+	b.accountName,
+	b.aidCD,
+	ifnull( sum( b.debtorAmt ), '' ) debtorAmt,
+	ifnull( sum( b.creditAmt ), '' ) creditAmt,
+	b.ORDER_NO,
+	b.INPUT_NO,
+	b.typeFlg 
+FROM
+	(
+	SELECT
+		clmst.ACCOUNT_CD AS clientAccountCode,
+		clmst.DIVNAME_FULL AS clientName,
+		reqClmst.ACCOUNT_CD AS reqClientCode,
+		reqClmst.DIVNAME_FULL AS reqClientName,
+		jobtrn.JOB_CD AS jobNo,
+		jobtrn.JOB_NAME AS jobName,
+		journal.APPLICATION AS accountNote,
+		journal.DEBTOR_CD AS accountCode,
+	CASE
+			
+			WHEN #{languageType}= 'zc' THEN
+			commonmst.ITMNAME 
+			WHEN #{languageType}= 'zt' THEN
+			commonmst.ITEMNAME_HK 
+			WHEN #{languageType}= 'en' THEN
+			commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+		END AS accountName,
+		commonmst.AIDCD AS aidCD,
+		sum( journal.DEBTOR_AMOUNT ) AS debtorAmt,
+		sum( journal.CREDIT_AMOUNT ) AS creditAmt,
+		journal.ORDER_NO,
+		journal.INPUT_NO,
+		journal.TYPE_FLG AS typeFlg 
+	FROM
+		journal
+		LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+		AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+		LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+		AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+		LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+		AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+		LEFT JOIN commonmst ON journal.DEBTOR_CD = commonmst.ITEMCD 
+		AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+		AND commonmst.MSTCD = "8001" 
+	WHERE
+		journal.COMPANY_CD =#{companyID}  
+		AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+		AND ( journal.DEBTOR_CD = "001" OR journal.DEBTOR_CD = "008" OR journal.DEBTOR_CD = "005" OR journal.DEBTOR_CD = "015" ) 
+	GROUP BY
+		jobNo,
+		journal.ORDER_NO,
+		journal.INPUT_NO,
+		journal.DEBTOR_CD UNION ALL
+	SELECT
+		clmst.ACCOUNT_CD AS clientAccountCode,
+		clmst.DIVNAME_FULL AS clientName,
+		reqClmst.ACCOUNT_CD AS reqClientCode,
+		reqClmst.DIVNAME_FULL AS reqClientName,
+		jobtrn.JOB_CD AS jobNo,
+		jobtrn.JOB_NAME AS jobName,
+		journal.APPLICATION AS accountNote,
+		journal.CREDIT_CD AS accountCode,
+	CASE
+			
+			WHEN #{languageType}= 'zc' THEN
+			commonmst.ITMNAME 
+			WHEN #{languageType}= 'zt' THEN
+			commonmst.ITEMNAME_HK 
+			WHEN #{languageType}= 'en' THEN
+			commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+		END AS accountName,
+		commonmst.AIDCD AS aidCD,
+		sum( journal.DEBTOR_AMOUNT ) AS debtorAmt,
+		sum( journal.CREDIT_AMOUNT ) AS creditAmt,
+		journal.ORDER_NO,
+		journal.INPUT_NO,
+		journal.TYPE_FLG AS typeFlg 
+	FROM
+		journal
+		LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+		AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+		LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+		AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+		LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+		AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+		LEFT JOIN commonmst ON journal.CREDIT_CD = commonmst.ITEMCD 
+		AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+		AND commonmst.MSTCD = "8001" 
+	WHERE
+		journal.COMPANY_CD =#{companyID}  
+		AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+		AND (
+            	( journal.DEBTOR_CD != "009" AND journal.CREDIT_CD = "007" ) 
+                OR ( journal.DEBTOR_CD != "009" AND journal.CREDIT_CD = "002" ) 
+                OR ( journal.DEBTOR_CD != "009" AND journal.CREDIT_CD = "009" )
+                OR ( journal.DEBTOR_CD != "009" AND journal.CREDIT_CD = "006" )
+                OR ( journal.DEBTOR_CD != "009" AND journal.CREDIT_CD = "004" )
+                ) 
+	GROUP BY
+		jobNo,
+		journal.ORDER_NO,
+		journal.INPUT_NO,
+		journal.DEBTOR_CD 
+UNION ALL
+		SELECT
+			clmst.ACCOUNT_CD AS clientAccountCode,
+			clmst.DIVNAME_FULL AS clientName,
+			reqClmst.ACCOUNT_CD AS reqClientCode,
+			reqClmst.DIVNAME_FULL AS reqClientName,
+			jobtrn.JOB_CD AS jobNo,
+			jobtrn.JOB_NAME AS jobName,
+			journal.APPLICATION AS accountNote,
+			"017" AS accountCode,
+		CASE
+				
+				WHEN #{languageType}= 'zc' THEN
+				commonmst.ITMNAME 
+				WHEN #{languageType}= 'zt' THEN
+				commonmst.ITEMNAME_HK 
+				WHEN #{languageType}= 'en' THEN
+				commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+			END AS accountName,
+			commonmst.AIDCD AS aidCD,
+		CASE
+				
+				WHEN EXISTS (
+				SELECT
+					* 
+				FROM
+					journal 
+				WHERE
+					journal.JOB_NO = jobtrn.JOB_CD 
+					AND journal.DEBTOR_CD = "017" 
+					AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+					) THEN
+					journal.DEBTOR_AMOUNT ELSE "" 
+				END AS debtorAmt,
+				IFNULL(
+					(
+					SELECT
+						CREDIT_AMOUNT 
+					FROM
+						journal a 
+					WHERE
+						a.JOB_NO = jobtrn.JOB_CD 
+						AND a.CREDIT_CD = "017" 
+						AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+						AND a.COMPANY_CD =#{companyID}  
+					),
+					"" 
+				) AS creditAmt,
+				journal.ORDER_NO,
+				journal.INPUT_NO,
+				journal.TYPE_FLG AS typeFlg 
+			FROM
+				journal
+				LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+				AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+				LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+				AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+				LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+				AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+				LEFT JOIN commonmst ON "017" = commonmst.ITEMCD 
+				AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+				AND commonmst.MSTCD = "8001" 
+			WHERE
+				journal.COMPANY_CD =#{companyID}  
+				AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+				AND ((journal.DEBTOR_CD = "001" AND journal.CREDIT_CD = "017") 
+				OR (journal.DEBTOR_CD = "017" AND journal.CREDIT_CD = "002" )
+				OR (journal.DEBTOR_CD = "017" AND journal.CREDIT_CD = "018" ))
+				
+			GROUP BY
+				jobNo,
+				journal.ORDER_NO,
+				journal.INPUT_NO UNION ALL
+			SELECT
+				clmst.ACCOUNT_CD AS clientAccountCode,
+				clmst.DIVNAME_FULL AS clientName,
+				reqClmst.ACCOUNT_CD AS reqClientCode,
+				reqClmst.DIVNAME_FULL AS reqClientName,
+				jobtrn.JOB_CD AS jobNo,
+				jobtrn.JOB_NAME AS jobName,
+				journal.APPLICATION AS accountNote,
+				"014" AS accountCode,
+			CASE
+					
+					WHEN #{languageType}= 'zc' THEN
+					commonmst.ITMNAME 
+					WHEN #{languageType}= 'zt' THEN
+					commonmst.ITEMNAME_HK 
+					WHEN #{languageType}= 'en' THEN
+					commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+				END AS accountName,
+				commonmst.AIDCD AS aidCD,
+			CASE
+					
+					WHEN EXISTS (
+					SELECT
+						* 
+					FROM
+						journal a
+					WHERE
+						a.JOB_NO = jobtrn.JOB_CD 
+						AND a.DEBTOR_CD = "014" 
+						AND a.CREDIT_CD = "016" 
+						AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+						AND a.INPUT_NO = journal.INPUT_NO 
+						) THEN
+						journal.DEBTOR_AMOUNT ELSE "" 
+					END AS debtorAmt,
+					
+					IFNULL( (SELECT
+						CREDIT_AMOUNT
+					FROM
+						journal a
+					WHERE
+						a.JOB_NO = jobtrn.JOB_CD 
+						AND a.DEBTOR_CD = "016" 
+						AND a.CREDIT_CD = "014" 
+						AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+						AND a.COMPANY_CD =#{companyID}  
+						AND a.INPUT_NO = journal.INPUT_NO 
+					), "" )  AS creditAmt,
+					journal.ORDER_NO,
+					journal.INPUT_NO,
+					journal.TYPE_FLG AS typeFlg 
+				FROM
+					journal
+					LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+					AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+					LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+					AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+					LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+					AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+					LEFT JOIN commonmst ON "014" = commonmst.ITEMCD 
+					AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+					AND commonmst.MSTCD = "8001" 
+				WHERE
+					journal.COMPANY_CD =#{companyID}  
+					AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+					AND ( journal.DEBTOR_CD = "014" OR journal.CREDIT_CD = "014" ) 
+					AND journal.TYPE_FLG = "3" 
+				GROUP BY
+					jobNo,
+					journal.ORDER_NO,
+					journal.INPUT_NO UNION ALL
+				SELECT
+					clmst.ACCOUNT_CD AS clientAccountCode,
+					clmst.DIVNAME_FULL AS clientName,
+					reqClmst.ACCOUNT_CD AS reqClientCode,
+					reqClmst.DIVNAME_FULL AS reqClientName,
+					jobtrn.JOB_CD AS jobNo,
+					jobtrn.JOB_NAME AS jobName,
+					journal.APPLICATION AS accountNote,
+					"014" AS accountCode,
+				CASE
+						
+						WHEN #{languageType}= 'zc' THEN
+						commonmst.ITMNAME 
+						WHEN #{languageType}= 'zt' THEN
+						commonmst.ITEMNAME_HK 
+						WHEN #{languageType}= 'en' THEN
+						commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+					END AS accountName,
+					commonmst.AIDCD AS aidCD,
+				CASE
+						
+						WHEN EXISTS (
+						SELECT
+							* 
+						FROM
+							journal a
+						WHERE
+							a.JOB_NO = jobtrn.JOB_CD 
+							AND a.DEBTOR_CD = "014" 
+							AND a.CREDIT_CD = "010" 
+							AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+							AND a.ORDER_NO = journal.ORDER_NO 
+							) THEN
+							journal.DEBTOR_AMOUNT ELSE "" 
+						END AS debtorAmt,
+							IFNULL((
+						SELECT
+						 CREDIT_AMOUNT 
+						FROM
+							journal a 
+						WHERE
+							a.JOB_NO = jobtrn.JOB_CD 
+							AND a.DEBTOR_CD = "010" 
+							AND a.CREDIT_CD = "014" 
+							AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+							AND a.COMPANY_CD =#{companyID}  
+							AND a.ORDER_NO = journal.ORDER_NO 
+						), "" ) AS creditAmt,
+						journal.ORDER_NO,
+						journal.INPUT_NO,
+						journal.TYPE_FLG AS typeFlg 
+					FROM
+						journal
+						LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+						AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+						LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+						AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+						LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+						AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+						LEFT JOIN commonmst ON "014" = commonmst.ITEMCD 
+						AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+						AND commonmst.MSTCD = "8001" 
+					WHERE
+						journal.COMPANY_CD =#{companyID}  
+						AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+						AND ( journal.DEBTOR_CD = "014" OR journal.CREDIT_CD = "014" ) 
+						AND journal.TYPE_FLG = "2" 
+					GROUP BY
+						jobNo,
+						journal.ORDER_NO,
+						journal.INPUT_NO UNION ALL
+					SELECT
+						clmst.ACCOUNT_CD AS clientAccountCode,
+						clmst.DIVNAME_FULL AS clientName,
+						reqClmst.ACCOUNT_CD AS reqClientCode,
+						reqClmst.DIVNAME_FULL AS reqClientName,
+						jobtrn.JOB_CD AS jobNo,
+						jobtrn.JOB_NAME AS jobName,
+						journal.APPLICATION AS accountNote,
+						case when journal.TYPE_FLG = 1 then "018" else "010" end AS accountCode,
+						CASE
+							WHEN #{languageType}= 'zc' THEN
+								case when journal.TYPE_FLG = 1 then bCommon.ITMNAME else commonmst.ITMNAME  end
+							WHEN #{languageType}= 'zt' THEN
+								case when journal.TYPE_FLG = 1 then bCommon.ITEMNAME_HK else commonmst.ITEMNAME_HK  end
+							WHEN #{languageType}= 'en' THEN
+								case when journal.TYPE_FLG = 1 then bCommon.ITEMNAME_EN else commonmst.ITEMNAME_EN  end
+							ELSE 
+								case when journal.TYPE_FLG = 1 then bCommon.ITEMNAME_JP else commonmst.ITEMNAME_JP  end
+						END AS accountName,
+						case when journal.TYPE_FLG = 1 then bCommon.AIDCD else commonmst.AIDCD  end AS aidCD,
+						IFNULL((SELECT
+							
+						 CREDIT_AMOUNT
+						FROM
+							journal a 
+						WHERE
+							a.JOB_NO = jobtrn.JOB_CD 
+							AND ((a.DEBTOR_CD = "010" AND a.CREDIT_CD = "014" ) or (a.DEBTOR_CD = "018" AND a.CREDIT_CD = "002" ))
+							AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+							AND a.COMPANY_CD =#{companyID}  
+							AND a.ORDER_NO = journal.ORDER_NO 
+						) , "" ) AS debtorAmt,
+					CASE
+							
+							WHEN EXISTS (
+							SELECT
+								* 
+							FROM
+								journal a
+							WHERE
+								a.JOB_NO = jobtrn.JOB_CD 
+								AND ((a.CREDIT_CD = "010" AND a.DEBTOR_CD = "014" ) or (a.DEBTOR_CD = "017" AND a.CREDIT_CD = "018" )) 
+								AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+								AND a.ORDER_NO = journal.ORDER_NO 
+								) THEN
+								journal.CREDIT_AMOUNT ELSE "" 
+							END AS creditAmt,
+							journal.ORDER_NO,
+							journal.INPUT_NO,
+							journal.TYPE_FLG AS typeFlg 
+						FROM
+							journal
+							LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+							AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+							LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+							AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+							LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+							AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+							LEFT JOIN commonmst ON "010" = commonmst.ITEMCD 
+							AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+							AND commonmst.MSTCD = "8001" 
+							LEFT JOIN commonmst as bCommon ON "018" = bCommon.ITEMCD 
+							AND journal.COMPANY_CD = bCommon.COMPANY_CD 
+							AND bCommon.MSTCD = "8001" 
+						WHERE
+							journal.COMPANY_CD =#{companyID}  
+							AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+							AND ( journal.DEBTOR_CD = "010" OR journal.CREDIT_CD = "010" 
+							or journal.DEBTOR_CD = "018" OR journal.CREDIT_CD = "018") 
+						GROUP BY
+							jobNo,
+							journal.ORDER_NO,
+							journal.INPUT_NO UNION ALL
+						SELECT
+							clmst.ACCOUNT_CD AS clientAccountCode,
+							clmst.DIVNAME_FULL AS clientName,
+							reqClmst.ACCOUNT_CD AS reqClientCode,
+							reqClmst.DIVNAME_FULL AS reqClientName,
+							jobtrn.JOB_CD AS jobNo,
+							jobtrn.JOB_NAME AS jobName,
+							journal.APPLICATION AS accountNote,
+							"016" AS accountCode,
+						CASE
+								
+								WHEN #{languageType}= 'zc' THEN
+								commonmst.ITMNAME 
+								WHEN #{languageType}= 'zt' THEN
+								commonmst.ITEMNAME_HK 
+								WHEN #{languageType}= 'en' THEN
+								commonmst.ITEMNAME_EN ELSE commonmst.ITEMNAME_JP 
+							END AS accountName,
+							commonmst.AIDCD AS aidCD,
+						CASE
+								
+								WHEN EXISTS (
+								SELECT
+									* 
+								FROM
+									journal a
+								WHERE
+									a.JOB_NO = jobtrn.JOB_CD 
+									AND a.DEBTOR_CD = "016" 
+									AND a.CREDIT_CD = "014" 
+									AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+									AND a.COMPANY_CD =#{companyID}  
+										AND a.INPUT_NO = journal.INPUT_NO 
+									) THEN
+									journal.DEBTOR_AMOUNT ELSE "" 
+								END AS debtorAmt,
+								IFNULL(
+									(
+									SELECT
+										CREDIT_AMOUNT 
+									FROM
+										journal a 
+									WHERE
+										a.JOB_NO = jobtrn.JOB_CD 
+										AND a.DEBTOR_CD = "014" 
+										AND a.CREDIT_CD = "016" 
+										AND a.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+										AND a.COMPANY_CD =#{companyID}  
+										 AND a.INPUT_NO = journal.INPUT_NO 
+										AND a.TYPE_FLG="3"	
+									),
+									"" 
+								) AS creditAmt,
+								journal.ORDER_NO,
+								journal.INPUT_NO,
+								journal.TYPE_FLG AS typeFlg 
+							FROM
+								journal
+								LEFT JOIN jobtrn ON jobtrn.JOB_CD = journal.JOB_NO 
+								AND jobtrn.COMPANY_CD = journal.COMPANY_CD
+								LEFT JOIN clmst ON jobtrn.CLDIV_CD = clmst.CLDIVCD 
+								AND jobtrn.COMPANY_CD = clmst.COMPANY_CD
+								LEFT JOIN clmst AS reqClmst ON jobtrn.PAYER_CD = reqClmst.CLDIVCD 
+								AND jobtrn.COMPANY_CD = reqClmst.COMPANY_CD
+								LEFT JOIN commonmst ON "016" = commonmst.ITEMCD 
+								AND journal.COMPANY_CD = commonmst.COMPANY_CD 
+								AND commonmst.MSTCD = "8001" 
+							WHERE
+								journal.COMPANY_CD =#{companyID}  
+								AND journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate}, "%Y%m" ) 
+								AND ( journal.DEBTOR_CD = "016" OR journal.CREDIT_CD = "016" ) 
+							GROUP BY
+								jobNo,
+								journal.ORDER_NO,
+								journal.INPUT_NO 
+							) AS b
+							GROUP BY
+							b.clientAccountCode,
+							b.jobNo,
+							b.aidCD 
+							
+							ORDER BY
+								clientAccountCode,
+								reqClientCode,
+								jobNo,
+								aidCD
+	</select>
+	<select id="getAccountCostDetailsList" resultMap="accountEntriesMap">
+	SELECT
+		newjour.clientAccountCode,
+		newjour.clientName,
+		newjour.jobNo,
+		newjour.jobName,
+		newjour.inputNo,
+		newjour.orderName,
+		newjour.accountNote,
+		newjour.accountCode,
+		newjour.accountName,
+		newjour.aidCD,
+		ifnull(sum(newjour.debtorAmt),'') debtorAmt,
+		ifnull(sum(newjour.creditAmt),'') creditAmt,
+		newjour.typeFlg 
+	FROM 
+	(
+		SELECT
+			case
+				when journal.TYPE_FLG = 2 then clmst.ACCOUNT_CD
+				when journal.TYPE_FLG = 3 then usermst.MEMBER_ID
+				when journal.TYPE_FLG = 4 then jobClmst.ACCOUNT_CD
+			end as clientAccountCode,
+			case
+				when journal.TYPE_FLG = 2 then clmst.DIVNAME_FULL
+				when journal.TYPE_FLG = 3 then usermst.USER_NAME
+				when journal.TYPE_FLG = 4 then jobClmst.DIVNAME_FULL
+			end as clientName,
+			jobtrn.JOB_CD as jobNo,
+			jobtrn.JOB_NAME as jobName,
+			journal.INPUT_NO as inputNo,
+			case
+				when journal.TYPE_FLG = 2 then costtrn.COST_NAME
+				when journal.TYPE_FLG = 3 then lendtrn.LEND_NAME
+				when journal.TYPE_FLG = 4 then trantrn.TRAN_NAME
+			end as orderName,
+			"" as accountNote,
+			commonmst.AIDCD as accountCode,
+			case
+				when #{languageType}= 'zc' then commonmst.ITMNAME
+				when #{languageType}= 'zt' then commonmst.ITEMNAME_HK
+				when #{languageType}= 'en' then commonmst.ITEMNAME_EN
+				else commonmst.ITEMNAME_JP
+			end as accountName,
+			commonmst.AIDCD as aidCD,
+			journal.DEBTOR_AMOUNT as debtorAmt,
+			"" as creditAmt,
+			journal.TYPE_FLG as typeFlg
+		FROM journal
+			LEFT JOIN jobtrn on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+			LEFT JOIN clmst on journal.DIVCD = clmst.CLDIVCD and journal.COMPANY_CD = clmst.COMPANY_CD
+			LEFT JOIN commonmst on journal.DEBTOR_CD = commonmst.ITEMCD and journal.COMPANY_CD = commonmst.COMPANY_CD and commonmst.MSTCD="8001"
+			LEFT JOIN costtrn on journal.ORDER_NO = costtrn.COST_NO and journal.COMPANY_CD = costtrn.COMPANY_CD  and journal.TYPE_FLG = 2
+			LEFT JOIN lendtrn on journal.INPUT_NO = lendtrn.INPUT_NO and journal.COMPANY_CD = lendtrn.COMPANY_CD and journal.TYPE_FLG = 3
+			LEFT JOIN trantrn on journal.INPUT_NO = trantrn.INPUT_NO and journal.COMPANY_CD = trantrn.COMPANY_CD and journal.TYPE_FLG = 4
+			LEFT JOIN clmst as jobClmst on jobtrn.CLDIV_CD = jobClmst.CLDIVCD and jobtrn.COMPANY_CD = jobClmst.COMPANY_CD
+			LEFT JOIN usermst on lendtrn.LEND_USER = usermst.USERCD
+		WHERE
+			journal.COMPANY_CD=#{companyID}
+			and (journal.DEBTOR_CD = "009" or journal.DEBTOR_CD = "012")
+			and journal.TYPE_FLG != 1 and journal.TYPE_FLG != 5
+			and journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate},"%Y%m")
+		union all
+		SELECT
+			case
+				when journal.TYPE_FLG = 2 then clmst.ACCOUNT_CD
+				when journal.TYPE_FLG = 3 then usermst.MEMBER_ID
+				when journal.TYPE_FLG = 4 then jobClmst.ACCOUNT_CD
+			end as clientAccountCode,
+			case
+				when journal.TYPE_FLG = 2 then clmst.DIVNAME_FULL
+				when journal.TYPE_FLG = 3 then usermst.USER_NAME
+				when journal.TYPE_FLG = 4 then jobClmst.DIVNAME_FULL
+			end as clientName,
+			jobtrn.JOB_CD as jobNo,
+			jobtrn.JOB_NAME as jobName,
+			journal.INPUT_NO as inputNo,
+			case
+				when journal.TYPE_FLG = 2 then costtrn.COST_NAME
+				when journal.TYPE_FLG = 3 then lendtrn.LEND_NAME
+				when journal.TYPE_FLG = 4 then trantrn.TRAN_NAME
+			end as orderName,
+			
+			case
+				when journal.TYPE_FLG = 3 then 
+					case
+						when #{languageType}= 'zc' then lendCom.ITMNAME
+						when #{languageType}= 'zt' then lendCom.ITEMNAME_HK
+						when #{languageType}= 'en' then lendCom.ITEMNAME_EN
+						else lendCom.ITEMNAME_JP
+					end 
+				else journal.APPLICATION
+			end as accountNote,
+			
+			commonmst.AIDCD as accountCode,
+			case
+			 when journal.TYPE_FLG = 4 then 
+				case
+					when #{languageType}= 'zc' then tranCom.ITMNAME
+					when #{languageType}= 'zt' then tranCom.ITEMNAME_HK
+					when #{languageType}= 'en' then tranCom.ITEMNAME_EN
+					else tranCom.ITEMNAME_JP
+				end
+			 else
+				case
+					when #{languageType}= 'zc' then commonmst.ITMNAME
+					when #{languageType}= 'zt' then commonmst.ITEMNAME_HK
+					when #{languageType}= 'en' then commonmst.ITEMNAME_EN
+					else commonmst.ITEMNAME_JP
+				end
+			 end as accountName,
+			case when journal.TYPE_FLG = 4 then tranCom.AIDCD else commonmst.AIDCD end as aidCD,
+			"" as debtorAmt,
+			journal.CREDIT_AMOUNT as creditAmt,
+			journal.TYPE_FLG as typeFlg
+		FROM journal
+				LEFT JOIN jobtrn on jobtrn.JOB_CD = journal.JOB_NO and jobtrn.COMPANY_CD = journal.COMPANY_CD
+				LEFT JOIN clmst on journal.DIVCD = clmst.CLDIVCD and journal.COMPANY_CD = clmst.COMPANY_CD
+				LEFT JOIN commonmst on journal.CREDIT_CD = commonmst.ITEMCD and journal.COMPANY_CD = commonmst.COMPANY_CD and commonmst.MSTCD="8001"
+				LEFT JOIN commonmst as lendCom on journal.APPLICATION = lendCom.ITEMCD and journal.COMPANY_CD = lendCom.COMPANY_CD and lendCom.MSTCD="9001"
+				LEFT JOIN costtrn on journal.ORDER_NO = costtrn.COST_NO and journal.COMPANY_CD = costtrn.COMPANY_CD  and journal.TYPE_FLG = 2
+				LEFT JOIN lendtrn on journal.INPUT_NO = lendtrn.INPUT_NO and journal.COMPANY_CD = lendtrn.COMPANY_CD and journal.TYPE_FLG = 3
+				LEFT JOIN trantrn on journal.INPUT_NO = trantrn.INPUT_NO and journal.COMPANY_CD = trantrn.COMPANY_CD and journal.TYPE_FLG = 4
+				LEFT JOIN commonmst as tranCom on journal.CREDIT_CD = tranCom.ITEMCD and journal.COMPANY_CD = tranCom.COMPANY_CD and tranCom.MSTCD="9002"
+				LEFT JOIN clmst as jobClmst on jobtrn.CLDIV_CD = jobClmst.CLDIVCD and jobtrn.COMPANY_CD = jobClmst.COMPANY_CD
+				LEFT JOIN usermst on lendtrn.LEND_USER = usermst.USERCD
+		WHERE
+				journal.COMPANY_CD=#{companyID}
+				and (journal.CREDIT_CD = "011" or journal.CREDIT_CD = "013" or (journal.DEBTOR_CD="009" and journal.TYPE_FLG = 4))
+				and journal.TYPE_FLG != 1 and journal.TYPE_FLG != 5
+				and journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate},"%Y%m")
+				) newjour
+				group by 	
+				jobNo,
+				inputNo,
+				AIDCD
+			ORDER BY
+				jobNo,
+			inputNo,
+	AIDCD
+	</select>
+	<select id="getAccountsummaryList" resultMap="accountEntriesMap">
+		SELECT
+			journal.DEBTOR_CD as debtorCD,
+			case
+				when #{languageType}= 'zc' then commonmst.ITMNAME
+				when #{languageType}= 'zt' then commonmst.ITEMNAME_HK
+				when #{languageType}= 'en' then commonmst.ITEMNAME_EN
+				else commonmst.ITEMNAME_JP
+			end as debtorName,
+			commonmst.AIDCD as debtorAidCD,
+			sum(journal.DEBTOR_AMOUNT) as debtorAmt,
+			journal.CREDIT_CD as creditCD,
+			case
+				when #{languageType}= 'zc' then creditCom.ITMNAME
+				when #{languageType}= 'zt' then creditCom.ITEMNAME_HK
+				when #{languageType}= 'en' then creditCom.ITEMNAME_EN
+				else creditCom.ITEMNAME_JP
+			end as creditName,
+			creditCom.AIDCD as creditAidCD,
+			sum(journal.CREDIT_AMOUNT) as creditAmt
+		FROM journal
+			LEFT JOIN commonmst on journal.DEBTOR_CD = commonmst.ITEMCD and journal.COMPANY_CD = commonmst.COMPANY_CD and commonmst.MSTCD="8001"
+			LEFT JOIN commonmst as creditCom on journal.CREDIT_CD = creditCom.ITEMCD and journal.COMPANY_CD = creditCom.COMPANY_CD and creditCom.MSTCD="8001"
+		WHERE journal.COMPANY_CD=#{companyID}
+			and journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate},"%Y%m")
+			and (journal.DEBTOR_CD = "001" or journal.DEBTOR_CD = "017" or journal.DEBTOR_CD = "008"  or journal.DEBTOR_CD = "016"
+					or journal.DEBTOR_CD = "014" or journal.DEBTOR_CD = "010" or journal.DEBTOR_CD = "005" or journal.DEBTOR_CD = "015")
+		GROUP BY journal.DEBTOR_CD,journal.CREDIT_CD
+		ORDER BY commonmst.AIDCD,creditCom.AIDCD
+	</select>
+	<select id="getAccountsummaryConfirmList" resultMap="accountEntriesMap">
+	SELECT
+			journal.DEBTOR_CD as debtorCD,
+			case
+				when #{languageType}= 'zc' then commonmst.ITMNAME
+				when #{languageType}= 'zt' then commonmst.ITEMNAME_HK
+				when #{languageType}= 'en' then commonmst.ITEMNAME_EN
+				else commonmst.ITEMNAME_JP
+			end as debtorName,
+			commonmst.AIDCD as debtorAidCD,
+			sum(journal.DEBTOR_AMOUNT) as debtorAmt,
+			journal.CREDIT_CD as creditCD,
+			case
+				when #{languageType}= 'zc' then creditCom.ITMNAME
+				when #{languageType}= 'zt' then creditCom.ITEMNAME_HK
+				when #{languageType}= 'en' then creditCom.ITEMNAME_EN
+				else creditCom.ITEMNAME_JP
+			end as creditName,
+			creditCom.AIDCD as creditAidCD,
+			sum(journal.CREDIT_AMOUNT) as creditAmt
+		FROM journal
+			LEFT JOIN commonmst on journal.DEBTOR_CD = commonmst.ITEMCD and journal.COMPANY_CD = commonmst.COMPANY_CD and commonmst.MSTCD="8001"
+			LEFT JOIN commonmst as creditCom on journal.CREDIT_CD = creditCom.ITEMCD and journal.COMPANY_CD = creditCom.COMPANY_CD 
+								and creditCom.MSTCD=case when journal.TYPE_FLG='4' then '9002' else '8001' end
+		WHERE journal.COMPANY_CD=#{companyID}
+			and journal.FISCAL_MONTH = DATE_FORMAT(#{outPutDate},"%Y%m")
+			and (journal.DEBTOR_CD = "009" or journal.DEBTOR_CD = "012")
+		GROUP BY journal.DEBTOR_CD,journal.CREDIT_CD
+		ORDER BY commonmst.AIDCD,creditCom.AIDCD
+	</select>
+	<select id="getBeforSaleAccountDataInfomationByMonthCheckout" resultMap="accountEntriesMap">
+		SELECT
+			sellordertrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			#{userId} as addUser,
+			#{addDate} as addDate,
+			#{companyID} as companyID,
+			usermst.MEMBER_ID as membrId,
+			1 as typeFlg,
+			sellordertrn.SALE_AMT as debtorAmt,
+			sellordertrn.SALE_AMT as creditAmt,
+			"017" as debtorCD,
+			"018" as creditCD
+		from sellordertrn
+			left join jobtrn on sellordertrn.JOB_CD = jobtrn.JOB_CD and sellordertrn.COMPANY_CD = jobtrn.COMPANY_CD
+			join journalinvoicetrn on sellordertrn.JOB_CD = journalinvoicetrn.JOB_NO and sellordertrn.COMPANY_CD = journalinvoicetrn.COMPANY_CD
+			join companymst on sellordertrn.COMPANY_CD = companymst.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		where
+			companymst.INVOICE_FLG = 1
+			and sellordertrn.SALEADDDATE > #{monthDate}
+			and journalinvoicetrn.ADDDATE > #{monthDate}
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m") > DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.COMPANY_CD = #{companyID}
+			
+		union all
+		
+		SELECT
+			sellordertrn.JOB_CD as jobNo,
+			"" as inputNo,
+			"" as orderNo,
+			jobtrn.CLDIV_CD as  divCD,
+			"" as application,
+			DATE_FORMAT(#{thisMonth},"%Y%m") as fiscalMonth,
+			#{userId} as addUser,
+			#{addDate} as addDate,
+			#{companyID} as companyID,
+			usermst.MEMBER_ID as membrId,
+			1 as typeFlg,
+			sellordertrn.SALE_AMT as debtorAmt,
+			sellordertrn.SALE_AMT as creditAmt,
+			"018" as debtorCD,
+			"002" as creditCD
+		from sellordertrn
+			left join jobtrn on sellordertrn.JOB_CD = jobtrn.JOB_CD and sellordertrn.COMPANY_CD = jobtrn.COMPANY_CD
+			join journal on sellordertrn.JOB_CD = journal.JOB_NO and sellordertrn.COMPANY_CD = journal.COMPANY_CD
+			left join usermst on usermst.USERCD=#{userId}
+		WHERE
+			journal.DEBTOR_CD = 017 and journal.CREDIT_CD = 018
+			and DATE_FORMAT(sellordertrn.DLVDAY,"%Y%m")=DATE_FORMAT(#{thisMonth},"%Y%m")
+			and sellordertrn.DEL_FLG != 1	
+			AND jobtrn.COMPANY_CD = #{companyID}
+	</select>
+</mapper>

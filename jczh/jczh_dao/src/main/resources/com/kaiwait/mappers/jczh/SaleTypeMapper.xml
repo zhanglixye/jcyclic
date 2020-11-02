@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.SaleTypeMapper">
+	<resultMap id="saleType" type="com.kaiwait.bean.jczh.entity.SaleType">
+		<id column="JOB_CD" property="job_cd" jdbcType="VARCHAR" />
+		<result column="SALE_REMARK" property="sale_remark" jdbcType="VARCHAR" />
+		<result column="SALEADDDATE" property="saleadddate" jdbcType="DATE" />
+		<result column="SALEUPDDATE" property="saleupddate" jdbcType="DATE" />
+		<result column="SALEADDUSERCD" property="saleaddusercd"
+			jdbcType="VARCHAR" />
+		<result column="SALEUPDUSERCD" property="saleupdusercd"
+			jdbcType="VARCHAR" />
+		<result column="SALE_NO" property="sale_no" jdbcType="VARCHAR" />
+		<result column="SALE_AMT" property="sale_foreign_amt" jdbcType="DECIMAL" />
+		<result column="DLVDAY" property="dlvday" jdbcType="DATE" />
+		<result column="SALE_FOREIGN_AMT" property="sale_amt"
+			jdbcType="DECIMAL" />
+		<result column="SALE_USE_DATE" property="sale_use_date"
+			jdbcType="DATE" />
+		<result column="SALE_CURE_CODE" property="sale_cure_code"
+			jdbcType="VARCHAR" />
+		<result column="SALE_REFER" property="sale_refer" jdbcType="VARCHAR" />
+		<result column="SALE_FOREIGN_CODE" property="sale_foreign_code"
+			jdbcType="VARCHAR" />
+		<result column="SALE_ISHAVE" property="sale_ishave" jdbcType="INTEGER" />
+		<result column="SALE_VAT_AMT" property="sale_vat_amt" jdbcType="DECIMAL" />
+		<result column="DEL_FLG" property="del_flg" jdbcType="INTEGER" />
+		<result column="COMPANY_CD" property="company_cd" jdbcType="INTEGER" />
+		<result column="VAT_AMT" property="vat_amt" jdbcType="DECIMAL" />
+		<result column="REQ_AMT" property="req_amt" jdbcType="DECIMAL" />
+		<result column="SALE_TAX1" property="sale_tax1" jdbcType="DECIMAL" />
+		<result column="SALE_TAX2" property="sale_tax2" jdbcType="DECIMAL" />
+		<result column="PLAN_REQ_DATE" property="plan_req_date"
+			jdbcType="DATE" />
+		<result column="SALE_FOREIGN_TYPE" property="sale_foreign_type"
+			jdbcType="VARCHAR" />
+		<result column="SALE_VAT_CHANGE_FLG" property="saleVatChangeFlg"
+			jdbcType="INTEGER" />
+			<result column="LOCK_FLG" property="saleLockFlg"
+			jdbcType="INTEGER" />
+			<result column="sad.USER_NAME" property="saleadduserName" jdbcType="VARCHAR" />
+			<result column="sad.COLORV" property="saleaddcolor" jdbcType="VARCHAR" />
+			<result column="spd.USER_NAME" property="upname" jdbcType="VARCHAR" />
+			<result column="spd.COLORV" property="saleupcolor" jdbcType="VARCHAR" />
+			<result column="SALE_ADMIT_DATE" property="sale_admit_date" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap type="com.kaiwait.bean.jczh.entity.SaleAdmin" id="saleAdmin">
+		<id column="JOB_CD" property="job_cd" jdbcType="VARCHAR" />
+		<result column="JOB_NAME" property="job_name" jdbcType="VARCHAR" />
+		<result column="DLVDAY" property="dlvday" jdbcType="DATE" />
+		<result column="SALE_NO" property="sale_no" jdbcType="VARCHAR" />
+		<result column="PLAN_REQ_DATE" property="plan_req_date" jdbcType="DATE" />
+		<result column="SALE_FOREIGN_CODE" property="sale_foreign_code" jdbcType="VARCHAR" />
+		<result column="SALE_AMT" property="sale_amt" jdbcType="DECIMAL" />
+		<result column="SALE_CURE_CODE" property="sale_cure_code" jdbcType="VARCHAR" />
+		<result column="SALE_USE_DATE" property="sale_use_date" jdbcType="DATE" />
+		<result column="SALE_REFER" property="sale_refer" jdbcType="VARCHAR" />
+		<result column="SALE_FOREIGN_AMT" property="sale_foreign_amt" jdbcType="DECIMAL" />
+		<result column="SALE_VAT_AMT" property="sale_vat_amt" jdbcType="DECIMAL" />
+		<result column="SALE_CURE_CODE" property="sale_cure_code" jdbcType="VARCHAR" />
+		<result column="REQ_AMT" property="req_amt" jdbcType="DECIMAL" />
+		<result column="SALE_REMARK" property="sale_remark" jdbcType="VARCHAR" />
+		<result column="SALE_ADMIT_REMARK" property="sale_admit_remark" jdbcType="VARCHAR" />
+		<result column="SALEADDUSERCD" property="saleaddusercd" jdbcType="VARCHAR" />
+		<result column="SALEUPDDATE" property="saleupddate" jdbcType="DATE" />
+		<result column="PLAN_SALE_FOREIGN_TYPE" property="plan_sale_foreign_type" jdbcType="VARCHAR" />
+		<result column="SALE_CURE_CODE" property="sale_cure_code" jdbcType="VARCHAR" />
+		<result column="PLAN_SALE" property="plan_sale" jdbcType="DECIMAL" />
+		<result column="PLAN_SALE_CURE_CODE" property="plan_sale_cure_code" jdbcType="VARCHAR" />
+		<result column="PLAN_SALE_USE_DATE" property="plan_sale_use_date" jdbcType="DATE" />
+		<result column="PLAN_SALE_REFER" property="plan_sale_refer" jdbcType="VARCHAR" />
+		<result column="PLAN_SALE_FOREIGN_AMT" property="plan_sale_foreign_amt" jdbcType="DECIMAL" />
+		<result column="PLANCOST_TAX" property="plantax" jdbcType="DECIMAL" />
+		<result column="PLAN_REQ_AMT" property="plan_req_amt" jdbcType="DECIMAL" />
+		<result column="UPDDATE" property="upddate" jdbcType="DATE" />
+		<result column="UPDUSERCD" property="updusercd" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="DIVNAME_FULL" property="divname_full" jdbcType="VARCHAR" />
+		<result column="DIVNM" property="divnm" jdbcType="VARCHAR" />
+		<result column="PLAN_COST_AMT" property="plancostamt" jdbcType="DECIMAL" />
+		<result column="PLAN_VAT_AMT" property="planvatamt" jdbcType="DECIMAL" />
+		<result column="PLAN_PAY_AMT" property="planpayamt" jdbcType="DECIMAL" />
+		<result column="COST_FINISH_FLG" property="costfinishflg" jdbcType="VARCHAR" />
+		<result column="SALE_ADMIT_DATE" property="saleadmitdate" jdbcType="VARCHAR" />
+		<result column="fromjpp" property="fromjpp" jdbcType="VARCHAR" />
+		<result column="PLANSALE_TAX_TOTAL" property="plansaletaxtotal" jdbcType="VARCHAR" />
+		<result column="vat_amt" property="vatamt" jdbcType="VARCHAR" />
+		<result column="jobendflg" property="jobendflg" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="baseSql">
+		JOB_CD,
+		SALE_REMARK,
+		SALEADDDATE,
+		SALEUPDDATE,
+		SALEADDUSERCD,
+		SALEUPDUSERCD,
+		SALE_NO,
+		SALE_AMT,
+		DLVDAY,
+		SALE_FOREIGN_AMT,
+		SALE_USE_DATE,
+		SALE_CURE_CODE,
+		SALE_REFER,
+		SALE_FOREIGN_CODE,
+		SALE_ISHAVE,
+		SALE_VAT_AMT,
+		DEL_FLG,
+		COMPANY_CD,
+		VAT_AMT,
+		REQ_AMT,
+		SALE_TAX1,
+		SALE_TAX2,
+		PLAN_REQ_DATE,
+		SALE_FOREIGN_TYPE,
+		SALE_ADMIT_USERCD,
+		SALE_ADMIT_DATE,
+		SALE_CANCEL_DATE,
+		SALE_CANCEL_USERCD,
+		SALE_VAT_CHANGE_FLG,
+		VAT_RATE
+	</sql>
+	<insert id="insertSaleType" parameterType="com.kaiwait.bean.jczh.entity.SaleType">
+		insert into sellordertrn
+		(
+		<include refid="baseSql"></include>
+		)
+		values (
+		#{job_cd,jdbcType=VARCHAR},
+		#{sale_remark,jdbcType=VARCHAR},
+		#{saleadddate,jdbcType=DATE},
+		#{saleupddate,jdbcType=DATE},
+		#{saleaddusercd,jdbcType=VARCHAR},
+		#{saleupdusercd,jdbcType=VARCHAR},
+		#{sale_no,jdbcType=VARCHAR},
+		#{sale_foreign_amt,jdbcType=DECIMAL},
+		#{dlvday,jdbcType=DATE},
+		#{sale_amt,jdbcType=DECIMAL},
+		#{sale_use_date,jdbcType=DATE},
+		#{sale_cure_code,jdbcType=VARCHAR},
+		#{sale_refer,jdbcType=VARCHAR},
+		#{sale_foreign_code,jdbcType=VARCHAR},
+		#{sale_ishave,jdbcType=INTEGER},
+		#{sale_vat_amt,jdbcType=DECIMAL},
+		#{del_flg,jdbcType=INTEGER},
+		#{company_cd,jdbcType=INTEGER},
+		#{vat_amt,jdbcType=DECIMAL},
+		#{req_amt,jdbcType=DECIMAL},
+		#{sale_tax1,jdbcType=DECIMAL},
+		#{sale_tax2,jdbcType=DECIMAL},
+		#{plan_req_date,jdbcType=DATE},
+		#{sale_foreign_type,jdbcType=VARCHAR},
+		#{sale_admit_usercd,jdbcType=VARCHAR},
+		#{sale_admit_date,jdbcType=DATE},
+		#{salecanceldate},
+		#{salecancelusercd},
+		#{saleVatChangeFlg},
+		#{vat_rate,jdbcType=DECIMAL}
+		)
+	</insert>
+	<!-- 查询此job下是否有实际的売上登陆 -->
+	<select id="isHaveRealSaleByJobCd" resultType="INTEGER">
+		select count(*) as num
+		from
+		sellordertrn
+		where JOB_CD = #{jobcd,jdbcType=VARCHAR} and COMPANY_CD = #{company_cd}
+		and DEL_FLG=0
+	</select>
+	<!-- 查询job的实际売上信息 -->
+	<select id="selectSaleTypeByCd" resultMap="saleType">
+		select
+		JOB_CD,
+		SALE_REMARK,
+		SALEADDDATE,
+		SALEUPDDATE,
+		SALEADDUSERCD,
+		SALEUPDUSERCD,
+		SALE_NO,
+		SALE_AMT,
+		DLVDAY,
+		SALE_FOREIGN_AMT,
+		SALE_USE_DATE,
+		SALE_CURE_CODE,
+		SALE_REFER,
+		SALE_FOREIGN_CODE,
+		SALE_ISHAVE,
+		SALE_VAT_AMT,
+		sellordertrn.DEL_FLG,
+		sellordertrn.COMPANY_CD,
+		VAT_AMT,
+		REQ_AMT,
+		SALE_TAX1,
+		SALE_TAX2,
+		PLAN_REQ_DATE,
+		SALE_FOREIGN_TYPE,
+		SALE_ADMIT_USERCD,
+		SALE_ADMIT_DATE,
+		SALE_CANCEL_DATE,
+		SALE_CANCEL_USERCD,
+		SALE_VAT_CHANGE_FLG,
+		sellordertrn.LOCK_FLG,
+		sad.USER_NAME as saleadduserName,
+		sad.COLORV as saleaddcolor,
+		spd.USER_NAME as upname,
+		spd.COLORV as saleupcolor
+		
+		from
+		sellordertrn
+		left join usermst sad on sellordertrn.SALEADDUSERCD = sad.USERCD  
+		left join usermst spd on sellordertrn.SALEUPDUSERCD = spd.USERCD  
+		where sellordertrn.JOB_CD = #{jobcd,jdbcType=VARCHAR} and sellordertrn.COMPANY_CD =
+		#{company_cd,jdbcType=INTEGER} and sellordertrn.DEL_FLG=0
+	</select>
+	<update id="updateSaleType" parameterType="com.kaiwait.bean.jczh.entity.SaleType">
+		update sellordertrn
+		<set>
+			SALE_REMARK = #{sale_remark,jdbcType=VARCHAR},
+			SALEUPDDATE = #{saleupddate,jdbcType=DATE},
+			SALEUPDUSERCD= #{saleupdusercd,jdbcType=VARCHAR},
+			SALE_AMT= #{sale_foreign_amt,jdbcType=DECIMAL},
+			DLVDAY= #{dlvday,jdbcType=DATE},
+			SALE_FOREIGN_AMT= #{sale_amt},
+			SALE_USE_DATE= #{sale_use_date,jdbcType=DATE},
+			SALE_CURE_CODE= #{sale_cure_code,jdbcType=VARCHAR},
+			SALE_REFER= #{sale_refer,jdbcType=VARCHAR},
+			SALE_FOREIGN_CODE= #{sale_foreign_code,jdbcType=VARCHAR},
+			SALE_ISHAVE= #{sale_ishave,jdbcType=INTEGER},
+			SALE_VAT_AMT= #{sale_vat_amt,jdbcType=DECIMAL},
+			VAT_AMT= #{vat_amt,jdbcType=DECIMAL},
+			REQ_AMT= #{req_amt,jdbcType=DECIMAL},
+			SALE_TAX1= #{sale_tax1,jdbcType=DECIMAL},
+			SALE_TAX2= #{sale_tax2,jdbcType=DECIMAL},
+			PLAN_REQ_DATE= #{plan_req_date,jdbcType=DATE},
+			SALE_FOREIGN_TYPE = #{sale_foreign_type,jdbcType=VARCHAR},
+			SALE_ADMIT_USERCD = #{sale_admit_usercd,jdbcType=VARCHAR},
+		    SALE_ADMIT_DATE = #{sale_admit_date,jdbcType=DATE},
+		    SALE_CANCEL_DATE =  #{salecanceldate},
+		    SALE_CANCEL_USERCD = #{salecancelusercd},
+		    SALE_VAT_CHANGE_FLG = #{saleVatChangeFlg},
+		    VAT_RATE = #{vat_rate},
+		    LOCK_FLG = #{saleLockFlg}
+		</set>
+		where
+		JOB_CD = #{job_cd,jdbcType=VARCHAR} and COMPANY_CD =
+		#{company_cd,jdbcType=INTEGER} and DEL_FLG = 0
+	</update>
+	<select id="selectSaleAdmin" resultMap="saleAdmin">
+		SELECT
+		sellordertrn.JOB_CD as job_cd,
+		sellordertrn.SALE_NO as sale_no,
+		sellordertrn.DLVDAY as dlvday,
+		sellordertrn.PLAN_REQ_DATE as plan_req_date,
+		sellordertrn.SALE_FOREIGN_CODE as sale_foreign_code,
+		sellordertrn.SALE_AMT as sale_foreign_amt,
+		sellordertrn.SALE_CURE_CODE as sale_cure_code,
+		sellordertrn.SALE_USE_DATE as sale_use_date,
+		sellordertrn.SALE_REFER as sale_refer,
+		sellordertrn.SALE_FOREIGN_AMT as sale_amt,
+		sellordertrn.SALE_VAT_AMT as sale_vat_amt,
+		sellordertrn.VAT_AMT as vat_amt,
+		sellordertrn.REQ_AMT as req_amt,
+		sellordertrn.SALE_ISHAVE as saleishave,
+		sellordertrn.SALE_REMARK as sale_remark,
+		sellordertrn.SALE_ADMIT_REMARK as sale_admit_remark,
+		sellordertrn.SALEADDUSERCD as saleupdusercd,
+		sellordertrn.SALEUPDDATE as saleupddate,
+		sellordertrn.SALE_ADMIT_DATE,
+		sellordertrn.SALE_ADMIT_USERCD as saleadmitusercd,
+		jobtrn.JOB_NAME as job_name,
+		jobtrn.PLAN_SALE_FOREIGN_TYPE as plan_sale_foreign_type,
+		jobtrn.PLAN_SALE as plan_sale_foreign_amt,
+		jobtrn.PLAN_SALE_CURE_CODE as plan_sale_cure_code,
+		jobtrn.PLAN_SALE_USE_DATE as plan_sale_use_date,
+		jobtrn.PLAN_SALE_REFER as plan_sale_refer,
+		jobtrn.PLAN_SALE_FOREIGN_AMT as plan_sale ,
+		jobtrn.PLANSALE_TAX_TOTAL as plansaletaxtotal,
+		jobtrn.PLANCOST_TAX as plantax,
+		jobtrn.PLAN_REQ_AMT as plan_req_amt,
+		jobtrn.PLAN_SALE_ISHAVE as planishave,
+		jobtrn.UPDDATE as upddate,
+		jobtrn.UPDUSERCD as updusercd,
+		jobtrn.REMARK as remark,
+		jobtrn.JOBEND_FLG as jobendflg,
+		jobtrn.PLAN_COST_AMT as plancostamt,
+		jobtrn.PLAN_VAT_AMT as planvatamt,
+		jobtrn.PLAN_PAY_AMT as planpayamt,
+		jobtrn.COST_FINISH_FLG as costfinishflg,
+		jobtrn.FROM_JPP as fromjpp,
+		count(*) as costnum,
+		clmst.DIVNAME_FULL as divname_full,
+		clmst.DIVNM as divnm
+		from
+		jobtrn
+		left join sellordertrn on jobtrn.JOB_CD = sellordertrn.JOB_CD and sellordertrn.DEL_FLG = 0 and sellordertrn.COMPANY_CD=#{company_cd}
+		left join clmst on jobtrn.CLDIV_CD = clmst.CLDIVCD and clmst.COMPANY_CD=#{company_cd} and clmst.CLIENT_FLG = 1 
+		where
+		jobtrn.JOB_CD = #{jobcd,jdbcType=VARCHAR}  and jobtrn.DEL_FLG =
+		0  and jobtrn.COMPANY_CD = #{company_cd} 
+		 
+
+	</select>
+  
+	<update id="updateSaleStatus">
+		update sellordertrn
+		  <set>
+			SALE_ADMIT_USERCD = #{upuser_cd,jdbcType=VARCHAR},
+			SALE_ADMIT_DATE = #{admin_date},
+			SALE_ADMIT_REMARK = #{sale_admit_remark,jdbcType=VARCHAR},
+			LOCK_FLG = #{saleLockFlg}
+		</set>
+		where JOB_CD = #{jobcd,jdbcType=VARCHAR} and COMPANY_CD =
+		#{company_cd,jdbcType=INTEGER} and DEL_FLG = 0
+	</update>
+	<select id="selectReqByCd" resultType="com.kaiwait.bean.jczh.entity.ReqInfo">
+	  select 
+	    JOB_CD as jobcd,
+		REQ_CD as reqcd,
+		REQ_AMT as reqamt,
+		REQ_DATE as reqdate,
+		reqtrn.ADDDATE as adddate,
+		reqtrn.`UPDATE` as `update`,
+		reqtrn.ADDUSERCD as addusercd, 
+		reqtrn.UPUSERCD  as usercd,
+		usermst.USER_NAME as upname,
+		reqtrn.REQ_TIMES as reqtimes,
+		usermst.COLORV as reqcolor
+		from 
+		reqtrn 
+		left join usermst on  reqtrn.UPUSERCD = usermst.USERCD 
+		where 
+		reqtrn.JOB_CD = #{jobcd} and reqtrn.COMPANY_CD = #{companycd} and reqtrn.DEL_FLG = 0
+		<if test="reqcd!=null and reqcd!=''">
+		and reqtrn.REQ_CD = #{reqcd}
+		</if>
+	</select>
+	<select id="selectInvoiceInfoByCd" resultType="com.kaiwait.bean.jczh.entity.InvoiceInfo">
+	   select 
+	    invoicetrn.JOB_CD as jobcd,
+		invoicetrn.INVOICD_NO as invoicdno,
+		invoicetrn.INVOICE_AMT as invoiceamt,
+		invoicetrn.INVOICE_DATE as invoicedate,
+		invoicetrn.INVOICE_USERCD as incoiceusercd,
+		invoicetrn.INVOICE_TIMES as invoicetimes,
+		invoicetrn.ADDDATE as adddate,
+		invoicetrn.`UPDATE` as `update`,
+		invoicetrn.ADDUSERCD  as addusercd,
+		invoicetrn.UPUSERCD   as upusercd,
+		usermst.USER_NAME as upname,
+		usermst.COLORV as invcolor
+	    from invoicetrn
+	    left join usermst on invoicetrn.UPUSERCD = usermst.USERCD 
+	    where 
+	    	invoicetrn.JOB_CD = #{jobcd} and invoicetrn.COMPANY_CD = #{companycd} and invoicetrn.DEL_FLG = 0
+		<if test="invoicdno!=null and invoicdno!=''">
+		and invoicetrn.INVOICD_NO = #{invoicdno}
+		</if>
+	</select>
+	<insert id="insertToReq">
+	  insert into reqtrn
+	   (
+	    JOB_CD,
+		REQ_CD,
+		REQ_AMT,
+		REQ_DATE,
+		REQ_TIMES,
+		ADDDATE,
+		`UPDATE`,
+		ADDUSERCD,
+		UPUSERCD,
+		DEL_FLG,
+		COMPANY_CD
+	   )
+	   values
+	   (
+	    #{jobcd},
+	    #{reqcd},
+	    #{reqamt},
+	    #{reqdate},
+	    #{reqtimes},
+	    #{adddate},
+	    #{update},
+	    #{addusercd},
+	    #{upusercd},
+	    #{delflg},
+	    #{companycd}
+	   )
+	</insert>
+	<update id="updateToReq">
+	 update reqtrn
+	  <set>
+	    REQ_TIMES = #{reqtimes},
+	    `UPDATE` = #{update},
+	    UPUSERCD= #{upusercd}
+	  </set>
+	  where 
+	   JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+	 </update>
+	 <insert id="insertToInvoic">
+	  insert into  invoicetrn 
+	  (
+	    JOB_CD,
+		INVOICD_NO,
+		INVOICE_AMT,
+		INVOICE_DATE,
+		INVOICE_USERCD,
+		INVOICE_TIMES,
+		ADDDATE,
+		`UPDATE`,
+		ADDUSERCD,
+		UPUSERCD,
+		DEL_FLG,
+		COMPANY_CD
+	  )
+	  values
+	  (
+	  #{jobcd},
+	  #{invoicdno},
+	  #{invoiceamt},
+	  #{invoicedate},
+	  #{invoiceusercd},
+	  #{invoicetimes},
+	  #{adddate},
+	  #{update},
+	  #{addusercd},
+	  #{upusercd},
+	  #{delflg},
+	  #{companycd}
+	  )
+	 </insert>
+	 <update id="updateToInvoic">
+	  update invoicetrn 
+	  <set>
+	  INVOICE_TIMES = #{invoicetimes},
+	  `UPDATE` = #{update},
+	  UPUSERCD= #{upusercd}
+	 </set>
+	 where 
+	   JOB_CD = #{jobcd} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+	 </update>
+	 <select id="realSale" resultType="com.kaiwait.bean.jczh.entity.RealSaleCost">
+	  select 
+		  sum(r.amt) as amt,
+		  sum(r.vatamt) as vatamt,
+		  sum(r.payamt) as payamt
+	  from (
+	  select 
+		  sum(IFNULL(paytrn.PAY_AMT,costtrn.COST_RMB)) as amt,
+		  sum(IFNULL(paytrn.PAY_VAT_AMT,costtrn.COST_VAT_AMT)) as vatamt,
+		  sum(IFNULL(paytrn.PAY_RMB,costtrn.COST_PAY_AMT)) as payamt
+		from  costtrn 
+		  left join paytrn on costtrn.INPUT_NO = paytrn.INPUT_NO  and paytrn.COMPANY_CD = #{companycd} and paytrn.DEL_FLG = 0
+		where costtrn.JOB_CD = #{jobcd} and costtrn.COMPANY_CD = #{companycd} and costtrn.DEL_FLG = 0
+		     
+		  union all
+		select 
+		  sum(LEND_AMT) as amt,
+		  sum(LEND_VAT_AMT) as vatamt,
+		  sum(LEND_PAY_AMT) as payamt
+	 from 
+		  lendtrn
+		where lendtrn.JOB_CD= #{jobcd} and lendtrn.COMPANY_CD = #{companycd} and lendtrn.DEL_FLG = 0
+		union all
+		  select 
+		  sum(TRAN_AMT) as amt,
+		  "" as vatamt,
+		  "" as payamt
+	from 
+		  trantrn
+		where 
+		  trantrn.JOB_CD = #{jobcd} and trantrn.COMPANY_CD = #{companycd} and trantrn.DEL_FLG = 0
+		  ) r
+	  
+	 </select>
+	 <delete id="deleteTimes">
+	   delete from ${dbname}
+	   where JOB_CD = #{jobcd} and COMPANY_CD = #{companycd}
+	 </delete>
+	 
+	 <select id="selReq" resultType="com.kaiwait.bean.jczh.entity.ReqInfo">
+	    SELECT
+			JOB_CD AS jobcd,
+			REQ_AMT AS amt,
+			REQ_CD AS reqcd,
+			REQ_DATE AS reqdate,
+			REQ_TIMES AS reqtimes,
+			ADDDATE AS adddate,
+			`UPDATE` AS `update`,
+			ADDUSERCD AS addusercd,
+			UPUSERCD AS upusercd
+		FROM
+			reqtrn
+		WHERE
+			JOB_CD = #{jobcd} and COMPANY_CD =#{companycd} and DEL_FLG= 0
+	 
+	 </select>
+	 <select id="selInv" resultType="com.kaiwait.bean.jczh.entity.InvoiceInfo">
+	 select 
+		JOB_CD as jobcd,
+		INVOICD_NO as invoicdno,
+		INVOICE_AMT as invoiceamt,
+		INVOICE_DATE as invoicedate,
+		INVOICE_USERCD as invoiceusercd,
+		INVOICE_TIMES as invoicetimes,
+		ADDDATE as adddate,
+		`UPDATE` as `update`,
+		ADDUSERCD as addusercd,
+		UPUSERCD as upusercd
+		from invoicetrn
+		WHERE
+			JOB_CD = #{jobcd} and COMPANY_CD =#{companycd} and DEL_FLG= 0
+	 </select>
+</mapper>

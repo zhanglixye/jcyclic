@@ -1,0 +1,116 @@
+<div class="panel panel-default">
+	<div class="panel-heading fas_head i18n" name="toplogin_original"></div>
+	<div class="" style="padding: 10px;">
+		<div class="row dot_title yujia">
+			<div class="col-xs-8 i18n" name='timesheet_list_total_cost'>
+				
+			</div>
+			<div class="col-xs-4 flex-right" style="padding-right: 25px;">
+				<div class="person_code">RMB</div>
+				<div id="orderAmtTotal" style="margin-right: 5px;"></div>
+			</div>
+		</div>
+		<div class="panel panel-default" style="margin-top: 5px;">
+			<div class="panel-heading fas_head" style="display: flex;justify-content: space-between;">
+				<div class="i18n" name='payment_info_annotation'></div>
+				<div class="head_ti point" onmouseover="mouseOver()" onmouseout="mouseOut()" onclick="searchJobListByMonthCheckOut('cost','','2')" style="padding-right: 15px;background-color: #f5f7f7;">
+					<div class="i18n" name='month_stay'></div>
+					<div class="underline" id="payReqNotConfirmNums"></div>
+					<div class="i18n" name="jian"></div>
+
+				</div>	
+			</div>	
+			<div class="panel-body ov" style="padding: 5px 10px;">
+				<div class="row dot_title yujia">
+					<div class="col-xs-8 i18n" name='timesheet_list_total'>
+						
+					</div>
+					<div class="col-xs-4 flex-right">
+						<div class="person_code">RMB</div>
+						<div id="costAmTotal" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+				<div class="row dot_body point">
+					<div class="col-xs-7 col-xs-offset-1 i18n" name='suppliersRetrieval_ok'>
+						
+					</div>
+					<div class="col-xs-4 flex-right" style="padding-right: 25px;">
+						<div class="person_code">RMB</div>
+						<div id="confirmCostAmt" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+				<div class="row dot_body point">
+					<div class="col-xs-7 col-xs-offset-1 i18n" name='month_jianwen'>
+						
+					</div>
+					<div class="col-xs-4 flex-right" style="padding-right: 25px;">
+						<div class="person_code">RMB</div>
+						<div id="notConfirmCostAmt" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" style="margin-top: 5px;">
+			<div class="panel-heading fas_head" style="display: flex;justify-content: space-between;">
+				<div class="i18n" name='liti'></div>
+				<div class="head_ti point" onclick="searchJobListByMonthCheckOut('cost','','3')" onmouseover="mouseOverf()" onmouseout="mouseOutf()" style="padding-right: 15px;background-color: #f5f7f7;">
+					<div class="i18n" name='month_stay'></div>
+					<div class="underlinef" id="notConfirmLendNums"></div>
+					<div class="i18n" name="jian"></div>
+
+				</div>	
+			</div>	
+			<div class="panel-body ov" style="padding: 5px 10px;">
+				<div class="row dot_title yujia">
+					<div class="col-xs-8 i18n" name='timesheet_list_total'>
+						
+					</div>
+					<div class="col-xs-4 flex-right">
+						<div class="person_code">RMB</div>
+						<div id="lendAmtTotal" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+				<div class="row dot_body point">
+					<div class="col-xs-7 col-xs-offset-1 i18n" name='suppliersRetrieval_ok'>
+						
+					</div>
+					<div class="col-xs-4 flex-right" style="padding-right: 25px;">
+						<div class="person_code">RMB</div>
+						<div id="confirmLendAmt" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+				<div class="row dot_body point">
+					<div class="col-xs-7 col-xs-offset-1 i18n" name='month_jianwen'>
+						
+					</div>
+					<div class="col-xs-4 flex-right" style="padding-right: 25px;">
+						<div class="person_code">RMB</div>
+						<div id="notConfirmLendAmt" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" style="margin-top: 5px;">
+			<div class="panel-heading fas_head" style="display: flex;justify-content: space-between;">
+				<div class="i18n" name='zhenti'></div>
+				<div class="head_ti point" onclick="searchJobListByMonthCheckOut('cost','','4')" onmouseover="mouseOvers()" onmouseout="mouseOuts()" style="padding-right: 15px;background-color: #f5f7f7;">
+					<div class="i18n" name='month_stay'></div>
+					<div class="underlines" id="notConfirmTranNums"></div>
+					<div class="i18n" name="jian"></div>
+
+				</div>	
+			</div>	
+			<div class="panel-body ov" style="padding: 5px 10px;">
+				<div class="row dot_title yujia">
+					<div class="col-xs-8 i18n" name='timesheet_list_total'>
+						
+					</div>
+					<div class="col-xs-4 flex-right">
+						<div class="person_code">RMB</div>
+						<div id="tranTotalAmt" style="margin-right: 5px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

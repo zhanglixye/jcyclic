@@ -1,0 +1,303 @@
+.news:hover{
+	background-color: #DDDDDD;
+}
+.next_font span{
+	font-size: 10px;
+
+}
+.border_top{
+	margin: 5px 0 9px 0;
+	border-top: 1px solid #ccc;
+}
+.middle_bottom{
+	margin-top: 5px;
+}
+.middle_bottom_text{
+	margin-top: 16px;
+}
+.tj-b,.tj-b-t{
+	width: 100%;
+} 
+.text_right{
+	text-align: right;
+}
+
+
+.setblock ul li span {
+	cursor:pointer;
+}
+.setblock ul li span:hover {
+	 text-decoration:underline;
+}
+#panel-part .news{
+	cursor:pointer;
+}
+.color{
+	background-color:#ffe48d !important;
+}
+b span{
+	/*position: relative;*/
+	/*bottom: 5px;*/
+}
+.text-muted{
+	margin-left: 5px;
+	position: relative;
+	top: 5px;
+}
+.date span{
+	position: relative;
+	top: 6px;
+}
+
+.news {
+	width: 100%;
+	float: left;
+	height: 43px;
+	line-height: 43px;
+}
+
+.newsz {
+	width: 97%;
+	float: left;
+	height: 43px;
+	line-height: 43px;
+	border-bottom: 1px dashed #dddddd;
+	overflow: hidden;
+}
+
+.news div {
+	float: left;
+}
+
+.news-d {
+	width: 3%;
+	height: 43px;
+	color: #29bb9c;
+}
+
+.news-l {
+	width: 40px;
+	text-align: center
+}
+
+.news-l i {
+	color: #29bb9c
+}
+
+.news-l .n {
+	color: #999999
+}
+
+.news-r {
+	float: right!important;
+	width: 84px;
+}
+
+.news-r-t {
+	float: right!important;
+	width: 84px;
+	text-align: right;
+	color: #282828;
+	height: 21px;
+	line-height: 35px;
+}
+
+.news-r-b {
+	float: right!important;
+	width: 84px;
+	text-align: right;
+	color: #7c7b7b;
+	height: 21px;
+	line-height: 21px;
+	font-size: 12px;
+}
+
+.news-r1 {
+	float: right!important;
+	text-align: left;
+	color: #7c7b7b;
+	height: 43px;
+	line-height: 43px;
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.news-m span.title_label{
+	font-weight: bold;
+}
+
+.vs .news-l i {
+	color: #999999
+}
+
+.vs .news-d {
+	width: 3%;
+	height: 43px;
+	color: #29bb9c;
+	visibility: hidden;
+}
+
+.vs .news-m span.title_label{
+	font-weight: normal;
+}
+
+.setblock ul {
+	width: 100%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.setblock ul li {
+	float: left;
+	list-style: none;
+	background: #00b0f0;
+	padding: 0 3px;
+	margin: 5px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.setblock ul li span {
+	height: 27px;
+	line-height: 27px;
+	padding:0 5px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.gl	 ul li {
+	float: left;
+	list-style: none;
+	background: #f97923!important;
+	padding: 0 3px;
+	margin: 5px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+nav::-webkit-scrollbar {
+	display: none;
+}
+
+.log-sidebar {
+	width: 35.2%;
+}
+
+.tj {
+	width: 100%;
+	float: left
+}
+
+.tj div {
+	float: left
+}
+
+.tj-t {
+	width: 100%;
+	margin-bottom: 10px;
+	flex: 1;
+}
+
+.tj-t-l {
+	width: 40%;
+	padding: 10px 10px 0 0;
+}
+
+@media screen and (max-width: 1540px) {
+	.tj-t-r {
+		width: 50%;
+	}
+
+	.tj-t {
+		width: 100%;
+	}
+}
+
+.tj-b-t {
+	margin-bottom: 15px;
+}
+
+.panel-heading span {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+canvas {
+	width: 100%!important;
+	height: 100%!important;
+}	
+.pr-0{
+	padding-right: 0;
+}
+.whether_the_skip .radio label{ 
+	padding: 0;
+}
+div.news-r1{
+	transform:rotate(90deg);
+	-ms-transform: rotate(90deg);		/* IE 9 */
+	-webkit-transform: rotate(90deg);	/* Safari and Chrome */
+	-o-transform: rotate(90deg);		/* Opera */
+	-moz-transform: rotate(90deg);
+}
+div.panel-body .panel.panel-default.col-md-12.active{
+	background: #f5f5f5;
+	box-shadow: 0px 3px 5px #d4d4d4;
+}
+
+.flex-column{
+	display: flex;
+	flex-direction: column;
+}
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+	position: inherit;
+}

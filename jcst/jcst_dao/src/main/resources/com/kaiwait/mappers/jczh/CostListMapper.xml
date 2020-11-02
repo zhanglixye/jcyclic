@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.CostListMapper">
+	<resultMap type="com.kaiwait.bean.jczh.vo.CostListVo" id="CostListVo">
+
+	</resultMap>
+	<sql id="baseSql">
+select * from (SELECT
+	j.JOB_CD as jobcd,
+	j.JOB_NAME as jobName,
+	j.CLDIV_CD as cldivcd,
+	j.SALE_TYP as saletype,
+	salemst.SALE_NAME as salename,
+	ifnull(sellordertrn.DLVDAY,j.PLAN_DALDAY) as dalday,
+	"" as jobendflg,
+	j.JOBEND_FLG as jobendflgcd,
+	"" as accountflg,
+	j.ACCOUNT_FLG as accountflgcd,
+	IFNULL(sellordertrn.SALE_AMT,j.PLAN_SALE) as saleamt,
+	commonmst.ITMNAME as diszc,
+    commonmst.ITEMNAME_EN as disen,
+    commonmst.ITEMNAME_HK as diszt,
+    commonmst.ITEMNAME_JP as disjp,
+    commonmst.ITEMCD as discd,
+	c.COST_NO as costno,
+	c.INPUT_NO as inputno,
+	c.PAYEE_CD as paycd,
+	c.COST_NAME as `name`,
+	"" as statuszc,
+	c.`STATUS` as statuscd,
+	ifnull(p.PAY_AMT,c.COST_RMB) as amt,
+	ifnull(p.PAY_VAT_AMT,c.COST_VAT_AMT) as vatamt,
+	ifnull(p.PAY_RMB,COST_PAY_AMT) as payamt,	
+	ifnull(p.ADDDATE,c.ADDDATE) as adddate,
+	p.PAYREQDATE as payreqdate,
+	p.CONFIRMDATE as confirmdate,
+	"" as outputflgzc,
+	c.OUTPUT_FLG as outputflgcd,
+	"" as payflgzc,
+	p.PAY_FLG as payflgcd,
+	p.LOCK_FLG as paylockflg,
+	ifnull(payinvoice.INVOICE_NO,invoiceintrn.INVOICE_NO) as invoicno,
+	ifnull(payinvoice.INVOICE_DATE,invoiceintrn.INVOICE_DATE) as invoicedate,
+	ifnull(p.ADDUSERCD,c.ADDUSERCD) as addusercd,
+  ifnull(upad.USER_NAME,ucad.USER_NAME) as addusername,
+	p.PAYREQEMP as payreqemp,
+  ureq.USER_NAME as payreqempname,
+	p.CONFIRMEMP as confirmemp,
+  ucfm.USER_NAME as confirmempname,
+	p.PAY_DLYDAY as paydlyday,
+	c.PLAN_DLVDAY as plandlvday,
+	p.PAY_HOPE_DATE as payhopedate,
+	"" as lenddate,
+	"" as lenduser,
+	"" as lendname,
+	"" as tranitemcode,
+	"" as tranitemnamezc,
+ "" as tranitemnameen,
+ "" as tranitemnamejp,
+"" as tranitemnamezt,
+	p.REMARK as remark,
+	c.COST_TYPE as costtype,
+	p.PAY_DATE as paydate,
+	p.PAY_PLAN_DATE as payplandate,
+	col.lable as lable,
+	col.lableid as lableid,
+	col.lablelevel as lablelevel,
+	j.COMPANY_CD as companycd,
+	cl1.DIVNM as cldivname,
+	cl1.DIVNAME_FULL as cldivfullname,
+	cl2.DIVNM as payeename,
+	cl2.DIVNAME_FULL as payeefullname,
+	"" as bl,
+	adMst.USERCD as adusercd,
+	reqMst.USERCD as requsercd,
+	mdMst.USERCD as mdusercd,
+	p.PAY_REMARK as payremark
+from	jobtrn as j
+	join costtrn as c on j.JOB_CD = c.JOB_CD and c.DEL_FLG = 0 and c.COMPANY_CD = #{companycd}
+	left join paytrn as p on c.INPUT_NO = p.INPUT_NO and p.DEL_FLG = 0 and p.COMPANY_CD = #{companycd}
+	left join clmst as cl1 on j.CLDIV_CD = cl1.CLDIVCD and cl1.COMPANY_CD= #{companycd} and  cl1.CLIENT_FLG = 1
+	left join clmst as cl2 on cl2.CLDIVCD = c.PAYEE_CD and cl2.COMPANY_CD= #{companycd} AND cl2.CONTRA_FLG = 1
+	left join invoiceintrn on invoiceintrn.COST_NO = c.COST_NO and invoiceintrn.DEL_FLG = 0 and invoiceintrn.COMPANY_CD = #{companycd}
+	left join invoiceintrn as payinvoice on payinvoice.COST_NO = p.INPUT_NO and payinvoice.DEL_FLG = 0 and payinvoice.COMPANY_CD = #{companycd}
+	<!-- left join orderlabeltrn on orderlabeltrn.COST_NO = c.COST_NO  and orderlabeltrn.COMPANY_CD = #{companycd} and orderlabeltrn.LABEL_LEVEL = 0
+	left join labelmst as lb on lb.LABEL_ID = orderlabeltrn.LABEL_ID and lb.COMPANY_CD = #{companycd} and lb.LABEL_TYPE = 1 and lb.DEL_FLG=0 -->
+	left join sellordertrn on sellordertrn.JOB_CD = j.JOB_CD and sellordertrn.COMPANY_CD = #{companycd} and sellordertrn.DEL_FLG = 0
+    left join commonmst on commonmst.MSTCD = "0003" and commonmst.ITEMCD= "001" and  commonmst.COMPANY_CD  = #{companycd} and commonmst.DEL_FLG = 0
+    left join salemst on j.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = #{companycd} and salemst.DEL_FLG = 0
+    left join usermst upad on upad.USERCD = p.ADDUSERCD 
+	left join usermst ucad on ucad.USERCD = c.ADDUSERCD  
+	left join usermst ucfm on ucfm.USERCD = p.CONFIRMEMP  
+	left join usermst ureq on ureq.USERCD = p.PAYREQEMP   
+	  <!-- 关联权限 --><!--  责任者的关联条件 -->
+    left join jobuserstrn jobAduser
+    on j.JOB_CD = jobAduser.JOB_CD and jobAduser.LEVEL_FLG = '1' and jobAduser.COMPANY_CD = #{companycd} and jobAduser.DEL_FLG = 0
+    left join usermst adMst 
+    on adMst.USERCD = jobAduser.USERCD 
+     <!-- 关联权限 --><!--  担当者的关联条件 -->
+    left join jobuserstrn jobRequser
+    on j.JOB_CD = jobRequser.JOB_CD and jobRequser.LEVEL_FLG = '2' and jobRequser.COMPANY_CD = #{companycd} and jobRequser.DEL_FLG = 0
+    left join usermst reqMst 
+    on reqMst.USERCD = jobRequser.USERCD  
+     <!-- 关联权限 --><!--  md的关联条件 -->
+     left join jobuserstrn jobMduser
+    on j.JOB_CD = jobMduser.JOB_CD and jobMduser.LEVEL_FLG = '3' and jobMduser.COMPANY_CD = #{companycd} and jobMduser.DEL_FLG = 0
+    left join usermst mdMst 
+    on mdMst.USERCD = jobMduser.USERCD  
+
+    LEFT JOIN
+(
+ SELECT
+	c.JOB_CD as jobcd,
+    c.COST_NO as costno,
+    GROUP_CONCAT(lb.LABEL_TEXT order by lb.LABEL_LEVEL desc separator '  ') as lable,
+	GROUP_CONCAT(lb.LABEL_ID order by lb.LABEL_LEVEL desc separator '  ') as lableid,
+	GROUP_CONCAT(lb.LABEL_LEVEL order by lb.LABEL_LEVEL desc separator '  ') as lablelevel
+FROM
+	costtrn c
+LEFT JOIN orderlabeltrn ON orderlabeltrn.COST_NO = c.COST_NO
+AND orderlabeltrn.COMPANY_CD = #{companycd}
+AND (orderlabeltrn.LABEL_LEVEL = 0 or orderlabeltrn.LABEL_LEVEL = 1)
+LEFT JOIN labelmst AS lb ON lb.LABEL_ID = orderlabeltrn.LABEL_ID
+AND lb.COMPANY_CD = #{companycd}
+AND lb.LABEL_TYPE = 1
+AND lb.DEL_FLG = 0
+GROUP BY jobcd,costno
+
+
+) col on col.costno =  c.COST_NO
+   where j.COMPANY_CD = #{companycd} and j.DEL_FLG = 0
+group by j.JOB_CD,c.COST_NO 
+union all 
+ SELECT
+	j.JOB_CD AS jobcd,
+	j.JOB_NAME as jobName,
+	j.CLDIV_CD AS cldivcd,
+	j.SALE_TYP AS saletype,
+	salemst.SALE_NAME as salename,
+	ifnull(sellordertrn.DLVDAY,j.PLAN_DALDAY) as dalday,
+	"" as jobendflg,
+	j.JOBEND_FLG as jobendflgcd,
+	"" as accountflg,
+	j.ACCOUNT_FLG as accountflgcd,
+	IFNULL(
+		sellordertrn.SALE_AMT,
+		j.PLAN_SALE
+	) AS saleamt,
+	commonmst.ITMNAME as diszc,
+    commonmst.ITEMNAME_EN as disen,
+    commonmst.ITEMNAME_HK as diszt,
+    commonmst.ITEMNAME_JP as disjp,
+    commonmst.ITEMCD as discd,
+	"" AS cost_no,
+	l.INPUT_NO AS inputno,
+	"" AS paycd,
+	l.LEND_NAME AS `name`,
+	"" as statuszc,
+	l.`STATUS` as statuscd,
+	l.LEND_AMT AS amt,
+	l.LEND_VAT_AMT AS vatamt,
+	l.LEND_PAY_AMT AS payamt,
+	l.ADDDATE AS adddate,
+	NULL AS payreqdate,
+	l.CONFIRMDATE AS confirmdate,
+	"" AS outputflgzc,
+	"" as outputflgcd,
+	"" as payflgzc,
+	"" as payflgcd,
+	"" as paylockflg,
+	"" AS invoicno,
+	"" AS invoicedate,
+		l.ADDUSERCD AS addusercd, 
+  lad.USER_NAME as addusername,
+	"" AS payreqemp,
+  "" as payreqempname,
+	l.CONFIRMEMP AS confirmemp,
+  lcfm.USER_NAME as confirmempname,
+	"" AS paydlyday,
+	"" AS plandlvday,
+	"" AS pay_hopedate,
+	l.LEND_DATE AS lenddate,
+	usermst.USER_NAME AS lenduser,
+	l.LEND_NAME AS lendname,
+	"" AS tranitemcode,
+"" as tranitemnamezc,
+ "" as tranitemnameen,
+ "" as tranitemnamejp,
+"" as tranitemnamezt,
+	l.REMARK AS remark,
+	"" AS costtype,
+	"" AS paydate,
+	"" AS payplandate,
+	lol.lable as lable,
+	lol.lableid as lableid,
+	lol.lablelevel as lablelevel,
+	j.COMPANY_CD AS companycd,
+	cl1.DIVNM AS cldivname,
+	cl1.DIVNAME_FULL as cldivfullname,
+	"" as payeename,
+	cl2.DIVNAME_FULL as payeefullname,
+	l.BL_FLG as bl,
+	adMst.USERCD as adusercd,
+	reqMst.USERCD as requsercd,
+	mdMst.USERCD as mdusercd,
+	""  as payremark
+FROM
+	jobtrn j
+	JOIN lendtrn l ON l.JOB_CD = j.JOB_CD and  l.COMPANY_CD =#{companycd} and l.DEL_FLG = 0
+	LEFT JOIN clmst cl1 ON j.CLDIV_CD = cl1.CLDIVCD   and cl1.COMPANY_CD =#{companycd} AND cl1.CLIENT_FLG = 1
+	LEFT JOIN clmst cl2 ON j.PAYER_CD = cl2.CLDIVCD  and cl2.COMPANY_CD =#{companycd} AND cl2.CONTRA_FLG = 1
+	<!-- LEFT JOIN orderlabeltrn ON orderlabeltrn.COST_NO = l.INPUT_NO  AND orderlabeltrn.COMPANY_CD = #{companycd} AND orderlabeltrn.LABEL_LEVEL = 2
+	LEFT JOIN labelmst AS lb ON lb.LABEL_ID = orderlabeltrn.LABEL_ID AND lb.COMPANY_CD = #{companycd} AND lb.LABEL_TYPE = 1 and lb.DEL_FLG=0 -->
+	LEFT JOIN sellordertrn ON j.JOB_CD = sellordertrn.JOB_CD AND sellordertrn.DEL_FLG = 0 and sellordertrn.COMPANY_CD = #{companycd}
+  left join commonmst on commonmst.MSTCD = "0003" and commonmst.ITEMCD= "002" and  commonmst.COMPANY_CD  = #{companycd} and commonmst.DEL_FLG = 0
+	 left join salemst on j.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = #{companycd} and salemst.DEL_FLG = 0
+	  left join usermst on l.LEND_USER = usermst.USERCD  
+	  
+	   left join usermst lcfm on lcfm.USERCD = l.CONFIRMEMP  
+left join usermst lad on lad.USERCD = l.ADDUSERCD 
+
+  <!-- 关联权限 --><!--  责任者的关联条件 -->
+    left join jobuserstrn jobAduser
+    on j.JOB_CD = jobAduser.JOB_CD and jobAduser.LEVEL_FLG = '1' and jobAduser.COMPANY_CD = #{companycd} and jobAduser.DEL_FLG = 0
+    left join usermst adMst 
+    on adMst.USERCD = jobAduser.USERCD 
+     <!-- 关联权限 --><!--  担当者的关联条件 -->
+    left join jobuserstrn jobRequser
+    on j.JOB_CD = jobRequser.JOB_CD and jobRequser.LEVEL_FLG = '2' and jobRequser.COMPANY_CD = #{companycd} and jobRequser.DEL_FLG = 0
+    left join usermst reqMst 
+    on reqMst.USERCD = jobRequser.USERCD  
+     <!-- 关联权限 --><!--  md的关联条件 -->
+     left join jobuserstrn jobMduser
+    on j.JOB_CD = jobMduser.JOB_CD and jobMduser.LEVEL_FLG = '3' and jobMduser.COMPANY_CD = #{companycd} and jobMduser.DEL_FLG = 0
+    left join usermst mdMst 
+    on mdMst.USERCD = jobMduser.USERCD
+    
+        LEFT JOIN
+(
+ SELECT
+	l.JOB_CD as jobcd,
+    l.INPUT_NO as inputno,
+    GROUP_CONCAT(lb.LABEL_TEXT order by lb.LABEL_LEVEL desc separator '  ') as lable,
+	GROUP_CONCAT(lb.LABEL_ID order by lb.LABEL_LEVEL desc separator '  ') as lableid,
+	GROUP_CONCAT(lb.LABEL_LEVEL order by lb.LABEL_LEVEL desc separator '  ') as lablelevel
+FROM
+	lendtrn l
+LEFT JOIN orderlabeltrn ON orderlabeltrn.COST_NO = l.INPUT_NO
+AND orderlabeltrn.COMPANY_CD = #{companycd}
+AND orderlabeltrn.LABEL_LEVEL = 2
+LEFT JOIN labelmst AS lb ON lb.LABEL_ID = orderlabeltrn.LABEL_ID
+AND lb.COMPANY_CD = #{companycd}
+AND lb.LABEL_TYPE = 1
+AND lb.DEL_FLG = 0
+GROUP BY jobcd,inputno
+
+
+) lol on lol.inputno =  l.INPUT_NO
+    
+    
+	 where j.COMPANY_CD = #{companycd} and j.DEL_FLG = 0
+GROUP BY
+	j.JOB_CD,
+	l.INPUT_NO
+union all 
+SELECT
+	j.JOB_CD AS jobcd,
+	j.JOB_NAME as jobName,
+	j.CLDIV_CD AS cldivcd,
+	j.SALE_TYP AS saletype,
+	salemst.SALE_NAME as salename,
+	ifnull(sellordertrn.DLVDAY,j.PLAN_DALDAY) as dalday,
+	"" as jobendflg,
+	j.JOBEND_FLG as jobendflgcd,
+	"" as accountflg,
+	j.ACCOUNT_FLG as accountflgcd,
+	IFNULL(
+		sellordertrn.SALE_AMT,
+		j.PLAN_SALE
+	) AS saleamt,
+	commonmst.ITMNAME AS diszc,
+	commonmst.ITEMNAME_EN AS disen,
+	commonmst.ITEMNAME_HK AS diszt,
+	commonmst.ITEMNAME_JP AS disjp,
+    commonmst.ITEMCD as discd,
+	"" AS costno,
+	t.INPUT_NO AS inputno,
+	"" AS paycd,
+	t.TRAN_NAME AS `name`,
+	"" as statuszc,
+	t.TRAN_STATUS AS statuscd,
+	t.TRAN_AMT AS amt,
+	"" AS vatamt,
+	"" AS payamt,
+	t.ADD_DATE AS adddate,
+	"" AS payreqdate,
+	t.CONFIRMDATE AS confirmdate,
+	"" AS outputflgzc,
+	"" as outputflgcd,
+	"" as payflgzc,
+	"" as payflgcd,
+	"" as paylockflg,
+	"" AS invoicno,
+	"" AS invoicedate,
+	t.ADD_USERCD AS addusercd,
+  tad.USER_NAME as addusername,
+	"" AS payreqemp,
+  "" as payreqempname,
+	t.CONFIRMEMP AS confirmemp,
+ tcfm.USER_NAME as confirmempname,
+	"" AS paydlyday,
+	"" AS plandlvday,
+	"" AS payhopedate,
+	"" AS lenddate,
+	"" AS lenduser,
+	"" AS lendname,
+	t.ITEM_CODE AS traitemcode,
+	 co.ITMNAME as tranitemnamezc,
+ co.ITEMNAME_EN as tranitemnameen,
+ co.ITEMNAME_JP as tranitemnamejp,
+ co.ITEMNAME_HK as tranitemnamezt,
+	t.REMARK AS remark,
+	"" AS costtype,
+	"" AS paydate,
+	"" AS payplandate,
+	tol.lable as lable,
+	tol.lableid as lableid,
+	tol.lablelevel as lablelevel,
+	j.COMPANY_CD AS companycd,
+	cl1.DIVNM AS cldivname,
+	cl1.DIVNAME_FULL as cldivfullname,
+	"" as payeename,
+	cl2.DIVNAME_FULL as payeefullname,
+	"" as bl,
+	adMst.USERCD as adusercd,
+	reqMst.USERCD as requsercd,
+	mdMst.USERCD as mdusercd,
+	"" as payremark
+FROM
+	jobtrn j
+	JOIN trantrn t ON j.JOB_CD = t.JOB_CD AND t.COMPANY_CD = #{companycd} AND j.DEL_FLG = 0 and  t.DEL_FLG = 0
+	LEFT JOIN clmst cl1 ON j.CLDIV_CD = cl1.CLDIVCD AND cl1.CLIENT_FLG = 1 AND cl1.COMPANY_CD = #{companycd}
+	LEFT JOIN clmst cl2 ON j.PAYER_CD = cl2.CLDIVCD AND cl2.CONTRA_FLG = 1 AND cl2.COMPANY_CD = #{companycd} 
+	<!-- LEFT JOIN orderlabeltrn ON orderlabeltrn.COST_NO = t.INPUT_NO AND orderlabeltrn.COMPANY_CD = #{companycd} AND orderlabeltrn.LABEL_LEVEL = 3
+	LEFT JOIN labelmst AS lb ON lb.LABEL_ID = orderlabeltrn.LABEL_ID AND lb.COMPANY_CD = #{companycd} AND lb.LABEL_TYPE = 1 and lb.DEL_FLG=0 -->
+	LEFT JOIN sellordertrn ON j.JOB_CD = sellordertrn.JOB_CD AND sellordertrn.DEL_FLG = 0 AND sellordertrn.COMPANY_CD = #{companycd}
+  left join commonmst on commonmst.MSTCD = "0003" and commonmst.ITEMCD= "003" and  commonmst.COMPANY_CD  = #{companycd} and commonmst.DEL_FLG = 0
+  left join commonmst co on co.MSTCD = "9002" and co.ITEMCD= "001" and  co.COMPANY_CD  = #{companycd} and co.DEL_FLG = 0
+	 left join salemst on j.SALE_TYP = salemst.SALE_CD and salemst.COMPANY_CD = #{companycd} and salemst.DEL_FLG = 0
+	  left join usermst tcfm on tcfm.USERCD = t.CONFIRMEMP
+left join usermst tad on tad.USERCD = t.ADD_USERCD 
+
+  <!-- 关联权限 --><!--  责任者的关联条件 -->
+    left join jobuserstrn jobAduser
+    on j.JOB_CD = jobAduser.JOB_CD and jobAduser.LEVEL_FLG = '1' and jobAduser.COMPANY_CD = #{companycd} and jobAduser.DEL_FLG = 0
+    left join usermst adMst 
+    on adMst.USERCD = jobAduser.USERCD 
+     <!-- 关联权限 --><!--  担当者的关联条件 -->
+    left join jobuserstrn jobRequser
+    on j.JOB_CD = jobRequser.JOB_CD and jobRequser.LEVEL_FLG = '2' and jobRequser.COMPANY_CD = #{companycd} and jobRequser.DEL_FLG = 0
+    left join usermst reqMst 
+    on reqMst.USERCD = jobRequser.USERCD 
+     <!-- 关联权限 --><!--  md的关联条件 -->
+     left join jobuserstrn jobMduser
+    on j.JOB_CD = jobMduser.JOB_CD and jobMduser.LEVEL_FLG = '3' and jobMduser.COMPANY_CD = #{companycd} and jobMduser.DEL_FLG = 0
+    left join usermst mdMst 
+    on mdMst.USERCD = jobMduser.USERCD  
+
+      LEFT JOIN
+(
+ SELECT
+	t.JOB_CD as jobcd,
+    t.INPUT_NO as inputno,
+    GROUP_CONCAT(lb.LABEL_TEXT order by lb.LABEL_LEVEL desc separator '  ') as lable,
+	GROUP_CONCAT(lb.LABEL_ID order by lb.LABEL_LEVEL desc separator '  ') as lableid,
+	GROUP_CONCAT(lb.LABEL_LEVEL order by lb.LABEL_LEVEL desc separator '  ') as lablelevel
+FROM
+	trantrn t
+LEFT JOIN orderlabeltrn ON orderlabeltrn.COST_NO = t.INPUT_NO
+AND orderlabeltrn.COMPANY_CD = #{companycd}
+AND orderlabeltrn.LABEL_LEVEL = 3
+LEFT JOIN labelmst AS lb ON lb.LABEL_ID = orderlabeltrn.LABEL_ID
+AND lb.COMPANY_CD = #{companycd}
+AND lb.LABEL_TYPE = 1
+AND lb.DEL_FLG = 0
+GROUP BY jobcd,inputno
+
+
+) tol on tol.inputno =  t.INPUT_NO
+
+
+	 where j.COMPANY_CD = #{companycd} and j.DEL_FLG = 0
+GROUP BY
+	j.JOB_CD,
+	t.INPUT_NO
+) a 
+where 1=1
+  <if test="all==null or all==''">
+  and (
+  	<trim prefixOverrides="and |or">
+   <if test="cldivUser!=null or cldivUser!=''">
+      a.cldivcd in (
+        	select ucl.cldivcd 
+			from userclmst ucl 
+			where ucl.user_cd =#{cldivUser}
+			and ucl.company_cd=#{companycd}
+      )
+   </if>
+   <if test="adUser!=null or adUser!=''">
+      or a.adusercd = #{adUser} or a.requsercd = #{adUser}
+   </if>
+    <if test="mdUser!=null or mdUser!=''">
+      or a.mdusercd = #{mdUser} 
+   </if>
+   </trim >
+  )
+  </if> 
+ 
+	</sql>
+	<!-- 详细基本检索 -->
+	<select id="getCostList" resultType="com.kaiwait.bean.jczh.vo.CostListVo">
+		<include refid="baseSql" />
+       
+		<if test="jobcd!=null and jobcd!=''">
+			and a.jobcd like CONCAT('%',#{jobcd},'%')
+		</if>
+		<if test="cldivcd!=null and cldivcd!=''">
+			and a.cldivcd= #{cldivcd}
+		</if>
+		<if test="cldivname!=null and cldivname!=''">
+			and (a.cldivname like CONCAT('%',#{cldivname},'%') or a.cldivfullname like CONCAT('%',#{cldivname},'%'))
+		</if>
+		<if test="dalday!=null and dalday!=''">
+		   <if test=" dalday1!=null and dalday1!=''">
+		   and a.dalday between #{dalday} and #{dalday1}
+		   </if>
+		    <if test=" dalday1==null or dalday1==''">
+		   and a.dalday &gt;= #{dalday} 
+		   </if>
+		</if>
+		<if test="dalday==null or dalday1!=''">
+		    <if test="dalday1!=null and dalday1!=''">
+		         and a.dalday &lt;=  #{dalday1} 
+		    </if>
+		</if>
+		<if test="dalmon!=null and dalmon!=''">
+		    and date_format(a.dalday,'%Y-%m') = #{dalmon}
+		</if>
+		<if test="discd!=null and discd!=''">
+			and a.discd = #{discd}
+		</if>
+		<if test="inputno!=null and inputno!=''">
+			and a.inputno like CONCAT('%',#{inputno},'%')
+		</if>
+		<if test="paycd!=null and paycd!=''">
+			and a.paycd =#{paycd}
+		</if>
+		<if test="payeename!=null and payeename!=''">
+			and (a.payeename like CONCAT('%',#{payeename},'%') or a.payeefullname like CONCAT('%',#{payeename},'%'))
+		</if>
+		<if test="name!=null and name!=''">
+			and a.`name` like CONCAT('%',#{name},'%')
+		</if>
+		<if test="costno!=null and costno!=''">
+			and a.costno like CONCAT('%',#{costno},'%')
+		</if>
+		<if test="status!=null and status!=''">
+		 <choose>
+		 <!-- 进行中 -->
+		   <when test="status==001">
+		    <if test="discd==001">
+		       and a.discd = "001" and a.statuscd != 4
+		     </if>
+		     <if test="discd==002">
+		       and a.discd = "002" and a.statuscd != 3
+		     </if>
+		     <if test="discd==003">
+		       and a.discd = "003" and a.statuscd != 2
+		     </if>
+		     <if test="discd==''||discd==null">
+		       and ((a.discd = "001" and a.statuscd != 4) or ( a.discd = "002" and a.statuscd != 3) or ( a.discd = "003" and a.statuscd != 2))
+		     </if>
+		   </when>
+		 <!-- 申请待 -->
+		    <when test="status==002">
+		     <!-- 支付登录完了 -->
+		       and a.discd = "001" and a.statuscd = 1
+		   </when>
+		 <!-- 承认待 -->
+		    <when test="status==003">
+		       <!-- 支付申请完了 -->
+		       <if test="discd==001">
+		       and a.discd = "001" and a.statuscd = 2
+		       </if>
+		        <if test="discd==002">
+		       and a.discd = "002" and a.statuscd = 0
+		       </if>
+		        <if test="discd==003">
+		      and a.discd = "003" and a.statuscd = 0
+		       </if>
+		       <if test="discd==''">
+		        and ((a.discd = "001" and a.statuscd = 2) or (a.discd = "002" and a.statuscd = 0) or ( a.discd = "003" and a.statuscd = 0))
+		       </if>
+		   </when>
+		 <!-- 承认济 -->
+		    <when test="status==004">
+		     and  a.confirmdate is not null 
+		   </when>
+		<!-- 终了 -->
+		    <when test="status==005">
+		      <if test="discd==001">
+		      and a.discd = "001" and a.statuscd = 4
+		      </if>
+		      <if test="discd==002">
+		      and a.discd = "002" and a.statuscd = 3
+		      </if>
+		      <if test="discd==003">
+		      and a.discd = "003" and a.statuscd = 2
+		      </if>
+		      <if test="discd==''">
+		      and ((a.discd = "001" and a.statuscd = 4) or (a.discd = "002" and a.statuscd = 3) or (a.discd = "003" and a.statuscd = 2))
+		      </if>
+		      
+		   </when>
+	    <!-- 保留 -->
+		    <when test="status==006">
+		       and a.discd ="002" and   (a.statuscd = 2 or a.statuscd = 0) and a.bl =1
+		   </when>
+		 </choose>
+		
+		</if>
+		<if test="paydlyday!=null and paydlyday!=''">
+			and a.paydlyday = #{paydlyday}
+		</if>
+		<if test="lable!=null and lable!=''">
+			and a.lable like CONCAT('%',#{lable},'%')
+		</if>
+		order by a.dalday asc, a.jobcd desc ,a.discd asc,a.costno desc,a.inputno desc
+	</select>
+<!-- 模糊查询 -->
+	<select id="getCostListVogue" resultType="com.kaiwait.bean.jczh.vo.CostListVo">
+		<include refid="baseSql" />
+		
+		<if test="str!=null and str!=''">
+			and ( a.jobcd like CONCAT('%',#{str},'%')
+			or a.cldivcd like CONCAT('%',#{str},'%')
+			or a.saletype like CONCAT('%',#{str},'%')
+			or a.costno like CONCAT('%',#{str},'%')
+			or a.inputno like CONCAT('%',#{str},'%')
+			or a.paycd like CONCAT('%',#{str},'%')
+			or a.`name` like CONCAT('%',#{str},'%')
+			or a.addusercd like CONCAT('%',#{str},'%')
+			or a.payreqemp like CONCAT('%',#{str},'%')
+			or a.confirmemp like CONCAT('%',#{str},'%')
+			or a.lenduser like CONCAT('%',#{str},'%')
+			or a.lendname like CONCAT('%',#{str},'%')
+			or a.costtype like CONCAT('%',#{str},'%')
+			or a.remark like CONCAT('%',#{str},'%')
+			) 
+		</if>
+         order by a.dalday asc, a.jobcd desc ,a.discd asc,a.costno desc,a.inputno desc
+	</select>
+	<!-- 详细检索其他 -->
+	<select id="getCostListByOther" resultType="com.kaiwait.bean.jczh.vo.CostListVo">
+		<include refid="baseSql" />
+		
+		<if test="invoicno!='' and invoicno!=null">
+		 and invoicno like CONCAT('%',#{invoicno},'%')  
+		</if>
+		<if test="invoicedate!=null and invoicedate!='' and invoicedate1!=null and invoicedate1!=''">
+		  and invoicedate between #{invoicedate} and #{invoicedate1}
+		</if>
+		<if test="payhopedate!=null and payhopedate!=''">
+		 and (payhopedate=#{payhopedate} or paydate=#{payhopedate} or payplandate=#{payhopedate} )
+		</if>
+		<if test="payflg!='' and payflg!=null ">
+		 <if test="payflg==001">
+		 and payflgcd = 0
+		 </if>
+		 <if test="payflg==002">
+		 and payflgcd = 1
+		 </if>
+		</if>
+		<if test="costtype!=null and costtype!=''">
+		and costtype like CONCAT('%',#{costtype},'%') 
+		</if>
+	 order by a.dalday asc, a.jobcd desc ,a.discd asc,a.costno desc,a.inputno desc
+	</select>
+	
+	<select id="getCostListFromTop" resultType="com.kaiwait.bean.jczh.vo.CostListVo">
+	<include refid="baseSql" />
+	
+	   <if test="ad == '0'.toString()">
+	   <if test="checkDate!=null">
+		and a.confirmdate >=  #{checkDate}
+		</if>
+		  and a.confirmdate IS NOT NULL
+	   </if>
+	   <if test="ad == '1'.toString()">
+	    and ((a.discd = "001" and a.statuscd = 2 ) or (a.discd = "002" and a.confirmdate IS NULL)
+	   or (a.discd = "003" and a.confirmdate IS NULL))
+	   </if>
+	   
+	   <if test="ad == '2'.toString()">
+	    and a.discd = "001" and a.statuscd = 2
+	   </if>
+	   <if test="ad == '3'.toString()">
+	   and a.discd = "002" and a.bl = 1 and a.statuscd != 1 and a.statuscd != 3
+	   </if>
+	   <if test="ad == '4'.toString()">
+	   and a.discd = "003" and a.statuscd = 0
+	   </if>
+	   <!-- 财务部门初始化  查询支払申請済、立替登録済、振替登録済（承認待ち） -->
+	    <if test="ad == 'Finance'">
+	    and ((a.discd = "001" and a.statuscd = 2) or (a.discd = "002" and a.statuscd = 0) or ( a.discd = "003" and a.statuscd = 0))
+	   </if>
+	   <!-- トラフィック部门初始化  查询支払登録済（申請待ち） -->
+	    <if test="ad == 'Traffic'">
+	    and a.discd = "001" and a.statuscd = 1
+	   </if>
+	   <!-- 不是以上情况就是 从job一览跳过来根据jobcd 查询 -->
+	   <if test="ad!=null and ad !=''  and ad!='0'.toString() and ad!='1'.toString() and ad!='2'.toString() and ad!='3'.toString() and ad!='4'.toString() and ad!='Finance' and ad!='Traffic' ">
+	    and a.jobcd = #{ad}
+	   </if>
+	   order by a.dalday asc, a.jobcd desc ,a.discd asc,a.costno desc,a.inputno desc
+	</select>
+	<!-- 查询checkdata -->
+	<select id="selectCheckDate" resultType="String">
+	   select CHECK_DATE from summary where COMPANY_CD = #{companycd} and ACCOUNTYM=#{stt}
+	</select>
+	<!-- 支付处理 -->
+	<update id="insertPaytrnByInum" >
+	   update  paytrn 
+	    <set>   
+	     PAY_DATE=  #{paydate},
+	     PAY_FLG =  #{payflg},
+	     PAY_UP_DATE = #{upDateDate},
+	     PAY_UP_USERCD = #{upUsercd},
+	     LOCK_FLG = #{paylockflg}
+	    <if test ="payremark!=null and payremark!=''">
+	      , PAY_REMARK =#{payremark},
+	    </if>
+	    </set>
+	    where 
+	     INPUT_NO = #{inputno}
+	    and COMPANY_CD = #{companycd}
+	</update>
+</mapper>

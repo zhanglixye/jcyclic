@@ -1,0 +1,45 @@
+<div class="hid pay_chuli">
+	<ul class="breadcrumb" id="breadcrumb" style="border-radius:0">
+		<li class="fs18 i18n" name='pay_processing'></li>
+		<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+	</ul>
+	<div style="padding: 0 20px 20px;">
+		<div class="row">
+			<div class="col-xs-12 mb-10">
+				<span class="i18n" name='pay_finish'></span>				
+				<label>
+					<input type="checkbox" name="" id="payflg" value=""/>
+					<span style="position: relative;top: 2px;" class="iconfont icon-duihaok"></span>
+				</label>
+			</div>
+			<div class="col-xs-12 mb-5">
+				<span class="i18n" name='pay_day'></span>
+			</div>
+			<div class="col-xs-12 mb-10">
+				<input class="easyui-datebox form-control" type="text" id="order_date" name="order_date"/>
+				<span class="ml-30">
+					<label style="margin-bottom: 0 !important;">
+						<input type="checkbox" name="" id="paycanceldate" value="" />
+						<span class="iconfont icon-duihaok"></span>
+						<span style="margin-left: -5px;font-weight: 400;" class="i18n" name='tag_flag'></span>
+					</label>					
+				</span>	
+			</div>
+			<div class="col-xs-12">
+				<span class="mb-5 i18n" name='jobregistration_remarks'></span>
+				<textarea maxlength="500" class="form-control" name="" id="payremark" rows="3" cols="" style="padding:0px 12px;"></textarea>
+			</div>
+			<div class="col-xs-12" style="margin: 20px 0 0 0;text-align: center;">
+				<div class="model_width">
+					<button style="float: right;" id="closeBtnInput" class="btn btn-default i18n" name='salescategoryRegistration_clsoe'></button>
+					<button style="margin-right: 16px;float: right;" class="btn btn-success i18n log_job" id="deal" name='salescategoryRegistration_login'></button>											
+				</div>
+			</div>
+		</div>
+		<script>
+			var width_pay_elastic = auto_smalll_remark_T();
+			$('#payremark,.model_width').width(width_pay_elastic);
+
+		</script>
+	</div>
+</div>

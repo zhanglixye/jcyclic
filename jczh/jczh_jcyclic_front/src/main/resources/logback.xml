@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<!-- 常量：指定日志路径 -->
+<!-- 	<property name="LOG_DIR" value="/home/logs/"/> -->
+	<property name="LOG_DIR" value="/logs/"/>
+	<!-- 常量：应用名称 -->
+	<property name="APP_NAME" value="front"/>
+	<!-- 控制台输出 -->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+<!--         <withJansi>true</withJansi> -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %c-line%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+	<!-- 所有日志输出到同一文件 -->
+    <appender name="allInFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <File>${LOG_DIR}/${APP_NAME}_all.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger - %msg%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${APP_NAME}_all.log.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+     
+    <!-- 默认日志级别及输出目标设置 -->
+    <root level="trace">
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="allInFileAppender" />
+    </root>
+      
+  
+    <!--日志打印的包的范围，及分类日志文件存储 -->  
+    <logger name="org.springframework" additivity="false">  
+        <level value="INFO" />  
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="allInFileAppender" />
+    </logger> 
+ 
+</configuration>

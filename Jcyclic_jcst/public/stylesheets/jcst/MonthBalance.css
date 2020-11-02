@@ -1,0 +1,76 @@
+.fas_head{
+	padding: 5px;
+	font-size: 14px !important; 
+	font-weight: bold;
+}
+.flex-right{
+	display: flex;
+	justify-content: flex-start;
+}
+div.dot_title{
+	margin: 0;
+	border-bottom: 1px dashed #ccc;
+	margin-left: 10px;
+	border-radius: 0 !important;
+}
+div.dot_title .col-xs-8{
+	padding-left: 5px;
+}
+.one div.dot_title .flex-right{
+	padding-right: 0;
+}
+div.dot_body{
+	padding: 5px;
+}
+.flex-right.num{
+	font-size: 20px;
+}
+div.dot_title.yujia{
+	margin: 0;
+	border-radius: 0 !important;
+}
+.head_ti{
+	display: flex;
+	font-weight: 300 !important;
+}
+.head_ti div:nth-child(odd){
+	padding:0 3px;
+}
+.point{
+	cursor: pointer;
+}
+.size-18{
+	font-size: 18px;
+	line-height: 18px;
+}
+.background-color{
+	background-color: #DDDDDD;
+}
+div[name='month_stay']{
+	font-size: 12px;
+	line-height: 20px;
+}
+.different .dialog-button .l-btn:nth-child(2){
+	color: white;
+	background-color: #1abc9c;
+	outline: none;
+	border: 1px solid #17a689;
+}
+.different .dialog-button .l-btn:nth-child(2):hover{
+	color: white;
+	background-color: #148f77;
+	border-color: #0f705d
+}
+.different .dialog-button .l-btn:nth-child(1){
+  color: #333333;
+  background-color: #eee;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #cccccc;
+}
+.different .dialog-button .l-btn:nth-child(1):hover{
+  color: white;
+  background-color: #1abc9c;
+  border-color: #17a689;
+}

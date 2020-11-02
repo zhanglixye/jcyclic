@@ -1,0 +1,6 @@
+<div class="switch_table">
+	<table id="job_login_list" style="width: 100%; "></table>
+</div>
+<div class="switch_table_none hidden">
+	<center></center>
+</div>

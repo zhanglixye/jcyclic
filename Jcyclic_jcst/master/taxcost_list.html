@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='taxcost_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/master/taxcost_list_dataGrid.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->   
+	</head>
+	<style>
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='taxcost_list_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<form class="form-inline bottom-15 ov supplier_sum_hei1">
+					<input style="width: auto;" selectname='taxcostList_invalid_N_list' tabindex="1" class="btn btn-success pull-right marleft i18n-input buttontypewx taxcost_btn_success" type="button" onclick="wxquery()">
+					<input style="width: auto;" selectname='taxcostList_invalid_list' class="btn btn-success pull-right marleft i18n-input buttontypeyx taxcost_btn_default" type="button" onclick="yxquery()">
+				</form>
+				<table class="tableObj" id="taxCostListTab" style="width: 100%;"></table>
+				<div class="switch_table_none hidden">
+					<center style="margin-top: 20px;"></center>
+				</div>
+				<form class="form-inline top-15 ov bottom-15 supplier_sum_hei2">
+					<input class="btn btn-success pull-right i18n-input" tabindex="3" selectname='taxcostList_change' type="button" onclick="change()"  value="">
+					<input class="btn btn-success pull-right i18n-input" tabindex="2" selectname='taxcostList_add' type="button" onclick="add()"  value="" style="margin-right: 15px;">
+				</form>
+			</aside>
+		</div>
+	</body>
+	<script>
+		var objTop = $('.supplier_sum_hei1').height();
+		var objBot = $('.supplier_sum_hei2').height();
+		var tableObj = $('.tableObj');
+		auto_tableHei(objTop,objBot,45,tableObj);
+	</script>
+</html>

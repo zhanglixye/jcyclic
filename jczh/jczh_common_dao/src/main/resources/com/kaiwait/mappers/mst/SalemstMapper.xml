@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.SalemstMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.Salemst">
+		<id column="sale_cd" property="sale_cd" jdbcType="VARCHAR" />
+		<result column="sale_account_cd" property="sale_account_cd" jdbcType="VARCHAR" />
+		<result column="common_type" property="common_type" jdbcType="VARCHAR" />
+		<result column="sale_name" property="sale_name" jdbcType="VARCHAR" />
+		<result column="tran_lend" property="tran_lend" jdbcType="INTEGER" />
+		<result column="cost_reduction" property="cost_reduction" jdbcType="INTEGER" />
+		<result column="start_date" property="start_date" jdbcType="TIMESTAMP" />
+		<result column="end_date" property="end_date" jdbcType="TIMESTAMP" />
+		<result column="vat_start_date" property="vat_start_date" jdbcType="TIMESTAMP" />
+		<result column="vat_end_date" property="vat_end_date" jdbcType="TIMESTAMP" />
+		<result column="rate2" property="rate2" jdbcType="DECIMAL" />
+		<result column="rate3" property="rate3" jdbcType="DECIMAL" />
+		<result column="add_date" property="add_date" jdbcType="TIMESTAMP" />
+		<result column="add_user" property="add_user" jdbcType="VARCHAR" />
+		<result column="del_flg" property="del_flg" jdbcType="INTEGER" />
+		<result column="vat_rate" property="vat_rate" jdbcType="DECIMAL" />
+		<result column="lock_flg" property="lock_flg" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ListResultMap" type="com.kaiwait.bean.mst.vo.SalemstVo">
+		<id column="sale_cd" property="sale_cd" jdbcType="VARCHAR" />
+		<result column="sale_account_cd" property="sale_account_cd" jdbcType="VARCHAR" />
+		<result column="common_type" property="common_type" jdbcType="VARCHAR" />
+		<result column="sale_name" property="sale_name" jdbcType="VARCHAR" />
+		<result column="tran_lend" property="tran_lend" jdbcType="INTEGER" />
+		<result column="cost_reduction" property="cost_reduction" jdbcType="INTEGER" />
+		<result column="start_date" property="start_date" jdbcType="TIMESTAMP" />
+		<result column="end_date" property="end_date" jdbcType="TIMESTAMP" />
+		<result column="vat_start_date" property="vat_start_date" jdbcType="TIMESTAMP" />
+		<result column="vat_end_date" property="vat_end_date" jdbcType="TIMESTAMP" />
+		<result column="rate2" property="rate2" jdbcType="DECIMAL" />
+		<result column="vat_rate" property="vat_rate" jdbcType="DECIMAL" />
+		<result column="rate3" property="rate3" jdbcType="DECIMAL" />
+		<result column="add_date" property="add_date" jdbcType="TIMESTAMP" />
+		<result column="add_user" property="add_user" jdbcType="VARCHAR" />
+		<result column="del_flg" property="del_flg" jdbcType="INTEGER" />
+		<result column="vat_rate" property="vat_rate" jdbcType="DECIMAL" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="itemname_zc" property="itemname_zc" jdbcType="VARCHAR" />
+		<result column="itemname_zt" property="itemname_zt" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="VARCHAR" />
+		
+		
+	</resultMap>
+
+    <!-- 壳上表字段 -->
+	<sql id="salemst">
+		sale_cd, sale_account_cd,sale_name,tran_lend,cost_reduction,common_type,company_cd,del_flg,`upddate`,adddate,updusercd,addusercd
+	</sql>
+	
+	 <!-- 税率表字段 -->
+	<sql id="saleRatemst">
+		sale_cd,start_date,end_date,rate1,rate2,rate3,add_date,add_user,company_cd
+	</sql>
+	
+		 <!-- 增值税表字段 -->
+	<sql id="vatratemst">
+		sale_cd,start_date,end_date,vat_rate,add_date,add_user,company_cd
+	</sql>
+
+	<!-- 条件检索 -->
+	<select id="select" resultMap="ListResultMap">
+	SELECT
+	sa.sale_cd,
+	sa.COMPANY_CD,
+	sa.sale_account_cd,
+	sa.sale_name,
+	sa.tran_lend,
+	sa.cost_reduction,
+case when vat.vat_rate is null then mst.vat_rate else vat.vat_rate end as vat_rate,
+
+case when ra.RATE2  is null then sal.RATE2 else ra.RATE2 end as rate2,
+
+case when ra.RATE3  is null then sal.RATE3 else ra.RATE3 end as rate3,
+
+case when ra.START_DATE  is null then sal.START_DATE else ra.START_DATE end as start_date,
+
+case when ra.END_DATE  is null then sal.END_DATE else ra.END_DATE end as end_date,
+	sa.del_flg,
+  com.itemname_en ,
+	com.itmname as itemname_zc,
+	com.itemname_hk as itemname_zt,
+	com.itemname_jp,
+	comtax2.ITMNAME as tax2Namezc,
+	comtax2.ITEMNAME_EN as tax2Nameen,
+	comtax2.ITEMNAME_HK as tax2Namezt,
+	comtax2.ITEMNAME_JP as  tax2Namejp,
+	comtax3.ITMNAME as tax3Namezc,
+	comtax3.ITEMNAME_EN as tax3Nameen,
+	comtax3.ITEMNAME_HK as tax3Namezt,
+	comtax3.ITEMNAME_JP as  tax3Namejp
+	from
+	salemst sa
+	left join saleratemst ra on sa.sale_cd = ra.sale_cd  and sa.COMPANY_CD=ra.COMPANY_CD  and #{pd} BETWEEN ra.START_DATE AND ra.END_DATE 
+	left join saleratemst sal on sa.sale_cd = sal.sale_cd  and sa.COMPANY_CD=sal.COMPANY_CD  and #{pd} &lt; sal.START_DATE 
+	left join vatratemst vat on sa.sale_cd = vat.SALE_CD and sa.COMPANY_CD=vat.COMPANY_CD AND #{pd} BETWEEN vat.START_DATE AND vat.END_DATE
+	left join vatratemst mst on sa.sale_cd = mst.sale_cd  and sa.COMPANY_CD=mst.COMPANY_CD  and #{pd} &lt; mst.START_DATE 
+    left JOIN commonmst  com ON com.ITEMCD=sa.TRAN_LEND and com.COMPANY_CD =sa.COMPANY_CD and  com.MSTCD='0025'
+    left join commonmst as comtax2 on comtax2.COMPANY_CD=sa.COMPANY_CD and comtax2.ITEMCD = "002" and  comtax2.MSTCD="0063"
+    left join commonmst as comtax3 on comtax3.COMPANY_CD=sa.COMPANY_CD and comtax3.ITEMCD = "003" and  comtax3.MSTCD="0063"
+WHERE
+	1=1
+		<if test="sale_cd!=null and sale_cd!=''">
+        	and sa.sale_cd=#{sale_cd}
+        </if>
+        <if test="sale_account_cd!=null and sale_account_cd!=''">
+           and sa.sale_account_cd=#{sale_account_cd}
+        </if>
+		<if test="sale_name!=null and sale_name!=''">
+           and sa.sale_name like CONCAT('%', #{sale_name}, '%')
+        </if>
+        <if test="del_flg!=null and del_flg!=''">
+           and sa.del_flg=#{del_flg}
+        </if> 
+		and sa.COMPANY_CD=#{companyID}
+		GROUP BY SALE_CD
+   		order by sa.sale_cd asc
+	</select>
+	
+  <!-- 查询壳上旧增值税记录 -->
+  	<select id="selectVatRateByCD" resultMap="BaseResultMap">
+  	SELECT
+	start_date,
+	end_date,
+	vat_rate
+FROM
+	vatratemst
+WHERE
+	sale_cd=#{sale_cd} and COMPANY_CD=#{companyID} 
+ORDER BY END_DATE DESC
+  	
+  	</select>
+  	<!-- 查询壳上旧增值税记录 -->
+  	<select id="selectVatRateByCDlt" resultMap="BaseResultMap">
+  	SELECT
+	start_date,
+	end_date,
+	vat_rate
+	FROM
+		vatratemst
+	WHERE
+		sale_cd=#{sale_cd} and COMPANY_CD=#{companyID}  AND #{pd}  &gt;  START_DATE 
+	ORDER BY END_DATE
+  	
+  	</select>
+  	<!-- 查询壳上旧增值税记录 -->
+  	<select id="selectVatRateByCDgt" resultMap="BaseResultMap">
+  	 	SELECT
+	start_date,
+	end_date,
+	vat_rate
+	FROM
+		vatratemst
+	WHERE
+		sale_cd=#{sale_cd} and COMPANY_CD=#{companyID}  AND #{pd} &lt; START_DATE 
+	ORDER BY END_DATE
+  	 
+  	 </select>
+  	
+  	
+  	
+   <!-- 查询壳上旧税率记录 -->
+  	<select id="selectRateByCD" resultMap="BaseResultMap">
+  	SELECT start_date,end_date,rate2,rate3 from saleratemst where sale_cd=#{sale_cd} and COMPANY_CD=#{companyID} ORDER BY END_DATE DESC
+  	
+  	</select>
+  	
+  	
+  	 <!-- 查询壳上旧税率记录 -->
+  	<select id="selectRateByCDlt" resultMap="BaseResultMap">
+  	SELECT start_date,end_date,rate2,rate3 from saleratemst where sale_cd=#{sale_cd} and COMPANY_CD=#{companyID} AND #{pd}  &gt;  START_DATE  ORDER BY END_DATE 
+  	</select>
+  	
+  	
+  	 <!-- 查询壳上旧税率记录 -->
+  	<select id="selectRateByCDgt" resultMap="BaseResultMap">
+  	SELECT start_date,end_date,rate2,rate3 from saleratemst where sale_cd=#{sale_cd} and COMPANY_CD=#{companyID} AND #{pd} &lt; START_DATE  ORDER BY END_DATE
+  	</select>
+  	
+  	
+    <!-- 查询撒了sale_cd最大值 -->
+  	<select id="selectMaxCd" resultType="String" >
+   SELECT CONCAT('SD',CONCAT(date_format(now(),'%m%d'),IFNULL(LPAD(MAX(CAST(SUBSTR(SALE_CD FROM 7 ) AS SIGNED))+1,4,'0'),'0001'))) from salemst
+  	</select>
+  	
+  	 <!-- 根据sale_cd查询旧有增值税中最新的一条 -->
+  	<select id="selectNewVatRate" resultMap="BaseResultMap" >
+   	select sale_cd,vat_rate,start_date as vat_start_date ,end_date as vat_end_date from vatratemst vat 
+   	where
+	not exists(select 1 from vatratemst c where vat.sale_cd = c.sale_cd and c.end_date > vat.end_date)
+   	and vat.sale_cd=#{sale_cd}
+   	and vat.COMPANY_CD=#{companyID}
+  	</select>
+  	
+  	<select id="selectNewVatRates" resultMap="BaseResultMap" >
+   select sale_cd,vat_rate,start_date as vat_start_date ,end_date as vat_end_date from vatratemst ra 
+   where
+	#{pd} &lt;  ra.START_DATE 
+   and ra.sale_cd=#{sale_cd}
+   and ra.COMPANY_CD=#{companyID}
+   LIMIT 1
+  	</select>
+  	
+  	<select id="selectNewVatRatedy" resultMap="BaseResultMap" >
+	   select sale_cd,vat_rate,start_date as vat_start_date ,end_date as vat_end_date from vatratemst vat 
+	   where
+		#{pd} BETWEEN vat.START_DATE AND vat.END_DATE
+	   and vat.sale_cd=#{sale_cd}
+	   and vat.COMPANY_CD=#{companyID}
+  	</select>
+  	
+  	
+
+  	
+  	
+  	<select id="searchTaxNameByLang" resultMap="ListResultMap" >
+	SELECT
+	comtax2.ITMNAME as tax2Namezc,
+	comtax2.ITEMNAME_EN as tax2Nameen,
+	comtax2.ITEMNAME_HK as tax2Namezt,
+	comtax2.ITEMNAME_JP as  tax2Namejp,
+	comtax3.ITMNAME as tax3Namezc,
+	comtax3.ITEMNAME_EN as tax3Nameen,
+	comtax3.ITEMNAME_HK as tax3Namezt,
+	comtax3.ITEMNAME_JP as  tax3Namejp
+	from commonmst as comtax2
+    left join commonmst as comtax3 on comtax3.COMPANY_CD=#{companyID} and comtax3.ITEMCD = "003" and  comtax3.MSTCD="0063"
+where comtax2.COMPANY_CD=#{companyID} and comtax2.ITEMCD = "002" and  comtax2.MSTCD="0063"
+  	</select>
+  	 <!-- 根据sale_cd查询旧有壳上信息 -->
+  	<select id="selectSalerate" resultMap="BaseResultMap" >
+	SELECT
+	sa.sale_cd,
+	sa.sale_account_cd,
+	sa.common_type,
+	sa.sale_name,
+	sa.tran_lend,
+	sa.cost_reduction,
+	ra.rate2,
+	ra.rate3,
+	sa.del_flg,
+	ra.start_date,
+	ra.end_date,
+	comtax2.ITMNAME as tax2Namezc,
+	comtax2.ITEMNAME_EN as tax2Nameen,
+	comtax2.ITEMNAME_HK as tax2Namezt,
+	comtax2.ITEMNAME_JP as  tax2Namejp,
+	comtax3.ITMNAME as tax3Namezc,
+	comtax3.ITEMNAME_EN as tax3Nameen,
+	comtax3.ITEMNAME_HK as tax3Namezt,
+	comtax3.ITEMNAME_JP as  tax3Namejp,
+	sa.lock_flg as lock_flg 
+	from
+	salemst sa
+	left join saleratemst ra on sa.sale_cd = ra.sale_cd and ra.COMPANY_CD =sa.COMPANY_CD
+	left join commonmst as comtax2 on comtax2.COMPANY_CD=sa.COMPANY_CD and comtax2.ITEMCD = "002" and  comtax2.MSTCD="0063"
+    left join commonmst as comtax3 on comtax3.COMPANY_CD=sa.COMPANY_CD and comtax3.ITEMCD = "003" and  comtax3.MSTCD="0063"
+	where 
+	not exists(select 1 from saleratemst b where ra.sale_cd = b.sale_cd and b.end_date > ra.end_date)
+	and  ra.sale_cd=#{sale_cd}
+	and ra.COMPANY_CD=#{companyID}
+  	</select>
+  	
+  	
+  	
+  	<select id="selectSaleratedy" resultMap="BaseResultMap" >
+	SELECT
+	sa.sale_cd,
+	sa.sale_account_cd,
+	sa.common_type,
+	sa.sale_name,
+	sa.tran_lend,
+	sa.cost_reduction,
+	ra.rate2,
+	ra.rate3,
+	sa.del_flg,
+	ra.start_date,
+	ra.end_date,
+	comtax2.ITMNAME as tax2Namezc,
+	comtax2.ITEMNAME_EN as tax2Nameen,
+	comtax2.ITEMNAME_HK as tax2Namezt,
+	comtax2.ITEMNAME_JP as  tax2Namejp,
+	comtax3.ITMNAME as tax3Namezc,
+	comtax3.ITEMNAME_EN as tax3Nameen,
+	comtax3.ITEMNAME_HK as tax3Namezt,
+	comtax3.ITEMNAME_JP as  tax3Namejp,
+	sa.lock_flg as lock_flg 
+	from
+	salemst sa
+	left join saleratemst ra on sa.sale_cd = ra.sale_cd and ra.COMPANY_CD =sa.COMPANY_CD
+	left join commonmst as comtax2 on comtax2.COMPANY_CD=sa.COMPANY_CD and comtax2.ITEMCD = "002" and  comtax2.MSTCD="0063"
+    left join commonmst as comtax3 on comtax3.COMPANY_CD=sa.COMPANY_CD and comtax3.ITEMCD = "003" and  comtax3.MSTCD="0063"
+	where 
+	#{pd} BETWEEN ra.START_DATE AND ra.END_DATE 
+	and  ra.sale_cd=#{sale_cd}
+	and ra.COMPANY_CD=#{companyID}
+  	</select>
+  	
+  	
+  	<select id="selectSalerates" resultMap="BaseResultMap" >
+	SELECT
+	sa.sale_cd,
+	sa.sale_account_cd,
+	sa.common_type,
+	sa.sale_name,
+	sa.tran_lend,
+	sa.cost_reduction,
+	ra.rate2,
+	ra.rate3,
+	sa.del_flg,
+	ra.start_date,
+	ra.end_date,
+	comtax2.ITMNAME as tax2Namezc,
+	comtax2.ITEMNAME_EN as tax2Nameen,
+	comtax2.ITEMNAME_HK as tax2Namezt,
+	comtax2.ITEMNAME_JP as  tax2Namejp,
+	comtax3.ITMNAME as tax3Namezc,
+	comtax3.ITEMNAME_EN as tax3Nameen,
+	comtax3.ITEMNAME_HK as tax3Namezt,
+	comtax3.ITEMNAME_JP as  tax3Namejp,
+	sa.lock_flg as lock_flg 
+	from
+	salemst sa
+	left join saleratemst ra on sa.sale_cd = ra.sale_cd and ra.COMPANY_CD =sa.COMPANY_CD
+	left join commonmst as comtax2 on comtax2.COMPANY_CD=sa.COMPANY_CD and comtax2.ITEMCD = "002" and  comtax2.MSTCD="0063"
+    left join commonmst as comtax3 on comtax3.COMPANY_CD=sa.COMPANY_CD and comtax3.ITEMCD = "003" and  comtax3.MSTCD="0063"
+	where 
+	 #{pd} &lt; ra.START_DATE 
+	and  ra.sale_cd=#{sale_cd}
+	and ra.COMPANY_CD=#{companyID}
+	LIMIT 1
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  <!-- 根据sale_cd查询税率最近天数 -->
+  	<select id="selectRateDate" resultMap="BaseResultMap" >
+   select start_date ,end_date from saleratemst ra 
+   where not exists(select 1 from saleratemst b where ra.sale_cd = b.sale_cd and b.end_date > ra.end_date)
+   and ra.sale_cd=#{sale_cd}
+   and ra.COMPANY_CD=#{companyID}
+  	</select>
+  
+   <!-- 插入数据到壳上表中 -->
+	<insert id="insertSalemst" parameterType="com.kaiwait.bean.mst.entity.Salemst">
+		insert into salemst(
+		<include refid="salemst" />
+		) values(
+			#{sale_cd},
+			#{sale_account_cd},
+			#{sale_name},
+			#{tran_lend},
+			#{cost_reduction},
+			#{common_type},
+			#{company_cd},
+			#{del_flg},
+		    #{update},
+			#{adddate},
+			#{upusercd},
+			#{addusercd}
+		
+		)
+	</insert>
+
+	<!-- 插入数据到壳上税率关联表中 -->
+	<insert id="insertSaleRatemst" parameterType="com.kaiwait.bean.mst.entity.Salemst">
+		insert into saleratemst(
+		<include refid="saleRatemst" />
+		) values(
+	
+		#{sale_cd},
+		#{start_date,jdbcType=DATE},
+		#{end_date,jdbcType=DATE},
+		0,
+		#{rate2},
+		#{rate3},
+		#{add_date,jdbcType=TIMESTAMP},
+		#{add_user},
+		#{company_cd}
+		)
+	</insert>
+
+
+	<!-- 插入数据到壳上增值税表中 -->
+	<insert id="insertVatRate" parameterType="com.kaiwait.bean.mst.entity.Salemst">
+		insert into vatratemst(
+		<include refid="vatratemst" />
+		) values(
+		#{sale_cd},
+		#{vat_start_date,jdbcType=DATE},
+		#{vat_end_date,jdbcType=DATE},
+		#{vat_rate,jdbcType=DECIMAL},
+		#{var_add_date,jdbcType=TIMESTAMP},
+		#{add_user},
+		#{company_cd}
+		)
+	</insert>
+	<!-- 更新数据到壳上表中 -->
+	<update id="updateOldSalemst" parameterType="com.kaiwait.bean.mst.entity.Salemst">
+	update salemst
+		<set>
+	    sale_cd=	#{sale_cd},
+		sale_account_cd=	#{sale_account_cd},
+		sale_name=	#{sale_name},
+		tran_lend=	#{tran_lend},
+		cost_reduction=	#{cost_reduction},
+		common_type=	#{common_type},
+		company_cd = #{company_cd},
+		del_flg=	 #{del_flg},
+		`upddate` =   #{update},
+		updusercd =   #{upusercd},
+		lock_flg =lock_flg+1
+		</set>
+		where sale_cd = #{sale_cd}
+		and company_cd = #{company_cd}
+	</update>
+	
+	
+	<update id="deleteSale" parameterType="com.kaiwait.bean.mst.entity.Salemst">
+		update salemst
+		<set>
+			del_flg = '0',
+			lock_flg =lock_flg+1
+		</set>
+		where sale_cd = #{sale_cd}
+		and company_cd = #{company_cd},
+	</update>
+	<!-- 验证sale_account_code是否重复 -->
+	<select id="SaleAccountVa"  resultType="Integer">
+	SELECT  COUNT(1) from salemst 
+	where salemst.sale_account_cd =#{sale_account_cd} 
+   <if test="sale_cd!=null and sale_cd!=''">
+	and salemst.SALE_CD not in (#{sale_cd})
+   </if>
+   and company_cd = #{company_cd}
+	</select>
+	
+
+	<!-- 更新增值税第二条的 -->
+	<update id="updateOldSaleRatemst">
+		update 	saleratemst
+		<set>
+			end_date =  #{end_date},
+			lock_flg =lock_flg+1
+		</set>
+		where sale_cd = #{sale_cd}
+		and company_cd = #{company_cd}
+		and start_date = #{start_date}
+	</update>
+	<!-- 更新税金 第二条的-->
+	<update id="updateOldVatRatemst" >
+		update 	vatratemst
+		<set>
+			end_date =  #{end_date},
+			lock_flg =lock_flg+1
+		</set>
+		where sale_cd = #{sale_cd}
+		and company_cd = #{company_cd}
+		and start_date = #{start_date}
+	</update>
+	<select id="selJobtrnSaleNum" resultType="int">
+	SELECT COUNT(job_cd) from jobtrn WHERE jobtrn.SALE_TYP=#{sale_cd}
+	</select>
+	
+	
+</mapper>

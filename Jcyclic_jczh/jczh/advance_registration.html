@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='advance_infor'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>	
+		<link rel="stylesheet" href="../public/stylesheets/jczh/job_registration.css?v=2018092801" />
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/jczh/job/advance_registration.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/jczh/job/advance_update.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->  
+	</head>
+	<style>
+		.bord_no{
+			font-size: 20px!important;
+		}
+		#searchDD{
+			border-bottom-right-radius: 4px;
+			border-top-right-radius: 4px;
+		}
+		.setblock ul li{
+			width: auto!important;
+			margin-top: 10px!important;
+			margin-left: 15px!important;
+		}
+		.setblock1 ul li span{
+			text-decoration: underline;
+			padding-right: 4px;
+			cursor: pointer;
+		}
+		.setblock1 ul li span:hover{
+			text-decoration: underline;
+		}
+		.switchot{
+			height: auto!important;
+		}
+		.log-sidebar .panel-default{
+			border: 0px!important;
+		}
+		.setblock1 ul li span{
+			text-decoration: none;
+		}
+		.panel  label[name=liti_date]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=zhenti_pro]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=order_register_caseName]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+		.panel  label[name=liti_employee]::after {
+		    content: "＊";
+		    vertical-align: middle;
+		    color: rgb(238, 0, 0);
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='advance_infor'></li>
+				</ul>
+			</section>
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="panel panel-default">
+							<div class="panel-heading i18n" name='suppliersRegistration_basic_information' style="font-size: 17px; font-weight: bold">
+								
+							</div>
+							<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 0px 18px;">
+								<div class="col-md-6" style="padding: 0 14px;">
+									<div class="panel col-md-12 " style="margin-left: 0px;padding: 0;">
+										<div>											
+											<label class="control-label i18n" name='liti_date'></label>			
+											<div class="input-group mb-5">
+												<input class="easyui-datebox inputDate form-control date-box-required" type="text" id="order_date" name="order_date"/>
+											</div>
+											<label class="i18n control-label" name='zhenti_pro'></label>									
+											<select id="itemList" name="itemList" class="form-control mb-5 required" style="">
+												<option value=""></option>
+											</select>											
+											<label class="control-label i18n" name='order_register_caseName'></label>			
+												<input maxlength="100" class="mb-5 form-control advancename required" type="text"  id="cost_name" name="cost_name" style=""/>
+											<label class="i18n control-label" name='liti_employee'></label>	
+											<div class="input-group mb-5" style="border-left: 1px solid;">
+												<span class="input-group-addon" style="border-radius:0 !important;background-color: #eee; padding: 4px 12px;padding-right:0;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+													<i class="iconfont icon-ren"></i>
+												</span>
+												<input style="border-left: 0px;border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);" disabled class="form-control advanceperson required" id="customname"  name="customname" placeholder=""  type="text">
+												<span id="searchLend" class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);border-left: 0;">
+													<i class="iconfont icon-sousuo" id="searchContra"></i>
+												</span>
+												<input id="customcd" name="customcd" class="form-control" placeholder=""  type="hidden">
+												<input type="text" id="payee_cd" name="payee_cd" hidden="hidden"/>	
+												<input type="userid" id="userid" name="userid" hidden="hidden"/>
+										</div>												
+											<label class="i18n" name="jobregistration_remarks"></label>
+												<textarea maxlength="500" class="form-control remark" name="" rows="3" cols="" id="cost_remark" name="cost_remark" style="padding:0px 12px;height: 66px;"></textarea>
+										</div>
+									</div>
+								</div>	
+								<div class="col-md-6" style="padding: 0 15px;">
+									<div class="panel panel-default col-md-12 form-group" required style="background: #f5f5f5">
+										<div class="panel-heading" style="border: none; font-size: 16px; font-weight: bold;">
+											<span class="i18n" name='liti_cost'></span>
+										</div>
+										<!--#include virtual="../common/jczh/price_on.shtml"-->
+									</div>
+								</div>												
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading i18n" name='liti_puzu' style="font-size: 16px; font-weight: bold;">
+								
+							</div>
+							<div class="panel-body " style="padding: 15px 23px 0px 23px; ">
+								<!--#include virtual="../common/jczh/advance_infor.shtml"-->
+							</div>
+						</div>	
+						<div class="lastChild i18n" name='jobregistration_person_in_charge2'></div>
+						<div class="lastChild">
+							<button class="btn btn-success i18n log_job" name='salescategoryRegistration_login'  type="submit" onclick="advanceAdd()"></button>
+							<button class="btn btn-default i18n" name='salescategoryRegistration_back' type="submit" onclick="goJoblist()"></button>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding: 0;">
+						<!--#include virtual="../common/business/label/label_set_extend.shtml"-->
+					</div>
+					<input id="advancetype" name="advancetype" value = "new" class="form-control" placeholder=""  type="hidden">
+				</div>
+			</aside>			
+		</div>	
+		<!--#include virtual="../common/jczh/pingzheng.shtml"--> 
+		<!--#include virtual="../common/business/label/label_set_t.shtml"--> 
+		<!--#include virtual="../common/jczh/add_tax_price.shtml"--> 
+	</body>
+</html>

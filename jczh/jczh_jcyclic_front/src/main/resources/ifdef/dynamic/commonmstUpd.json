@@ -1,0 +1,143 @@
+{
+  "definitionFilePath" : null,
+  "name" : "产品列表",
+  "path" : "commonmstUpd",
+  "rootPath" : "dynamic",
+  "type" : "query",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "mstcd",
+      "comment" : "マスタ区分コード",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "^[a-zA-Z0-9]+$",
+      "length" : 4,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 10,
+      "name" : "mstname",
+      "comment" : "マスタ区分名称",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 11,
+      "name" : "itemcd",
+      "comment" : "システムコード",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "^[a-zA-Z0-9]+$",
+      "length" : 10,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 12,
+      "name" : "itemname_jp",
+      "comment" : "項目名称(日本語)",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 13,
+      "name" : "itmname",
+      "comment" : "項目名称(中国語・簡体字)",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 14,
+      "name" : "itemname_hk",
+      "comment" : "項目名称(中国語・繁体字)",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 15,
+      "name" : "itemname_en",
+      "comment" : "項目名称(英語)",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 16,
+      "name" : "itmvalue",
+      "comment" : "補助コード",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : "Regular",
+      "formatPattern" : "^[a-zA-Z0-9]+$",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 17,
+      "name" : "aidcd",
+      "comment" : "数値",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 10,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 18,
+      "name" : "change_utin",
+      "comment" : "換算単位",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : "Regular",
+      "formatPattern" : "^[0-9]+$",
+      "length" : 50,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 19,
+      "name" : "orderno",
+      "comment" : "表示順",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : "Regular",
+      "formatPattern" : "^[0-9]+$",
+      "length" : 2,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

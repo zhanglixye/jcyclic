@@ -1,0 +1,160 @@
+.first_cont {
+/*	height: 38%;*/
+}
+
+.first {
+	display: inline-block;
+	height: 70px;
+	width: 850px;
+}
+
+.first_one_text {
+	width: 20%;
+	display: inline-block;
+	margin-left: 2%;
+}
+
+.first_time {
+	float: left;
+	height: 20px;
+	width: 200px;
+}
+
+.first_last {
+	float: left;
+	height: 20px;
+	margin-top: 40px;
+	margin-left: 1%;
+}
+
+.time_two {
+	height: auto;
+	float: left;
+	margin-top: 30px;
+	margin-left: -200px;
+}
+
+.time_one {
+	float: left;
+	margin-top: 38px;
+	margin-left: -70px;
+}
+
+.first_time1 {
+	height: auto;
+	float: left;
+	margin-top: 30px;
+	margin-left: -40px;
+}
+
+.second {
+	display: inline-block;
+}
+
+.second_two {
+	display: inline-block;
+	margin-left: 5%;
+}
+
+.cont_first {
+	display: inline-block;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+.cont_second {
+	margin-top: 1%;
+	margin-left: 1%;
+}
+
+.cont_first_btn {
+	margin-top: 0.5%;
+	margin-left: 1%;
+	margin-bottom: 2%;
+}
+
+.cont_second_1 {
+	display: inline-block;
+	margin-top: 2%;
+	margin-left: 1%;
+}
+
+.cont_first_2 {
+	width: 100%;
+	margin-top: 0.5%;
+	margin-left: 2%;
+}
+
+.cont_second_2 {
+	width: 100%;
+	margin-top: 2%;
+	margin-left: 1%;
+}
+
+.cont_second_3 {
+	margin-top: 2%;
+	margin-left: 1%;
+}
+
+.radio_2,
+.radio_3,
+.radio_4 {
+	margin-left: 5%;
+}
+
+.cont_second_3,
+.cont_first_btn {
+	width: 100px;
+	color: #fff;
+	background-color: #1abc9c;
+	margin-left: 2%;
+}
+
+.text_title {
+	width: 30%;
+	float: left;
+	margin-left: 4%;
+}
+
+.text_title1 {
+	float: left;
+	height: 20px;
+}
+
+.text-cont {
+	float: left;
+	margin-top: 5px;
+}
+
+.text-iconi {
+	background: none;
+	padding: 4px 12px;
+	box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);
+}
+
+.radio-1 {
+	margin-left: 5px;
+	font-weight: 500;
+}
+
+.radio_ot {
+	display: inline-block;
+	margin-left: 50px;
+}
+
+.second_cont {
+	float: left;
+	height: 20px;
+	width: 200px;
+}
+
+.second_cont_one {
+	height: auto;
+	float: left;
+	margin-top: 35px;
+	margin-left: -200px;
+}
+.text-iconi{
+	border-top-right-radius: 5px!important;
+	border-bottom-right-radius: 5px!important;
+}

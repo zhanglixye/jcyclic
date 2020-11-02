@@ -1,0 +1,5 @@
+<!--引入boostrap-switch 插件-->
+<link href="../public/lib/bootstrap3.3.0/bootstrap-switch.css" rel="stylesheet">
+<script src="../public/lib/boostrap-switch/highlight.js"></script>
+<script src="../public/lib/bootstrap3.3.0/bootstrap-switch.js"></script>
+<script src="../public/lib/boostrap-switch/main.js"></script>

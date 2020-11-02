@@ -1,0 +1,87 @@
+<div class="panel panel-default">
+	<div class="panel-heading fas_head" name="">JOB</div>
+	<div class="" style="padding: 5px;padding-right: 10px;">
+		<div class="row dot_title">
+			<div class="col-xs-8 i18n" name='toplogin_the_total_number'>
+				
+			</div>
+			<div class="col-xs-4 flex-right" style="padding-right: 5px;">
+				<div class="i18n" name="jian"></div>
+				<div id="sellCountNums"></div>
+			</div>
+		</div>
+		<div>
+			<div class="row dot_body">
+				<div class="col-xs-7 col-xs-offset-1 i18n" name='toplogin_sales_volume'>
+					
+				</div>
+				<div class="col-xs-4 flex-right">
+					<div class="i18n" name="jian"></div>
+					<div id="sellIsConfirmNums"></div>
+				</div>
+			</div>
+			<div class="row dot_body">
+				<div class="col-xs-12 flex-right num">
+					<div class="person_code">RMB</div>
+					<div id="sellIsConfirmAmt" style="margin-right: 5px;"></div>
+				</div>
+			</div>
+		</div>	
+		<div class="point" onclick="searchJobListByMonthCheckOut('job','statusCode','002')">
+			<div class="row dot_body">
+				<div class="col-xs-7 col-xs-offset-1 i18n" name='toplogin_number_of_logs_on_the_log'>
+					
+				</div>
+				<div class="col-xs-4 flex-right">
+					<div class="i18n" name="jian"></div>
+					<div class="cu_hovrt" id="notSellRegistrationNums"></div>
+				</div>
+			</div>
+			<div class="row dot_body">
+				<div class="col-xs-12 flex-right" style="font-size: 15px;">
+					<div class="person_code">RMB)</div>
+					<div id="notSellRegistrationAmt" style="margin-right: 5px;">(123,456,789.12</div>
+				</div>
+			</div>
+		</div>
+		<div class="point" onclick="searchJobListByMonthCheckOut('job','statusCode','003')">
+			<div class="row dot_body">
+				<div class="col-xs-7 col-xs-offset-1 i18n" name='toplogin_number_of_logs_on_the_appro'>
+					
+				</div>
+				<div class="col-xs-4 flex-right">
+					<div class="i18n" name="jian"></div>
+					<div class="cu_hovrt" id="sellRegistrationNotConfirmNums"></div>
+				</div>
+			</div>
+			<div class="row dot_body">
+				<div class="col-xs-12 flex-right" style="font-size: 15px;">
+					<div class="person_code"></div>
+					<div id="sellRegistrationNotConfirmAmt" style="margin-right: 5px;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="point" onclick="searchJobListByMonthCheckOut('job','costCode','001')">
+			<div class="row dot_body">
+				<div class="col-xs-7 col-xs-offset-1 i18n" name='toplogin_number_of_original_conditions'>
+					
+				</div>
+				<div class="col-xs-4 flex-right">
+					<div class="i18n" name="jian"></div>
+					<div class="cu_hovrt" id="costNotFinshNums"></div>
+				</div>
+			</div>
+		</div>
+		<div class="point" onclick="searchJobListByMonthCheckOut('job','invStatusCode','001')" style="margin-top: 32.67px">
+			<div class="row dot_body">
+				<div class="col-xs-7 col-xs-offset-1 i18n" name='toplogin_number_invoice'>
+
+				</div>
+				<div class="col-xs-4 flex-right">
+					<div class="i18n" name="jian"></div>
+					<div class="cu_hovrt" id="invoiceNotRegister"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

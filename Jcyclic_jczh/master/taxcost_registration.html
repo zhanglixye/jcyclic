@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" id="titleName" name='taxcost_registration_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801" />
+		<!--#include virtual="../common/language.shtml"--> 
+		<script type="text/javascript" src="../public/javascript/master/taxcost_registration.js?v=2018092801"></script>
+		  
+	</head>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='taxcost_registration_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+				<div class="row">
+					<div class="col-md-8">
+						<form>
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='taxcostRegistration_basic_information'></div>
+								<div class="panel-body ov">
+
+									<div class="form-group"><label class="control-label i18n " name='taxcostRegistration_type_of_taxpayer'></label><span style="vertical-align: middle;color: rgb(238, 0, 0);">＊</span>
+										<select id="userListone" name="userListone" name="boostrap-select " class="form-control required">
+											<option value="" class="i18n" name="taxcostRegistration_type_of_taxpayer"></option>
+
+										</select>
+
+									</div>
+
+									<div class="form-group"><label class="control-label i18n" name='taxcostRegistration_departure_card_type'></label><span style="vertical-align: middle;color: rgb(238, 0, 0);">＊</span>
+										<select id="invoicetypeList" name="invoicetypeList" name="boostrap-select " class="form-control required">
+											<option value="" class="i18n" name="taxcostRegistration_departure_card_type"></option>
+
+										</select>
+
+									</div>
+									<div class="form-group"><label class="control-label i18n" name='taxcostRegistration_contents_of_invoice'></label><span style="vertical-align: middle;color: rgb(238, 0, 0);">＊</span>
+										<select id="invoicetextList" name="invoicetextList" name="boostrap-select " class="form-control required">
+											<option value="" class="i18n" name="taxcostRegistration_contents_of_invoice"></option>
+
+										</select>
+
+									</div>
+									<div class="form-group"><label class="control-label i18n" name='taxcostRegistration_value_added_tax_rate'></label><span>(%)</span><span style="vertical-align: middle;color: rgb(238, 0, 0);">＊</span>
+
+										<input class="form-control vat_rate required width_100_ml0" placeholder="" type="number" required="" oninput="this.value=number_va_length(this.value,7,2)">
+
+									</div>
+
+								</div>
+							</div>
+
+							<div class="panel panel-default">
+								<div class="panel-heading i18n" name='taxcostRegistration_invalid'></div>
+								<div class="panel-body">
+									<div class="form-group"><label class="control-label i18n" name='taxcostRegistration_invalid_sign'></label>
+										<div class="checkbox">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="del_flg" id="del_flg" value="1">
+												<span class="iconfont icon-duihaok"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="lastChild">
+								<button class="btn btn-success i18n" name='taxcostRegistration_login' id="taxadd" type="button" onclick="addaa()" ></button>
+								<button class="btn btn-success i18n" name='taxcostList_change' id="taxup" type="button" onclick="addaa()" ></button>
+								<button class="btn btn-default i18n" name='taxcostRegistration_back' type="button" onclick="back()" ></button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</body>
+	<script>
+			//获取falg		
+			var url = location.search;
+			var theRequest = new Object();
+			if ( url.indexOf( "?" ) != -1 ) {
+				var str = url.substr( 1 );
+				var strs = str.split( "&" );
+				for ( var i = 0; i < strs.length; i++ ) {
+			    theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
+			  }
+//				console.log( theRequest.flg );
+				if( theRequest.flg ==1){
+					 $('.fs18').attr('name','taxcost_registration_title_ch');
+					 $('#titleName').attr('name','taxcost_registration_title_ch');
+					 
+					 
+				}			
+			}
+		</script>
+</html>

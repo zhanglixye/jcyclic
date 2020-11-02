@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='time_sheet_list'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jcst/timesheet_list.css?v=2018092801"/>
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/jcst/job/timesheet_list_dataGrid.js?v=2018092801"></script>
+		<!--语言包模块js文件-->
+		<!--#include virtual="../common/language.shtml"-->  
+	</head>
+	<style>
+		.week{
+			border-top-left-radius: 0px!important;
+			border-left: none;
+		}
+		.week .week-top{
+			border-bottom-left-radius: 0px!important;
+			border-bottom-right-radius: 0px!important;
+			border-top-left-radius: 0px!important;
+		}
+		.panel-htop{
+			border-top-right-radius: 0px!important;
+			border-bottom-right-radius: 0px!important;
+		}
+		.week-bottom div{
+			border-top-right-radius: 0px!important;
+		}
+		.datagrid-wrap.panel-body.panel-body-noheader{
+			border-radius: 0 !important;
+		}
+	</style>
+	<body class="main page">
+		<!--Navbar-->
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='time_sheet_list'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;">
+				<div class="form-inline">
+					<div class="selInput1 form-group">
+					</div>
+				</div>
+				<div class="form-inline bottom-15 ov" style="padding-right:4%;margin-top: -25px; ">
+					<label class="i18n" name="timesheet_list_time_value" for="qyfInput" style=" float: right;margin-right: 5px;"></label>
+				</div>
+				<div class="form-inline bottom-15 ov" style="margin-top: -15px;">
+					<div class="input-group usermanage" style="width: 20%;">
+						<span class="input-group-addon" style="background:#eee; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+							<i class="iconfont icon-ren" id="customcolor"></i>
+						</span>
+						<input disabled="disabled" class="form-control" id="customname"  name="customname" placeholder=""  type="text" style="padding-left: 0;border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);border-left: none;">
+						<span class="input-group-addon" id="searchCus" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);border-top-right-radius: 5px;border-bottom-right-radius: 5px;">
+							<i class="iconfont icon-sousuo" id="searchCus"></i>
+						</span>
+						<input id="customcd" name="customcd" class="form-control" placeholder=""  type="hidden">
+						<input id="colorv" name="colorv" class="form-control" placeholder=""  type="hidden">
+					</div>
+					<div class="bord_no input-group clearfix userone hidden" style="width: 20%;">
+						<i class="iconfont icon-ren minute pull-left" id="customcolor" style="line-height: 1em;" id=""></i>
+						<div class="pull-left time_spa" style="margin-top: 3px;">
+							<span id="part"></span>
+							<span id="userid"></span>
+							<span id="username"></span>
+						</div>
+					</div>
+					<div class="data-right unactive2" id="next-week">
+					</div>
+					<div class="data-body">
+						<table id="dayshow" class="dates" style="width: 100%;">
+							<tr id="monitor" style="w">
+								<td class="padleft" colspan="2">
+									<div>
+										19
+									</div>
+								</td>
+								<td>
+									<div>
+										20
+									</div>
+								</td>
+								<td>
+									<div>
+										21
+									</div>
+								</td>
+								<td>
+									<div>
+										22
+									</div>
+								</td>
+								<td>
+									<div>
+										23
+									</div>
+								</td>
+								<td>
+									<div>
+										24
+									</div>
+								</td>
+								<td class="padright" colspan="2">
+									<div>
+										25
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="data-left" id="last-week">
+					</div>
+				</div>
+				<table id="timesheet_list" style="width: 60%;">
+				</table>
+				<div class="week">
+					<div class="week-top">
+						<ul>
+							<li class="i18n" name="time_jin"></li>
+							<li class="i18n" name="time_tu"></li>
+							<li class="i18n" name="time_ri"></li>
+							<li class="i18n" name="time_yue"></li>
+							<li class="i18n" name="time_huo"></li>
+							<li class="i18n" name="time_shui"></li>
+							<li class="i18n" name="time_mu"></li>						
+						</ul>
+					</div>
+					<div value='0' class="week-bottom">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='1' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='2' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='3' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='4' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='5' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='6' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='7' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='8' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='9' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='10' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+					<div value='11' class="week-bottom hidden">
+						<div class="week-bottom-content day1">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day2">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day3">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day4">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day5">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day6">
+							<ul>
+								
+							</ul>
+						</div>
+						<div class="week-bottom-content day7">
+							<ul>
+								
+							</ul>
+						</div>
+				    	<div class='total i18n' name='timesheet_list_total'></div>
+					</div>
+				</div>
+				<div class="form-inline top-15 ov" style="margin-top: 35px; width: 100%; margin-bottom: 35px">
+					<div style="position: absolute;top: 150px;left: 25%;" class="time_sheet_info hidden"></div>
+					<div class="lastChild">
+						<button class="btn btn-success i18n" name="suppliersRegistration_login" type="submit" onclick="add()"></button>
+						<!--<button class="btn btn-default i18n" name="suppliersRegistration_back" style="width: auto;" type="submit" onclick="back()">戻る</button>-->
+					</div>
+				</div>
+			</aside>
+		</div>
+	</body>
+
+</html>

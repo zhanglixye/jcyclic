@@ -1,0 +1,344 @@
+#clName{
+	font-size: 20px;
+}
+.remind_label div{
+	padding: 0px;
+	margin: 2px;
+}
+.re_left{
+	position: relative;
+	left: 7px;
+}
+.div_top div{
+	margin-top: 8px;
+}
+.costTab span{
+	padding-right: 5px;
+}
+.lendTab span{
+	padding-right: 5px;
+}
+.tranTab span{
+	padding-right: 5px;
+}
+#rooftrn button:hover{
+	text-decoration: underline;
+}
+#lendrooftrn button:hover{
+	text-decoration: underline;
+}
+.font-14{
+	font-size: 14px;
+}
+.bk-color{
+	color:black!important;
+}
+.nav>li.active a center{
+	font-size: 16px;	
+}
+
+.nav>li a center + span{
+	font-size: 14px;	
+}
+
+.minute_title {
+	height: 35px;
+	width: 103%;
+	background-color: white;
+	position: relative;
+	top: -20px;
+	left: -19px;
+}
+
+.minute_title_span1 {
+	line-height: 35px;
+	margin-left: 15px;
+	text-decoration: underline
+}
+
+.minute_title_span2 {
+	margin-left: 30px;
+	text-decoration: underline
+}
+
+.tb {
+	border-bottom: 1px solid #E6E6E6;
+}
+
+.tl {
+	border-left: 1px solid #E6E6E6;
+}
+
+.tt {
+	border-top: 1px solid #E6E6E6;
+}
+
+.minute {
+	color: red;
+}
+
+.minute_per {
+	margin: 15px 0 0 0;
+}
+
+.minute_per.one{
+	width: 226px;
+	min-height: 142.867px;
+}
+
+.minute_per.one div.col-xs-12{
+	height: 100%;
+}
+
+.minute_per.one:not(.hidden):last-of-type{
+	border-right: 1px solid #ddd;
+}
+.visible{
+	visibility: hidden;
+}
+
+.min-hei-60{
+	min-height: 60px;
+}
+
+.l-h-26{
+	line-height: 26px;
+}
+
+.b-r{
+	border-right: 1px solid #ddd;
+}
+
+.minute_per.two{
+	width: 57%;
+}
+
+.minute_per .clearfix.col-xs-10{
+	padding-left: 10px;
+}
+
+.log_job {
+	margin: 10px 10px 0px 0px;
+}
+
+.person .person-t {
+	border-top: 1px solid #efefef;
+}
+
+.width {
+	width: 100%;
+}
+
+.per_top {
+	width: 25px;
+	height: 25px;
+	position: relative;
+	top: 30px;
+}
+
+.text_top {
+	margin-top: 11px;
+}
+.costTab span{
+	padding-right: 5px;
+}
+.panel .panel-heading i[class*='icon-'] {
+	margin: 0;
+}
+.minute_per div[class*='col-xs-']{
+	padding: 0;
+} 
+.minute_per small{
+	font-size: 11px;
+}
+.minute_per .col-xs-6,.minute_per .col-xs-3,.minute_per .col-xs-12{
+	border: 1px solid #dddddd;
+	border-right: 0;
+}
+.panel-btm{
+	padding: 10px !important;
+	border: 0 !important;
+}
+.minute_per .panel-head{
+	background-color:#f5f5f5;
+	padding: 5px 5px 5px 1px;
+}
+.minute_per .panel-head + .clearfix{
+	padding-left: 1px;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+.minute_title a span{
+	color: #1abc9c;
+	cursor: pointer;
+}
+.minute_title a span:hover{
+	color: #000000;
+}
+.minute_title_span1:hover{
+	color: #000000!important;
+}
+.remind_label{
+	border: 1px solid #000000;
+	margin: 4px 0;
+	display: flex;
+}
+
+.remind_label div:last-of-type{
+	background-color:#fff;
+	border: 1px solid #707070;
+	color: #000000;
+	border-radius: 50%/50%;
+}
+
+.nav.nav-tabs.content li a{
+	padding: 5px;
+}
+
+.pay_re .FILE{
+	margin-right: 15px;
+}
+
+.panel-heading span.job_num{
+	margin-left: 15px;
+}
+.panel-heading span.job_num.job_color{
+	color: rgb(26, 188, 156);
+}
+
+.remind_label div.active{
+	border: 1px solid #707070;
+	border-radius: 50%/50% !important;
+	background-color:#707070;
+	color: white;
+}
+
+.nav-tabs{
+	border-bottom: 0;
+}
+.FILE{
+	display: none;
+	border-top-left-radius: 0 !important;
+}
+.FILE.active{
+	display: block;
+}
+li a center{
+	margin: auto;
+} 
+.base-value{
+	margin: 0;
+	padding-left: 10px;
+	padding-top: 2px;
+	min-height: 25px;
+}
+.base-value span{
+	border-bottom: 1px solid #ddd;
+	width: 80px;
+	display: inline-block;
+}
+.base-value.date{
+	border-bottom: 0;
+}
+dl{
+	margin-bottom: 15px;
+}
+.pay_box{
+	background-color: #f5f5f5;
+}
+.pay_box,.pay_box .pay_con,.pay_box .pay_con .pay_body{
+	padding: 10px;
+	border: 1px solid rgb(221,221,221);
+}
+.pay_box .pay_con{
+	background-color: #ffffff;
+}
+.pay_box .pay_text_under{
+	position: relative;
+}
+.pay_box img{
+	position: absolute;
+    bottom: -5px;
+	right: 60px;
+}
+.whether_the_skip .radio label {
+	padding: 0
+}
+.sale_rate_click_off small{
+	font-size: 14px;
+}
+ul.nav-tabs a[data-toggle="tab"]{
+	display: flex;
+}
+
+.btn-group .activeL{
+    background: #ccc !important;
+    color: #000 !important;
+}
+
+img#costflagimg,img#jobflagImg,img#lendflagimg,img#tranflagimg{
+	margin-top: 20px;
+}
+
+.rotate-180{
+	transform: rotate(180deg);
+}
+
+.row-eq-height,.row-eq-height .col-md-4,.row-eq-height .col-md-3,.row-eq-height .col-xs-4,.row-eq-height .col-xs-3{
+	border-radius: 0 !important;
+}
+
+span#jobcd,span.jobdetai_number{
+	cursor: pointer;
+}
+
+.liti_employee_d span{
+	padding: 0 5px;
+	border-right: 1px solid #ddd;
+}
+
+.liti_employee_d span:last-of-type{
+	border-right: 0;
+}
+
+.FILE.bl{
+	display: block;
+}
+
+.pay_re ul#myTab2 li a{
+	padding: 5px 10px;
+}
+
+.pay_re ul#myTab2 li:first-child>a{
+	width: 110px;
+}
+
+.pay_re ul#myTab2 li:not(:first-child)>a{
+	width: 75px;
+}
+
+#jobuserTable{
+	display: flex;
+	flex-wrap: wrap;
+}
+.costTab .gang:last-of-type,.lendTab .gang:last-of-type,.tranTab .gang:last-of-type{
+	display: none;
+}
+
+div.datagrid-wrap.panel-body.panel-body-noheader{
+	padding: 0;
+}
+.minute_per img{
+	cursor: pointer;
+}
+
+.lendishave label.btn.activeL{
+	background:#fff !important;
+	border-bottom-right-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+	border-top-left-radius: 4px !important;
+}
+.lendishave label.btn:not(.activeL){
+	display:none;
+}

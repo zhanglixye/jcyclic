@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.TopMapper">
+	<resultMap type="com.kaiwait.bean.jczh.vo.TopVo" id="TopVo">
+	
+	</resultMap>
+	<select id="getCostAccount" resultType="com.kaiwait.bean.jczh.vo.TopVo">
+ SELECT
+	(SELECT  count(*) FROM
+	
+		(SELECT
+			paytrn.INPUT_NO AS input,
+			paytrn.CONFIRMDATE AS comfirmdate,
+			ifnull(paytrn.COMPANY_CD,costtrn.COMPANY_CD) AS companycd
+		 FROM
+		jobtrn 
+		LEFT JOIN costtrn ON jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.DEL_FLG = 0 and costtrn.COMPANY_CD = #{companycd}
+		LEFT JOIN paytrn ON costtrn.INPUT_NO = paytrn.INPUT_NO and paytrn.DEL_FLG = 0 and paytrn.COMPANY_CD = #{companycd}
+		where 
+    jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+		
+		UNION ALL
+		
+		SELECT
+			lendtrn.INPUT_NO,
+			lendtrn.CONFIRMDATE,
+			lendtrn.COMPANY_CD AS companycd
+		FROM
+			jobtrn
+		LEFT JOIN lendtrn ON jobtrn.JOB_CD = lendtrn.JOB_CD and 	lendtrn.DEL_FLG = 0 and lendtrn.COMPANY_CD = #{companycd}
+		WHERE
+		jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+			
+		UNION ALL
+		
+			SELECT
+				trantrn.INPUT_NO,
+				trantrn.CONFIRMDATE,
+				trantrn.COMPANY_CD AS companycd
+			FROM
+				jobtrn
+			LEFT JOIN trantrn ON jobtrn.JOB_CD = trantrn.JOB_CD and trantrn.DEL_FLG = 0 and trantrn.COMPANY_CD = #{companycd}
+     where 	jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+			) a
+			
+		WHERE
+		1=1
+		  <if test="all!=null">
+	  and (
+	  	<trim prefixOverrides="and |or">
+	   <if test="cldivUser!=null">
+	      a.CLDIV_CD in (
+	        	select ucl.cldivcd 
+				from userclmst ucl 
+				where ucl.user_cd =#{cldivUser}
+				and ucl.company_cd=#{companycd}
+	      )
+	   </if>
+	   <if test="adUser!=null">
+	      or a.adusercd = #{adUser} or a.requsercd = #{adUser}
+	   </if>
+	    <if test="mdUser!=null">
+	      or a.mdusercd = #{mdUser} 
+	   </if>
+	   </trim >
+	  )
+	
+	  </if> 
+		<if test="checkDate!=null">
+		and a.comfirmdate >=  #{checkDate}
+		</if>
+		AND a.comfirmdate IS NOT NULL
+		AND a.companycd = #{companycd}
+		
+	) AS adcount,
+	
+	
+      (
+		SELECT
+			count(*)
+		FROM
+			(
+				SELECT
+					paytrn.INPUT_NO AS input,
+					paytrn.CONFIRMDATE AS comfirmdate,
+					ifnull(paytrn.COMPANY_CD,costtrn.COMPANY_CD) AS companycd,
+					IFNULL(paytrn.ADDDATE,costtrn.ADDDATE) as adddate
+				FROM
+					jobtrn
+				LEFT JOIN costtrn ON jobtrn.JOB_CD = costtrn.JOB_CD and costtrn.DEL_FLG = 0 and costtrn.COMPANY_CD = #{companycd}
+				LEFT JOIN paytrn ON costtrn.INPUT_NO = paytrn.INPUT_NO AND paytrn.DEL_FLG = 0 and paytrn.COMPANY_CD = #{companycd}
+				WHERE
+					jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+				
+				UNION ALL
+				
+					SELECT
+						lendtrn.INPUT_NO AS input,
+						lendtrn.CONFIRMDATE AS comfirmdate,
+						lendtrn.COMPANY_CD AS companycd,
+            lendtrn.ADDDATE as adddate
+					FROM
+						jobtrn
+					LEFT JOIN lendtrn ON jobtrn.JOB_CD = lendtrn.JOB_CD and lendtrn.DEL_FLG = 0 and lendtrn.COMPANY_CD = #{companycd}
+					WHERE
+						jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+						
+					UNION ALL
+					
+						SELECT
+							trantrn.INPUT_NO AS input,
+							trantrn.CONFIRMDATE AS comfirmdate,
+							trantrn.COMPANY_CD AS companycd,
+              trantrn.ADD_DATE as adddate
+						FROM
+							jobtrn
+						LEFT JOIN trantrn ON jobtrn.JOB_CD = trantrn.JOB_CD and trantrn.DEL_FLG = 0 and trantrn.COMPANY_CD = #{companycd}
+          where 
+          jobtrn.COMPANY_CD = #{companycd} and jobtrn.DEL_FLG = 0
+			) a
+			
+		WHERE
+	 1= 1
+	  <if test="all!=null">
+	  and (
+	  	<trim prefixOverrides="and |or">
+	   <if test="cldivUser!=null">
+	      a.CLDIV_CD in (
+	        	select ucl.cldivcd 
+				from userclmst ucl 
+				where ucl.user_cd =#{cldivUser}
+				and ucl.company_cd=#{companycd}
+	      )
+	   </if>
+	   <if test="adUser!=null">
+	      or a.adusercd = #{adUser} or a.requsercd = #{adUser}
+	   </if>
+	    <if test="mdUser!=null">
+	      or a.mdusercd = #{mdUser} 
+	   </if>
+	   </trim >
+	  )
+	
+	  </if> 
+    and a.comfirmdate is null
+     
+		AND a.companycd =#{companycd}
+	) AS noadcount
+	
+	</select>
+	<select id="getMsg" resultType="com.kaiwait.bean.jczh.entity.MsgInfo">
+	 select  
+	 msgtrn.ID as id,
+	 msgtrn.MSG_LEVEL as  msglevel,
+	 msgtrn.MSG_TITLE as msgtitle,
+	 msgtrn.`UPDATE` as `update`,
+	 msgtrn.MSG_TEXT as msgtext,
+	 ifnull(usermsgtrn.`STATUS`,0) as isread
+	 from  msgtrn 
+LEFT JOIN usermsgtrn on usermsgtrn.MSGID = msgtrn.ID  and usermsgtrn.COMPANY_CD = #{companycd} and usermsgtrn.USERCD = #{usercd}
+where  (msgtrn.COMPANY_CD =#{companycd} or msgtrn.MSG_LEVEL=1) and msgtrn.DEL_FLG = 0 order by msgtrn.`UPDATE`  desc limit #{limitNum}
+   	
+	</select>
+    <select id="getLable" resultType="com.kaiwait.bean.jczh.entity.Lable">
+         SELECT
+		  labelmst.LABEL_ID as lableid,
+	      labelmst.LABEL_LEVEL as lablelevel,
+	      labelmst.LABEL_TEXT as labletext,
+	      j.CLDIV_CD as cldivcd,
+	      adMst.USERCD as adusercd,
+			reqMst.USERCD as requsercd,
+			mdMst.USERCD as mdusercd
+	      
+		FROM
+			jobtrn j
+		LEFT JOIN joblabeltrn ON j.JOB_CD = joblabeltrn.JOB_CD  AND joblabeltrn.COMPANY_CD = #{companycd} 
+		LEFT JOIN labelmst on labelmst.LABEL_ID = joblabeltrn.LABEL_CD and labelmst.COMPANY_CD = #{companycd} and labelmst.DEL_FLG = 0 and  labelmst.LABEL_LEVEL =#{lablelevel} and labelmst.LABEL_TYPE = 0
+		  <!-- 关联权限 --><!--  责任者的关联条件 -->
+    left join jobuserstrn jobAduser
+    on j.JOB_CD = jobAduser.JOB_CD and jobAduser.LEVEL_FLG = '1' and jobAduser.COMPANY_CD = #{companycd} and jobAduser.DEL_FLG = 0
+    left join usermst adMst 
+    on adMst.USERCD = jobAduser.USERCD  
+     <!-- 关联权限 --><!--  担当者的关联条件 -->
+    left join jobuserstrn jobRequser
+    on j.JOB_CD = jobRequser.JOB_CD and jobRequser.LEVEL_FLG = '2' and jobRequser.COMPANY_CD = #{companycd} and jobRequser.DEL_FLG = 0
+    left join usermst reqMst 
+    on reqMst.USERCD = jobRequser.USERCD 
+     <!-- 关联权限 --><!--  md的关联条件 -->
+     left join jobuserstrn jobMduser
+    on j.JOB_CD = jobMduser.JOB_CD and jobMduser.LEVEL_FLG = '3' and jobMduser.COMPANY_CD = #{companycd} and jobMduser.DEL_FLG = 0
+    left join usermst mdMst 
+    on mdMst.USERCD = jobMduser.USERCD  
+        where 1=1
+         <if test="all==null or all==''">
+		  and (
+		  	<trim prefixOverrides="and |or">
+		   <if test="cldivUser!=null or cldivUser!=''">
+		      j.CLDIV_CD in (
+		        	select ucl.cldivcd 
+					from userclmst ucl 
+					where ucl.user_cd =#{cldivUser}
+					and ucl.company_cd=#{companycd}
+		      )
+		   </if>
+		   <if test="adUser!=null or adUser!=''">
+		      or  adMst.USERCD = #{adUser} or reqMst.USERCD = #{adUser}
+		   </if>
+		    <if test="mdUser!=null or mdUser!=''">
+		      or mdMst.USERCD = #{mdUser} 
+		   </if>
+		   </trim >
+		  )
+	  </if> 
+         AND j.COMPANY_CD = #{companycd} and j.DEL_FLG=0
+          GROUP BY labelmst.LABEL_ID
+        order by j.UPDDATE desc,labelmst.UPDDATE desc limit 10
+    
+    </select>
+    <update id="changeMsgStatus">
+     <!-- update msgtrn set `STATUS` = 1 where ID = #{id} and COMPANY_CD= #{companycd}  and DEL_FLG !=1 -->
+    </update>
+    <delete id="deleteFromUserMsg">
+      delete from usermsgtrn where MSGID = #{id} and USERCD = #{usercd} and COMPANY_CD = #{companycd}
+    </delete>
+    <insert id="insertReadMsg">
+      insert into usermsgtrn
+      ( MSGID,USERCD,COMPANY_CD,`STATUS`,ADDDATE,ADDUSERCD)
+      values
+      (#{id}, #{usercd}, #{companycd},1,#{addDate},#{usercd})
+      
+    </insert>
+    <select id="getMsgLimit" resultType="String">
+     select MSG_NUMBER as msgLimit from pwdmst 
+    </select>
+</mapper>

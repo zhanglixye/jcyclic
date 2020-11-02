@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.PaytrnMapper">
+<resultMap type="com.kaiwait.bean.jczh.entity.Costtrn" id="Costtrn">
+		<id column="job_cd" property="job_cd" jdbcType="VARCHAR" />
+		<result column="cost_no" property="cost_no" jdbcType="VARCHAR" />
+		<result column="order_date" property="order_date" jdbcType="VARCHAR" />
+		<result column="payee_cd" property="payee_cd" jdbcType="VARCHAR" />
+		<result column="cost_name" property="cost_name" jdbcType="VARCHAR" />
+		<result column="cost_type" property="cost_type" jdbcType="VARCHAR" />
+		<result column="plan_dlvday" property="plan_dlvday" jdbcType="VARCHAR" />
+		<result column="cost_remark" property="cost_remark" jdbcType="VARCHAR" />
+		<result column="cost_rate" property="cost_rate" jdbcType="VARCHAR" />
+		<result column="cost_foreign_amt" property="cost_foreign_amt" jdbcType="VARCHAR" />
+		<result column="cost_rmb" property="cost_rmb" jdbcType="VARCHAR" />
+		<result column="cost_vat_amt" property="cost_vat_amt" jdbcType="VARCHAR" />
+		<result column="cost_pay_amt" property="cost_pay_amt" jdbcType="VARCHAR" />
+		<result column="cost_cure_code" property="cost_cure_code" jdbcType="VARCHAR" />
+		<result column="cost_use_date" property="cost_use_date" jdbcType="VARCHAR" />
+		<result column="cost_ishave" property="cost_ishave" jdbcType="VARCHAR" />
+		<result column="cost_refer" property="cost_refer" jdbcType="VARCHAR" />
+		<result column="cost_foreign_type" property="cost_foreign_type" jdbcType="VARCHAR" />
+		<result column="invoice_type" property="invoice_type" jdbcType="VARCHAR" />
+		<result column="invoice_type_jp" property="invoice_type_jp" jdbcType="VARCHAR" />
+		<result column="invoice_type_en" property="invoice_type_en" jdbcType="VARCHAR" />
+		<result column="invoice_type_hk" property="invoice_type_hk" jdbcType="VARCHAR" />
+		<result column="invoice_text" property="invoice_text" jdbcType="VARCHAR" />
+		<result column="invoice_text_jp" property="invoice_text_jp" jdbcType="VARCHAR" />
+		<result column="invoice_text_en" property="invoice_text_en" jdbcType="VARCHAR" />
+		<result column="invoice_text_hk" property="invoice_text_hk" jdbcType="VARCHAR" />		
+		<result column="input_no" property="input_no" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="VARCHAR" />
+		<result column="deduction_flg" property="deduction_flg" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+		<result column="upusercd" property="upusercd" jdbcType="VARCHAR" />
+		<result column="output_flg" property="output_flg" jdbcType="VARCHAR" />
+		<result column="costforeigntype" property="costforeigntype" jdbcType="VARCHAR" />
+		<result column="foreignlen" property="foreignlen" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="com.kaiwait.bean.jczh.entity.Paytrn" id="Paytrn">
+		<id column="input_no" property="input_no" jdbcType="VARCHAR" />
+		<result column="pay_dlyday" property="pay_dlyday" jdbcType="VARCHAR" />
+		<result column="pay_hope_date" property="pay_hope_date" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="pay_rate" property="pay_rate" jdbcType="VARCHAR" />
+		<result column="pay_amt" property="pay_amt" jdbcType="VARCHAR" />
+		<result column="pay_foreign_amt" property="pay_foreign_amt" jdbcType="VARCHAR" />
+		<result column="pay_rmb" property="pay_rmb" jdbcType="VARCHAR" />
+		<result column="pay_vat_amt" property="pay_vat_amt" jdbcType="VARCHAR" />
+		<result column="pay_cure_code" property="pay_cure_code" jdbcType="VARCHAR" />
+		<result column="pay_use_date" property="pay_use_date" jdbcType="VARCHAR" />
+		<result column="pay_ishave" property="pay_ishave" jdbcType="VARCHAR" />
+		<result column="pay_refer" property="pay_refer" jdbcType="VARCHAR" />
+		<result column="pay_foreign_type" property="pay_foreign_type" jdbcType="VARCHAR" />
+		<result column="invoice_type" property="invoice_type" jdbcType="VARCHAR" />
+		<result column="invoice_type_jp" property="invoice_type_jp" jdbcType="VARCHAR" />
+		<result column="invoice_type_en" property="invoice_type_en" jdbcType="VARCHAR" />
+		<result column="invoice_type_hk" property="invoice_type_hk" jdbcType="VARCHAR" />
+		<result column="invoice_text" property="invoice_text" jdbcType="VARCHAR" />
+		<result column="invoice_text_jp" property="invoice_text_jp" jdbcType="VARCHAR" />
+		<result column="invoice_text_en" property="invoice_text_en" jdbcType="VARCHAR" />
+		<result column="invoice_text_hk" property="invoice_text_hk" jdbcType="VARCHAR" />
+		<result column="del_flg" property="del_flg" jdbcType="VARCHAR" />
+		<result column="company_cd" property="company_cd" jdbcType="VARCHAR" />
+		<result column="adddate" property="adddate" jdbcType="VARCHAR" />
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="addusercd" property="addusercd" jdbcType="VARCHAR" />
+		<result column="upusercd" property="upusercd" jdbcType="VARCHAR" />
+		<result column="payreqdate" property="payreqdate" jdbcType="VARCHAR" />
+		<result column="payreqemp" property="payreqemp" jdbcType="VARCHAR" />
+		<result column="payreqremark" property="payreqremark" jdbcType="VARCHAR" />
+		<result column="confirmdate" property="confirmdate" jdbcType="VARCHAR" />
+		<result column="confirmemp" property="confirmemp" jdbcType="VARCHAR" />
+		<result column="confirmark" property="confirmark" jdbcType="VARCHAR" />
+		<result column="pay_flg" property="pay_flg" jdbcType="VARCHAR" />
+		<result column="pay_plan_date" property="pay_plan_date" jdbcType="VARCHAR" />
+		<result column="pay_date" property="pay_date" jdbcType="VARCHAR" />
+		<result column="deduction_flg" property="deduction_flg" jdbcType="VARCHAR" />
+		<result column="job_cd" property="job_cd" jdbcType="VARCHAR" />
+		<result column="costno" property="costno" jdbcType="VARCHAR" />
+		<result column="payjump" property="payjump" jdbcType="VARCHAR" />
+		<result column="payforeigntype" property="payforeigntype" jdbcType="VARCHAR" />
+		<result column="foreignlen" property="foreignlen" jdbcType="VARCHAR" />
+		<result column="lock_flg" property="lock_flg" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insertPaytrn" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		insert into paytrn
+		(job_cd,
+		input_no,
+		company_cd,
+		lend_date,
+		item_code,
+		lend_name,
+		lend_user,
+		isdeduction,
+		remark,
+		lend_amt,
+		lend_pay_amt,
+		lend_foreign_amt,
+		lend_vat_amt,
+		ishave,
+		lend_cure_code,
+		lend_use_date,
+		lend_refer,
+		lend_foreign_type,
+		adddate,
+		Paytrn.update,
+		addusercd,
+		upusercd,
+		status,
+		del_flg
+		)
+		values
+		(
+		#{job_cd,jdbcType=INTEGER},
+		#{input_no,jdbcType=VARCHAR},
+		#{company_cd,jdbcType=INTEGER},
+		#{lend_date,jdbcType=TIMESTAMP},
+		#{item_code,jdbcType=VARCHAR},
+		#{lend_name,jdbcType=VARCHAR},
+		#{lend_user,jdbcType=VARCHAR},
+		#{isdeduction,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{lend_amt,jdbcType=VARCHAR},
+		#{lend_pay_amt,jdbcType=VARCHAR},
+		#{lend_foreign_amt,jdbcType=VARCHAR},
+		#{lend_vat_amt,jdbcType=VARCHAR},
+		#{ishave,jdbcType=VARCHAR},
+		#{lend_cure_code,jdbcType=VARCHAR},
+		#{lend_use_date,jdbcType=VARCHAR},
+		#{lend_refer,jdbcType=VARCHAR},
+		#{lend_foreign_type,jdbcType=VARCHAR},
+		#{adddate,jdbcType=VARCHAR},
+		#{update,jdbcType=VARCHAR},
+		#{addusercd,jdbcType=VARCHAR},
+		#{upusercd,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{del_flg,jdbcType=VARCHAR}
+		)
+	</insert>
+	<select id="Paytrnquery" parameterType="com.kaiwait.bean.jczh.entity.Paytrn"
+		resultMap="Paytrn">
+
+		select 
+			input_no,
+			pay_dlyday,
+			pay_hope_date,
+			remark,
+			IFNULL(PAY_RATE,0) pay_rate,
+			IFNULL(PAY_AMT,0) pay_amt,
+			IFNULL(PAY_FOREIGN_AMT,0) pay_foreign_amt,
+			IFNULL(PAY_RMB,0) pay_rmb,
+			IFNULL(PAY_VAT_AMT,0) pay_vat_amt,
+			pay_cure_code,
+			pay_use_date,
+			pay_ishave,
+			pay_refer,
+			pay_foreign_type,
+			IFNULL((select itmname from commonmst where mstcd = '0050'  and company_cd = a.COMPANY_CD and itemcd =a.PAY_FOREIGN_TYPE ),'') payforeigntype,
+			IFNULL((select itmname from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type,
+			IFNULL((select itemname_en from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_en,
+			IFNULL((select itemname_jp from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_jp,
+			IFNULL((select itemname_hk from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_hk,
+			IFNULL((select itmname from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text,
+			IFNULL((select itemname_en from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_en,
+			IFNULL((select itemname_jp from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_jp,
+			IFNULL((select itemname_hk from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_hk,
+			IFNULL((select itmvalue from commonmst where MSTCD='0050' and ITEMCD = a.PAY_FOREIGN_TYPE and company_cd=a.COMPANY_CD),0)  foreignlen,
+			del_flg,
+			company_cd,
+			adddate,
+			a.update,
+			addusercd,
+			upusercd,
+			payreqdate,
+			payreqemp,
+			payreqremark,
+			confirmdate,
+			confirmemp,
+			confirmark,
+			pay_flg,
+			pay_plan_date,
+			pay_date,
+			pay_emp_cd,
+			deduction_flg,
+			pay_remark,
+			pay_cancel_date,
+			pay_cancel_emp,
+			pay_confirm_cancel_date,
+			pay_confirm_cancel_emp,
+			lock_flg
+		from paytrn a
+		where input_no = #{input_no,jdbcType=VARCHAR}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+
+	</select>
+	<select id="Costtrnquery" parameterType="com.kaiwait.bean.jczh.entity.Paytrn"
+		resultMap="Costtrn">
+
+		select job_cd,
+			cost_no,
+			order_date,
+			(select divnm from clmst where CLDIVCD = a.PAYEE_CD and COMPANY_CD = a.COMPANY_CD) payee_cd,
+			cost_name,
+			cost_type,
+			plan_dlvday,
+			cost_remark,
+			IFNULL(COST_RATE,0) cost_rate,
+			IFNULL(COST_FOREIGN_AMT,0) cost_foreign_amt,
+			IFNULL(COST_RMB,0) cost_rmb,
+			IFNULL(COST_VAT_AMT,0) cost_vat_amt,
+			IFNULL(COST_PAY_AMT,0) cost_pay_amt,
+			cost_cure_code,
+			cost_use_date,
+			cost_ishave,
+			cost_refer,
+			cost_foreign_type,
+			IFNULL((select itmname from commonmst where mstcd = '0050'  and company_cd = a.COMPANY_CD and itemcd =a.cost_foreign_type ),'') costforeigntype,
+			(select itmname from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ) invoice_type,
+			IFNULL((select itemname_en from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_en,
+			IFNULL((select itemname_jp from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_jp,
+			IFNULL((select itemname_hk from commonmst where mstcd ='0061' and itemcd =a.INVOICE_TYPE and COMPANY_CD = a.COMPANY_CD ),'') invoice_type_hk,
+			(select itmname from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ) invoice_text,
+			IFNULL((select itemname_en from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_en,
+			IFNULL((select itemname_jp from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_jp,
+			IFNULL((select itemname_hk from commonmst where mstcd ='0062' and itemcd =a.INVOICE_TEXT and COMPANY_CD = a.COMPANY_CD ),'') invoice_text_hk,
+			IFNULL((select itmvalue from commonmst where MSTCD='0050' and ITEMCD = a.cost_foreign_type and company_cd=a.COMPANY_CD),0)  foreignlen,
+			input_no,
+			status,
+			del_flg,
+			company_cd,
+			deduction_flg,
+			adddate,
+			a.update,
+			addusercd,
+			upusercd,
+			output_flg
+		from costtrn a
+		where input_no = #{input_no,jdbcType=VARCHAR}
+		and job_cd = #{job_cd,jdbcType=VARCHAR}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+
+	</select>
+
+	<select id="Invoiceintrnquery" 
+		resultType="java.util.Map">
+
+		select *
+		from invoiceintrn
+		where COST_NO = #{num,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+
+	</select>
+	<update id="Paytrnapply" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			PAYREQDATE = #{update,jdbcType=VARCHAR},
+			PAYREQEMP = #{upusercd,jdbcType=VARCHAR},
+			payreqremark = #{payreqremark,jdbcType=VARCHAR}
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	
+	<update id="costtrnUpdate" >
+		update costtrn
+		<set>
+			status = #{status,jdbcType=VARCHAR}			
+		</set>
+		where job_cd = #{jobcd,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=INTEGER}
+		and cost_no = #{costno,jdbcType=VARCHAR}
+	</update>
+
+	<update id="Paytrnapproval" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			CONFIRMDATE = #{update,jdbcType=VARCHAR},
+			CONFIRMEMP = #{confirmemp,jdbcType=VARCHAR},
+			CONFIRMARK = #{confirmark,jdbcType=VARCHAR},
+			PAY_CONFIRM_CANCEL_DATE = null,
+			PAY_CONFIRM_CANCEL_EMP = null,
+			<if test="pay_plan_date != null and pay_plan_date != ''" >
+			PAY_PLAN_DATE = #{pay_plan_date,jdbcType=VARCHAR},
+			</if>
+			<if test='payjump != "1"' >
+			PAYREQEMP = UPUSERCD,
+			</if>
+			<if test='payjump == "1"' >
+			PAYREQDATE = #{update,jdbcType=VARCHAR},
+			PAYREQEMP = #{upusercd,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+
+	<update id="Paytrnapprovalback" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			PAYREQDATE = null,
+			PAYREQEMP = null,
+			payreqremark = null
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<update id="PaytrnApprovalCancel" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			pay_flg='0',
+			CONFIRMDATE = null,
+			CONFIRMEMP = null,
+			CONFIRMARK = null,
+			PAY_PLAN_DATE = null,
+			PAY_CONFIRM_CANCEL_DATE = #{update,jdbcType=VARCHAR},
+			PAY_CONFIRM_CANCEL_EMP =#{upusercd,jdbcType=INTEGER},
+			PAYREQDATE = null,
+			PAYREQEMP = null,
+			PAYREQREMARK = null
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<update id="PaytrnApprovalJumpCancel" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			pay_flg='0',
+			CONFIRMDATE = null,
+			CONFIRMEMP = null,
+			CONFIRMARK = null,
+			PAY_PLAN_DATE = null,
+			PAY_CONFIRM_CANCEL_DATE = #{update,jdbcType=VARCHAR},
+			PAY_CONFIRM_CANCEL_EMP =#{upusercd,jdbcType=INTEGER},
+			PAYREQREMARK = null
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<update id="updatePaytrn" parameterType="com.kaiwait.bean.jczh.entity.Paytrn">
+		update paytrn
+		<set>
+			lend_date= #{lend_date},
+			item_code= #{item_code},
+			lend_user= #{lend_user},
+			lend_name= #{lend_name},
+			remark= #{remark},
+			isdeduction= #{isdeduction},
+			ishave= #{ishave},
+			lend_foreign_amt= #{lend_foreign_amt},
+			lend_amt= #{lend_amt},
+			lend_pay_amt= #{lend_pay_amt},
+			paytrn.update = #{update,jdbcType=VARCHAR},
+			upusercd = #{addusercd,jdbcType=INTEGER}
+		</set>
+		where input_no = #{input_no}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+	</update>
+	<insert id="insertProoftrn">
+		insert into prooftrn
+		(INPUT_NO,COMPANY_CD,PROOF_TYPE,PROOF_TITLE,PROOF_URL,ADDDATE,prooftrn.UPDATE,ADDUSERCD,UPUSERCD)
+		values
+		<foreach collection="clietList" index="index" item="client"
+			separator=",">
+			(
+			#{inputno,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},
+			'1',
+			#{client.proof_title,jdbcType=VARCHAR},
+			#{client.proof_url,jdbcType=VARCHAR},
+			#{upddate,jdbcType=VARCHAR},
+			#{upddate,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR},
+			#{UserID,jdbcType=VARCHAR}
+			)
+		</foreach>
+
+	</insert>
+	<select id="rooftrnquery" resultType="java.util.Map">
+
+		select
+		INPUT_NO,COMPANY_CD,PROOF_TYPE,PROOF_TITLE,PROOF_URL,ADDDATE,prooftrn.UPDATE,ADDUSERCD,UPUSERCD
+		from prooftrn
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+
+	</select>
+	<delete id="deleteProoftrn">
+		delete from prooftrn where input_no =
+		#{inputno,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</delete>
+	<select id="getRemark" resultType="java.util.Map">
+
+		select IFNULL(a.REMARK,'') REMARK,
+			IFNULL(DATE_FORMAT(a.UPDATE,'%Y-%m-%d %H:%i:%S'),'') UPDATEPAY,
+			IFNULL((select user_name from usermst where usercd =a.UPUSERCD  ),'') UPUSER,
+			(select colorv from usermst where usercd = a.UPUSERCD) upusercolor,
+			IFNULL(b.COST_REMARK,'') COST_REMARK,
+			IFNULL(DATE_FORMAT(b.UPDATE,'%Y-%m-%d %H:%i:%S'),'') COSTUPDATE,
+			IFNULL((select user_name from usermst where usercd =b.UPUSERCD ),'') COSTUPUSER,
+			(select colorv from usermst where usercd = a.UPUSERCD) costupcolor,
+			IFNULL(a.PAYREQREMARK,'') PAYREQREMARK,
+			IFNULL(DATE_FORMAT(a.PAYREQDATE,'%Y-%m-%d %H:%i:%S'),'') PAYREQDATE,
+			IFNULL((select user_name from usermst where usercd =a.PAYREQEMP  ),'') PAYREQEMP,
+			(select colorv from usermst where usercd = a.UPUSERCD) payreqempcolor
+		from paytrn a,costtrn b
+		where a.input_no=b.input_no
+		and a.company_cd = b.company_cd
+		and a.input_no = #{inputno,jdbcType=VARCHAR}
+		and b.job_cd = #{jobcd,jdbcType=VARCHAR}
+		and b.cost_no = #{costno,jdbcType=VARCHAR}
+		and b.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+
+	</select>
+	<select id="getpayflg" resultType="String">
+		select
+		pay_flg
+		from paytrn
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+	</select>
+	<select id="getcostflg" resultType="java.lang.Integer">
+		select
+		status
+		from costtrn
+		where job_cd = #{jobcd,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+		and cost_no = #{costno,jdbcType=VARCHAR}
+	</select>
+	<select id="getpayjump" resultType="java.lang.Integer">
+		select
+		pay_skip
+		from companymst
+		where  COMPANY_CD = #{companycd,jdbcType=VARCHAR}
+	</select>
+	<select id="getClmstList" resultType="java.util.Map">
+
+		select 
+			a.pay_auto_setting,
+			a.pay_date_flg,
+			a.pay_auto_month,
+			a.pay_auto_day,
+			date_format(b.adddate,'%Y-%m-%d %H:%i:%s') pay_add_date			
+			from clmst a,costtrn b
+		where a.cldivcd=b.payee_cd
+		and a.company_cd = b.company_cd
+		and b.input_no = #{inputno,jdbcType=VARCHAR}
+		and b.job_cd = #{jobcd,jdbcType=VARCHAR}
+		and b.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+
+	</select>
+	<select id="Costtrnnoquery" resultType="String">
+
+		select 
+			cost_no			
+		from costtrn a
+		where input_no = #{input_no,jdbcType=VARCHAR}
+		and job_cd = #{job_cd,jdbcType=VARCHAR}
+		and company_cd = #{company_cd,jdbcType=INTEGER}
+
+	</select>
+	<insert id="addOrder" parameterType="com.kaiwait.bean.jczh.entity.OrderHistorytrn" >
+     insert into orderhistorytrn
+		(job_no,
+		order_no,
+		check_month,
+		pay_amt,
+		cost_amt,
+		cost_vat,
+		order_status,
+		order_type,
+		company_cd,
+		adddate,addusercd
+		)
+        values
+        (
+         #{jobNo,jdbcType=INTEGER},
+         #{orderNo,jdbcType=VARCHAR},
+         #{checkMonth,jdbcType=INTEGER},
+         #{payAmt,jdbcType=TIMESTAMP},
+         #{costAmt,jdbcType=VARCHAR},
+         #{costVat,jdbcType=VARCHAR},
+         #{orderStatus,jdbcType=VARCHAR},
+         #{orderType,jdbcType=VARCHAR},
+         #{companycd,jdbcType=VARCHAR},
+         #{adddate,jdbcType=VARCHAR},
+         #{addusercd,jdbcType=VARCHAR}
+        )
+  </insert>
+   <delete id="DeleteOrder" parameterType="com.kaiwait.bean.jczh.entity.OrderHistorytrn" >
+     delete from orderhistorytrn
+		where job_no=#{jobNo,jdbcType=INTEGER}
+		and order_no=#{orderNo,jdbcType=VARCHAR}
+		and check_month= #{checkMonth,jdbcType=INTEGER}
+		and company_cd=#{companycd,jdbcType=VARCHAR}
+  </delete>
+  <select id="queryLock"  resultType="java.lang.Integer">	
+		select 
+			lock_flg
+		from paytrn 
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+   </select>
+    <select id="queryUpuser"  resultType="String">	
+		select 
+			upusercd
+		from paytrn 
+		where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+   </select>
+    <update id="updateLock">
+    update paytrn 
+    set lock_flg = lock_flg+1 
+    where input_no = #{inputno,jdbcType=VARCHAR}
+		and company_cd = #{companycd,jdbcType=VARCHAR}
+   </update>
+</mapper>

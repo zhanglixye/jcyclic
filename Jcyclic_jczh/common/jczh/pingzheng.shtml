@@ -1,0 +1,31 @@
+<div class="zhengquan" style="display: none;">
+	<div class="panel">
+	   <ul class="breadcrumb" id="breadcrumb">
+			<li class="fs18 i18n" name='credential_registration'></li>
+			<i class="iconfont icon-guanbi" style="float: right;font-size: 14px;"></i>
+		</ul>
+	    <div class="panel-body" style="padding-left: 20px;padding-right: 20px;">
+	       <div class="form-group">
+		       <label for="name" class="i18n" name='adv_title'></label>
+		       <input maxlength="100" type="text" id="save_name" class="form-control advancetitle">
+	       </div>    
+	        <div class="form-group">
+		       <label for="name">URL</label>
+		       <input maxlength="5000" type="text" id="save_url" class="form-control advanceurl">
+	       </div> 
+	    </div>
+	    <center class="btn_footer">	  	
+			<button style="margin-left: 16px;margin-right: 20px; float: right;" id="closeBtnInput" class="btn btn-default i18n" name='salescategoryRegistration_clsoe'></button>
+			<button style="float: right;" class="btn btn-success i18n log_job" name='salescategoryRegistration_login' id="save" type='button' onclick="advanceURL()"></button>
+	   		<span style="float:right;margin-right: 20px;" class="iconfont icon-LINK" onclick="new_url_open()"></span>
+	    </center>
+	</div>
+</div>
+<script>
+		function new_url_open(){
+			var url = $("#save_url").val();	
+			returnURL(url);
+			var url_path = returnURL(url);
+			window.open(url_path);
+		}
+	</script>

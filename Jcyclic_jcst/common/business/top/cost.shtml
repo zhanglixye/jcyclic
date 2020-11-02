@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+	<div class="panel-heading i18n" name='toplogin_original' style="font-size: 17px; font-weight: bold">
+		
+	</div>
+	<div class="panel-body" style="padding-left: 4px;">
+		<div class="form-group col-md-12" style="padding-left: 30px; margin-bottom: 0;">
+			<label class="control-label i18n" name='toplogin_total_number_of' style="padding-top: 13px; height: 53px; line-height: 43px; font-weight: normal; "></label>
+			<label class="control-label " id="cost-all" style="padding-top: 0px; height: 53px; line-height: 54px; font-size: 26px; font-weight:bold; "></label>&nbsp;<span style="cursor: default;">件</span>
+		</div>
+		<div class="form-group col-md-12">
+			<div class="col-md-6 cost-ad" style="padding: 0 5px;">
+				<div id="cost-ad-color" onmouseover="this.style.backgroundColor='#f5f5f5'" onmouseout="this.style.backgroundColor='#ffffff'" class="panel panel-default col-md-12 " style="cursor:pointer;background: #fff;box-shadow: 0px 3px 5px #d4d4d4;">
+					<div class="tj">
+						<div class="tj-t" style="margin-bottom: 5px;">
+							<div class="tj-t-l">
+								<div class="prg-cont rad-prg" id="indicatorContainer5" num="">
+								</div>
+							</div>
+							<div class="tj-t-r">
+								<div class="tj-t-r-t">
+									<div style="width: 100%" class="middle_bottom_text">
+										<label class="control-label i18n" name='toplogin_approvals_month' style="cursor:pointer;padding-top: 20px; padding-bottom: 0; padding-left: 0; font-weight: normal;"></label>
+									</div>
+									<div style="width: 100%" class="middle_bottom">
+										<label class="control-label " id="cost-ad" style="cursor:pointer; padding-top: 0px; height: 29px; line-height: 29px; font-size: 26px; font-weight: bold; margin-bottom: 0; "></label>&nbsp;件
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 cost-no-ad" style="padding: 0 5px;cursor:pointer;">
+				<div id="cost-ad-color2" onmouseover="this.style.backgroundColor='#f5f5f5'" onmouseout="this.style.backgroundColor='#ffffff'" class="panel panel-default col-md-12 " style="background: #fff;box-shadow: 0px 3px 5px #d4d4d4;">
+					<div class="tj">
+						<div class="tj-t" style="margin-bottom: 5px;">
+							<div class="tj-t-l">
+								<div class="prg-cont rad-prg" id="indicatorContainer6" num="">
+								</div>
+							</div>
+							<div class="tj-t-r">
+								<div class="tj-t-r-t">
+									<div style="width: 100%;" class="middle_bottom_text">
+										<label class="control-label i18n" name='toplogin_an_approval_number' style="cursor:pointer;padding-top: 20px; padding-bottom: 0; padding-left: 0; font-weight: normal;"></label>
+									</div>
+									<div style="width: 100%" class="middle_bottom">
+										<label class="control-label " id="cost-no-ad" style=" cursor:pointer;padding-top: 0px; height: 29px; line-height: 29px; font-size: 26px; font-weight: bold; margin-bottom: 0; "></label>&nbsp;件
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title class="i18n" name='job_detail'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/salescategory_registration.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/master/job_details.css?v=2018092801" />
+		<script type="text/javascript" src="../public/javascript/jcst/job/job_details.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->
+	</head>
+	<style>
+		.remind_label div {
+			padding: 1px;
+			margin: 4px;
+		}		
+		.col-xs-2 .icon-ren {
+			margin-left: 10px;
+		}		
+		.minute_per .clearfix.col-xs-10 {
+			padding-left: 15px;
+		}	
+		.remind_label div.active {
+			border-radius: 50%/50%!important;
+		}		
+		#payfinish {
+			border-radius: 50%/50%!important;
+		}
+		#jobflagImg {
+			margin-top: 20px;
+		}		
+		a .log_job {
+			margin-top: 10px;
+		}		
+		#joblible,
+		#costlable,
+		#lendlable,
+		#tranlable {
+			margin-top: 10px;
+		}		
+		.tab-content .panel.panel-default {
+			border-radius: 5px!important;
+		}
+		
+		@media screen and (max-width:1366px) {
+			.mediaiofo {
+				width: 34.7%!important;
+			}
+		}		
+		@media screen and (min-width:1920px) {
+			.mediaiofo {
+				width: 34.16%!important;
+			}
+		}		
+		#payeename {
+			width: 97.5%;
+		}
+		
+		#inputno {
+			width: 97.5%;
+		}		
+		.width_24 {
+			width: 24.9%;
+		}
+		.person-t{
+			border-bottom-left-radius: 0px!important;
+			border-bottom-right-radius: 0px!important;
+		}
+		.person-m{
+			border-radius: 0px!important;
+		}
+		.person-b{
+			border-top-left-radius: 0px!important;
+			border-top-right-radius: 0px!important;
+		}
+		.minute_per .col-xs-12 .panel-head{
+			border-bottom-left-radius: 0px!important;
+			border-bottom-right-radius: 0px!important;
+		}
+		#joblible button,.icon-ren,#costlable button,#lendlable button,#tranlable button,.lendishave label,.payishave label,.costishave label{
+			cursor:default; 
+		}
+		.minute_title{
+			border-radius: 0px!important;
+			position: fixed;
+		    height: 38px;
+		    top: 111px;
+		    left: 117px;
+		    z-index: 2;
+		}
+		#jobcd,.jobdetai_number,.jobdetai_number,.jobdetai_number{
+			color: #1abc9c;
+			text-decoration: underline;
+		}
+		.jobdetai_number:hover{
+			color: #000000;
+			cursor: pointer;
+		}
+		.minute_title_span2{
+			color: #1abc9c;
+		 }
+		 #payamtdifferenceicon{
+		 	display: inline-block;
+		 }
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='job_detail'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;margin-top: 85px;">
+				<div style="background: #ffffff;">
+					<div class="minute_title">
+						<a id="jumpJob" style="margin-left: -5px;">
+							<span class="minute_title_span1 i18n" name='salescategoryLogin_job_information'></span>
+						</a>
+						<a id="jump">
+							<span class="minute_title_span2 i18n" name='order_register_CostInformation'></span>
+						</a>
+					</div>
+				</div>
+				<a id="jumpToJob"></a>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-md-12">
+								<div class='panel panel-default'>
+									<div class='panel-heading'>
+										<span name='salescategoryLogin_intelligence'>
+											<span class="i18n" name='salescategoryLogin_job_information' style="padding-right: 5px;"> </span>
+										<span id="jobcd" onclick="getJobDetails()"></span>
+										<span></span>
+										<span id="jobname"></span>
+										<a data-toggle="collapse" data-parent="#accordion" href="#jobCon">
+											<span id="ratating" class="rotate-180 in_bl pull-right" style="margin-right: 10px;">
+												<i class="iconfont icon-sanjiao deta" id="job_i" value=1 style="line-height: 22px;float: right;color: rgb(14,45,95);"></i>
+											</span>
+										</a>
+										</span>
+									</div>
+									<div id="jobCon" class="panel-collapse collapse">
+										<div class="panel-body" style="overflow: hidden;padding: 4px;padding-top: 0px;">
+											<div class="clearfix" style="margin:0 10px;">
+												<div id="joblible">
+												</div>
+
+												<div class="clearfix">
+													<img class="pull-left" id="jobflagImg" src="../public/images/job1.4.png" style="display:block" />
+													<div class="pull-right remind_label" style="margin-top: 15px;">
+														<div class="i18n" name='job_detail_remind_labelO' style="margin-top: 5px;">
+															
+														</div>
+														<div class="active i18n" id="costendflagText" style="background-color: #fff;color: #000;" name='job_detail_remind_labelN'>
+															
+														</div>
+													</div>
+												</div>
+
+												<div class="row" style="margin-top: 10px;">
+													<div class="col-md-6">
+														<dl>
+															<dt class="base-item i18n" name='jobregistration_event_sales'></dt>
+															<dd class="base-value dlvday font-14" id="saleName" style="padding-top: 7px;"></dd>
+														</dl>
+													</div>
+													<div class="col-md-6">
+														<dl>
+															<dt class="base-item i18n" name='joblist_customer'></dt>
+															<dd class="base-value plan_req_date" id="clName"></dd>
+														</dl>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<dl>
+															<dt class="base-item i18n" name='joblist_billing_address'></dt>
+															<dd class="base-value dlvday font-14" id="payerName"></dd>
+														</dl>
+													</div>
+													<div class="col-md-6">
+														<dl>
+															<dt class="base-item i18n" name='joblist_destination_G_company'></dt>
+															<dd class="base-value plan_req_date font-14" id="gName"></dd>
+														</dl>
+													</div>
+												</div>
+												<div class="row">
+													<div class="panel panel-default" style="margin-bottom: 0;margin: 0 15px;">
+														<div class="panel-heading" style="background-color: #e7e9e8;">
+															<span class="i18n" name='jobregistration_person_in_charge1'></span>
+															<span class="i18n" name='jobregistration_noperson' style="margin-left: 2px;"></span>														
+															<label class="checkbox-inline" style="padding: 0;">
+																<input type="checkbox" name="" id="md-flg" value="" disabled style="cursor: auto;" />
+																<span class="iconfont icon-duihaok"></span>
+															</label>
+														</div>
+														<div class="panel-body " style="padding: 15px 10px 25px 0;">
+															<div id="jobuserTable">
+
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class='form-group' style="margin-top: 10px;padding-right: 20px;">
+													<label class='control-label i18n' name='job_detail_remark' style="margin-top: 10px;"></label>
+													<div class="form-group" style="border: 1px solid #ccc;">
+														<div class="job_text remark" style="padding: 5px 20.5px ;width: auto;" id="Jobremark">
+															<pre></pre>
+														</div>
+														<hr style="width: 98%;margin: 0 auto;" />
+														<div class="text-center rotate-90 hidden">
+															<i class="iconfont icon-xiala"></i>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-3" style="margin-top: 15px;margin-left: 7px;">
+														<dl>
+															<dt class="base-item i18n" name='jishangd' style="margin-left: 10px;"></dt>
+															<dd class="base-value dlvday font-14" id="dlvday" style="padding-bottom: 5px;width: 50%;">
+															</dd>
+														</dl>
+													</div>
+													<div class="col-md-3" style="margin-top: 15px;margin-left: -10px;">
+														<dl>
+															<dt class="base-item i18n" name='jobregistration_record_date' style="margin-left: 10px;"></dt>
+															<dd class="base-value plan_req_date font-14" id="plandalday" style="padding-bottom: 5px;width: 50%;"></dd>
+														</dl>
+													</div>
+													<div class="col-md-3" style="margin-top: 15px;margin-left: -10px;">
+														<dl>
+															<dt class="base-item i18n" name='salescategoryLogin_qingjiu' style="margin-left: 10px;"></dt>
+															<dd class="base-value plan_req_date font-14" id="planreqdate" style="padding-bottom: 5px;width: 50%;"></dd>
+														</dl>
+													</div>
+													<div class="col-md-3" style="position: relative;margin-top: 15px;margin-left: -10px;">
+														<dl>
+															<dt class="base-item" name=''>
+																<span class="i18n" name='advance_day'></span>
+																<div class="remind_label" style="display: inline-block;position: absolute;top: -13px;left: 65px;">
+																	<div class="i18n pull-left" name='advance_finish' style="font-weight: normal;margin-top: 5px;margin-left: 4px;margin-right: 4px;">
+																		
+																	</div>
+																	<div class="active i18n pull-left" id="advance_finish" style="font-weight: normal;background-color: #fff;color: #000;margin-left: 4px;margin-right: 4px;" name='job_detail_remind_labelN'>
+																		
+																	</div>
+																</div>
+															</dt>
+															<dd class="base-value plan_req_date font-14" id="recdate" style="padding-bottom: 5px;width: 50%;padding-top: 5px;"></dd>
+														</dl>
+
+													</div>
+												</div>
+												<div class='panel-body' style="overflow: hidden;padding: 0;">
+													<div class="sales-simple-table" style="margin: 0px 0px 20px 0px;">
+														<div class="row row-eq-height">
+															<div class="col-md-3">
+															</div>
+															<div class="col-md-3 width_24">
+																<h5 class="text-center i18n" name='salescategoryApproval_achievement'></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-center i18n" name='yuding'></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-center i18n" name='salescategoryApproval_difference'></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height">
+															<div class="col-md-3">
+																<h5 class="i18n" name='jobregistration_sales_amount'></h5>
+															</div>
+															<div class="col-md-3 width_24">
+																<h5 class="text-right"><span class=" sale_foreign_amt" id="saleamt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right"><span class=" sale_foreign_amt" id="plansale"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right">
+																	<span class=" sale_foreign_amt" id="saledifference"></span> <small class="money-code"></small>
+																	<div id="saledifferenceicon" class="in_bl" style="display: inline-block;">
+																		<i class="iconfont icon-xiajiang"></i>
+																	</div>					
+																</h5>
+															</div>
+														</div>
+														<div class="row row-eq-height">
+															<div class="col-md-3">
+																<h5 class="i18n" name='jobregistration_value_added_tax'></h5>
+															</div>
+															<div class="col-md-3 width_24">
+																<h5 class="text-right"><span class="" id="salevatamt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right"><span class="" id="plansalevat"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right">
+																	<span class="" id="vatamtdifference"></span> <small class="money-code"></small>
+																	<div id="vatamtdifferenceicon" class="in_bl" style="display: inline-block;">
+																		<i class="iconfont icon-xiajiang"></i>
+																	</div>	
+																</h5>
+															</div>
+														</div>
+														<div class="row row-eq-height">
+															<div class="col-md-3">
+																<h5 class="i18n" name='jobregistration_claim_amount'></h5>
+															</div>
+															<div class="col-md-3 width_24">
+																<h5 class="text-right"><span class="" id="reqamt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right"><span class="" id="planreqamt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-3">
+																<h5 class="text-right">
+																	<span class="" id="reqdifference"></span> <small class="money-code"></small>
+																	<div id="reqdifferenceicon" class="in_bl" style="display: inline-block;">
+																		<i class="iconfont icon-xiajiang"></i>
+																	</div>	
+																</h5>
+															</div>
+														</div>
+													</div>
+													<div class="row row-eq-height" style="width: 100%;">
+														<div class="col-md-9" style="padding: 0;">
+															<div class="panel-group sales-detail-foreign-currency" id="accordion" role="tablist" aria-multiselectable="true">
+																<div class="panel panel-default" style="margin-top: -20px;">
+																	<div class="panel-heading" role="tab" id="headingOne" style="padding: 0px 5px 0px 5px;">
+																		<div class="panel-title" style="height: 25px;line-height: 25px;">
+																			<a style="display:flex;align-items:center;height: 100%;" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsethree" aria-expanded="true" aria-controls="collapsethree">
+																				<span class="i18n" name='sale_ruli_information' style="margin-right: auto;background-color: #f5f7f7;color: #2c3e50;"></span>
+																				<span class="rotate-180" onclick="$(this).toggleClass('rotate-180')" style="height: 100%;">
+																					<i class="iconfont icon-sanjiao"></i>
+																				</span>
+																			</a>
+																		</div>
+																	</div>
+
+																	<div id="collapsethree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+																		<div class="panel-body" style="padding-top:0px;padding-bottom:0px;padding-right: 15px;">
+																			<div class="sales-detail-foreign-currency-table">
+																				<div class="row row-eq-height" style="position: relative;">
+																					<div class="col-md-4">
+
+																					</div>
+																					<div class="col-md-4 mediaiofo" style="width: 34.6%;">
+																						<h5 class="text-center " style="position: relative;">
+																							<span>[</span><span class="real_foreign_money_code"></span><span style="margin-right: 15px;">]</span>
+																							<div class="btn-group sale_rate_click_off" style="position: absolute;right: 0;top: -9px;zoom: 0.5;-moz-transform: scale(0.9);">
+																								<label class="btn btn-primary activeT">
+																								<input type="radio" name="plan_sale_ishave" value="1"> 
+																								<small class="i18n" name='shuiru' style="color: #000000;"></small>												
+																								</label>
+																								<label class="btn btn-primary">
+																								<input type="radio" name="plan_sale_ishave" value="0" >
+																								<small class="i18n" name='shuiba' style="color: #000000;"></small>						 
+																								</label>
+																							</div>
+																						</h5>
+																					</div>
+																					<div style="border: 0;margin: 0 auto;">
+																						<h5 class="text-center ">
+																							<span>[</span><span class="plan_foreign_money_code"></span><span>]</span>
+
+																							<div class="btn-group sale_rate_click_off pull-right" style="position: absolute;right: 0;top: 11px;zoom: 0.5;-moz-transform: scale(0.9);">
+
+																								<label class="btn btn-primary activeT">
+																								<input type="radio" name="plan_sale_ishave" value="1"> 
+																								<small class="i18n" name='shuiru' style="color: #000000;"></small>												
+																								</label>
+																								<label class="btn btn-primary">
+																								<input type="radio" name="plan_sale_ishave" value="0" >
+																								<small class="i18n" name='shuiba' style="color: #000000;"></small>						 
+																								</label>
+																							</div>
+																						</h5>
+																					</div>
+																				</div>
+																				<div class="row row-eq-height" style="position: relative;">
+																					<div class="col-md-4">
+																						<h5 class="i18n" name='jobregistration_amount'></h5>
+																					</div>
+																					<div class="col-md-4 mediaiofo" style="width: 34.6%;">
+																						<h5 class="text-right"><span ></span> <small style="color: black;" id="saleforeignamt"></small> <small  class="real_foreign_money_code">USD</small></h5>
+																					</div>
+																					<div style="border: 0; position:absolute;right: 0px;">
+																						<h5 class="text-right"><span ></span><small  style="color: black;"  id="plansaleforeignamt"></small> <small class="plan_foreign_money_code">USD</small></h5>
+																					</div>
+																				</div>
+																				<div class="row row-eq-height" style="position: relative;">
+																					<div class="col-md-4">
+																						<h5 class="i18n" name='jobregistration_exchange_rate'></h5>
+																					</div>
+																					<div class="col-md-4 mediaiofo" style="width: 34.6%;">
+																						<h5 class="text-right" id="salecurecode"></h5>
+																					</div>
+																					<div style="border: 0;position:absolute;right: 0px;">
+																						<h5 class="text-right" id="plansalecurecode"></h5>
+																					</div>
+																				</div>
+																				<div class="row row-eq-height" style="position: relative;">
+																					<div class="col-md-4">
+																						<h5 class="i18n" name='jobregistration_application_day'></h5>
+																					</div>
+																					<div class="col-md-4 mediaiofo" style="width: 34.6%;">
+																						<h5 id="saleusedate" style="float: right;">2017/01/01</h5>
+																					</div>
+																					<div style="border: 0;position:absolute;right: 0px;">
+																						<h5 class="text-right" id="plansaleusedate" style="float: right;">2017/01/01</h5>
+																					</div>
+																				</div>
+																				<div class="row row-eq-height" style="position: relative;border-bottom: none;">
+																					<div class="col-md-4">
+																						<h5 class="i18n" name='jobregistration_reference_target'></h5>
+																					</div>
+																					<div class="col-md-4 mediaiofo" style="width: 34.6%;">
+																						<h5 id="salerefer" style="float: right;"></h5>
+																					</div>
+																					<div style="border: 0;position:absolute;right: 0px;">
+																						<h5 class="text-right" id="plansalerefer" style="float: right;"></h5>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													</a>
+													<div class="clearfix" style="margin-left:-6px;">
+														<div class="row row-eq-height tb tt col-xs-9">
+															<div class="col-md-4">
+																<h5 class="i18n" name='jobregistration_cost_amount'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"><span id="costTotalAmt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"><span id="plancostamt"></span> <small class="money-code"></small></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height tb col-xs-9">
+															<div class="col-md-4">
+																<h5 class="idt-1 i18n" name='jobregistration_value_added_tax'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"><span id="trueCostTotalAmt"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"><span id="planvatamt"></span> <small class="money-code"></small></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height tb col-xs-9">
+															<div class="col-md-4">
+																<h5 class="idt-1 i18n" name='jobregistration_payment_amount'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"><span id="truePayAmtSum"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"><span id="planpayamt"></span> <small class="money-code"></small></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height tb col-xs-9">
+															<div class="col-md-4">
+																<h5 class="i18n" name='jobregistration_tax'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"><span id="taxTotal"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"><span id="plantaxTotal"></span> <small class="money-code"></small></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height tb col-xs-9">
+															<div class="col-md-4">
+																<h5 class="i18n" name='jobregistration_operating_revenue'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"><span id="profit"></span> <small class="money-code"></small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"><span id="planprofit"></span> <small class="money-code"></small></h5>
+															</div>
+														</div>
+														<div class="row row-eq-height tb col-xs-9">
+															<div class="col-md-4">
+																<h5 class="idt-1 i18n" name='jobregistration_operating_revenue_l'></h5>
+															</div>
+															<div class="col-md-4 tl">
+																<h5 class="text-right"> <span id="profitRate"></span><small class="">%</small></h5>
+															</div>
+															<div class="col-md-4 tl re_left">
+																<h5 class="text-right"> <span id="planprofitRate"></span><small>%</small></h5>
+															</div>
+														</div>
+													</div>
+													<div class='form-group' style="margin-top: 10px;padding-right: 20px;">
+														<label class='control-label i18n' name='jobregistration_sales_remark' style="margin-top: 10px;"></label>
+														<ul id="myTab" class="nav nav-tabs content" style="border-color: #c6c6c6 ;">
+															<li style="width:100px">
+																<a href="#home" data-toggle="tab">
+																	<center class="base i18n" name='job_detail_login_dian'> </center>
+																	<span id="saleremark_tab_point">●</span>
+																</a>
+															</li>
+															<li style="width:100px">
+																<a href="#ios" data-toggle="tab" id="saleadmitremark_tab">
+																	<center class="other i18n" name='job_detail_app_dian'> </center>
+																	<span id="saleadmitremark_tab_point">●</span>
+																</a>
+															</li>
+														</ul>
+														<div id="home" class="form-group FILE" style="border: 1px solid #ccc;border-top-left-radius: 0 !important;width: auto;">
+															<div class="job_text remark" style="padding: 5px;width: auto;" id="saleremark">
+																<pre></pre>
+															</div>
+															<hr style="width: 98%;margin: 0 auto;" />
+															<div class="text-center rotate-90 hidden">
+																<i class="iconfont icon-xiala"></i>
+															</div>
+														</div>
+														<div id="ios" class="form-group FILE" style="border: 1px solid #ccc;width: auto;">
+															<div class="job_text remark" style="padding: 5px;width: auto;" id="saleadmitremark">
+																<pre></pre>
+															</div>
+															<hr style="width: 98%;margin: 0 auto;" />
+															<div class="text-center rotate-90 hidden">
+																<i class="iconfont icon-xiala"></i>
+															</div>
+														</div>
+													</div>
+													<div style="width: 50%;padding-right: 32px;">
+														<label class='control-label i18n' name='job_rujin_remark' style="margin-top: 10px;display: block;"></label>
+														<div class="form-group" style="border: 1px solid #ccc;">
+															<div class="job_text remark" style="padding: 5px;" id="recremark">
+																<pre></pre>
+															</div>
+															<hr style="width: 98%;margin: 0 auto;" />
+															<div class="text-center rotate-90 hidden">
+																<i class="iconfont icon-xiala"></i>
+															</div>
+														</div>
+													</div>
+													<div class="panel panel-default">
+														<div class="panel-heading i18n" name='worker'>
+
+														</div>
+														<div class="panel-body workerD_job" style="display: flex;flex-wrap:wrap;margin-bottom: 15px;">
+															<div class="minute_per one ov" id="jobaddhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="salescategoryLogin_jobLogon">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="jobadddatecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="jobadduser"></div>
+																			<small class="job-adddate" id="jobadddate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+																		<div class="pull-left">
+																			<img src="../public/images/details_person.png" onclick="OutOfPDF('jobCreate')" />
+																		</div>
+																		<div class="pull-left ml-10">
+																			<div onclick="OutOfPDF('jobCreate')" class="i18n l-h-26 jobdetai_number" name='job_detail_job_login'></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="jobupdhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="salescategoryLogin_jobUpdate">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="jobupdusercolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="jobupduser"></div>
+																			<small class="job-adddate" id="jobupdate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm col-xs-12 text-center clearfix min-hei-60">
+																		<div class="pull-left">
+																			<img src="../public/images/details_person.png" onclick="OutOfPDF('jobEdit')" />
+																		</div>
+																		<div class="pull-left ml-10">
+																			<div onclick="OutOfPDF('jobEdit')" class="i18n l-h-26 jobdetai_number" name='job_detail_job_login_update'></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="saleaddhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_de_sa_login">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="saleaddusercolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="saleadduser"></div>
+																			<small class="job-adddate" id="saleadddate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="saleupdhidden">
+																<div class="col-xs-12">
+
+																	<div class="i18n panel-head" name="order_update_ren">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="saleupdusercolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="saleupduser"></div>
+																			<small class="job-adddate" id="saleupdate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="saleadmitdatehidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_de_sa_app">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="saleadmituserNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="saleadmituserName"></div>
+																			<small class="job-adddate" id="saleadmitdate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm col-xs-12 text-center clearfix min-hei-60">
+																		<div class="pull-left">
+																			<img src="../public/images/details_person.png"  onclick="OutOfPDF('saleAdminPdf')"/>
+																		</div>
+																		<div class="pull-left ml-10">
+																			<div onclick="OutOfPDF('saleAdminPdf')" class="i18n l-h-26 jobdetai_number" name='job_detail_sla_app'></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov b-r" id="saleCancelhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_de_sa_app_clear">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="saleadmitcanceluserNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="saleadmitcanceluserName"></div>
+																			<small class="job-adddate" id="salecanceldate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="reqhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_detail_qing_fazhu_1">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="reqUserNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="reqUserName"></div>
+																			<small class="job-adddate" id="reqdate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+																		<div class="pull-left">
+																			<img src="../public/images/details_person.png" onclick="OutOfPDF('billOrder')"/>
+																		</div>
+																		<div class="pull-left ml-10">
+																			<div onclick="OutOfPDF('billOrder')" class="i18n jobdetai_number" name='job_detail_qingqiu'></div>
+																			<div class="text-left">
+																				<span id="reqtimes"></span>
+																				<span class="i18n" name="hui"></span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="invoicehidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_detail_fapiao_fazhu_1">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="invoiceUserNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="invoiceUserName"></div>
+																			<small class="job-adddate" id="invoicedate1"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+																		<div class="pull-left">
+																			<img src="../public/images/details_person.png" onclick="OutOfPDF('invoiceApplication')"/>
+																		</div>
+																		<div class="pull-left ml-10">
+																			<div onclick="OutOfPDF('invoiceApplication')" class="i18n jobdetai_number" name='job_detail_fapiao'></div>
+																			<div class="text-left">
+																				<span id="invoicetimes"></span>
+																				<span class="i18n" name="hui"></span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="costfinishhidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="cost_finish_login">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="costfinishuserNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="costfinishuserName"></div>
+																			<small class="job-adddate" id="costfinishdate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																	</div>
+																</div>
+															</div>
+															<div class="minute_per one ov" id="rechidden">
+																<div class="col-xs-12">
+																	<div class="i18n panel-head" name="job_rujin_handle_update">
+
+																	</div>
+																	<div class="clearfix">
+																		<div class="col-xs-2">
+																			<i class="iconfont icon-ren minute" id="recupdNamecolor"></i>
+																		</div>
+																		<div class="clearfix col-xs-10">
+																			<div class="job-adduser" id="recupdName"></div>
+																			<small class="job-adddate" id="recupddate"></small>
+																		</div>
+																	</div>
+																	<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<a id="jumpTo"></a>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-md-12">
+								<div class='panel panel-default'>
+									<div class='panel-heading'><span name='salescategoryLogin_intelligence'>
+										<span class="i18n" name='order_register_CostInformation'></span>
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+											<span id="tip_rotat" class="rotate-180 in_bl pull-right" style="margin-right: 10px;">
+											<i class="iconfont icon-sanjiao" id="tip_show" value=1 style="height: 15px;line-height: 15px;float: right;margin-top: 5px;color: rgb(14,45,95);"></i>
+										</span>
+										</a>
+										<a href="#first" data-toggle="tab"><img onclick="first_img_show()" class="first_img" src="../public/images/details_title_icon1.png" style="float:right;margin-right: 30px;margin-top: -2px;" /></a>
+										<a href="#second" data-toggle="tab"><img class="second_img" src="../public/images/details_title_icon2.png" style="float:right;margin-right: 5px;" /></a>
+									</div>
+
+									<div id="collapseTwo" class="panel-collapse collapse">
+										<div class="panel-body" style="overflow: hidden;padding: 15px;">
+											<!--标签页开始-->
+											<div id="myTabContent" class="tab-content">
+												<div class="tab-pane fade in active" id="second">
+													<div style="border: 1px solid rgb(221,221,221);">
+														<div class='panel-heading' style="margin-top: 10px 0;border-color: #dddddd;">
+															<span class="costTab" name='salescategoryLogin_intelligence'>
+							 		    <span class="i18n " name='payment_info_annotation'></span>
+															<span style="padding-right: 0px;">
+									<div id="cost_i_div" onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;padding-right: 0px!important;">
+										<a data-toggle="collapse" data-parent="#accordion" href="#costCon">
+											<i class="iconfont icon-xiala" id="cost_i" style="font-weight: bold;"></i>
+										</a>
+									</div>
+									</span>
+															</span>
+														</div>
+														<div id="costCon" class="panel-collapse collapse">
+															<div class="ml-10" id="costlable">
+
+															</div>
+															<div style="width: 80%;">
+																<img id="costflagimg" src="../public/images/job2.1.png" style="margin-left: 10px;" />
+															</div>
+															<div class="row" style="margin-top: 10px;">
+																<div class="col-md-6">
+																	<dl style="margin-left: 10px;">
+																		<dt class="base-item i18n" name='order_register_fazhuDay'></dt>
+																		<dd class="base-value date font-14" id="orderdate" style="border-bottom: 1px solid #E6E6E6;">
+																			<span></span>
+																		</dd>
+																	</dl>
+																</div>
+																<div class="col-md-6">
+																	<dl>
+																		<dt class="base-item i18n" name='order_register_fazhuX'></dt>
+																		<dd class="base-value plan_req_date font-14" id="payeename"></dd>
+																	</dl>
+																</div>
+															</div>
+															<div class="row" style="margin-top: 10px;">
+																<div class="col-md-6">
+																	<dl style="margin-left: 10px;">
+																		<dt class="base-item i18n" name='cost_list_No'></dt>
+																		<dd class="base-value font-14" id="costno"></dd>
+																	</dl>
+																</div>
+																<div class="col-md-6">
+																	<dl>
+																		<dt class="base-item i18n" name='cost_list_tickto'></dt>
+																		<dd class="base-value font-14" id="inputno"></dd>
+																	</dl>
+																</div>
+															</div>
+															<div class="row" style="margin-top: 10px;">
+																<div class="col-md-6">
+																	<dl style="margin-left: 10px;">
+																		<dt class="base-item i18n" name='order_register_napinDate'></dt>
+																		<dd class="base-value date">
+																			<span id="plandlvday" style="font-size: 14px;"></span>
+																		</dd>
+																	</dl>
+																</div>
+																<div class="col-md-6">
+																	<dl>
+																		<dt class="base-item i18n" name='payment_info_natal_day'></dt>
+																		<dd class="base-value date">
+																			<span id="paydlyday" style="font-size: 14px;"></span>
+																		</dd>
+																	</dl>
+																</div>
+															</div>
+															<div class="row" style="margin-top: 10px;">
+																<div class="col-md-6">
+																	<dl style="margin-left: 10px;">
+																		<dt class="base-item i18n" name='payment_info_hope_day'></dt>
+																		<dd class="base-value date">
+																			<span id="payhopedate" style="font-size: 14px;"></span>
+																		</dd>
+																	</dl>
+																</div>
+																<div class="col-md-6">
+																	<dl>
+																		<dt class="base-item i18n" name='suppliersRegistration_payment_reservation_day'></dt>
+																		<dd class="base-value date">
+																			<span id="payplandate" style="font-size: 14px;"></span>
+																		</dd>
+																	</dl>
+																</div>
+															</div>
+															<div class="row" style="margin-top: 10px;">
+																<div class="col-xs-6">
+																	<dl style="margin-left: 10px;">
+																		<dt class="base-item clearfix">
+													<div class="i18n pull-left" name='pay_day'></div>
+													<div class="pull-left ml-10" style="margin-top: -14px;font-weight: 300;">
+														<div class="remind_label" style="margin-top: 6px;">
+															<div class="i18n" name='pay_finish' style="margin-top: 5px;">
+																
+															</div>
+															<div class="i18n" id="payfinish" name='job_detail_remind_labelN'>
+																
+															</div>
+														</div>
+													</div>
+												</dt>
+																		<dd class="base-value date" style="position: relative;top: -10px;">
+																			<span id="paydate" style="font-size: 14px;"></span>
+																		</dd>
+																	</dl>
+																</div>
+															</div>
+															<div class="sales-simple-table" style="margin: 10px 5px">
+																<div class="row row-eq-height">
+																	<div class="col-xs-3">
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-center i18n" name='yuding'></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-center i18n" name='salescategoryApproval_achievement'></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-center i18n" name='salescategoryApproval_difference'></h5>
+																	</div>
+																</div>
+																<div class="row row-eq-height">
+																	<div class="col-xs-3">
+																		<h5 class="i18n" name='order_register_orderCost'></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span id="payamt"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span id="costrmb"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right">
+													<span id="payamtdifference"></span> 
+													<small class="money-code"></small>
+													<div id="payamtdifferenceicon" class="in_bl" style="display: inline-block;">
+														<i class="iconfont icon-xiajiang"></i>
+													</div>	
+												</h5>
+																	</div>
+																</div>
+																<div class="row row-eq-height">
+																	<div class="col-xs-3">
+																		<h5 class="i18n" name='jobregistration_value_added_tax'></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span class="" id="payvatamt"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span class="" id="costvatamt"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right">
+													<span id="payvatamttdifference"></span> 
+													<small class="money-code"></small>
+													<div id="payvatamttdifferenceicon" class="in_bl" style="display: inline-block;">
+														<i class="iconfont icon-xiajiang"></i>
+													</div>	
+												</h5>
+																	</div>
+																</div>
+																<div class="row row-eq-height">
+																	<div class="col-xs-3">
+																		<h5 class="i18n" name='order_register_moneyR'></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span class="" id="payrmb"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right"><span class="" id="costpayamt"></span> <small class="money-code"></small></h5>
+																	</div>
+																	<div class="col-xs-3">
+																		<h5 class="text-right">
+															<span id="payrmbdifference"></span> 
+															<small class="money-code"></small>
+															<div id="payrmbdifferenceicon" class="in_bl" style="display: inline-block;">
+																<i class="iconfont icon-xiajiang"></i>
+															</div>	
+														</h5>
+																	</div>
+																</div>
+															</div>
+															<div class="row" style="padding: 5px 0 10px;">
+																<div class="col-md-12" style="display: flex;justify-content: space-around;">
+																	<div class="pay_box col-md-4" style="width: 40%;">
+																		<div><label for="" class="i18n" name='jobregistration_payment_amount'></label></div>
+																		<div class="pay_con">
+																			<div class="pay_body">
+																				<div class="pay_d" style="margin-top: 10px;">
+																					<div class="col-md-12" style="padding: 0px;">
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='payment_info_support'></label>
+																						<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																							<span class="pay_d_m" id="payamt2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='jobregistration_value_added_tax'></label>
+																						<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																							<span class="pay_d_m" id="payvatamt2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='payment_info_tax_payable'></label>
+																						<div class="ml-5 col-md-8" style="margin-bottom: 10px;text-align: right;">
+																							<span class="pay_d_m" id="payrmb2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<div class="pay_text_under col-md-12" style="margin-top: 19px;padding: 0px;">
+																							<hr style="margin-left: -10px;margin-right: -10px;" />
+																							<img src="../public/images/top.png" style="margin-bottom: 20px;position: absolute;left: 50%;" />
+																						</div>
+																					</div>
+																					<div class="mt--10">
+																						<label class="control-label i18n" name="taxcostRegistration_value_added_tax_rate"></label>
+																						<i style="font-size: 16px; " class="iconfont icon-tishi order_cost_iconO" id="setb2"></i>
+																						<div>
+																							<span class="ml-10" id="payrate"></span>
+																							<span>%</span>
+																						</div>
+																					</div>
+																					<div class="mt-10 clearfix">
+																						<label class="control-label i18n" name="payment_info_amount_of_force"></label>
+
+																						<div class="btn-group sale_rate_click_off payishave" style="zoom: 0.5;-moz-transform: scale(0.9);">
+																							<label class="btn btn-primary activeT">
+																		<input type="radio" name="plan_sale_ishave" value="1"> 
+																		<small class="i18n" name='shuiru' style="color: #000000;"></small>												
+																		</label>
+																							<label class="btn btn-primary">
+																		<input type="radio" name="plan_sale_ishave" value="0" >
+																		<small class="i18n" name='shuiba' style="color: #000000;"></small>						 
+																		</label>
+																						</div>
+																						<div class="ml-5 col-md-8" style="text-align: right;">
+																							<span class="ml-10" id="payforeignamt"></span>
+																							<span class="pay_foreign_money_code"></span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="pay_box col-md-4" style="width: 40%;">
+																		<div><label for="" class="i18n" name='order_register_money'></label></div>
+																		<div class="pay_con">
+																			<div class="pay_body">
+																				<div class="pay_d" style="margin-top: 10px;">
+																					<div class="col-md-12" style="padding: 0px;">
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='order_register_orderCost'></label>
+																						<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																							<span class="pay_d_m" id="costrmb2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='jobregistration_value_added_tax'></label>
+																						<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																							<span class="pay_d_m" id="costvatamt2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<label style="padding: 0px;" for="" class="i18n col-md-12" name='order_register_moneyR'></label>
+																						<div class="ml-5 col-md-8" style="margin-bottom: 10px;text-align: right;">
+																							<span class="pay_d_m" id="costpayamt2"></span>
+																							<span class="pay_d_t"></span>
+																						</div>
+																						<div class="pay_text_under col-md-12" style="margin-top: 19px;padding: 0px;">
+																							<hr style="margin-left: -10px;margin-right: -10px;" />
+																							<img src="../public/images/top.png" style="margin-bottom: 20px;position: absolute;left: 50%;" />
+																						</div>
+																					</div>
+																					<div class="mt--10">
+																						<label class="control-label i18n" name="taxcostRegistration_value_added_tax_rate"></label>
+																						<i style="font-size: 16px;" class="iconfont icon-tishi order_cost_iconT" id="setb2"></i>
+																						<div>
+																							<span class="ml-10" id="costrate"></span>
+																							<span>%</span>
+																						</div>
+																					</div>
+																					<div class="mt-10 clearfix">
+																						<label class="control-label i18n" name="payment_info_amount_of_force"></label>
+																						<div class="btn-group sale_rate_click_off costishave" style="zoom: 0.5;-moz-transform: scale(0.9);">
+																							<label class="btn btn-primary activeT">
+																	<input type="radio" name="plan_sale_ishave" value="1"> 
+																	<small class="i18n" name='shuiru' style="color: #000000;"></small>												
+																	</label>
+																							<label class="btn btn-primary">
+																	<input type="radio" name="plan_sale_ishave" value="0" >
+																	<small class="i18n" name='shuiba' style="color: #000000;"></small>						 
+																	</label>
+																						</div>
+																						<div class="ml-5 col-md-8" style="text-align: right;">
+																							<span class="ml-10" id="costforeignamt"></span>
+																							<span class="cost_foreign_money_code"></span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-12">
+																<div class="panel-group sales-detail-foreign-currency" id="accordion" role="tablist" aria-multiselectable="true">
+
+																</div>
+															</div>
+															<div class="panel panel-default" style="width: 98%;margin-left: 10px;">
+																<div class="panel-heading i18n" name='payment_info_evidence_by_evidence' style="font-size: 17px; font-weight: bold;">
+
+																</div>
+																<div class="panel-body" id="rooftrn" style="padding-left: 4px;padding-bottom: 15px;">
+																</div>
+															</div>
+															<div class="panel panel-default" style="width: 98%;margin-left: 10px;">
+																<div class="panel-heading" style="font-size: 16px; font-weight: bold">
+																	<span class="fw i18n" name='payment_info_dispatch_ticket'></span>
+																</div>
+																<div class="panel-body" style="padding-left: 4px;margin-top: 10px;">
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name="invoice_edit_date"></label>
+																		<div class="bord_no bk-color" style="width: 30%;" id="invoicedate"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name='invoice_edit_fanhao'></label>
+																		<div class="bord_no bk-color" id="invoiceno"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name='invoice_edit_type'></label>
+																		<div class="bord_no bk-color" id="invoiceTypeName"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name="invoice_edit_content"></label>
+																		<div class="bord_no bk-color" id="invoiceTextName"></div>
+																	</div>
+																	<div class="row" style="margin-left: 0;margin-right: 0;">
+																		<div class="col-md-6">
+																			<label class="control-label i18n" name="invoice_edit_ny"></label>
+																			<p name='invoice_edit_flag' style="border: none;padding: 5px 12px;" id="deductionflg"></p>
+																		</div>
+																		<div class="col-md-6">
+																			<label class="control-label i18n" name="taxcostRegistration_value_added_tax_rate"></label>
+																			<i style="font-size: 16px; " class="iconfont icon-tishi order_cost_iconO" id="setb2"></i>
+																			<div class="" style="padding: 5px 12px;">
+																				<span id="Trate"></span>
+																				<span>%</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-6 ml-10">
+																	<label class='control-label i18n' name='job_detail_remark1' style="margin-left: 7px;margin-top: 10px;display: block;"></label>
+																	<div class="form-group" style="border: 1px solid #ccc;margin-right: 15px;">
+																		<div class="job_text remark" style="padding: 5px;" id="costremark">
+																			<pre></pre>
+																		</div>
+																		<hr style="width: 98%;margin: 0 auto;" />
+																		<div class="text-center rotate-90 hidden">
+																			<i class="iconfont icon-xiala"></i>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6 pay_re" style="margin-left: -10px;">
+																	<label class='control-label i18n' name='job_detail_remark2' style="margin-top: 10px;"></label>
+																	<ul id="myTab2" class="nav nav-tabs content" style="border-color: #c6c6c6 ;">
+																		<li>
+																			<a href="#homeT" data-toggle="tab">
+																				<center class="base i18n" name='job_detail_login_dian'> </center>
+																				<span id="payremark_point">●</span>
+																			</a>
+																		</li>
+																		<li>
+																			<a href="#and" data-toggle="tab">
+																				<center class="other i18n" name='job_detail_qing_dian'> </center>
+																				<span id="payreqremark_point">●</span>
+																			</a>
+																		</li>
+																		<li>
+																			<a href="#iosT" data-toggle="tab">
+																				<center class="other i18n" name='job_detail_app_dian'> </center>
+																				<span id="confirmark_point">●</span>
+																			</a>
+																		</li>
+																		<li>
+																			<a href="#finish" data-toggle="tab">
+																				<center class="other i18n" name='job_detail_finish_dian'> </center>
+																				<span id="payFinshRemark_point">●</span>
+																			</a>
+																		</li>
+																	</ul>
+																	<div id="homeT" class="form-group FILE" style="border: 1px solid #ccc;">
+																		<div class="job_text remark" style="padding: 5px;" id="payremark">
+																			<pre></pre>
+																		</div>
+																		<hr style="width: 98%;margin: 0 auto;" />
+																		<div class="text-center rotate-90 hidden">
+																			<i class="iconfont icon-xiala"></i>
+																		</div>
+																	</div>
+																	<div id="and" class="form-group FILE" style="border: 1px solid #ccc;">
+																		<div class="job_text remark" style="padding: 5px;" id="payreqremark">
+																			<pre></pre>
+																		</div>
+																		<hr style="width: 98%;margin: 0 auto;" />
+																		<div class="text-center rotate-90 hidden">
+																			<i class="iconfont icon-xiala"></i>
+																		</div>
+																	</div>
+																	<div id="iosT" class="form-group FILE" style="border: 1px solid #ccc;">
+																		<div class="job_text remark" style="padding: 5px;" id="confirmark">
+																			<pre></pre>
+																		</div>
+																		<hr style="width: 98%;margin: 0 auto;" />
+																		<div class="text-center rotate-90 hidden">
+																			<i class="iconfont icon-xiala"></i>
+																		</div>
+																	</div>
+																	<div id="finish" class="form-group FILE" style="border: 1px solid #ccc;">
+																		<div class="job_text remark" style="padding: 5px;" id="payFinshRemark">
+																			<pre></pre>
+																		</div>
+																		<hr style="width: 98%;margin: 0 auto;" />
+																		<div class="text-center rotate-90 hidden">
+																			<i class="iconfont icon-xiala"></i>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-eq-height mt-10" style="margin-right: 10px;margin-left: 10px;">
+																<div class="panel panel-default ml-10 col-md-12" style="padding: 0;">
+																	<div class="panel-heading">
+																		<span class="i18n" name='worker'></span>
+																		<div onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;">
+																			<a data-toggle="collapse" data-parent="#accordion" href="#collapsefive">
+																				<i class="iconfont icon-xiala"></i>
+																			</a>
+																		</div>
+																	</div>
+																	<div id="collapsefive" class="panel-collapse collapse in">
+																		<div class="panel-body workerD_fazhu" style="display: flex;flex-wrap:wrap;margin-bottom: 15px;">
+																			<div class="minute_per one ov" id="addupdhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="job_de_fazhu_login">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="addupdusernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="addupdusername"></div>
+																							<small class="job-adddate" id="costadddate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="updhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="job_de_fazhu_update">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="updusernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="updusername"></div>
+																							<small class="job-adddate" id="costupdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm col-xs-12 text-center clearfix min-hei-60">
+
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="costpdfhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="job_de_fazhu_faxing">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="costpdfaddusernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="costpdfaddusername"></div>
+																							<small class="job-adddate" id="costpdfdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+																						<div class="pull-left">
+																							<img src="../public/images/details_person.png" onclick="OutOfPDF('reportCreate')"/>
+																						</div>
+																						<div class="pull-left ml-10">
+																							<div onclick="OutOfPDF('reportCreate')" class="i18n jobdetai_number" name='job_de_fazhushu'></div>
+																							<!--<div class="text-left">
+																								<span>2</span>
+																								<span>回</span>
+																							</div>-->
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="payaddhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_login">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="addUserNamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="addUserName"></div>
+																							<small class="job-adddate" id="payadddate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60" id="payaddpdfhidden">
+																						<div class="pull-left">
+																							<img src="../public/images/details_person.png"  onclick="OutOfPDF('payCreate')"/>
+																						</div>
+																						<div class="pull-left ml-10">
+																							<div onclick="OutOfPDF('payCreate')" class="i18n jobdetai_number" name='job_de_sure_pay'></div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="payhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_update">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="upUserNamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="upUserName"></div>
+																							<small class="job-adddate" id="payupdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm col-xs-12 text-center clearfix min-hei-60">
+																						<div class="pull-left">
+																							<img src="../public/images/details_person.png" onclick="OutOfPDF('payCreate')" />
+																						</div>
+																						<div class="pull-left ml-10">
+																							<div onclick="OutOfPDF('payCreate')" class="i18n jobdetai_number" name='job_de_sure_pay'></div>
+																							<!--<div class="text-left">
+																								<span>2</span>
+																								<span>回</span>
+																							</div>-->
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="payreqhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_shenqing">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="payrequsernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="payrequsername"></div>
+																							<small class="job-adddate" id="payreqdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+																						<div class="pull-left">
+																							<img src="../public/images/details_person.png" onclick="OutOfPDF('payRequest')"/>
+																						</div>
+																						<div class="pull-left ml-10">
+																							<div onclick="OutOfPDF('payRequest')" class="i18n l-h-26 jobdetai_number" name='joy_de_pay_infor'></div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="confirmuserhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_sure">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="confirmusernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="confirmusername"></div>
+																							<small class="job-adddate" id="confirmdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+																						<div class="pull-left">
+																							<img src="../public/images/details_person.png" onclick="OutOfPDF('confirmPay')"/>
+																						</div>
+																						<div class="pull-left ml-10">
+																							<div onclick="OutOfPDF('confirmPay')" class="i18n l-h-26 jobdetai_number" name='joy_de_pay_sure_'></div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="confirmusernameCancelhidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_sure_clear">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="payconfirmcancelUserNamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="payconfirmcancelUserName"></div>
+																							<small class="job-adddate" id="payconfirmcanceldate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																					</div>
+																				</div>
+																			</div>
+																			<div class="minute_per one ov" id="payfinshusernamehidden">
+																				<div class="col-xs-12">
+																					<div class="i18n panel-head" name="joy_de_pay_handle_update">
+
+																					</div>
+																					<div class="clearfix">
+																						<div class="col-xs-2">
+																							<i class="iconfont icon-ren minute" id="payfinshusernamecolor"></i>
+																						</div>
+																						<div class="clearfix col-xs-10">
+																							<div class="job-adduser" id="payfinshusername"></div>
+																							<small class="job-adddate" id="payfinshdate"></small>
+																						</div>
+																					</div>
+																					<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row row-eq-height">
+														<div class="panel panel-default width" style="margin-top: 15px;">
+															<div class="panel-heading lendTab" style="font-size: 17px; font-weight: bold;">
+																<span class="i18n" name='liti' style="color: rgb(58,74,91);"></span>
+																<div id="lend_i_div" onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;">
+																	<a data-toggle="collapse" data-parent="#accordion" href="#lendCon">
+																		<i class="iconfont icon-xiala" id="lend_i"></i>
+																	</a>
+																</div>
+															</div>
+															<div id="lendCon" class="panel-collapse collapse collapsea">
+																<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 0px 18px 0px 10px;">
+																	<div class="panel">
+																		<div class="width" id="lendlable">
+																		</div>
+																		<div class="row">
+																			<div class="col-md-6" style="padding-left: 16px;">
+																				<img id="lendflagimg" src="../public/images/job3.1.png" />
+																				<div class="form-group col-md-12 pad_mar_0" style="margin-top: 15px;">
+																					<label class="control-label i18n mt-10" name="liti_date"></label>
+																					<div class="bord_no plan_dalday bk-color" style="width: 30%;" id="lend_use_date"></div>
+																				</div>
+																				<div class="form-group col-md-12 text_top pad_mar_0">
+																					<label class="control-label i18n mt-10" name='zhenti_pro'></label>
+																					<div class="bord_no job_name bk-color" id="itmname"></div>
+																				</div>
+																				<div class="form-group col-md-12 text_top pad_mar_0">
+																					<label class="control-label i18n mt-10" name='order_register_caseName'></label>
+																					<div class="bord_no sale_type bk-color" id="lend_name"></div>
+																				</div>
+																				<div class="form-group col-md-12 text_top pad_mar_0">
+																					<label class="control-label i18n mt-10" name='liti_employee'></label>
+																					<!--username-->
+																					<div class="bord_no sale_type bk-color clearfix" id="">
+																						<i class="iconfont icon-ren minute pull-left" style="line-height: 1em;" id="personicon"></i>
+																						<div class="liti_employee_d pull-left" style="margin-top: 3px;">
+																							<span class="i18n" name="guanli"></span>
+																							<span id="memberid"></span>
+																							<span id="username"></span>
+																						</div>
+																					</div>
+																				</div>
+																				<div class='form-group col-md-12 text_top pad_mar_0'>
+																					<label class='control-label i18n mt-10' name='jobregistration_remarks' style="margin-top: 10px;"></label>
+																					<div class="form-group" style="border: 1px solid #ccc;">
+																						<div class="job_text remark" id="lendremark" style="padding: 5px;">
+																							<pre></pre>
+																						</div>
+																						<hr style="width: 98%;margin: 0 auto;" />
+																						<div class="text-center rotate-90 hidden">
+																							<i class="iconfont icon-xiala"></i>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="pay_box col-md-4" style="margin-top: 65px;width: 40%;border-radius: 5px!important;margin-left: 15px;">
+																				<div><label for="" class="i18n" name='liti_cost'></label></div>
+																				<div class="pay_con">
+																					<div class="pay_body">
+																						<div class="pay_d">
+																							<label style="padding-left: 0px;" for="" class="i18n col-md-12" name='liti_yuanjia'></label>
+																							<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																								<span class="pay_d_m" id="lend_amt"></span>
+																								<span class="pay_d_t"></span>
+																							</div>
+																							<label style="padding-left: 0px;" for="" class="i18n col-md-12" name='jobregistration_value_added_tax'></label>
+																							<div class="ml-5 mb-5 col-md-8" style="text-align: right;">
+																								<span class="pay_d_m" id="lend_vat_amt"></span>
+																								<span class="pay_d_t"></span>
+																							</div>
+																							<div class="clearfix" style="margin-bottom: 50px;">
+																								<label style="padding-left: 0px;" for="" class="i18n col-md-12" name='liti_cost_ru'></label>
+																								<div class="ml-5 col-md-8" style="margin-bottom: 10px;text-align: right;">
+																									<span class="pay_d_m" id="lend_pay_amt"></span>
+																									<span class="pay_d_t"></span>
+																								</div>
+																							</div>
+
+																							<div class="pay_text_under">
+																								<hr style="margin-left: -10px;margin-right: -10px;" />
+																								<img src="../public/images/top.png" style="position: absolute;left: 50%;" />
+																							</div>
+																							<div class="mt--10 clearfix" style="display: flex;">
+																								<label class="control-label i18n" name="jobregistration_foreign_currency"></label>
+																								<div class="ml-15" style="padding: 0">
+																									<input  data-on="success" class="boostrap-switch" id="switch-state-off" type="checkbox" data-size="mini">
+																								</div>
+																								<select id="plan_cost_foreign_code" name="boostrap-select " disabled id="plansale_foreign_code_off" class="cal-sale ml-15 col-xs-4" style="border: 1px solid #cccccc; background: rgb(238, 238, 238); border-radius: 4px; height: 22px;">
+																									<option value="" disabled>JPY</option>
+																								</select>
+																							</div>
+																							<div class="mt-10 div_top" style="margin-top: 15px;margin-bottom: 10px;">
+																								<label class="control-label i18n" name="jobregistration_amount"></label>
+
+																								<div class="btn-group sale_rate_click_off ml-10 lendishave" style="margin-top: -2px;">
+																									<label class="btn btn-primary activeL" style="zoom: 0.5;-moz-transform: scale(0.9);">
+																				<input type="radio" name="plan_sale_ishave" value="1"> 
+																				<small class="i18n" name='shuiru' style="color: #000000;"></small>
+																				</label>
+																									<label class="btn btn-primary" style="zoom: 0.5;-moz-transform: scale(0.9);">
+																				<input type="radio" name="plan_sale_ishave" value="0" >
+																				<small class="i18n" name='shuiba' style="color: #000000;"></small>
+																				</label>
+																								</div>
+																							</div>
+																							<div class="clearfix">
+																								<div class="ml-5 col-md-8" style="text-align: right;margin-top: -10px;">
+																									<span class="ml-10" id="lend_foreign_amt" style="margin-top: 5px;"></span>
+																									<span class="lend_foreign_code"></span>
+																								</div>
+																							</div>
+
+																						</div>
+																					</div>
+
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-xs-12" style="margin-top: 15px;padding: 0;">
+																			<div class="panel panel-default">
+																				<div class="panel-heading i18n" name='payment_info_evidence_by_evidence' style="font-size: 17px; font-weight: bold;">
+
+																				</div>
+																				<div class="panel-body" style="padding-left: 4px;padding-bottom: 15px;" id="lendrooftrn">
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-xs-12" style="padding: 0;">
+																			<div class="panel panel-default width">
+																				<div class="panel-heading">
+																					<span class="i18n" name='worker'></span>
+																					<div onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;">
+																						<a data-toggle="collapse" data-parent="#accordion" href="#collapse_e">
+																							<i class="iconfont icon-xiala"></i>
+																						</a>
+																					</div>
+																				</div>
+																				<div id="collapse_e" class="panel-collapse collapse in">
+
+																					<div class="panel-body mb-10 workerD_liti" style="display: flex;flex-wrap:wrap;">
+																						<div class="minute_per one ov" id="lendaddhidden">
+																							<div class="col-xs-12">
+																								<div class="i18n panel-head" name="job_de_liti_login">
+
+																								</div>
+																								<div class="clearfix">
+																									<div class="col-xs-2">
+																										<i class="iconfont icon-ren minute" id="lendadddatecolor"></i>
+																									</div>
+																									<div class="clearfix col-xs-10">
+																										<div class="job-adduser" id="lendadduser"></div>
+																										<small class="job-adddate" id="lendadddate"></small>
+																									</div>
+																								</div>
+																								<div class="panel-btm text-center col-xs-12 min-hei-60" id="lendaddpdfhidden">
+																									<div class="pull-left">
+																										<img src="../public/images/details_person.png" onclick="OutOfPDF('deboursCreate')" />
+																									</div>
+																									<div class="pull-left ml-10">
+																										<div onclick="OutOfPDF('deboursCreate')" class="i18n l-h-26 jobdetai_number" name='job_de_sure_liti'></div>
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																						<div class="minute_per one ov" id="lenduphidden">
+																							<div class="col-xs-12">
+																								<div class="i18n panel-head" name="job_de_liti_update">
+
+																								</div>
+																								<div class="clearfix">
+																									<div class="col-xs-2">
+																										<i class="iconfont icon-ren minute" id="lendupdusercolor"></i>
+																									</div>
+																									<div class="clearfix col-xs-10">
+																										<div class="job-adduser" id="lendupduser"></div>
+																										<small class="job-adddate" id="lendupdate"></small>
+																									</div>
+																								</div>
+																								<div class="panel-btm text-center col-xs-12 min-hei-60">
+																									<div class="pull-left">
+																										<img src="../public/images/details_person.png" onclick="OutOfPDF('deboursCreate')"/>
+																									</div>
+																									<div class="pull-left ml-10">
+																										<div onclick="OutOfPDF('deboursCreate')" class="i18n l-h-26 jobdetai_number" name='job_de_sure_liti'></div>
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																						<div class="minute_per one ov" id="lendconfirmhidden">
+																							<div class="col-xs-12">
+																								<div class="i18n panel-head" name="job_de_liti_chengren">
+
+																								</div>
+																								<div class="clearfix">
+																									<div class="col-xs-2">
+																										<i class="iconfont icon-ren minute" id="lendadminuserlendcolor"></i>
+																									</div>
+																									<div class="clearfix col-xs-10">
+																										<div class="job-adduser" id="lendadminuserlend"></div>
+																										<small class="job-adddate" id="lendconfirmdate"></small>
+																									</div>
+																								</div>
+																								<div class="panel-btm text-center col-xs-12 min-hei-60">
+																									<div class="pull-left">
+																										<img src="../public/images/details_person.png" onclick="OutOfPDF('confirmDebours')"/>
+																									</div>
+																									<div class="pull-left ml-10">
+																										<div onclick="OutOfPDF('confirmDebours')" class="i18n l-h-26 jobdetai_number" name='job_liti_cost'></div>
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																						<div class="minute_per one ov" id="lendcancelconfirmhidden">
+																							<div class="col-xs-12">
+																								<div class="i18n panel-head" name="job_de_liti_chengren_clear">
+
+																								</div>
+																								<div class="clearfix">
+																									<div class="col-xs-2">
+																										<i class="iconfont icon-ren minute" id="lendcanceluserlendcolor"></i>
+																									</div>
+																									<div class="clearfix col-xs-10">
+																										<div class="job-adduser" id="lendcanceluserlend"></div>
+																										<small class="job-adddate" id="lendcancelconfirmdate"></small>
+																									</div>
+																								</div>
+																								<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+													</div>
+
+													<div class="panel panel-default width">
+														<div class="panel-heading tranTab" name='suppliersRegistration_basic_information' style="font-size: 17px; font-weight: bold;">
+															<span class="i18n" name='zhenti'></span>
+															<div id="tran_i_div" onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;">
+																<a data-toggle="collapse" data-parent="#accordion" href="#tranCon">
+																	<i id="tran_i" class="iconfont icon-xiala"></i>
+																</a>
+															</div>
+														</div>
+														<div id="tranCon" class="panel-collapse collapse collapseb">
+															<div id="tranlable" class="ml-10">
+															</div>
+															<img id="tranflagimg" src="../public/images/job4.1.png" style="margin-left: 1%;" />
+															<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 10px 0 0px 10px">
+																<div class="panel-body" style="margin-left: -20px;">
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name="zhenti_date"></label>
+																		<div class="bord_no plan_dalday bk-color" style="width: 30%;" id="tran_date"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name='jobregistration_amount'></label>
+																		<div class="bord_no job_name bk-color" id="tran_amt"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name='zhenti_pro'></label>
+																		<div class="bord_no sale_type bk-color" id="jifei"></div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<label class="control-label i18n" name="order_register_caseName"></label>
+																		<div class="bord_no divname_full bk-color" id="tran_name"></div>
+																	</div>
+																	<div class='form-group' style="margin-top: 10px;width: 50%;padding-right: 14px;">
+																		<label class='control-label i18n' name='jobregistration_remarks' style="margin-top: 10px;margin-left: 15px;"></label>
+																		<div class="form-group" style="border: 1px solid #ccc;margin-left: 15px;">
+																			<div class="job_text remark" style="padding: 5px;" id="tranremark">
+																				<pre></pre>
+																			</div>
+																			<hr style="width: 98%;margin: 0 auto;" />
+																			<div class="text-center rotate-90 hidden">
+																				<i class="iconfont icon-xiala"></i>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="panel panel-default" style="margin: 10px;">
+																<div class="panel-heading">
+																	<span class="i18n" name='worker'></span>
+																	<div onclick="$(this).toggleClass('rotate-180')" class="text-center" style="float: right;">
+																		<a data-toggle="collapse" data-parent="#accordion" href="#collapse_g">
+																			<i class="iconfont icon-xiala"></i>
+																		</a>
+																	</div>
+																</div>
+																<div id="collapse_g" class="panel-collapse collapse in">
+																	<div class="panel-body mb-10 workerD_zhenti" style="display: flex;flex-wrap:wrap;">
+																		<div class="minute_per one ov" id="tranaddhidden">
+																			<div class="col-xs-12">
+																				<div class="i18n panel-head" name="job_de_zhenti_login">
+
+																				</div>
+																				<div class="clearfix">
+																					<div class="col-xs-2">
+																						<i class="iconfont icon-ren minute" id="tranaddusernamecolor"></i>
+																					</div>
+																					<div class="clearfix col-xs-10">
+																						<div class="job-adduser" id="tranaddusername"></div>
+																						<small class="job-adddate" id="tranadddate"></small>
+																					</div>
+																				</div>
+																				<div class="panel-btm text-center col-xs-12 min-hei-60" id="tranaddpdfhidden">
+																					<div class="pull-left">
+																						<img src="../public/images/details_person.png" onclick="OutOfPDF('onCostCreate')"/>
+																					</div>
+																					<div class="pull-left ml-10">
+																						<div onclick="OutOfPDF('onCostCreate')" class="i18n l-h-26 jobdetai_number" name='job_de_sure_zhenti'></div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="minute_per one ov" id="tranupdhidden">
+																			<div class="col-xs-12">
+																				<div class="i18n panel-head" name="job_de_zhenti_update">
+
+																				</div>
+																				<div class="clearfix">
+																					<div class="col-xs-2">
+																						<i class="iconfont icon-ren minute" id="tranupdateusercolor"></i>
+																					</div>
+																					<div class="clearfix col-xs-10">
+																						<div class="job-adduser" id="tranupdateuser"></div>
+																						<small class="job-adddate" id="tranupdate"></small>
+																					</div>
+																				</div>
+																				<div class="panel-btm text-center col-xs-12 min-hei-60">
+																					<div class="pull-left">
+																						<img src="../public/images/details_person.png" onclick="OutOfPDF('onCostCreate')"/>
+																					</div>
+																					<div class="pull-left ml-10">
+																						<div onclick="OutOfPDF('onCostCreate')" class="i18n l-h-26 jobdetai_number" name='job_de_sure_zhenti'></div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="minute_per one ov" id="tranconfirmhidden">
+																			<div class="col-xs-12">
+																				<div class="i18n panel-head" name="job_de_zhenti_chengren">
+
+																				</div>
+																				<div class="clearfix">
+																					<div class="col-xs-2">
+																						<i class="iconfont icon-ren minute" id="tranconfirUserNamecolor"></i>
+																					</div>
+																					<div class="clearfix col-xs-10">
+																						<div class="job-adduser" id="tranconfirUserName"></div>
+																						<small class="job-adddate" id="tranconfirmdate"></small>
+																					</div>
+																				</div>
+																				<div class="panel-btm text-center col-xs-12 min-hei-60">
+																					<div class="pull-left">
+																						<img src="../public/images/details_person.png" onclick="OutOfPDF('confirmOncost')"/>
+																					</div>
+																					<div class="pull-left ml-10">
+																						<div onclick="OutOfPDF('confirmOncost')" class="i18n l-h-26 jobdetai_number" name='job_zhenti_cost'></div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="minute_per one ov" id="trancancelhidden">
+																			<div class="col-xs-12">
+																				<div class="i18n panel-head" name="job_de_zhenti_chengren_clear">
+
+																				</div>
+																				<div class="clearfix">
+																					<div class="col-xs-2">
+																						<i class="iconfont icon-ren minute" id="cancelUserNamecolor"></i>
+																					</div>
+																					<div class="clearfix col-xs-10">
+																						<div class="job-adduser" id="cancelUserName"></div>
+																						<small class="job-adddate" id="cancel_confirm_date"></small>
+																					</div>
+																				</div>
+																				<div class="panel-btm text-center col-xs-12 min-hei-60">
+
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="first">
+													<table data-options="fitColumns:true,scrollbarSize:0" id="cost_list_job_details"></table>
+												</div>
+											</div>
+
+										</div>
+									</div>
+			</aside>
+			<!--#include virtual="../common/jcst/pingzheng.shtml"-->
+	</body>
+
+</html>

@@ -1,0 +1,127 @@
+a{
+	color: #000;
+}
+
+.bootstrap-switch-handle-off, .bootstrap-switch-default{
+	width: 37px;
+}
+
+#myModalCuntom,#myModalCuntomT{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.list_of_items {
+	margin-bottom: 21px;
+	margin-left: 15px;
+	width: 220px;
+	height: 136px;
+	border: 1px solid #dddddd;
+	border-radius: 3px;
+	background: #fff;
+	cursor: move;
+}
+
+.list_of_items_top {
+	flex-direction: row-reverse;
+	display: flex;
+	padding: 0 7px;
+	width: 100%;
+	height: 36px;
+	border-bottom: 1px solid #dddddd;
+	background: #ecf0f1;
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+}
+
+.list_of_items_top_left {
+	display: flex;
+	justify-content: flex-end;
+	padding: 7px 0;
+	width: 50%;
+	position: inherit;
+}
+
+.list_of_items_top_right {
+	padding: 4px 0;
+	width: 50%;
+	text-align: center;
+}
+
+.list_of_items_top_right .on {
+	display: block;
+}
+
+.list_of_items_top_right .off {
+	display: none;
+}
+
+.list_of_items_no {
+	width: 28px;
+	height: 28px;
+	border: 1px solid #24b195;
+	border-radius: 15px;
+	background: #fff;
+	color: #24b195;
+	text-align: center;
+	font-weight: 900;
+	font-size: 17px;
+	line-height: 28px;
+}
+
+.list_of_items_bottom {
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 100%;
+	height: 100px;
+}
+
+.list_of_items_bottom_top {
+	float: left;
+	width: 100%;
+	text-align: left;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 14px;
+	word-wrap: break-word;
+}
+
+.list_of_items_bottom_bottom {
+	float: left;
+	margin-top: 10px;
+	width: 100%;
+	text-align: left;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.list_of_items_bottom_bottom_left {
+	float: left;
+	padding-right: 5px;
+	width: 74px;
+	border-bottom: 1px solid #d7d5d5;
+	text-align: right;
+	line-height: 12px;
+}
+
+.list_of_items_bottom_bottom_right {
+	float: left;
+	padding-left: 8px;
+	text-align: left;
+	line-height: 12px;
+}
+.bordN{
+	border: 0;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+	-webkit-appearance: none;
+	border-radius: 0;
+}
+.bordN + div{
+	margin-top: 7px;
+}
+/*on/off宽度一致*/
+.bootstrap-switch-mini.bootstrap-switch-id-switch-state.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-animate.bootstrap-switch-on{
+	width: 52px !important;
+}

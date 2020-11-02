@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title class="i18n" name='job_update_title'></title>
+	<!--#include virtual="../common/header.shtml"-->
+	<!--#include virtual="../common/easyUi.shtml"-->
+	<!--#include virtual="../common/boostrap_switch.shtml"-->
+	<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801"/>
+	<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+	<link rel="stylesheet" href="../public/stylesheets/jcst/salescategory_registration.css?v=2018092801" />
+	<script type="text/javascript" src="../public/javascript/jcst/job/job_update.js?v=2018092801"></script>
+	<script type="text/javascript" src="../public/javascript/jcst/job/job_registration_option.js?v=2018092801"></script>
+	<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>
+
+	<!--#include virtual="../common/language.shtml"-->
+
+</head>
+<style>
+.lastChild>input{
+	position: relative;
+	top: 2.4px;
+}
+.setblock ul li{
+	width: auto!important;
+	margin-top: 10px!important;
+	margin-left: 15px!important;
+}
+.form-group[required] .cont_display::after {
+    content: "";
+    vertical-align: middle;
+    color: #E00;
+}
+.pr{
+	position: relative;
+}
+.mask{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	/*display: none;*/
+}
+.dn{
+	display: none;
+}
+#g_company_name,#payer_name{
+	border-bottom-left-radius: 5px!important;
+	border-top-left-radius:5px!important;
+}
+</style>
+<body class="main page">
+<!--#include virtual="../common/nav.shtml"-->
+<div id="wrapper">
+	<!--Sidebar-->
+	<!--#include virtual="../common/sideBar.shtml"-->
+	<!--Tools -->
+	<section id="tools">
+	<ul class="breadcrumb" id="breadcrumb">
+		<li class="fs18 i18n" name='job_update_title'></li>
+	</ul>
+	</section>
+	<!--Content-->
+	<aside id="content" style="padding-bottom: 0;background-color:#bdc3c7;">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="panel panel-default pr">
+				<div class="mask maskOne"></div>
+				<div class="panel-heading" style="font-size: 16px; font-weight: bold">
+					<span class="i18n fw" name='suppliersRegistration_basic_information'></span>
+					<span class="upd-jobcd"></span>
+				</div>
+				<div class="panel-body"  style="padding-left: 4px;">
+						<div class="form-group col-md-6" required="">
+							<label class="control-label i18n" name='jobregistration_subject'></label><input maxlength="100" class="form-control job_name required" placeholder="" name="job_name" type="text">
+						</div>
+						<div class="form-group col-md-6" required="">
+							<label class="control-label i18n" name='jobregistration_event_sales'></label>
+							<select name="boostrap-select saleList" id="jobSaleList" class="form-control required">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="form-group col-md-6" required="">
+							<label class="control-label i18n cont_display" name="suppliersList_customer"></label>		
+							<input type="hidden" id="cldiv_cd"/>
+							<div class="bord_no cldiv_name"></div>
+						</div>
+						<div class="form-group col-md-6" required="">
+							<label class="control-label i18n" name="suppliersList_payer"></label>
+							<div class="input-group">
+								<input id="payer_cd" type="hidden"/>
+								<input disabled class="form-control payer_cd required" id="payer_name" name="payer_cd" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+								<i class="iconfont icon-sousuo" id="searchPay"></i>
+								</span>
+							</div>
+						</div>
+						<div style="clear: both;">
+							<div class="form-group col-md-6">
+								<label class="control-label i18n" name="suppliersList_HDY_group"></label>
+								<div class="input-group">
+									<input id="g_company" type="hidden"/>
+									<input disabled class="form-control g_company" id="g_company_name" name="g_company" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: none; padding: 4px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+									<i class="iconfont icon-sousuo" id="searchHDY"></i>
+									</span>
+								</div>
+							</div>
+							<div class="form-group col-md-6" required="">
+								<label class="control-label i18n" name="jobregistration_record_date"></label>
+								<div class="input-group">
+									<input id="scheduled-date" type="text" name="plan_dalday" class="form-control inputDate required hiddclass hidddate date-box-required">
+								</div>
+							</div>
+						</div>
+						<style>
+							.whether_the_skip .radio label{ padding: 0}
+						</style>
+					</div>
+			</div>
+			<div class="panel panel-default pr">
+				<div class="mask maskOne"></div>
+					<div class="panel-heading i18n" name='jobregistration_amount_of_schedule' style="font-size: 17px; font-weight: bold;">
+						
+					</div>
+					<div class="panel-body  jobregistration_amount_of_schedule" style="padding: 15px 18px 0px 18px;">
+						<div class="col-md-4" style="padding: 0 5px;">
+							<div class="panel panel-default col-md-12 " style="background: #f5f5f5">
+								<div class="panel-heading i18n" name="jobregistration_sales" style="border: none; font-size: 16px; font-weight: bold;">
+									
+								</div>
+								<!--#include virtual="../common/jcst/business.shtml"-->
+							</div>
+						</div>
+						<div class="col-md-4" style="padding: 0 5px;">
+							<div class="panel panel-default col-md-12 " style="background: #f5f5f5; margin-left: 0px;">
+								<div class="panel-heading i18n" name="jobregistration_cost" style="border: none; font-size: 16px; font-weight: bold;">
+									
+								</div>
+								<!--#include virtual="../common/jcst/price_on.shtml"-->
+							</div>
+						</div>
+						<div class="par_ent" style="padding: 0 5px;width:102%">
+							<div class="panel panel-default col-md-4 bt_up_102" style="background: #fff; padding-top: 15px; padding-bottom: 30px; box-shadow: 0px 3px 5px #d4d4d4;margin-left:5px">
+								<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_tax"></label>
+								<label class="control-label col-md-12 plansale_tax_total" style="padding: 10px 0 0px 10px; text-align: left; font-weight: normal"><span class="tax_total" id="plansale_tax_total" style="font-size: 16px;">0.00 </span><span class="person_code"></span> </label>
+							</div>
+							<div class="panel panel-default col-md-4 bt_up_102" style="background: #fff; padding-top: 15px; padding-bottom: 30px; box-shadow: 0px 3px 5px #d4d4d4;margin-left:5px">
+								<label class="control-label i18n col-md-12" style="padding: 0" name="jobregistration_operating_revenue"></label>
+								<label class="control-label col-md-12 sale_get" style="padding: 10px 0 0px 10px; text-align: left; font-weight: normal"><span class="get_total font_size">0.00 </span><span class="person_code"></span> <span class="sumRate">[0.00%]</span>  </label>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="panel panel-default pr">
+				<div class="mask maskTwo"></div>
+				<div class="panel-heading">						
+					<span class="i18n" name='jobregistration_person_in_charge1'></span>
+					<span class="i18n" name='jobregistration_noperson' style="margin-left: 2px;"></span>					
+					<label class="checkbox-inline" style="padding: 0;">
+						<input type="checkbox" name="" id="md-flg" value="" />
+						<span class="iconfont icon-duihaok"></span>
+					</label>
+				</div>	
+				<div class="panel-body " style="padding: 15px 23px 0px 23px; ">
+					<div class="panel panel-default col-md-12" id="per" style="background: #f5f5f5; border: 1px solid #dddddd; padding-top: 10px; padding-bottom: 20px; ">
+						<div class="addp">
+							<i class="iconfont icon-tianjia"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default pr">
+				<div class="mask maskThree"></div>
+				<div class="panel-heading i18n" name='jobregistration_remarks' style="font-size: 17px; font-weight: bold;">
+					
+				</div>
+				<div class="panel-body " style="padding: 15px 24px">
+					<textarea maxlength="500" class="form-control remark" placeholder="" rows="3" style="padding: 0px 12px;"></textarea>
+				</div>
+			</div>
+			<div class="clearfix form-group pr">
+				<div class="mask maskThree"></div>
+				<!--#include virtual="../common/jcst/job_box.shtml"-->
+			</div>			
+			<div class="pr">
+				<div class="mask maskThree"></div>
+				<div class="lastChild i18n job-pdf-flg" name='jobregistration_person_in_charge2'></div>
+			</div>			
+			<div class="lastChild">
+				<button class="btn btn-success i18n log_job" name='salescategoryList_change'></button>
+				<button class="btn btn-success btn-warning i18n" id="del_job" name='board_clear'></button>
+				<button class="btn btn-default i18n" onclick="window.location.href=$.getJumpPath()+'jcst/job_registration_list.html?view=init&menu=se'" name='salescategoryRegistration_back'></button>
+			</div>	
+	</div>
+	<div class="col-md-4" style="padding: 0;">
+		<nav class="log-sidebar" style="background: none;border-radius: 4px;border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow-y: scroll; " id="navright">
+			<!--#include virtual="../common/business/label/label_set.shtml"--> 
+		</nav>
+	</div>
+	</aside>
+</div>
+<!--#include virtual="../common/business/label/label_set_t.shtml"--> 
+<!--#include virtual="../common/jcst/add_tax_edit.shtml"-->
+<!--#include virtual="../common/jcst/add_tax_price.shtml"-->
+<script type="text/javascript" src="../public/javascript/jcst/job/pucker.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div class="panel panel-default add_tax_edit" style="border: none;margin-bottom:0;padding-bottom: 10px;display: none;">
+	<div class="panel-heading common_se" name='jobregistration_label_set' style="font-size: 17px;font-weight: bold;">
+		<span class="fw i18n" name='jobregistration_addtax_edit'></span>
+		<i class="iconfont icon-guanbi pull-right"></i>
+	</div>
+	<div class="panel-body" style="padding: 20px 20px 0px;">
+		<div class="form-group clearfix setFixRateEdit">
+			<div class="input-group sale-border" style="float: left">
+				<input class="form-control easyui-numberbox edit-tax " type="text" style="border-right: 0px; width: 145px; text-align: right;box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075); border-right: 0;" data-options="precision:2,groupSeparator:','">
+				<span class="input-group-addon sale_person_code" style="background: #eeeeee;
+				    display: inline-block;
+				    border-left: 1px solid #cccccc;
+				    width: 57px;
+				    height: 33px;
+				    line-height: 20px;">
+				  US
+				</span>
+			</div>
+		</div>
+		<div class="log-sidebar-l" style="display: flex;justify-content: center;margin-top: 10px;">
+			<div class="log-sidebar-l-l">
+				<button style="margin-right: -4px;" class="btn btn-success i18n Hwid" id="set-tax" name="jobregistration_set" type="button"></button>
+			</div>
+			<div class="log-sidebar-l-r" style="margin-left: 20px;">
+				<button id="closeBtnInput" class="btn btn-default Hwid i18n" name="salescategoryRegistration_clsoe" type="button"></button>
+			</div>
+		</div>
+	</div>
+</div>

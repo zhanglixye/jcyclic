@@ -1,0 +1,33 @@
+<nav class="log-sidebar" style="background: none; border-radius: 4px;border-bottom-right-radius: 0; border-bottom-left-radius: 0; overflow-y: scroll; " id="navright">
+	<div class="panel panel-default label_set_o" style="border: none;padding-bottom: 15px;">
+		<div class="panel-heading l-right">
+			<span><span style="color: black;text-decoration: none;cursor: auto!important;" class="i18n" name="jobregistration_label"></span>&nbsp;&nbsp;<span style="font-size:16px;" class="icon-sheding1 i18n" name="jobregistration_set" id="setb2"></span></span>
+		</div>
+		<div class="panel-body" style="padding: 15px 18px 0px 18px;">
+			<div class="col-md-12" style=" padding:3px 0 0 0; line-height: 34px;" align="left">
+				<div class="btn-group lable-level-switch" data-toggle="buttons">
+					<label class="btn btn-primary my active" >
+                         <input type="radio" name="options_lable" value="0" checked="checked">  
+                         <div class="i18n" name='jobregistration_my'></div>                         
+                         </label>
+                         <label class="btn btn-primary manager">
+                         <input type="radio" name="options_lable" value="1"> 
+                         <div class="i18n" name='jobregistration_ma'></div>                                                                
+                    </label>
+				</div>
+			</div>
+			<div class="input-group" style="margin-top: 10px; float: left">
+				<input maxlength="50" class="form-control new_lable" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);">
+				<span class="input-group-addon i18n add_lable" name='jobregistration_add' style="background: #29bb9c; #padding: 2px 12px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075); color: #fff; border: ">
+					
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default" style="border: none;padding-bottom: 0px; display: none;"  id="setnig2">
+		<div class="panel-body setblock" id="setblock" style="padding: 0px 10px 0px 0px;">
+		</div>
+	</div>
+	<!--#include virtual="../../jczh/job_information.shtml"--> 
+	<!--#include virtual="../../jczh/cost_information.shtml"--> 
+</nav>

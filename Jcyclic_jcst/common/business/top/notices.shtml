@@ -1,0 +1,9 @@
+<div class="panel panel-default" style="border: none;padding-bottom: 15px;">
+	<div class="panel-heading l-right" style="font-size: 17px; font-weight: bold;position: relative;">
+		<span class="i18n" name="toplogin_notice">お知らせ</span>
+		<span onclick="sessionStorage.setItem('board_login_state', 0)" data-toggle="modal" data-target="#myModalBoard_t" style="position: absolute;font-size: 23px;color:#1abc9c;left: 80px;bottom: 2px;" class="iconfont icon-tianjia"></span>
+	</div>
+	<div class="panel-body" id="panel-part" style="padding: 15px 18px 0px 3px;max-height: 445px;" >
+    </div>
+</div>
+	

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.UserMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.User">
+		<result column="MEMBER_ID" property="memberID" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="clmstMap" type="com.kaiwait.bean.mst.entity.Clmst">
+		<result column="cldivcd" property="cldivcd" jdbcType="INTEGER" />
+		<result column="account_cd" property="account_cd" jdbcType="VARCHAR" />
+		<result column="divnm" property="divnm" jdbcType="VARCHAR" />
+		<result column="divname_full" property="divname_full" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="companyMap" type="com.kaiwait.bean.mst.vo.CompanyVo">
+		<result column="COMPANY_CD" property="company_cd" jdbcType="INTEGER" />
+		<result column="COMPANY_NAME" property="company_name" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="roleMap" type="com.kaiwait.bean.mst.entity.Role">
+		<result column="roleID" property="roleID" jdbcType="INTEGER" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleOrder" property="roleOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="pageMap" type="com.kaiwait.bean.mst.entity.PageNode">
+		<result column="pageID" property="pageID" jdbcType="VARCHAR" />
+		<result column="nodeID" property="nodeID" jdbcType="VARCHAR" />
+		<result column="pageName" property="pageName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="listColumn" type="com.kaiwait.bean.mst.entity.ListColumn">
+		<result column="list_column_id" property="list_column_id" jdbcType="VARCHAR" />
+		<result column="DEFAULT_WIDE" property="default_wide" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		MEMBER_ID as memberID,
+		USERCD as userCD,
+		PWD as pwd,
+		USER_NAME_EN as nickNameEn,
+		USER_NAME as nickname,
+		EMAIL as email,
+		LANGTYP as langtyp,
+		LEVEL as level,
+		DEPART_CD as departCD,
+		companymst.COMPANY_CD as companyCD,
+		ifnull(commonmst.ITMVALUE,1) as itmLD,
+		ifnull(commonmst.ITMVALUE,1) as pointNumber,
+		commonmst.ITMNAME as moneyzc,
+		commonmst.ITEMNAME_EN as moneyen,
+		commonmst.ITEMNAME_HK as moneyzt,
+		commonmst.ITEMNAME_JP as moneyjp,
+		deCommst.ITMNAME as departNamezc,
+		deCommst.ITEMNAME_EN as departNameen,
+		deCommst.ITEMNAME_HK as departNamezt,
+		deCommst.ITEMNAME_JP as departNamejp,
+		date_format(commst.ITMVALUE,"%Y/%m") as accountDate,
+		ifnull(commst.AIDCD,0) as sysLockFlg,
+		usermst.COLORV as  colorV
+	</sql>
+	<select id="getUserForLogin" resultMap="BaseResultMap" >
+		select 
+			MEMBER_ID as memberID,
+			USERCD as userCD,
+			PWD as pwd,
+			USER_NAME_EN as nickNameEn,
+			USER_NAME as nickname,
+			EMAIL as email,
+			LANGTYP as langtyp,
+			LEVEL as level,
+			DEPART_CD as departCD,
+			companymst.COMPANY_CD as companyCD,
+			ifnull(commonmst.ITMVALUE,1) as itmLD,
+			ifnull(commonmst.ITMVALUE,1) as pointNumber,
+			commonmst.ITMNAME as moneyzc,
+			commonmst.ITEMNAME_EN as moneyen,
+			commonmst.ITEMNAME_HK as moneyzt,
+			commonmst.ITEMNAME_JP as moneyjp,
+			deCommst.ITMNAME as departNamezc,
+			deCommst.ITEMNAME_EN as departNameen,
+			deCommst.ITEMNAME_HK as departNamezt,
+			deCommst.ITEMNAME_JP as departNamejp,
+			date_format(commst.ITMVALUE,"%Y/%m") as accountDate,
+			ifnull(commst.AIDCD,0) as sysLockFlg,
+			usermst.COLORV as  colorV
+		from usermst
+			left join companymst on usermst.COMPANY_CD = companymst.COMPANY_CD and companymst.DEL_FLG !=1
+			left join commonmst on commonmst.ITEMCD = companymst.CURRENCY_CODE and commonmst.MSTCD = "0050" and commonmst.COMPANY_CD=usermst.COMPANY_CD
+			left join commonmst as commst on commst.MSTCD = "0001" and commst.COMPANY_CD=usermst.COMPANY_CD
+			left join commonmst as deCommst on usermst.DEPART_CD=deCommst.ITEMCD and deCommst.MSTCD = "0005" and deCommst.COMPANY_CD=usermst.COMPANY_CD
+		where BINARY LOGIN_ID = #{0,jdbcType=VARCHAR}
+			<!-- and  PWD = #{1,jdbcType=VARCHAR} -->
+			and usermst.DEL_FLG != 1
+			and companymst.DEL_FLG != 1
+	</select>
+	<select id="getUserInfoByChangeCompany" resultMap="BaseResultMap">
+		select 
+			MEMBER_ID as memberID,
+			USERCD as userCD,
+			PWD as pwd,
+			USER_NAME_EN as nickNameEn,
+			USER_NAME as nickname,
+			EMAIL as email,
+			LANGTYP as langtyp,
+			LEVEL as level,
+			DEPART_CD as departCD,
+			companymst.COMPANY_CD as companyCD,
+			ifnull(commonmst.ITMVALUE,1) as itmLD,
+			ifnull(commonmst.ITMVALUE,1) as pointNumber,
+			commonmst.ITMNAME as moneyzc,
+			commonmst.ITEMNAME_EN as moneyen,
+			commonmst.ITEMNAME_HK as moneyzt,
+			commonmst.ITEMNAME_JP as moneyjp,
+			date_format(commst.ITMVALUE,"%Y/%m") as accountDate,
+			ifnull(commst.AIDCD,0) as sysLockFlg,
+			usermst.COLORV as  colorV
+		from usermst
+			left join companymst on companymst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			left join commonmst on commonmst.ITEMCD = companymst.CURRENCY_CODE and commonmst.MSTCD = "0050" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			left join commonmst as commst on commst.MSTCD = "0001" and commst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		where usermst.USERCD = #{userID,jdbcType=VARCHAR}
+	</select>
+	<select id="getCheckedCompanyList" resultMap="companyMap" >
+		select 
+			companymst.COMPANY_CD as company_cd,
+			companymst.COMPANY_TYPE as companyType,
+			companymst.COMPANY_NAME as company_name
+		from usercompanymst
+			 join companymst on companymst.COMPANY_CD = usercompanymst.COMPANY_CD
+		where USER_CD = #{userID,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="changePwdTx" >
+		update usermst set
+			PWD = #{1,jdbcType=VARCHAR}
+		where USERCD=#{0,jdbcType=VARCHAR} 
+	</update>
+	<select id="getUserInitInfo"  resultMap="BaseResultMap">
+		select 
+			MEMBER_ID as memberID,
+			USERCD as userCD,
+			USER_NAME_EN as nickNameEn,
+			USER_NAME as nickname,
+			LOGIN_ID as loginName,
+			EMAIL as email,
+			PWD as pwd,
+			LANGTYP as langtyp,
+			LEVEL as level,
+			commonmst.ITMNAME as levelzc,
+			commonmst.ITEMNAME_EN as levelen,
+			commonmst.ITEMNAME_HK as levelzt,
+			commonmst.ITEMNAME_JP as leveljp,
+			DEPART_CD as departCD,
+			usermst.DEL_FLG as delFlg,
+			usermst.LOCK_FLG as lockFlg
+		from usermst
+			left join commonmst on usermst.LEVEL = commonmst.ITEMCD and commonmst.MSTCD="0004" and commonmst.COMPANY_CD=usermst.COMPANY_CD
+		where
+			usermst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		<if test="userID != null and userID != ''">
+			and USERCD=#{userID,jdbcType=VARCHAR} 
+		</if>
+				 
+	</select>
+	<select id="getCompanyListForUser"  resultMap="companyMap">
+			select 
+				COMPANY_CD as company_cd,
+				COMPANY_TYPE as companyType,
+				COMPANY_NAME as company_name
+			from companymst
+			where
+				DEL_FLG != 1 and COMPANY_CD != #{companyID,jdbcType=VARCHAR} 
+	</select>
+	<select id="getUserHistoryByUp"  resultMap="BaseResultMap">
+		 select
+		 	hisUser.statusFlg,
+		 	hisUser.nickname,
+		 	hisUser.upTime,
+		 	hisUser.upUserName,
+		 	hisUser.upUserCD,
+		 	hisUser.memberID,
+		 	hisUser.colorV
+		 from (
+			select
+				0 as statusFlg,
+				usermst.USER_NAME as nickname ,
+				usermst.`UPDATE` as upTime,
+				usermstup.USER_NAME as upUserName,
+				usermst.USERCD as upUserCD,
+				usermst.MEMBER_ID as memberID,
+				usermstup.COLORV as colorV
+			from usermst
+				 join usermst  as usermstup on usermst.UPUSER = usermstup.USERCD and usermstup.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+			where 
+				usermst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			union all
+			select
+				1 as statusFlg,
+				usermst.USER_NAME as nickname ,
+				usermst.`ADDDATE` as upTime,
+				usermstup.USER_NAME as upUserName,
+				usermst.USERCD as upUserCD,
+				usermst.MEMBER_ID as memberID,
+				usermstup.COLORV as colorV
+			from usermst
+				 join usermst  as usermstup on usermst.ADDUSER = usermstup.USERCD and usermstup.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+			where 
+				usermst.COMPANY_CD = #{companyID,jdbcType=VARCHAR} 
+			) as hisUser
+			order by hisUser.upTime desc
+				limit 10
+				
+	</select>
+	<insert id="insertUserTx" parameterType="com.kaiwait.bean.mst.io.UserInfoInput">
+		 <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="userIDBysql">  
+	        select LAST_INSERT_ID() as USERCD
+	    </selectKey>  
+		insert into usermst 
+		(MEMBER_ID,USER_NAME,USER_NAME_EN,LOGIN_ID,EMAIL,PWD,LANGTYP,LEVEL,DEPART_CD,ADDUSER,COMPANY_CD,`ADDDATE`,DEL_FLG)
+		values
+		(
+			#{memberID,jdbcType=VARCHAR},
+			#{nickname,jdbcType=VARCHAR},
+			#{nickNameEn,jdbcType=VARCHAR},
+			#{loginName,jdbcType=VARCHAR}, 
+			#{email,jdbcType=VARCHAR},
+			#{pwd,jdbcType=VARCHAR},
+			#{langtyp,jdbcType=VARCHAR},
+			#{level,jdbcType=VARCHAR},
+			#{departCD,jdbcType=VARCHAR},
+			#{userID,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},
+			#{addDatetime,jdbcType=VARCHAR},
+			#{delFlg,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="companyByUserTx" >
+		insert into usercompanymst 
+		(USER_CD,COMPANY_CD,ADDDATE,ADDUSERCD)
+		values
+		 <foreach collection="agrs" index="index" item="companyID"  separator=","  >
+			(#{userId,jdbcType=INTEGER},
+			#{companyID,jdbcType=VARCHAR},
+			#{addDate,jdbcType=VARCHAR},
+			#{addUserId,jdbcType=VARCHAR})
+	     </foreach>
+		
+	</insert>
+	<delete id="delCompanyByUserTx">
+		delete from usercompanymst where USER_CD=#{userId,jdbcType=VARCHAR} 
+	</delete>
+	<update id="upUserInfoTx" parameterType="com.kaiwait.bean.mst.io.UserInfoInput">
+		update usermst set
+			USER_NAME=#{nickname,jdbcType=VARCHAR},
+			LOGIN_ID=#{loginName,jdbcType=VARCHAR},
+			LANGTYP=#{langtyp,jdbcType=VARCHAR},
+			LEVEL=#{level,jdbcType=VARCHAR},
+			DEPART_CD=#{departCD,jdbcType=VARCHAR},
+			MEMBER_ID=#{memberID,jdbcType=VARCHAR},
+			usermst.`UPDATE`=#{upDatetime,jdbcType=VARCHAR},
+			DEL_FLG=#{delFlg,jdbcType=VARCHAR},
+			LOCK_FLG=#{lockFlg},
+			<if test="nickNameEn != null and nickNameEn != ''">
+				USER_NAME_EN=#{nickNameEn,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL=#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null and pwd != '' and pwd != '********'">
+				PWD=#{pwd,jdbcType=VARCHAR},
+			</if>
+			UPUSER=#{userID,jdbcType=VARCHAR}
+			
+			
+		where USERCD=#{userCD,jdbcType=VARCHAR} and COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="delUserTx" parameterType="String">
+		update usermst set
+			DEL_FLG=1
+		where USERCD=#{0,jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	
+	<select id="searchUserList" parameterType="com.kaiwait.bean.mst.entity.User" resultMap="BaseResultMap">
+	select
+		GROUP_CONCAT(rolemst.ROLE_NAMEZC) as roleNameByUserzc,
+		GROUP_CONCAT(rolemst.ROLE_NAMEZT) as roleNameByUserzt,
+		GROUP_CONCAT(rolemst.ROLE_NAMEJP) as roleNameByUserjp,
+		GROUP_CONCAT(rolemst.ROLE_NAMEEN) as roleNameByUseren,
+		MEMBER_ID as memberID,
+		usermst.USERCD as userCD,
+		USER_NAME as nickname,
+		LOGIN_ID as loginName,
+		EMAIL as email,
+		usermst.DEPART_CD as departCD,
+		levelcommon.ITMNAME as levelzc,
+		levelcommon.ITEMNAME_EN as levelen,
+		levelcommon.ITEMNAME_HK levelzt,
+		levelcommon.ITEMNAME_JP as leveljp,
+		departcommon.ITMNAME as departNamezc,
+		departcommon.ITEMNAME_EN as departNameen,
+		departcommon.ITEMNAME_HK departNamezt,
+		departcommon.ITEMNAME_JP as departNamejp,
+		langcommon.ITMNAME as langtypzc,
+		langcommon.ITEMNAME_EN as langtypen,
+		langcommon.ITEMNAME_HK langtypzt,
+		langcommon.ITEMNAME_JP as langtypjp,
+		usermst.DEL_FLG as delFlg
+	from usermst
+	left join commonmst as levelcommon on levelcommon.ITEMCD = usermst.LEVEL and levelcommon.MSTCD="0004" and levelcommon.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+	left join commonmst as departcommon on departcommon.ITEMCD = usermst.DEPART_CD and departcommon.MSTCD="0005" and departcommon.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+	left join commonmst as langcommon on langcommon.ITEMCD = usermst.LANGTYP and langcommon.MSTCD="0002" and langcommon.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+	left join userroletrn on usermst.USERCD = userroletrn.USERCD
+	left join (
+				select
+				rolemst.ROLE_ID as ROLE_ID,
+				rolemst.ROLE_NAME as ROLE_NAMEZC,
+				rolemst.ROLE_NAME as ROLE_NAMEZT,
+				rolemst.ROLE_NAME as ROLE_NAMEJP,
+				rolemst.ROLE_NAME as ROLE_NAMEEN
+				from rolemst 
+				where rolemst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+				union all
+				select
+				rolecommst.ROLE_COM_ID as ROLE_ID,
+				commonmst.ITMNAME as ROLE_NAMEZC,
+				commonmst.ITEMNAME_HK as ROLE_NAMEZT,
+				commonmst.ITEMNAME_JP as ROLE_NAMEJP,
+				commonmst.ITEMNAME_EN as ROLE_NAMEEN
+				from rolecommst
+				left join commonmst on rolecommst.ROLE_COM_NAME=commonmst.ITEMCD and commonmst.MSTCD="0007" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			) as rolemst on rolemst.ROLE_ID = userroletrn.ROLE_ID
+	 <trim prefix="WHERE" prefixOverrides="AND ">    
+		<if test="nickname != null and nickname != ''">
+			usermst.USER_NAME like CONCAT('%', #{nickname}, '%')
+		</if>
+		<if test="departCD != null and departCD != ''">
+			and usermst.DEPART_CD = #{departCD,jdbcType=VARCHAR}
+		</if>
+		<if test="level != null and level != ''">
+			and usermst.LEVEL = #{level,jdbcType=VARCHAR}
+		</if>
+		<if test="companyID != null and companyID != ''">
+			and usermst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+		</if>
+		<if test="delFlg != null and delFlg != ''">
+			and usermst.DEL_FLG = #{delFlg,jdbcType=VARCHAR}
+		</if>
+		<if test="userCD != null and userCD != ''">
+			and usermst.MEMBER_ID = #{userCD,jdbcType=VARCHAR}
+		</if>
+		<if test="roleID != null and roleID != ''">
+			and userroletrn.ROLE_ID = #{roleID,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	group by userCD
+	order by memberID asc
+	</select>
+	
+	<select id="getAllClients" resultType="String">
+		select CLDIVCD as cldivID from clmst where clmst.COMPANY_CD = #{companyID,jdbcType=VARCHAR} and DEL_FLG !=1 and CLIENT_FLG = 1
+	</select>
+	
+	<delete id="delAllClientByUserTx">
+		delete from userclmst where USER_CD = #{userID,jdbcType=VARCHAR} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertAllClientByUserTx" >
+		insert into userclmst 
+		(CLDIVCD,USER_CD,ADDUSERCD,COMPANY_CD,ADDDATE)
+		values
+		 <foreach collection="clients" index="index" item="client"  separator=","  >
+          	(#{client,jdbcType=VARCHAR},
+			#{userId,jdbcType=INTEGER},
+			#{addUserID,jdbcType=INTEGER},
+			#{companyID,jdbcType=INTEGER},
+			#{addDateTime,jdbcType=VARCHAR})
+	     </foreach>
+		
+	</insert>
+	<select id="getRelevancedList" parameterType="String" resultMap="clmstMap">
+		select
+			clmst.CLDIVCD as cldivcd,
+			clmst.ACCOUNT_CD as account_cd,
+			clmst.DIVNM as divnm,
+			clmst.DIVNAME_FULL as divname_full
+		from userclmst
+			left join clmst on userclmst.CLDIVCD = clmst.CLDIVCD and clmst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+		where
+			userclmst.USER_CD =#{userID,jdbcType=VARCHAR}
+			and userclmst.COMPANY_CD =#{companyID,jdbcType=VARCHAR}
+			and clmst.DEL_FLG != 1
+	</select>
+	<select id="getIrrelevantList" parameterType="String" resultMap="clmstMap">
+		select 
+			clmst.CLDIVCD as cldivcd,
+			clmst.ACCOUNT_CD as account_cd,
+			clmst.DIVNM as divnm,
+			clmst.DIVNAME_FULL as divname_full
+		from clmst
+		where
+			clmst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			and clmst.CLIENT_FLG = 1
+			and clmst.DEL_FLG != 1
+			and clmst.CLDIVCD not in 
+			(
+				select 
+					userclmst.CLDIVCD
+				from userclmst
+				where userclmst.USER_CD = #{userID,jdbcType=VARCHAR}
+					and userclmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			)
+		
+	</select>
+	<insert id="insertClientByUserTx" >
+		insert into userclmst 
+		(CLDIVCD,USER_CD,ADDUSERCD,COMPANY_CD,ADDDATE)
+		values
+		 <foreach collection="clietList" index="index" item="client"  separator=","  >
+          	(#{client.cldivcd,jdbcType=VARCHAR},
+			#{userID,jdbcType=VARCHAR},
+			#{addUserID,jdbcType=VARCHAR},
+			#{companyID,jdbcType=VARCHAR},now())
+	     </foreach>
+		
+	</insert>
+	<insert id="roleByUserTx" >
+		insert into userroletrn 
+		(USERCD,ROLE_ID,ADDDATE,ADDUSERCD)
+		values
+		 <foreach collection="agrs" index="index" item="roleID"  separator=","  >
+          	(#{userId,jdbcType=INTEGER},
+          	#{roleID,jdbcType=VARCHAR},
+          	#{addDate,jdbcType=VARCHAR},
+          	#{addUserId,jdbcType=VARCHAR})
+	     </foreach>
+	</insert>
+	<delete id="delRoleByUserTx">
+		delete from userroletrn where USERCD = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<select id="empPopSearch" resultMap="BaseResultMap" parameterType="com.kaiwait.bean.mst.io.UserInfoInput">
+		select
+			case when usermst.COMPANY_CD=#{companyID,jdbcType=VARCHAR} then 1 else 0 end as orderIndex,
+			usermst.USERCD as userCD,
+			usermst.colorv as colorv,
+			usermst.USER_NAME as nickname,
+			usermst.LEVEL as level,
+			usermst.COLORV as usercolor,
+			commonmst.ITMNAME as departNamezc,
+			commonmst.ITEMNAME_EN as departNameen,
+			commonmst.ITEMNAME_HK as departNamezt,
+			commonmst.ITEMNAME_JP as departNamejp,
+			companymst.COMPANY_NAME as companyName
+		from usermst
+		<if test="pd!= 'isJmd' and pd!= 'searchCus'">
+			join userclmst on userclmst.USER_CD = usermst.USERCD  and usermst.DEL_FLG != 1
+		</if>
+			left join commonmst on usermst.DEPART_CD = commonmst.ITEMCD and commonmst.MSTCD = "0005" and commonmst.COMPANY_CD= #{companyID,jdbcType=VARCHAR}
+			left join companymst on usermst.COMPANY_CD = companymst.COMPANY_CD 
+			left join usercompanymst on usermst.USERCD = usercompanymst.USER_CD 
+		where 
+			usercompanymst.COMPANY_CD= #{companyID,jdbcType=VARCHAR}
+			<if test="pd!= 'isJmd' and pd!= 'searchCus'">
+				and userclmst.COMPANY_CD= #{companyID,jdbcType=VARCHAR}
+			</if>
+		<if test="pd!= 'isJmd' and pd!= 'searchCus'">
+			<if test="sClientID != null and sClientID != ''">
+				and userclmst.CLDIVCD = #{sClientID,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="pd!= 'searchCus'">
+			<if test="departCD != null and departCD != ''">
+				and usermst.DEPART_CD = #{departCD,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="pd== 'isJuser'">
+			and usermst.DEPART_CD ='004'
+		</if>
+		<if test="pd== 'isJmd'">
+			and (usermst.DEPART_CD ='004' or usermst.DEPART_CD ='005' or usermst.DEPART_CD ='006'  or usermst.DEPART_CD ='007')
+			and usermst.DEL_FLG != 1
+		</if>
+		<if test="nickname != null and nickname != ''">
+			and usermst.USER_NAME like CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="pd== 'searchCus'.toString() and level== '2'.toString()">
+			and usermst.depart_cd = #{departCD,jdbcType=VARCHAR}
+			and usermst.DEL_FLG != 1
+		</if>
+		<if test="pd== 'searchCus'.toString() and level== '3'.toString()">
+			and usermst.usercd = #{userCD,jdbcType=VARCHAR}
+			and usermst.DEL_FLG != 1
+		</if>
+		<if test="pd== 'searchCus'.toString() and level== '1'.toString()">
+			and usermst.depart_cd in('004','005','006','007')
+			and usermst.DEL_FLG != 1
+		</if>
+		<if test="pd== 'searchCus'.toString() and level== '0'.toString()">
+			and usermst.usercd = #{userCD,jdbcType=VARCHAR}
+			and usermst.DEL_FLG != 1
+		</if>
+		group by userCD
+		order by orderIndex desc,companyName asc,usermst.MEMBER_ID asc
+	</select>
+	<select id="searchNodeListByUser" resultMap="roleMap">
+	select 	* from (
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from userroletrn 
+			join rolemst on userroletrn.ROLE_ID = rolemst.ROLE_ID and rolemst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			join rolenodetrn on userroletrn.ROLE_ID = rolenodetrn.ROLE_ID and rolenodetrn.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			join nodemst on rolenodetrn.NODE_ID = nodemst.NODE_ID
+		where userroletrn.USERCD = #{userID,jdbcType=VARCHAR}
+		union all
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from userroletrn 
+			join rolecommst on userroletrn.ROLE_ID = rolecommst.ROLE_COM_ID 
+			join sysrolenodemst on userroletrn.ROLE_ID = sysrolenodemst.ROLE_ID 
+			join nodemst on sysrolenodemst.NODE_ID = nodemst.NODE_ID
+		where userroletrn.USERCD = #{userID,jdbcType=VARCHAR}
+	) as userNodeList
+	group by userNodeList.nodeID
+	</select>
+	<select id="searchPageNodeList" resultMap="pageMap">
+		select 
+			pagemst.PAGE_NAME as pageName,
+			pagemst.PAGE_ID as pageID,
+			pagenodemst.NODE_ID as nodeID
+		from pagemst
+			join pagenodemst on pagemst.PAGE_ID = pagenodemst.PAGE_ID
+					
+	</select>
+	<select id="getCompanyType" resultType="String">
+		select COMPANY_TYPE from companymst where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+					
+	</select>
+	<select id="serchLevel" resultType="com.kaiwait.bean.mst.entity.User">
+		select depart_cd departCD,level from usermst where  USERCD= #{userID,jdbcType=VARCHAR}
+					
+	</select>
+	<select id="serchColumnListAll" resultMap="listColumn">
+		select 
+			listcolumnmst.LIST_COLUMN_ID as list_column_id,
+			listcolumnmst.DEFAULT_WIDE as default_wide,
+			listcolumnmst.LEVEL as level
+		from listcolumnmst
+	</select>
+	<select id="searchRoleStr" resultType="String">
+		select
+			GROUP_CONCAT(ROLE_ID)  as roleID
+		from userroletrn
+		where
+		 	USERCD = #{userID,jdbcType=VARCHAR}
+	</select>
+	<select id="getTimeZoneByCompany" resultType="String" >
+	select 
+		commonmst.ITMVALUE
+	from companymst
+		left join commonmst on companymst.TIME_ZONE = commonmst.ITEMCD 
+			and commonmst.MSTCD = "0006" and commonmst.COMPANY_CD = companymst.COMPANY_CD
+	where companymst.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	</select>
+	<update id="upColorByUser">
+		update usermst set COLORV = #{colorV,jdbcType=VARCHAR} where USERCD = #{userID,jdbcType=VARCHAR}
+	</update>
+	<update id="changeLanguageByUser">
+		update usermst set LANGTYP = #{langTyp,jdbcType=VARCHAR} where USERCD = #{userID,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="addUserCampany">
+	  insert into usercompanymst
+	  (USER_CD,COMPANY_CD,ADDDATE,ADDUSERCD)
+	  values
+	  (#{usercd},#{companycd},#{addDate},#{addUsercd})
+	
+	</insert>
+	<select id="validataLoginName" resultType="int" >
+		select
+			count(*)
+		from usermst
+		where usermst.LOGIN_ID = #{loginName,jdbcType=VARCHAR}
+		<if test="userID != null and userID != ''">
+			and usermst.USERCD != #{userID,jdbcType=VARCHAR}
+		</if>
+		
+	</select>
+	<select id="validataMemberID" resultType="int" >
+		select
+			count(*)
+		from usermst
+		where usermst.MEMBER_ID = #{memberID,jdbcType=VARCHAR}
+		and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+		<if test="userID != null and userID != ''">
+			and USERCD != #{userID,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="getLockFlg" resultType="int" >
+		select
+			LOCK_FLG 
+		from usermst
+		where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			and USERCD = #{userID,jdbcType=VARCHAR}
+	</select>
+	<update id="upUserMstLockFlg" >
+		update usermst set
+			LOCK_FLG = #{lockFlg}
+		where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			and USERCD = #{userID,jdbcType=VARCHAR}
+	</update>
+	<delete id="delTableHeaders">
+		delete 
+			from usersettingtrn 
+		where 
+			USERCD = #{userID,jdbcType=VARCHAR}
+		and COMPANY_CD != #{companyID,jdbcType=VARCHAR}
+	</delete>
+	<select id="queryDepart" resultType="String">
+		select
+			depart_cd
+		from usermst
+		where
+		 	USERCD = #{userID,jdbcType=VARCHAR}
+	</select>
+</mapper>

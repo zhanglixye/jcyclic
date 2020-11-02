@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.PayMapper">
+
+
+
+
+     <!-- 查询外发登录信息 -->	
+<select id="selectOutSource">
+select cost_rate,cost_foreign_amt,cost_rmb,cost_vat_amt,deduction_flg,(cost_vat_amt+cost_rmb) outsoure_amt
+from costtrn where  job_cd = #{job_cd} and  cost_no = #{cost_no}
+ </select> 	
+<select id="selectPayInfo"  resultType="com.kaiwait.bean.jczh.entity.Pay">
+	select
+	p.FROM_JPP as payFromJpp,
+	com.ITMNAME as itemnamezc,
+	com.ITEMNAME_EN as itemnameen,
+	com.ITEMNAME_JP as itemnamejp,
+	com.ITEMNAME_HK as itemnamehk,
+	p.pay_amt as payamt,
+	p.pay_flg as payflg,
+	p.input_no AS inputno,
+	p.company_cd AS companycd,
+	p.pay_foreign_type AS payforeigntype,
+	p.pay_rate AS payrate,
+	p.remark AS payremark,
+	p.pay_rmb AS payrmb,
+	p.pay_vat_amt AS payvatamt,
+	p.pay_hope_date AS payhopedate,
+	p.pay_plan_date as payplandate,
+	p.pay_dlyday AS paydlyday,
+	p.pay_foreign_amt AS
+	payforeignamt,
+	p.pay_cure_code AS paycurecode,
+	p.pay_use_date AS
+	payusedate,
+	p.pay_refer AS payrefer,
+	p.invoice_type AS invoicetype,
+	p.invoice_text AS invoicetext,
+	p.deduction_flg AS deductionflg,
+	p.pay_ishave AS payishave,
+	p.addusercd AS addusercd,
+	p.upusercd AS
+	upusercd,
+	c.payee_cd as payeecd,
+	adduser.USER_NAME as addUserName,
+	adduser.colorv as payaddusercolor,
+	p.adddate,
+	upuser.user_name as upUserName,
+	upuser.colorv as payupdusercolor,
+	p.`update`,
+	<!-- 申请者 -->
+	requser.user_name as payReqUserName,
+	requser.colorv as payReqUsercolor,
+	p.payreqdate,
+	<!-- 承认者 -->
+	confirmuser.user_name as confirmUserName,
+	confirmuser.colorv as confirmusercolor,
+	p.confirmdate,
+	<!-- 承认取消者 -->
+	payconfirmcancel.user_name as payconfirmcancelUserName,
+	payconfirmcancel.colorv as payconfirmcancelusercolor,
+	p.pay_confirm_cancel_date as payconfirmcanceldate,
+	<!-- 支付处理完了者 -->
+	payuser.user_name as payFinshUserName,
+	payuser.colorv as payFinshUserNamecolor,
+	p.pay_date as payfinshdate,
+	<!-- 支付处理完了者 -->
+	payupuser.user_name as payupuser,
+	payupuser.colorv as payupusercolor,
+	p.pay_up_date as payupdate,
+	<!-- 支付处理取消者 -->
+	cancleuser.user_name as canceluser,
+	cancleuser.colorv as cancelusercolor,
+	p.pay_cancel_date as paycanceldate,
+	p.payreqremark as reqremark,
+	p.confirmark as confirmremark,
+	p.pay_remark as payfinshremark,
+	itypecom.itmname as invoicetypename,
+	itypecom.itemname_en as invoicetypenameen,
+	itypecom.itemname_jp as invoicetypenamejp,
+	itypecom.itemname_hk as invoicetypenamehk,
+	itextcom.itmname as invoicetextname,
+	itextcom.itemname_en as invoicetextnameen,
+	itextcom.itemname_jp as invoicetextnamejp,
+	itextcom.itemname_hk as invoicetextnamehk,
+	inv.invoice_no as invoiceno,
+	inv.invoice_date as invoicedate,
+	p.lock_flg as lockflg
+	from
+	paytrn p left join costtrn c on c.input_no=p.input_no and
+	c.job_cd=#{job_cd}
+	and c.cost_no=#{cost_no} and c.company_cd=#{company_cd} and c.del_flg='0'
+	left join usermst as adduser on p.ADDUSERCD = adduser.USERCD 
+	left join usermst as upuser on p.UPUSERCD = upuser.USERCD 
+	left join usermst as requser on p.PAYREQEMP = requser.USERCD
+	left join usermst as confirmuser on p.CONFIRMEMP = confirmuser.USERCD 
+	left join usermst as payuser on p.PAY_EMP_CD =payuser.USERCD 
+	left join usermst as payupuser on p.PAY_UP_USERCD =payupuser.USERCD 
+	left join usermst as cancleuser on p.PAY_CANCEL_EMP = cancleuser.USERCD 
+	left join usermst as payconfirmcancel on p.PAY_CONFIRM_CANCEL_EMP = payconfirmcancel.USERCD 
+	left join
+	commonmst as itypecom on itypecom.ITEMCD = p.invoice_type and
+	itypecom.MSTCD = "0061" and itypecom.COMPANY_CD = #{company_cd}
+	left
+	join commonmst as itextcom on itextcom.ITEMCD = p.invoice_text and
+	itextcom.MSTCD = "0062" and itextcom.COMPANY_CD = #{company_cd}
+	LEFT JOIN commonmst AS com ON 
+	com.MSTCD = "0050" 
+	AND com.COMPANY_CD = #{company_cd}
+	AND p.PAY_FOREIGN_TYPE =  com.ITEMCD
+	left
+	join invoiceintrn as inv on inv.cost_no= p.input_no and inv.COMPANY_CD
+	= #{company_cd} and inv.del_flg = '0'
+	where p.input_no =#{input_no}
+	and p.company_cd =#{company_cd}
+	and p.del_flg ='0'
+</select>
+
+<insert id="insertPayInfoTx">
+INSERT INTO paytrn (
+input_no,
+company_cd,
+pay_foreign_type, 
+pay_rate,
+remark,
+pay_rmb,
+pay_vat_amt,
+pay_hope_date,
+pay_dlyday,
+pay_foreign_amt,
+pay_cure_code,
+pay_use_date,
+pay_refer,
+invoice_type,
+invoice_text,
+deduction_flg,
+addusercd,
+adddate,
+upusercd,
+`update`,
+pay_amt,
+pay_ishave,
+vat_change_flg,
+del_flg
+)
+VALUES
+	(
+#{input_no}, 
+#{company_cd},
+#{pay_foreign_type}, 
+#{pay_rate},
+#{payremark},
+#{pay_rmb},
+#{pay_vat_amt},
+#{pay_hope_date},
+#{pay_dlyday},
+#{pay_foreign_amt},
+#{pay_cure_code},
+#{pay_use_date},
+#{pay_refer},
+#{invoice_type},
+#{invoice_text},
+#{deduction_flg},
+#{addusercd},
+#{adddate},
+#{upusercd},
+#{update},
+#{pay_amt},
+#{pay_ishave},
+#{vat_change_flg},
+0
+)
+</insert>
+<!--  更新付款情报表 -->
+<update id="updatePayInfoTx">
+update  paytrn 
+<set>
+input_no =#{newinput_no},
+pay_foreign_type =#{pay_foreign_type},
+pay_rate         =#{pay_rate},
+remark           =#{payremark},
+pay_rmb          =#{pay_rmb},
+pay_vat_amt      =#{pay_vat_amt},
+pay_hope_date    =#{pay_hope_date},
+pay_dlyday       =#{pay_dlyday},
+pay_foreign_amt  =#{pay_foreign_amt},
+pay_cure_code    =#{pay_cure_code},
+pay_use_date     =#{pay_use_date},
+pay_refer        =#{pay_refer},
+invoice_type     =#{invoice_type},
+invoice_text     =#{invoice_text},
+deduction_flg    =#{deduction_flg},
+upusercd         =#{upusercd},
+`update`         =#{update},
+pay_amt          =#{pay_amt},
+pay_ishave 		 =#{pay_ishave},
+vat_change_flg   =#{vat_change_flg},
+old_input_no   =#{input_no},
+LOCK_FLG =LOCK_FLG+1
+</set>
+where input_no =#{input_no}
+and company_cd   =#{company_cd}
+and del_flg =0
+</update>
+
+
+<update id="updateCostTx">
+update costtrn set input_no =#{input_no},status =1,upusercd=#{upusercd},LOCK_FLG =LOCK_FLG+1 where job_cd=#{job_cd} and cost_no =#{cost_no} and company_cd =#{company_cd}
+</update>
+
+<!-- 插入发票信息 -->
+<insert id="insertInvoiceintrnTx" >
+insert into invoiceintrn (
+cost_no, 
+invoice_no,
+invoice_date,
+del_flg, 
+company_cd,
+remark,
+upddate,
+adddate,
+updusercd,
+addusercd
+)
+values
+	(
+#{input_no}, 
+#{invoice_no},
+#{invoice_date},
+0,
+#{company_cd},
+#{remark},
+#{update},
+#{adddate},
+#{upusercd},
+#{addusercd}
+)
+</insert>
+
+<update id="updateInvoiceintrnTx">
+update invoiceintrn
+<set>
+cost_no     = #{newinput_no},
+invoice_no   = #{invoice_no},
+invoice_date = #{invoice_date},
+del_flg      =#{del_flg}, 
+remark       =#{remark},
+upddate= #{update},
+updusercd=#{upusercd},
+LOCK_FLG =LOCK_FLG+1
+</set>
+where cost_no     = #{input_no}
+and company_cd   =#{company_cd}
+and del_flg=0
+</update>
+
+<update id="deletePayInfoTx">
+	update paytrn
+	<set>
+		del_flg = 1,
+		LOCK_FLG =LOCK_FLG+1
+	</set>
+	where input_no =#{input_no}
+	and company_cd =#{company_cd}
+	and del_flg=0
+</update>
+<select id="PayConfirmOutPDF" resultType="com.kaiwait.bean.jczh.entity.PayConfirmPDF">
+select 
+p.company_cd as companycd,
+companymst.COMPANY_FULL_NAME as companyfullname,
+p.INPUT_NO as inputno,
+p.OLD_INPUT_NO as oldinputno,
+inv.INVOICE_NO as invoiceno,
+p.ADDDATE as payadddate,
+(select IFNULL(USER_NAME,'') from usermst where USERCD =p.PAYREQEMP) as addUserName,
+p.PAYREQDATE as payreqdate,
+payreq.USER_NAME as payreqUserName,
+p.CONFIRMDATE as confirmdate,
+confirm.USER_NAME as confirmUserName,
+cldiv.ACCOUNT_CD as accountcd,
+cldiv.DIVNM as cldivname, 
+jobtrn.JOB_CD as jobcd,
+jobtrn.JOB_NAME as jobname,
+salemst.SALE_NAME as salename,
+payer.DIVNM as payername,
+g_company.DIVNM as gname,
+jobtrn.plan_dalday as plandalday,
+sel.dlvday,
+a.zrname                     as  zrname,
+b.ddname                     as  ddname,
+c.mdname                     as  mdname,
+co.COST_RMB as costrmb,
+co.cost_no  as costno,
+co.COST_NAME as costname,
+co.ADDDATE as costadddate,
+costuser.USER_NAME as costusername,
+payee.DIVNM as payeename,
+payee.DIVNAME_FULL AS divnamefull,
+co.ORDER_DATE as orderdate,
+co.PLAN_DLVDAY as plandlvday,
+p.PAY_PLAN_DATE as payplanday,
+p.PAY_DLYDAY as paydlyday,
+p.PAY_RMB as payrmb,
+p.PAY_HOPE_DATE as payhopedate,
+p.PAY_AMT as payamt,
+p.PAY_VAT_AMT as payvatamt,
+p.remark,
+p.payreqremark as reqremark,
+p.confirmark as confirmremark,
+p.PAY_FOREIGN_AMT as payforeignamt,
+p.PAY_FOREIGN_TYPE as payforeigntype,
+p.PAY_ISHAVE as payishave,
+p.PAY_CURE_CODE as paycurecode,
+p.PAY_USE_DATE as payusedate,
+p.PAY_REFER as payrefer,
+invoicetext.ITMNAME as invoicetext,
+invoicetype.ITMNAME as invoicetype,
+invoicetext.ITEMNAME_EN as invoicetexten,
+invoicetype.ITEMNAME_EN as invoicetypeen,
+invoicetext.ITEMNAME_JP as invoicetextjp,
+invoicetype.ITEMNAME_JP as invoicetypejp,
+invoicetext.ITEMNAME_HK as invoicetexthk,
+invoicetype.ITEMNAME_HK as invoicetypehk,
+p.deduction_flg as deductionflg,
+p.PAY_RATE as payrate,
+commonmst.ITMNAME  as  localmoney,
+commonmst.ITEMNAME_EN  as  localmoneyen,
+commonmst.ITEMNAME_JP  as  localmoneyjp,
+commonmst.ITEMNAME_HK as  localmoneyhk,
+commonmst.itmvalue as localdecimal,
+foreignm.ITMNAME  as  foreignmoney,
+foreignm.ITEMNAME_EN  as  foreignmoneyen,
+foreignm.ITEMNAME_JP  as  foreignmoneyjp,
+foreignm.ITEMNAME_HK  as  foreignmoneyhk,
+foreignm.itmvalue as foreigndecimal,
+foreignm.CHANGE_UTIN as changeutin,
+concat(jComm.AIDCD," ",
+case
+	when #{langTyp}= 'zc' then jComm.ITMNAME
+	when #{langTyp}= 'zt' then jComm.ITEMNAME_HK
+	when #{langTyp}= 'en' then jComm.ITEMNAME_EN
+	else jComm.ITEMNAME_JP
+end) as typeName,
+IFNULL(journal.DEBTOR_AMOUNT,0) AS debtorAmt,
+IFNULL(journal.CREDIT_AMOUNT,0) AS creditAmt,
+concat(jOneComm.AIDCD," ",
+case
+	when #{langTyp}= 'zc' then jOneComm.ITMNAME
+	when #{langTyp}= 'zt' then jOneComm.ITEMNAME_HK
+	when #{langTyp}= 'en' then jOneComm.ITEMNAME_EN
+	else jOneComm.ITEMNAME_JP
+end) as typeName1,
+IFNULL(journalOne.DEBTOR_AMOUNT,0) AS debtorAmt1,
+IFNULL(journalOne.CREDIT_AMOUNT,0) AS creditAmt1,
+concat(jsComm.AIDCD," ",
+case
+	when #{langTyp}= 'zc' then jsComm.ITMNAME
+	when #{langTyp}= 'zt' then jsComm.ITEMNAME_HK
+	when #{langTyp}= 'en' then jsComm.ITEMNAME_EN
+	else jsComm.ITEMNAME_JP
+end) as typeName2
+from paytrn as p
+LEFT JOIN costtrn co  on co.input_no = p.input_no and p.COMPANY_CD= co.COMPANY_CD and p.DEL_FLG = co.DEL_FLG
+LEFT JOIN jobtrn  on jobtrn.JOB_CD = co.job_cd and p.COMPANY_CD= jobtrn.COMPANY_CD and p.DEL_FLG = jobtrn.DEL_FLG
+LEFT JOIN invoiceintrn inv on p.INPUT_NO=inv.COST_NO and p.COMPANY_CD= inv.COMPANY_CD and p.DEL_FLG = inv.DEL_FLG
+LEFT JOIN usermst adduser on adduser.USERCD =p.ADDUSERCD
+LEFT JOIN usermst payreq on payreq.USERCD =p.PAYREQEMP 
+LEFT JOIN usermst confirm on confirm.USERCD =p.CONFIRMEMP 
+left join clmst cldiv on jobtrn.cldiv_cd =cldiv.cldivcd and p.company_cd=cldiv.company_cd and cldiv.CLIENT_FLG =1 
+left join salemst on salemst.sale_cd=jobtrn.sale_typ and p.COMPANY_CD = salemst.COMPANY_CD 
+left join clmst payer on payer.cldivcd=jobtrn.PAYER_CD and payer.company_cd=p.company_cd and payer.PAY_FLG =1
+left join clmst g_company on g_company.cldivcd=jobtrn.G_COMPANY and g_company.company_cd=p.company_cd and g_company.HDY_FLG=1 
+left join sellordertrn sel on jobtrn.job_cd =sel.job_cd and p.company_cd=sel.company_cd and sel.del_flg=jobtrn.del_flg
+LEFT JOIN usermst costuser on costuser.USERCD =co.ADDUSERCD 
+LEFT JOIN clmst payee ON payee.cldivcd = co.payee_cd AND payee.company_cd = co.company_cd and payee.CONTRA_FLG=1
+LEFT JOIN companymst  ON p.COMPANY_CD=companymst.COMPANY_CD
+left join commonmst on commonmst.company_cd =p.company_cd and commonmst.mstcd='0050' and companymst.CURRENCY_CODE=commonmst.ITEMCD 
+LEFT JOIN commonmst  foreignm on foreignm.COMPANY_CD =p.COMPANY_CD  and foreignm.MSTCD='0050' and p.PAY_FOREIGN_TYPE= foreignm.ITEMCD
+LEFT JOIN commonmst  invoicetext on invoicetext.COMPANY_CD =p.COMPANY_CD  and invoicetext.MSTCD='0062' and p.INVOICE_TEXT= invoicetext.ITEMCD
+LEFT JOIN commonmst  invoicetype on invoicetype.COMPANY_CD =p.COMPANY_CD  and invoicetype.MSTCD='0061' and p.INVOICE_TYPE= invoicetype.ITEMCD
+left join journal on jobtrn.JOB_CD = journal.JOB_NO and journal.COMPANY_CD = jobtrn.COMPANY_CD and journal.INPUT_NO = p.input_no 
+	AND journal.DEBTOR_CD="009" and journal.CREDIT_CD = "011"
+LEFT JOIN commonmst jComm ON jComm.company_cd = p.company_cd AND jComm.MSTCD = "8001" AND jComm.ITEMCD = "009" AND journal.DEBTOR_CD = "009" 
+LEFT JOIN journal journalOne ON jobtrn.JOB_CD = journalOne.JOB_NO AND journalOne.COMPANY_CD = jobtrn.COMPANY_CD AND journalOne.INPUT_NO = p.input_no 
+	AND journalOne.DEBTOR_CD = "012" AND journalOne.CREDIT_CD = "011"
+LEFT JOIN commonmst jOneComm ON jOneComm.company_cd = p.company_cd AND jOneComm.MSTCD = "8001" AND jOneComm.ITEMCD = "012" AND journalOne.DEBTOR_CD = "012"
+LEFT JOIN commonmst jsComm ON jsComm.company_cd = p.company_cd AND jsComm.MSTCD = "8001" AND jsComm.ITEMCD = "011" AND (journal.CREDIT_CD = "011" or journalOne.CREDIT_CD = "011")
+left join	
+( select
+  jobtrn.job_cd,
+jobtrn.company_cd,
+  group_concat(zruser.user_name separator '  ') as zrname
+  from jobtrn
+  left join jobuserstrn zrjobuser
+	on jobtrn.job_cd =zrjobuser.job_cd and zrjobuser.level_flg='1' and zrjobuser.del_flg=jobtrn.del_flg AND zrjobuser.COMPANY_CD = jobtrn.COMPANY_CD
+	left join usermst zruser
+	on zruser.usercd =zrjobuser.usercd 
+where jobtrn.company_cd=#{companyID}
+and jobtrn.job_cd=#{jobNo}
+and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) a on a.job_cd =jobtrn.job_cd and a.company_cd=co.company_cd
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(dduser.user_name separator '  ') as ddname
+  from jobtrn
+	left join jobuserstrn ddjobuser
+	on jobtrn.job_cd =ddjobuser.job_cd and ddjobuser.level_flg='2' and ddjobuser.del_flg=jobtrn.del_flg AND ddjobuser.COMPANY_CD = jobtrn.COMPANY_CD
+	left join usermst dduser
+	on dduser.usercd =ddjobuser.usercd
+	where jobtrn.company_cd=#{companyID}
+	and jobtrn.job_cd=#{jobNo}
+	and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) b on b.job_cd =jobtrn.job_cd and b.company_cd=co.company_cd
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(mduser.user_name separator '  ') as mdname
+  from jobtrn  
+  left join jobuserstrn mdjobuser
+	on jobtrn.job_cd =mdjobuser.job_cd  and mdjobuser.level_flg='3' and
+	mdjobuser.del_flg=jobtrn.del_flg
+	AND mdjobuser.COMPANY_CD = jobtrn.COMPANY_CD
+	left join usermst mduser
+	on mduser.usercd =mdjobuser.usercd 
+	where jobtrn.company_cd=#{companyID}
+	and jobtrn.job_cd=#{jobNo}
+	and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) c on c.job_cd =jobtrn.job_cd and c.company_cd=co.company_cd
+where p.input_no =#{inputNo}
+and p.COMPANY_CD =#{companyID}
+and p.del_flg=0
+and jobtrn.JOB_CD =#{jobNo}
+</select>
+<select id="getPayLockFlg" resultType="Integer">
+  select LOCK_FLG as paylockflg from paytrn where INPUT_NO = #{inputno} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+</select>
+
+	<update id="updatePayREQTx">
+		update paytrn
+		<set>
+			`update` = #{update},
+			upusercd =#{upusercd},
+			payreqdate =#{update},
+			payreqemp =#{upusercd},
+			LOCK_FLG =LOCK_FLG+1
+		</set>
+		where
+		input_no = #{input_no}
+		and company_cd =#{companyID}
+		and del_flg=0
+	</update>
+	<select id="selectUserName" resultType="String">
+	SELECT usermst.USER_NAME AS addUserName FROM `paytrn`  LEFT JOIN usermst on  paytrn.UPUSERCD = usermst.USERCD 
+		WHERE
+		paytrn.INPUT_NO = #{inputno} AND paytrn.COMPANY_CD =#{companycd}
+	</select>
+	
+</mapper>

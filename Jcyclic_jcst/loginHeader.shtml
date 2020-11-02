@@ -1,0 +1,13 @@
+<link rel="stylesheet" type="text/css" href="./public/lib/bootstrap3.3.0/bootstrap3.3.0.css"/>
+<link rel="stylesheet" href="./public/fonts/iconfont/iconfont.css" />
+<link rel="icon" type="image/ico" href="./public/images/bitbug_favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="./public/lib/easyUi1.5.3/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="./public/lib/easyUi1.5.3/themes/icon.css"/>
+
+<script type="text/javascript" src="./public/lib/jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="./public/lib/easyUi1.5.3/jquery.easyui.min.js" ></script>
+<script type="text/javascript" src="./public/javascript/common/common.js?v=2018092801" ></script>
+<script type="text/javascript" src="./public/javascript/common/common_setting.js?v=2018092801" ></script>
+<script type="text/javascript" src="./public/javascript/common/validataController.js?v=2018092801" ></script>
+<script type="text/javascript" src="./public/javascript/common/showMessageController.js?v=2018092801" ></script>
+<script type="text/javascript" src="./public/javascript/master/login.js?v=2018092801"></script>		

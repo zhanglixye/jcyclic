@@ -1,0 +1,55 @@
+.Img{
+	margin-top: 3%;
+}
+.error{
+	position:absolute;
+	top: 44%;
+	left: 50%;
+    transform: translate(-50%, -50%);
+	color: rgb(33,33,33);
+	font-size: 65px;
+}
+.error_2{
+	width: 100%;
+	position:absolute;
+	top: 65%;
+	left: 50%;
+    transform: translate(-50%, -50%);
+	color: rgb(33,33,33);
+	font-size: 30px;
+}
+.error_3{
+  color: #8D8D8D;
+  font-size: 14px;
+  position:absolute;
+  bottom: 5px;
+  left: 50%;
+  transform:translateX(-50px)
+}
+.btn_footer{
+	margin: 10px 0 25px 0;
+}
+.btn_login{
+	background-color:rgb(28,186,155);
+}
+.font_login{
+	color: white;
+}
+.panel-modo{
+	width: 34%;
+}
+.left_modo{
+	margin-left: 10%;
+}
+.modo-second{
+	margin-top: 5%;
+	margin-left: 10%;
+}
+.modo-btn{
+	margin: 5%;
+}
+.modo-textarea{
+	width: 80%;
+}
+
+

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.kaiwait.bean.mst.entity.Role">
+		<result column="roleID" property="roleID" jdbcType="INTEGER" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleOrder" property="roleOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="roleInput" type="com.kaiwait.bean.mst.io.RoleInput">
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleOrder" property="roleOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getRoleList" resultMap="BaseResultMap">
+		select
+			ROLE_ID as roleID,
+			ORDER_ID as roleOrder,
+			ROLE_NAME as roleNameen,
+			ROLE_NAME as roleNamezc,
+			ROLE_NAME as roleNamejp,
+			ROLE_NAME as roleNamezt,
+			LOCK_FLG as lockFlg,
+			ISON as isOn
+		from rolemst
+		where COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+		
+		<if test="isOnShow != null and isOnShow != ''">
+			and rolemst.ISON=1
+		</if>
+		
+		<if test="roleID != null and roleID != ''">
+			and rolemst.ROLE_ID=#{roleID,jdbcType=INTEGER} 
+		</if>
+		<if test="roleID == null or roleID == ''">
+			union all
+			select
+				rolecommst.ROLE_COM_ID as roleID,
+				rolecommst.ROLE_COM_ORDER as roleOrder,
+				commonmst.ITEMNAME_EN as roleNameen,
+				commonmst.ITMNAME as roleNamezc,
+				commonmst.ITEMNAME_JP as roleNamejp,
+				commonmst.ITEMNAME_HK as roleNamezt,
+				-1 as lockFlg,
+				ifnull(rolecomordertrn.ISON,1) as isOn
+			from rolecommst
+			left join commonmst on rolecommst.ROLE_COM_NAME=commonmst.ITEMCD and commonmst.MSTCD="0007" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			left join rolecomordertrn on rolecommst.ROLE_COM_ID = rolecomordertrn.ROLE_COM_ID 
+				and rolecomordertrn.COMPANY_CD=#{companyID,jdbcType=VARCHAR} 
+			
+			<if test="companyTyp != null and companyTyp != ''">
+				<if test="companyTyp == 0">
+					where rolecommst.ROLE_COM_ID > 2
+				</if>
+				<if test="companyTyp == 1">
+					where rolecommst.ROLE_COM_ID > 1
+				</if>
+			</if>
+		</if>
+		
+		order by roleID asc
+			
+	</select>
+	<select id="getRoleListByUserID" resultMap="BaseResultMap">
+		select
+			ROLE_ID as roleID
+		from userroletrn
+		where
+		 	USERCD = #{0,jdbcType=VARCHAR}
+			
+	</select>
+	
+	<update id="saveRoleListByCompanyID">
+		 <foreach collection="roleList" index="index" item="role"  separator=";">
+		 <if test="role.roleID > 100">
+		 	update rolemst set
+		 		ORDER_ID = #{role.roleOrder,jdbcType=INTEGER},
+				ROLE_NAME = #{role.roleName,jdbcType=VARCHAR},
+				ISON = #{role.isOn,jdbcType=INTEGER},
+				UPDUSERCD = #{userID,jdbcType=VARCHAR},
+				UPDDATE  = #{upDateTime,jdbcType=VARCHAR}
+			where ROLE_ID = #{role.roleID,jdbcType=INTEGER} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			</if>
+			<if test="role.roleID  &lt; 101">
+		 	update rolecomordertrn set
+				ISON = #{role.isOn,jdbcType=INTEGER}
+			where ROLE_COM_ID = #{role.roleID,jdbcType=INTEGER} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			</if>
+	     </foreach>
+	     
+	</update>
+	
+	<select id="getNodesByRoles" resultMap="BaseResultMap">
+		select
+			rolenodetrn.ROLE_ID as roleID,
+			rolemst.ROLE_NAME as roleNameen,
+			rolemst.ROLE_NAME as roleNamezc,
+			rolemst.ROLE_NAME as roleNamejp,
+			rolemst.ROLE_NAME as roleNamezt,
+			rolenodetrn.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from rolenodetrn
+			join rolemst on rolenodetrn.ROLE_ID = rolemst.ROLE_ID and rolemst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			left join nodemst on rolenodetrn.NODE_ID = nodemst.NODE_ID
+		where 
+			rolenodetrn.COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+			<if test="roleID != null and roleID != ''">
+				and rolenodetrn.ROLE_ID=#{roleID,jdbcType=INTEGER} 
+			</if>
+		union all
+		select
+			sysrolenodemst.ROLE_ID as roleID,
+			commonmst.ITEMNAME_EN as roleNameen,
+			commonmst.ITMNAME as roleNamezc,
+			commonmst.ITEMNAME_JP as roleNamejp,
+			commonmst.ITEMNAME_HK as roleNamezt,
+			sysrolenodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt
+		from sysrolenodemst
+			join rolecommst on sysrolenodemst.ROLE_ID = rolecommst.ROLE_COM_ID
+			left join commonmst on rolecommst.ROLE_COM_NAME=commonmst.ITEMCD and commonmst.MSTCD="0007" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+			left join nodemst on sysrolenodemst.NODE_ID = nodemst.NODE_ID
+		where 
+			1=1
+			<if test="roleID != null and roleID != ''">
+				and sysrolenodemst.ROLE_ID=#{roleID,jdbcType=INTEGER} 
+			</if>
+	</select>
+	<select id="getNodes" resultMap="BaseResultMap">
+		select
+			nodemst.NODE_ID as nodeID,
+			nodemst.NODE_NAME_JP as nodeNamejp,
+			nodemst.NODE_NAME_EN as nodeNameen,
+			nodemst.NODE_NAME_ZH as nodeNamezc,
+			nodemst.NODE_NAME_HK as nodeNamezt,
+			nodemst.ORDER_ID as nodeOrder,
+			nodemst.NODE_COLOR as nodeColor
+		from nodemst
+		order by nodeID asc
+	</select>
+	
+	<update id="saveRoleInfoList">
+		 <foreach collection="roleList" index="index" item="role"  separator=";">
+		 	update rolemst set
+				ROLE_NAME = #{role.roleName,jdbcType=VARCHAR},
+				LOCK_FLG = #{role.lockFlg,jdbcType=INTEGER},
+				UPDDATE = #{upDateTime,jdbcType=INTEGER},
+				UPDUSERCD = #{userId,jdbcType=INTEGER}
+			where ROLE_ID = #{role.roleID,jdbcType=INTEGER} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	     </foreach>
+	</update>
+	
+	<insert id="saveNodeList">
+		 <foreach collection="nodeList" index="index" item="role"  separator=";">
+		 insert into rolenodetrn
+		 (ROLE_ID,NODE_ID,COMPANY_CD,ADDDATE,ADDUSERCD)
+		 values
+		 (#{role.roleID,jdbcType=INTEGER},
+		 #{role.nodeID,jdbcType=INTEGER},
+		 #{companyID,jdbcType=VARCHAR},
+		 #{upDateTime,jdbcType=VARCHAR},
+		 #{userId,jdbcType=VARCHAR}
+		 )
+	     </foreach>
+	</insert>
+	<delete id="delNodeByRole">
+		 <foreach collection="roleList" index="index" item="role"  separator=";">
+		 	delete from rolenodetrn
+			where ROLE_ID = #{role.roleID,jdbcType=INTEGER} and COMPANY_CD = #{companyID,jdbcType=VARCHAR}
+	     </foreach>
+	</delete>
+	<insert id="addRole">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="roleID">  
+	        select LAST_INSERT_ID() as rolemst
+	    </selectKey>  
+		 insert into rolemst
+		 (ORDER_ID,ROLE_NAME,COMPANY_CD,ADDUSERCD,ADDDATE)
+		 values
+		 ((select * from ((select MAX(ORDER_ID)+1 from rolemst)) as a),
+		 #{roleName,jdbcType=VARCHAR},
+		 #{companyID,jdbcType=VARCHAR},
+		 #{addUserID,jdbcType=VARCHAR},
+		 #{addDate,jdbcType=DATE}
+		 )
+	</insert>
+	<insert id="addUserRoleTrn">
+	  insert into  userroletrn
+	   (USERCD,ROLE_ID,ADDDATE,ADDUSERCD)
+	   values
+	   (
+	   #{usercd},#{roleid},#{addDate},#{addUsercd}
+	   )
+	</insert>
+	<select id="getRoleMstID" resultMap="BaseResultMap">
+	 select ROLE_COM_ID as roleID from rolecommst 
+	</select>
+	<insert id="insertRoleComOrderTrn" parameterType="com.kaiwait.bean.mst.entity.Role">
+	   insert into rolecomordertrn 
+	   (ROLE_COM_ID,ISON,COMPANY_CD)
+	   values
+	   <foreach collection="listRole" index="index" item="role"  separator=",">
+	    (#{role.roleID},#{role.isOn},#{role.companycd})
+	   </foreach>
+	</insert>
+	<select id="isRoleName" resultType="java.lang.Integer" >
+	select 
+		sum(roleList.isCount) 
+	from 
+	(
+		select
+			count(*) as isCount
+		from rolecommst 
+		left join commonmst on rolecommst.ROLE_COM_NAME=commonmst.ITEMCD and commonmst.MSTCD="0007" and commonmst.COMPANY_CD=#{companyID,jdbcType=VARCHAR}
+		where (commonmst.ITMNAME=#{roleName} or commonmst.ITEMNAME_HK=#{roleName} or
+				commonmst.ITEMNAME_EN=#{roleName} or commonmst.ITEMNAME_JP=#{roleName}) 
+			<if test="roleID != 9988">
+				and rolecommst.ROLE_COM_ID != #{roleID}
+			</if>
+		union all
+			select
+			count(*) as isCount
+		from rolemst
+		where rolemst.ROLE_NAME =#{roleName} and rolemst.COMPANY_CD=#{companyID}
+			<if test="roleID != 9988">
+				and rolemst.ROLE_ID != #{roleID}
+			</if> 
+	) as roleList
+	</select>
+</mapper>

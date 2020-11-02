@@ -1,0 +1,33 @@
+{
+  "definitionFilePath" : null,
+  "name" : "会社一览",
+  "path" : "companyMstSelect",
+  "rootPath" : "dynamic",
+  "type" : "query",
+  "method" : "POST",
+  "paging" : false,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "查询参数",
+    "type" : "Object",
+    "description" : "",
+    "required" : false,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "company_full_name",
+      "comment" : "会社名称",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 100,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

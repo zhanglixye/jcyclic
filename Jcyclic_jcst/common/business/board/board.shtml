@@ -1,0 +1,69 @@
+<!--展示与修改-->
+<div class="modal fade" id="myModalBoard" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0;">
+            	<div class="panel panel-default common_se message-board">       
+				 	<div class="panel-heading clear" style="background-color: #ecf0f1;">
+						<b class="i18n" name='board_title_change'></b>
+						<i class="iconfont icon-guanbi" data-dismiss="modal"></i>
+					</div>
+					<div class="clearfix" style="padding: 0 20px;">	
+						<a id="boardHead"></a>
+						<div id="myModalBoardTwo" style="margin-top: 10px;">
+							
+						</div>
+						<div class="message-button clearfix">	
+							<input id="board_clo" selectname='salescategoryRegistration_clsoe' class="btn btn-default i18n-input" data-dismiss="modal" type="button" />
+							<input id="delect" selectname='board_clear' class="btn btn-warning i18n-input" type="button" />
+							<input id="alter" selectname='taxcostList_change' class="btn btn-success i18n-input" type="button" />
+							<!--<input id="add" selectname='taxcostList_add' class="btn btn-success i18n-input" type="button" />-->						
+						</div>			
+					</div> 
+				</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--登录-->
+<div class="modal fade" id="myModalBoard_t" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0;">
+            	<div class="panel panel-default common_se message-board">       
+				 	<div class="panel-heading clear" style="background-color: #ecf0f1;">
+						<b class="i18n board_title" name='board_login'></b>
+						<i class="iconfont icon-guanbi" data-dismiss="modal"></i>
+					</div>
+					<div class="clearfix" style="padding: 0 20px;">	
+						<a id="boardHead"></a>
+						<div class="panel-body messageBoard">
+							<div class="form-group">
+								<div class="clear">
+								    <label name="board_success" for="exampleInputEmail1" class="i18n"></label>
+								    <!--<i class="iconfont icon-guanbi" onclick="$('.messageBoard').addClass('hidden')"></i>-->
+								</div>
+								<input maxlength="100" type="text" class="form-control message-board-title">
+								<input type="hidden" id="manageflag" name="manageflag">
+								<input type="hidden" id="companylevel" name="companylevel">
+								<input type="hidden" id="roletype" name="roletype">
+							</div>
+							<div class="form-group">
+								<!--style给定宽度可以影响编辑器的最终宽度-->
+								<script type="text/plain" id="myEditor" style="height:100px;"></script>
+							</div>
+
+							<!--<button style="margin-left: 10px;text-align: center;width: auto!important;" id=""  class="btn btn-default" type="button"  value="" onclick="$('.messageBoard').addClass('hidden')">キャンセル</button>-->	
+
+							<button name="board_canel" style="margin-left: 10px;text-align: center;padding:6px 0;" id="board_close"  class="btn btn-default i18n" type="button"  value="" data-dismiss="modal">
+
+							</button>	
+
+							<input selectname='suppliersRegistration_login' id="submitsave"  class="btn btn-success i18n-input" type="button"/>				
+						</div>		
+					</div> 
+				</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

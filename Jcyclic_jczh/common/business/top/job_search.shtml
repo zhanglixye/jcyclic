@@ -1,0 +1,15 @@
+<div class="panel panel-default top-search" style="border: none;padding-bottom: 15px;">
+	<div class="panel-heading i18n l-right" name='toplogin_JOB_search' style="font-size: 17px; font-weight: bold;">
+		
+	</div>
+	<div class="panel-body" style="padding: 15px 18px 0px 18px;">
+		<div class="col-md-12 i18n" name='joblist_noxi' style=" padding:3px 0 0 0; line-height: 34ox;" align="left">
+			
+		</div>
+		<div class="input-group" style="margin-top: 10px; float: left">
+			<input maxlength="20" class="form-control" id="keyword" placeholder="" type="text" style="border-right: 0px; box-shadow:inset 0 1px 0px 0px rgba(0, 0, 0, 0.075);"><span class="input-group-addon" style="background: #29bb9c; padding: 6px 26px;box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.075); color: #fff; ">
+			<i class="iconfont icon-sousuo" style="font-size: 20px;"></i>
+			</span>
+		</div>
+	</div>
+</div>

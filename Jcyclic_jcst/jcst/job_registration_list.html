@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title class="i18n" name='JOB_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+
+
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration_list.css?v=2018092801" />
+		<link rel="stylesheet" href="../public/stylesheets/jcst/job_registration_style.css?v=2018092801" />
+
+	</head>
+	<body class="main page" style="overflow: hidden;">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='JOB_list_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 25px;;">
+				<div class="form-inline top-15">
+					<div class="col-md-4" style="height: 83px; margin-bottom: 20px; padding-left: 0;">
+						<!--#include virtual="../common/business/job_list/title.shtml"-->
+						<!--#include virtual="../common/business/job_list/search.shtml"-->
+					</div>
+					<!--#include virtual="../common/business/job_list/sum_table.shtml"-->
+					<div>
+					</div>
+				</div>
+				<!--隐藏域-->
+				<input id="ddcd" name="ddcd" class="form-control" placeholder="" type="hidden">
+				<input id="g_company" name="g_company" class="form-control" placeholder="" type="hidden">
+				<input id="payer_cd" name="payer_cd" class="form-control" placeholder="" type="hidden">
+				<input id="cldiv_cd" name="cldiv_cd" class="form-control" placeholder="" type="hidden">
+				<input id="menuPD" name="menuPD" class="form-control" placeholder="" type="hidden">
+				<input id="menuNode" name="menuNode" class="form-control" placeholder="" type="hidden">
+				<!--隐藏域-->
+				<!--#include virtual="../common/business/job_list/input.shtml"-->
+				<!--#include virtual="../common/business/job_list/table.shtml"-->
+				<!--#include virtual="../common/business/job_list/menu_single.shtml"-->
+				<!--#include virtual="../common/business/job_list/menu_multi.shtml"-->
+		</aside>
+		</div>
+		<!--入金处理-->
+		<!--#include virtual="../common/jcst/payment_handle.shtml"-->
+		<!--支付处理-->
+		<!--#include virtual="../common/jcst/money.shtml"-->
+		<!--支付处理-->
+		<!--#include virtual="../common/business/label/label_set_o.shtml"-->
+		<!--支付处理-->
+		<!--#include virtual="../common/business/label/label_set_t.shtml"-->
+		<script type="text/javascript">
+			$(function(){
+				$(".icon-xiala").css("color","#707070");
+			})
+			//	$('#menu').css('height', '100%');
+			//	$('#menu2').css('height', '100%');
+			$.layerShowDiv('cost_handle1', '30%', 'auto', 1, $('.rujin'));
+			$.layerShowDiv('cost_handle2', '30%', 'auto', 1, $('.rujin'));
+			$.layerShowDiv('zj', '400', 'auto', 1, $('.label_set_o'));
+			$.layerShowDiv('labelset', '400', 'auto', 1, $('.label_set_t'));
+			$.layerShowDiv('zjM', '400', 'auto', 1, $('.label_set_o'));
+			$.layerShowDiv('labelsetM', '400', 'auto', 1, $('.label_set_t'));
+			//支付处理弹窗
+			//	$.layerShowDiv('zhifu',400,'auto',1,$('.pay_chuli'));
+			$(document).ready(function() {
+				var tds = false;
+				$("#ddda_job").datebox({
+					onShowPanel: function() {
+						var p = $('#ddda_job').datebox('panel');
+						p.find('span.calendar-text').trigger('click');
+						p.find(".datebox-button-a").eq(0).hide();
+						var span = p.find('span.calendar-text');
+						//屏蔽选择今天的按钮  
+						p.find('.calendar-text').hide();
+						//输入框原本可填，会触发事件，屏蔽掉  
+						p.find('.calendar-menu-year').attr("readonly", "readonly");
+						if(!tds) //初始化只需要捆绑一次事件就够了  
+							setTimeout(function() {
+								tds = p.find('div.calendar-menu-month-inner td');
+								tds.click(function(e) {
+									e.stopPropagation(); //禁止冒泡执行easyui给月份绑定的事件  
+									var year = /\d{4}/.exec(span.html())[0] //得到年份  
+									month = parseInt($(this).attr('abbr'), 10); //月份  
+									if(month<10){
+										month = '0'+ month;
+									}
+									$('#ddda_job').datebox('hidePanel').datebox('setValue', year + '-' + month); //设置日期的值  
+								});
+							});
+					},
+					formatter: function(d) { //设置格式  
+						return d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1));
+					}
+				});
+				//input text计上月框不可编辑
+				//$("#zy,#zd").find("span.textbox.combo.datebox").find('input[type="text"]').attr('disabled', true);
+				//$("#zy,#zd").find("span.textbox.combo.datebox").find('input[type="text"]').css('background-color', '#ffffff');
+				//事件初始化
+				initEvent();
+			})
+			//页面点击隐藏
+			$(".ser").css("display", "none");
+			$('.tranform').on('click',function(e){
+				hide(this);
+			})
+			function hide(ele) {
+				var a = $(ele).nextAll('.btn-group').find('label.active').attr('value');
+//				console.log(a)
+				if(a == 0){
+					if($(".ser").css("display") == "none"){
+						$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(0deg)","display":"inline-block"});
+						$(".ser").css("display", "block");
+					}else{
+						$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+						$(".ser").css("display", "none");
+					}
+				}else{
+					return;
+				}									
+			}
+			//事件添加
+			function initEvent() {
+				$("#setb1").on("click", function() {
+					$(".icon-xiala").css("color","#707070");	
+					$(".icon-xiala").css("cursor","auto");
+					$(".ser").css("display", "none");
+					$(".serb").css("display", "block");
+					$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(180deg)","display":"inline-block"});
+				});
+				$("#setb2").on("click", function() {
+					$(".icon-xiala").css("color","#28b89d");
+					$(".icon-xiala").css("cursor","pointer");
+					if(!$(this).hasClass('active')){
+						$(".serb").css("display", "none");
+						$(".ser").css("display", "block");
+						$(".tranform").css({"transition":"all 0s ease-in-out","transform":"rotate(0deg)","display":"inline-block"});
+						var language = $('select.selectpicker.language_conversion').val();
+						//不知道为何要多国语言化操作
+						//easyUiLanguage(language);
+					}else{
+						//防止ser点击两次
+						if($(".ser").css('display')=='block'){
+							return;
+						}
+						$('.tranform').click();
+					}					
+				});
+				$("#jzd").on("click", function() {
+					$("#zd").css("opacity", "0");
+					$("#zd").css("position", "absolute");
+					$("#zd").css("display", "none");
+					//$("#zd").find("span.textbox.combo.datebox").find('input[type="text"]').val('');
+					//$("#zd").find("span.textbox.combo.datebox").find('input[type="hidden"]').val('');
+					$("#zy").css("opacity", "1");
+					$("#zy").css("position", "relative");
+					$("#zy").css("display", "block");
+				});
+				$("#jzy").on("click", function() {
+					$("#zy").css("opacity", "0");
+					$("#zy").css("position", "absolute");
+					$("#zy").css("display", "none");
+					//$("#zy").find("span.textbox.combo.datebox").find('input[type="text"]').val('');
+					//$("#zy").find("span.textbox.combo.datebox").find('input[type="hidden"]').val('');
+					$("#zd").css("opacity", "1");
+					$("#zd").css("position", "relative");
+					$("#zd").css("display", "block");
+				});
+				$("#closeMenu").click(function() {
+					$('#menu').menu('hide');
+				})
+				$("#closeMenu2").click(function() {
+					$('#menu2').menu('hide');
+				})
+			}
+		</script>
+		<!--#include virtual="../common/language.shtml"-->
+		<script type="text/javascript" src="../public/javascript/common/calculate_tax.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/common/common_export_excel.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/jcst/job/job_list_dataGrid.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/javascript/jcst/job/job_list_service.js?v=2018092801"></script>
+		
+		<script type="text/javascript" src="../public/lib/animate/select.js?v=2018092801"></script>
+	</body>
+
+</html>

@@ -1,0 +1,55 @@
+{
+  "definitionFilePath" : null,
+  "name" : "添加变更权限组",
+  "path" : "saveNodeList",
+  "rootPath" : "dynamic",
+  "type" : "query",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "roleList",
+      "comment" : "权限数组",
+      "type" : "Array",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : [ {
+        "defineLine" : 10,
+        "name" : "roleList",
+        "comment" : "权限名称数组",
+        "type" : "Array",
+        "description" : "",
+        "required" : false,
+        "format" : null,
+        "formatPattern" : "",
+        "length" : null,
+        "detailParamList" : [ {
+          "defineLine" : 11,
+          "name" : "roleName",
+          "comment" : "权限名称",
+          "type" : "String",
+          "description" : "",
+          "required" : true,
+          "format" : null,
+          "formatPattern" : "",
+          "length" : 100,
+          "detailParamList" : null
+        } ]
+      } ]
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

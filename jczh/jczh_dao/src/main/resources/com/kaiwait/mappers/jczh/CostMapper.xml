@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.jczh.CostMapper">
+<resultMap id="resulForeignt" type="com.kaiwait.bean.jczh.entity.Cost" >
+		<id column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+		<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemnamehk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemnameen" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemnamejp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="aidcd" property="aidcd" jdbcType="VARCHAR" />
+		<result column="changeutin" property="change_utin" jdbcType="VARCHAR" />
+		<result column="itmvalue" property="itmvalue" jdbcType="VARCHAR" />
+</resultMap>
+<resultMap id="resulForeigntInfo" type="com.kaiwait.bean.jczh.entity.CostInfo" >
+		<id column="itemcd" property="itemcd" jdbcType="VARCHAR" />
+		<result column="mstname" property="mstname" jdbcType="VARCHAR" />
+		<result column="itmname" property="itmname" jdbcType="VARCHAR" />
+		<result column="itemname_hk" property="itemname_hk" jdbcType="VARCHAR" />
+		<result column="itemname_en" property="itemname_en" jdbcType="VARCHAR" />
+		<result column="itemname_jp" property="itemname_jp" jdbcType="VARCHAR" />
+		<result column="aidcd" property="aidcd" jdbcType="VARCHAR" />
+		<result column="changeutin" property="change_utin" jdbcType="VARCHAR" />
+</resultMap>	
+  <resultMap id="BaseResultMapLable" type="com.kaiwait.bean.jczh.entity.Lable">
+		<id column="LABEL_ID" property="lableid" jdbcType="VARCHAR" />
+		<id column="LABEL_LEVEL" property="lablelevel" jdbcType="INTEGER" />
+		<id column="LABLE_TEXT" property="labletext" jdbcType="VARCHAR" />
+   </resultMap>
+    <resultMap id="BaseResultMapJobLableTrn" type="com.kaiwait.bean.jczh.entity.JobLableTrn">
+		<id column="COST_NO" property="costno" jdbcType="VARCHAR" />
+		<id column="LABEL_TEXT" property="labletext" jdbcType="VARCHAR" />
+		<id column="LABEL_LEVEL" property="lablelevel" jdbcType="VARCHAR" />
+		<id column="LABEL_CD" property="lablecd" jdbcType="VARCHAR" />
+		<id column="COMPANY_CD" property="companycd" jdbcType="INTEGER" />
+   </resultMap>
+ <resultMap id="rate" type="com.kaiwait.bean.jczh.entity.Cost">
+		<result column="deduction" property="deduction" jdbcType="INTEGER" />
+		<result column="vatrate" property="vat_rate" jdbcType="INTEGER" />
+ </resultMap>
+ 
+  <resultMap id="outsource" type="com.kaiwait.bean.jczh.entity.Cost">
+		<result column="costrate" property="cost_rate" jdbcType="VARCHAR" />
+		<result column="costforeign_amt" property="cost_foreign_amt" jdbcType="VARCHAR" />
+		<result column="costrmb" property="cost_rmb" jdbcType="VARCHAR" />
+		<result column="costvatamt" property="cost_vat_amt" jdbcType="VARCHAR" />
+		<result column="deductionflg" property="deduction_flg" jdbcType="VARCHAR" />
+		<result column="outsoureamt" property="outsoure_amt" jdbcType="VARCHAR" />
+		<result column="plandlvday" property="plan_dlvday" jdbcType="VARCHAR" />
+		<result column="orderdate" property="order_date" jdbcType="VARCHAR" />
+		<result column="outsoureuser" property="divnm" jdbcType="VARCHAR" />
+		<result column="costremark" property="cost_remark" jdbcType="VARCHAR" />
+		<result column="costname" property="user_name" jdbcType="VARCHAR" />
+		<result column="costupdate" property="update" jdbcType="VARCHAR" />
+ </resultMap>
+
+<insert id="insertCostOutSoureTx" >
+INSERT INTO costtrn (
+job_cd, 
+cost_no,
+company_cd,
+cost_foreign_type, 
+cost_name,
+cost_rate,
+cost_remark,
+cost_rmb,
+cost_type,
+cost_vat_amt,
+order_date,
+payee_cd,
+plan_dlvday,
+cost_foreign_amt,
+cost_cure_code,
+cost_use_date,
+cost_refer,
+invoice_type,
+invoice_text,
+deduction_flg,
+cost_pay_amt,
+`update`,
+adddate,
+upusercd,
+addusercd,
+cost_ishave,
+del_flg,
+vat_change_flg
+)
+VALUES
+	(
+#{job_cd}, 
+#{cost_no},
+#{company_cd},
+#{cost_foreign_type}, 
+#{cost_name},
+#{cost_rate},
+#{cost_remark},
+#{cost_rmb},
+#{cost_type},
+#{cost_vat_amt},
+#{order_date},
+#{payee_cd},
+#{plan_dlvday},
+#{cost_foreign_amt},
+#{cost_cure_code},
+#{cost_use_date},
+#{cost_refer},
+#{invoice_type},
+#{invoice_text},
+#{deduction_flg},
+#{cost_pay_amt},
+#{update},
+#{adddate},
+#{upusercd},
+#{addusercd},
+#{cost_ishave},
+0,
+#{vat_change_flg}
+	)
+
+</insert>
+
+<update id="updateCostOutSoureTx">
+update costtrn
+		<set>
+				company_cd       =   #{company_cd},
+				cost_foreign_type=   #{cost_foreign_type}, 
+				cost_name        =   #{cost_name},
+				cost_rate        =   #{cost_rate},
+				cost_remark      =   #{cost_remark},
+				cost_rmb         =  #{cost_rmb},
+				cost_type        =  #{cost_type},
+				cost_vat_amt     =   #{cost_vat_amt},
+				order_date       =   #{order_date},
+				payee_cd         =   #{payee_cd},
+				plan_dlvday      =   #{plan_dlvday},
+				cost_foreign_amt =   #{cost_foreign_amt},
+				cost_cure_code   =   #{cost_cure_code},
+				cost_use_date    =  #{cost_use_date},
+				cost_refer       =   #{cost_refer},
+				invoice_type     =   #{invoice_type},
+				invoice_text     =   #{invoice_text},
+				deduction_flg    =    #{deduction_flg},
+				cost_pay_amt     =    #{cost_pay_amt},
+				`update`=#{update},
+				upusercd=#{upusercd},
+				cost_ishave =#{cost_ishave},
+				vat_change_flg =#{vat_change_flg},
+				LOCK_FLG =#{lockflg}
+		</set>
+		where job_cd =#{job_cd}
+		and	cost_no = #{cost_no}
+		and company_cd = #{company_cd}
+		and del_flg = 0
+</update>
+<!-- 插入发票信息 -->
+<insert id="insertInvoiceintrnTx" >
+insert into invoiceintrn (
+cost_no, 
+invoice_no,
+invoice_date,
+del_flg, 
+company_cd,
+remark,
+`upddate`,
+adddate,
+updusercd,
+addusercd
+)
+values
+	(
+#{cost_no}, 
+#{invoice_no},
+#{invoice_date},
+0, 
+#{company_cd},
+#{remark},
+#{update},
+#{adddate},
+#{upusercd},
+#{addusercd}
+)
+</insert>
+
+<update id="updateInvoiceintrnTx">
+update invoiceintrn
+<set>
+invoice_no   = #{invoice_no},
+invoice_date = #{invoice_date},
+del_flg      =0, 
+remark       =#{remark},
+`upddate`     =#{update},
+updusercd     =#{upusercd},
+lock_flg     =lock_flg+1
+
+</set>
+where cost_no     = #{cost_no}
+and company_cd   =#{company_cd}
+and del_flg   =0
+</update>
+
+ <!-- 查询job的得意先，以及更新者 -->
+<select id="selectCLDIV" resultType="com.kaiwait.bean.jczh.entity.Cost" >
+SELECT
+	ifnull(a.job_cd,'') as jobcd,
+	ifnull(a.job_name,'') as jobname,
+	ifnull(b.divnm,'') as divnm,
+	ifnull(a.upddate,'') as upddate,
+	ifnull(usermst.user_name,'') as username,
+	usermst.colorv as updusercolorv,
+	IF (s.SALEADDUSERCD IS NULL, 0, 1) AS saleAddFlag
+	FROM
+		jobtrn a
+	LEFT JOIN clmst b ON a.cldiv_cd = b.cldivcd AND a.COMPANY_CD = b.COMPANY_CD
+	LEFT JOIN usermst ON usermst.usercd = a.updusercd 
+	LEFT JOIN sellordertrn s ON a.JOB_CD = s.JOB_CD AND s.DEL_FLG = 0 and s.COMPANY_CD = a.COMPANY_CD
+	where a.job_cd=#{job_cd}
+	and a.company_cd=#{company_cd}
+	and a.DEL_FLG=0
+ </select>
+ 
+ <select id="selectOrderCLDIV"  resultType="String">
+ 	SELECT 
+		payee.divnm
+	from
+		paytrn as p
+		LEFT JOIN costtrn co  on co.input_no = p.input_no and p.COMPANY_CD= co.COMPANY_CD and p.DEL_FLG = co.DEL_FLG
+		LEFT JOIN 
+		clmst payee ON payee.cldivcd = co.payee_cd AND payee.company_cd = co.company_cd and payee.CONTRA_FLG=1
+		where p.input_no =#{inputNo}
+		and p.COMPANY_CD =#{companyID}
+		and p.del_flg=0
+ </select>
+  <!-- 查询costtrn表数据-->
+ <select id="selectCostInfo" resultType="com.kaiwait.bean.jczh.entity.Cost" >
+select
+costtrn.FROM_JPP as costFromJpp,
+com.ITEMNAME_EN as itemnameen,
+com.ITMNAME AS itemnamezc,
+com.ITEMNAME_HK AS itemnamehk,
+com.ITEMNAME_JP AS itemnamejp,
+jobtrn.cost_finish_flg as  costfinishflg,
+jobtrn.COST_VAT_RATE as costVatRate,
+costtrn.input_no as inputno,
+costtrn.cost_no as costno,
+cost_foreign_amt as costforeignamt,
+cost_foreign_type as costforeigntype,
+cost_name as costname,
+cost_rate as costrate ,
+cost_refer as costrefer,
+cost_remark as costremark ,
+cost_rmb as costrmb,
+cost_type as costtype,
+cost_use_date as costusedate,
+cost_vat_amt as costvatamt,
+deduction_flg as deductionflg ,
+order_date as orderdate,
+payee_cd as payeecd,
+clmst.divnm as divnm,
+clmst.del_flg as payeeflg,
+plan_dlvday as plandlvday,
+cost_cure_code as costcurecode,
+cost_pay_amt as costpayamt,
+cost_ishave as costishave,
+invoice_type as invoicetype,
+invoice_text as invoicetext,
+costtrn.input_no as inputno,
+itypeCom.ITMNAME as invoicetypename,
+itypeCom.ITEMNAME_EN as invoicetypenameen,
+itypeCom.ITEMNAME_JP as invoicetypenamejp,
+itypeCom.ITEMNAME_HK as invoicetypenamejk,
+iTextCom.ITMNAME as invoicetextname,
+iTextCom.ITEMNAME_EN as invoicetextnameen,
+iTextCom.ITEMNAME_JP as invoicetextnamejp,
+iTextCom.ITEMNAME_HK as invoicetextnamehk,
+inv.invoice_no as invoiceno,
+inv.invoice_date as invoicedate,
+upd.USER_NAME as updusername,
+upd.colorv as updusercolorv,
+costtrn.`update` as costupdate,
+addname.user_name as addupdusername,
+addname.colorv as costaddcolorv,
+costtrn.adddate as costadddate,
+costtrn.status,
+costtrn.cost_pdf_adddate as costpdfdate,
+PDFaddname.colorv as costpdfaddusernamecolor,
+PDFaddname.user_name as costpdfaddusername,
+costtrn.lock_flg as lockflg
+from
+	costtrn
+left join jobtrn on jobtrn.job_cd = costtrn.job_cd and  jobtrn.COMPANY_CD = costtrn.COMPANY_CD and jobtrn.del_flg = costtrn.del_flg
+LEFT JOIN clmst clmst ON clmst.cldivcd = costtrn.payee_cd AND clmst.company_cd = costtrn.company_cd and clmst.CONTRA_FLG=1
+LEFT JOIN usermst upd ON upd.usercd = costtrn.upusercd
+LEFT JOIN usermst addname ON addname.usercd = costtrn.ADDUSERCD 
+LEFT JOIN usermst PDFaddname ON PDFaddname.usercd = costtrn.ADDUSERCD
+left join commonmst as itypeCom on itypeCom.ITEMCD = costtrn.invoice_type and itypeCom.MSTCD = "0061" and itypeCom.COMPANY_CD = #{company_cd}
+left join commonmst as iTextCom on iTextCom.ITEMCD = costtrn.invoice_text and iTextCom.MSTCD = "0062" and  iTextCom.COMPANY_CD = #{company_cd}
+left join invoiceintrn  as inv  on  inv.cost_no= costtrn.cost_no and inv.COMPANY_CD = #{company_cd} and inv.del_flg = '0'
+LEFT JOIN commonmst AS com ON com.MSTCD ="0050" AND com.COMPANY_CD = costtrn.company_cd AND com.ITEMCD = costtrn.cost_foreign_type
+where costtrn.job_cd =#{job_cd}
+and costtrn.cost_no =#{cost_no}
+and costtrn.del_flg =0
+and costtrn.company_cd=#{company_cd}
+ </select>
+  	
+<select id="selInvoiceintrn" resultType="com.kaiwait.bean.jczh.entity.Cost">
+select   
+cost_no as costno, 
+invoice_no as invoiceno,
+invoice_date as invoicedate,
+remark
+from
+invoiceintrn
+where  cost_no =#{cost_no}
+and company_cd=#{company_cd}
+and del_flg   =0
+</select>
+
+	<!-- 查询外货 -->
+	<select id="selCostForeign" resultMap="resulForeignt">
+		select
+		itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp,change_utin,aidcd,itmvalue
+		from
+		commonmst
+		where
+		MSTCD = #{mstcd} and COMPANY_CD= #{company_cd,jdbcType=INTEGER}
+		<if test="mstcd=='0050'">
+			and DEL_FLG !=1
+		</if>
+		<if test="codecd!=null">
+			and ITEMCD = #{codecd,jdbcType=VARCHAR}
+		</if>
+		order by ORDERNO
+	</select>
+	 
+  	 
+  	 <!-- 查询外货 -->
+  	<select id="selCostForeignInfo" resultMap="resulForeigntInfo" >
+		select  itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp,change_utin,aidcd from
+		commonmst
+		where mstcd=#{mstcd}
+		and company_cd=#{company_cd}
+		and del_flg = 0
+  	</select> 
+  	<!-- 查询外货 -->
+	<select id="selCostForeigntwo" resultMap="resulForeigntInfo">
+		select
+		itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp,change_utin,aidcd
+		from
+		commonmst
+		where
+		MSTCD = #{mstcd} and COMPANY_CD= #{company_cd,jdbcType=INTEGER}
+		<if test="mstcd=='0050'">
+			and DEL_FLG !=1
+		</if>
+		<if test="codecd!=null">
+			and ITEMCD = #{codecd,jdbcType=VARCHAR}
+		</if>
+		order by ORDERNO
+	</select>
+  <!-- 查询标签 -->	
+ <select id="selectLableList" resultMap="BaseResultMapLable">
+  select 
+   LABEL_ID as lableid,
+   LABEL_LEVEL as lablelevel,
+   LABEL_TEXT as labletext
+  from 
+  labelmst
+   where (LABEL_LEVEL = 1 or ADDUSERCD = #{usercd,jdbcType=VARCHAR}) and DEL_FLG = 0 and  LABEL_TYPE=1 and COMPANY_CD = #{company_cd}
+   ORDER BY lablelevel desc
+</select> 
+
+<select id="selectCostLable" resultMap="BaseResultMapJobLableTrn">
+  select 
+	orderlabeltrn.cost_no as costno,
+	orderlabeltrn.LABEL_id as lablecd,
+	labelmst.LABEL_LEVEL as lablelevel,
+	labelmst.LABEL_TEXT as labletext
+	from 
+	orderlabeltrn
+	left join labelmst on labelmst.LABEL_ID = orderlabeltrn.LABEL_ID
+	where orderlabeltrn.cost_no = #{costno,jdbcType=VARCHAR} and labelmst.DEL_FLG = 0 
+	and orderlabeltrn.company_cd=#{company_cd}
+	AND orderlabeltrn.LABEL_LEVEL =#{label_level}
+    and labelmst.company_cd=#{company_cd}
+</select>
+
+ <insert id="insertCostLable">
+     insert into orderlabeltrn
+         (COST_NO,LABEL_LEVEL,LABEL_ID,COMPANY_CD,`upddate`,adddate,updusercd,addusercd)
+        values
+        <foreach collection="jltrnList" index="index" item="item" separator=",">
+        (
+        #{item.costno},
+        #{item.lablelevel},
+        #{item.lablecd},
+        #{item.companycd},
+        #{item.updDate},
+		#{item.addDate},
+		#{item.upUsercd},
+		#{item.addUsercd}
+        ) 
+        </foreach>
+   </insert>
+
+  
+     <!-- 查询发票 -->	
+ <select id="selectPayeeType" resultMap="resulForeignt">
+	select itemcd,mstname,itmname,itemname_hk,itemname_en,itemname_jp from commonmst where mstcd = #{mstcd} and company_cd = #{company_cd,jdbcType=INTEGER}
+</select> 	
+
+     <!-- 查询税率 -->	
+ <select id="selectTax" resultMap="rate">
+ select payee.deduction,payee.vat_rate
+ from payeetaxmst payee
+ left join taxtype tax on payee.user_tax_type=tax.tax_type and payee.COMPANY_CD=tax.COMPANY_CD
+ where 1=1 
+ <if test="invoice_type==901 or invoice_text==901">
+ and payee.USER_TAX_TYPE ='901'
+ and payee.invoice_type ='901'
+ and payee.invoice_text ='901'
+ and payee.company_cd =#{companyID}
+ </if>
+ <if test="invoice_type!=901 and invoice_text!=901">
+ and tax.payeecd =  #{payee_cd}
+ and tax.company_cd =#{companyID}
+ and tax.start_date &lt;=#{plan_dlvdays}
+ and tax.end_date &gt;=#{plan_dlvdays}
+ and payee.invoice_type =#{invoice_type}
+ and  payee.invoice_text =#{invoice_text}
+ </if>
+ 
+ and del_flg=0 
+ </select>
+ 
+ <select id="selectpayTax" resultMap="rate">
+ select VAT_RATE from 
+	payeetaxmst
+	WHERE payeetaxmst.INVOICE_TEXT=#{invoice_text}
+	AND   payeetaxmst.INVOICE_TYPE =#{invoice_type}
+	AND payeetaxmst.COMPANY_CD =#{companyID}
+
+</select>
+   <!-- 查询外发登录信息 -->	
+<select id="selectOutSource" resultType="com.kaiwait.bean.jczh.entity.Cost">
+select
+	costtrn.deduction_flg as  deductionflg,
+ 	costtrn.invoice_type as invoicetype,
+    costtrn.invoice_text as invoicetext,
+    costtrn.cost_no as costno,
+    costtrn.payee_cd as payeecd,
+    costtrn.cost_name as costname,
+    costtrn.input_no as inputno,
+	cost_rate as costrate,
+	cost_foreign_amt as costforeignamt,
+	cost_rmb as costrmb,
+	cost_vat_amt as costvatamt,
+	cost_ishave as costishave,
+	(cost_vat_amt + cost_rmb) outsoureamt,
+	plan_dlvday as plandlvday,
+	order_date as orderdate,
+	cost_remark as costremark,
+    clmst.divnm as outsoureuser,
+    usermst.user_name  as username,
+    usermst.colorv as updusercolorv,
+	costtrn.`update` as costupdate,
+	costtrn.cost_cure_code as costcurecode,
+	costtrn.cost_use_date as costusedate,
+	costtrn.cost_refer as costrefer,
+	costtrn.cost_foreign_type as costforeigntype,
+	costtrn.lock_flg as lockflg,
+	COST_TYPE AS costtype
+	
+from
+	costtrn
+left join clmst
+on clmst.cldivcd = costtrn.payee_cd and clmst.company_cd =costtrn.company_cd 
+left join usermst on usermst.usercd =costtrn.upusercd 
+where costtrn.job_cd = #{job_cd} 
+and   costtrn.cost_no = #{cost_no}
+and   costtrn.company_cd =#{company_cd}
+and   costtrn.del_flg =0
+ </select>
+
+	<!-- 删除外发信息 -->
+	<update id="deleteOutSoure">
+		update costtrn
+		<set>
+			del_flg =1,
+			LOCK_FLG = LOCK_FLG+1
+		</set>
+		where
+		job_cd = #{job_cd}
+		and cost_no = #{cost_no}
+		and company_cd =#{companyID}
+		and del_flg=0
+	</update>
+	
+		<!-- 删除外发信息 -->
+	<update id="updateCostStatus">
+		update costtrn
+		<set>
+			status =#{status},
+			input_no=#{input_no},
+			LOCK_FLG =LOCK_FLG+1
+		</set>
+		where
+		job_cd = #{job_cd}
+		and cost_no = #{cost_no}
+		and company_cd =#{companyID}
+		and del_flg=0
+	</update>
+
+<select id="OrderPDF" resultType="com.kaiwait.bean.jczh.entity.CostPDF">
+select
+co.cost_no                   as  costno, 
+co.order_date                as  orderdate,
+
+payee.contra_self_company_name as    contraselfcompanyname,
+payee.contra_self_company_name_en as    contraselfcompanynameen, 
+payee.contra_self_company_name_jp as    contraselfcompanynamejp, 
+payee.contra_self_company_name_hk as    contraselfcompanynamehk,   
+                             
+payee.contra_address         as  contraaddress,
+payee.contra_address1        as  contraaddress1,
+payee.contra_address2        as  contraaddress2,
+                             
+payee.contra_address_en      as  contraaddressen,
+payee.contra_address_en1     as  contraaddressen1,
+payee.contra_address_en2     as  contraaddressen2,
+                             
+payee.contra_address_jp      as  contraaddressjp,
+payee.contra_address_jp1     as  contraaddressjp1,
+payee.contra_address_jp2     as  contraaddressjp2,
+                             
+payee.contra_address_hk      as  contraaddresshk,
+payee.contra_address_hk1     as  contraaddresshk1,
+payee.contra_address_hk2     as  contraaddresshk2,
+
+comp.order_company_name      as  ordercompanyname,
+comp.order_company_name_jp   as  ordercompanynamejp,
+comp.order_company_name_en   as  ordercompanynameen,
+comp.order_company_name_hk   as  ordercompanynamehk,
+                            
+comp.order_location          as  orderlocation,
+comp.order_location_en       as  orderlocationen,
+comp.order_location_jp       as  orderlocationjp,
+comp.order_location_hk       as  orderlocationhk,
+                             
+comp.order_location1         as  orderlocation1,
+comp.order_location1_en      as  orderlocation1en,
+comp.order_location1_jp      as  orderlocation1jp,
+comp.order_location1_hk      as  orderlocation1hk,
+                             
+comp.order_location2         as  orderlocation2,
+comp.order_location2_en      as  orderlocation2en,
+comp.order_location2_jp      as  orderlocation2jp,
+comp.order_location2_hk      as  orderlocation2hk,
+co.cost_ishave               as  costishave,
+co.cost_rmb                  as  costrmb,
+co.cost_foreign_amt			 as costforeignamt,
+co.cost_vat_amt              as  costvatamt,
+co.cost_name                 as  costname,
+jobtrn.job_cd                as  jobcd,
+cldiv.divnm                  as  cldivname,
+co.plan_dlvday               as  plandlvday,
+a.zrname                     as  zrname,
+b.ddname                     as  ddname,
+c.mdname                     as  mdname,
+co.cost_remark               as  costremark,
+commonmst.ITMVALUE as itmvalue,
+commonmst.ITMNAME  as  localmoney,
+commonmst.ITEMNAME_EN  as  localmoneyen,
+commonmst.ITEMNAME_JP  as  localmoneyjp,
+commonmst.ITEMNAME_HK as  localmoneyhk,
+foreignm.ITMVALUE AS foreignitemvalue,
+foreignm.ITMNAME  as  foreignmoney,
+foreignm.ITEMNAME_EN  as  foreignmoneyen,
+foreignm.ITEMNAME_JP  as  foreignmoneyjp,
+foreignm.ITEMNAME_HK  as  foreignmoneyhk,
+co.cost_cure_code as costcurecode,
+payee.divname_full as divnamefull,
+payee.divname_full as divnamefullen,
+payee.divname_full as divnamefulljp,
+payee.divname_full as divnamefullhk,
+payee.divnm_en as divnmen,
+payee.divadd1 as divadd1,
+payee.divadd2 as divadd2,
+payee.divadd as divadd,
+payee.div_tel as divtel,
+payee.contra_tel as contratel,
+payee.contra_tel_en as contratelen,
+payee.contra_tel_jp as contrateljp,
+payee.contra_tel_hk as contratelhk,
+payee.contra_contacts_name as contra_contacts_name,
+payee.contra_contacts_name_en as contracontactsnameen,
+payee.contra_contacts_name_jp as contracontactsnamejp,
+payee.contra_contacts_name_hk as contracontactsnamehk,
+comp.tel_number as telnumber,
+comp.tel_number_en as telnumberen,
+comp.tel_number_jp as telnumberjp,
+comp.tel_number_hk as telnumberhk,
+foreignm.ITMVALUE as itmvalue 
+from costtrn co 
+left join jobtrn  on jobtrn.job_cd = co.job_cd and co.company_cd= jobtrn.company_cd and co.del_flg = jobtrn.del_flg
+left join clmst payee on payee.cldivcd = co.payee_cd and payee.company_cd = co.company_cd and payee.contra_flg=1
+left join companymst comp on comp.company_cd= co.company_cd
+left join clmst cldiv on jobtrn.cldiv_cd =cldiv.cldivcd and co.company_cd=cldiv.company_cd and cldiv.client_flg =1
+left join commonmst on commonmst.company_cd =co.company_cd and commonmst.mstcd='0050' and comp.CURRENCY_CODE=commonmst.ITEMCD
+LEFT JOIN commonmst  foreignm on foreignm.COMPANY_CD =co.COMPANY_CD  and foreignm.MSTCD='0050' and co.COST_FOREIGN_TYPE= foreignm.ITEMCD
+left join	
+( select
+  jobtrn.job_cd,
+jobtrn.company_cd,
+  group_concat(zruser.user_name separator '  ') as zrname
+  from jobtrn
+  left join jobuserstrn zrjobuser
+	on jobtrn.job_cd =zrjobuser.job_cd 
+	and zrjobuser.level_flg='1' and zrjobuser.del_flg=jobtrn.del_flg
+	AND zrjobuser.COMPANY_CD = jobtrn.COMPANY_CD
+	left join usermst zruser
+	on zruser.usercd =zrjobuser.usercd 
+where jobtrn.company_cd=#{companyID}
+and jobtrn.job_cd=#{jobNo}
+and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) a on a.job_cd =jobtrn.job_cd and a.company_cd=co.company_cd
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(dduser.user_name separator '  ') as ddname
+  from jobtrn
+	left join jobuserstrn ddjobuser
+	on jobtrn.job_cd =ddjobuser.job_cd
+   and ddjobuser.level_flg='2' and ddjobuser.del_flg=jobtrn.del_flg
+   AND ddjobuser.COMPANY_CD = jobtrn.COMPANY_CD
+	left join usermst dduser
+	on dduser.usercd =ddjobuser.usercd 
+	where jobtrn.company_cd=#{companyID}
+	and jobtrn.job_cd=#{jobNo}
+	and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) b on b.job_cd =jobtrn.job_cd and b.company_cd=co.company_cd
+left join
+(  select
+  jobtrn.job_cd,
+  jobtrn.company_cd,
+  group_concat(mduser.user_name separator '  ') as mdname
+  from jobtrn  
+  left join jobuserstrn mdjobuser
+	on jobtrn.job_cd =mdjobuser.job_cd
+	and mdjobuser.level_flg='3' and
+	mdjobuser.del_flg=jobtrn.del_flg
+	left join usermst mduser
+	on mduser.usercd =mdjobuser.usercd
+	where jobtrn.company_cd=#{companyID}
+	and jobtrn.job_cd=#{jobNo}
+	and jobtrn.del_flg=0
+group by jobtrn.job_cd 
+) c on c.job_cd =jobtrn.job_cd and c.company_cd=co.company_cd
+where co.job_cd=#{jobNo}
+and co.cost_no = #{costNo}
+and co.company_cd =#{companyID}
+and co.del_flg=0
+</select>	
+
+<update id="updPdftime">
+
+update costtrn
+		<set>
+			cost_pdf_addusercd =#{cost_pdf_addusercd},
+			cost_pdf_adddate=#{cost_pdf_adddate},
+			output_flg=1
+		</set>
+		where
+		job_cd = #{job_cd}
+		and cost_no = #{cost_no}
+		and company_cd =#{companyID}
+		and del_flg=0
+</update>
+
+<update id="updateCostinputno">
+update costtrn
+		<set>
+				input_no = #{input_no}
+		</set>
+		where job_cd =#{job_cd}
+		and	cost_no = #{cost_no}
+		and company_cd = #{company_cd}
+		and del_flg = 0
+</update>
+<select id="SelectLogName" resultType="String" >
+SELECT 
+	usermst.USER_NAME
+FROM
+	costtrn LEFT JOIN usermst ON costtrn.ADDUSERCD = usermst.USERCD 
+WHERE
+	JOB_CD = #{job_cd} 
+	AND COST_NO = #{cost_no}
+	AND costtrn.COMPANY_CD =#{companyID}
+</select>
+
+<!-- 查询结账时间 -->
+<select id="selectCheckDate" resultType="String" >
+	SELECT
+	CHECK_DATE AS date 
+FROM
+	`sellordertrn`
+	LEFT JOIN summary ON sellordertrn.COMPANY_CD = summary.COMPANY_CD 
+	AND date_format( sellordertrn.DLVDAY, "%Y%m" ) = summary.ACCOUNTYM 
+WHERE
+	sellordertrn.JOB_CD = #{job_cd} 
+	AND sellordertrn.COMPANY_CD = #{companyID}
+</select>
+</mapper>

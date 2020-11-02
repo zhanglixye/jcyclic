@@ -1,0 +1,59 @@
+<section id="sidebar">
+	<input type="hidden" id="sidebarIsSetFlg"/>	
+	<ul id="dock">
+      <li id="jobBlock" class="launcher drop-down" style="margin-top:0;">
+        <i class="iconfont icon-JOByilan"></i>
+        <a onclick="sideBarClickFirst(window.event)" href="#" class="i18n" name="common_job_title"></a>
+        <ul class="drop-down-content">
+        	<li id="jobList"><a class="i18n" name='common_job_list' href="../jczh/job_registration_list.html?view=init&menu=se&sideBar=sideBar"></a></li>
+            <li id="jobCreat"><a class="i18n" name='common_sidebar_jobLogin' href="../jczh/job_registration.html"></a></li>
+        </ul>
+      </li>
+      <li id="costBlock" class="launcher drop-down">
+        <i class="iconfont icon-yuansiyilan"></i>
+        <a onclick="sideBarClickFirst(window.event)" href="#" class="i18n" name="common_cost_title"></a>
+        <ul class="drop-down-content">
+            <li id="costList"><a class="i18n" name='common_cost_list' href="../jczh/cost_list.html?view=6&sideBar=sideBar"></a></li>
+        </ul>
+      </li>
+      <li id="monthlyClosingBlock" class="launcher drop-down">
+        <i class="iconfont icon-dichuli"></i>
+        <a href="../jczh/monthbalance.html" class="i18n" name="common_monthly_treatment"></a>
+      </li>
+      <li id="reportBlock" class="launcher drop-down">
+        <i class="iconfont icon-icon-test3"></i>
+        <a href="../jczh/report_output.html" class="i18n" name="common_output_report"></a>
+      </li>
+      <li id="timesheetBlock" class="launcher drop-down">
+        <i class="iconfont icon-icon-test"></i>
+        <a class="i18n" name="common_time_management" href="../master/timesheet_list.html"></a>
+      </li>
+      <li id="userSettingBlock" class="launcher drop-down">
+        <i class="iconfont icon-sheding"></i>
+        <a onclick="sideBarClickFirst(window.event)" href="#" class="i18n" name="common_user_settings"></a>
+        <ul class="drop-down-content_1">
+        	<li id="labelManage"><a class="i18n" name="lable_manage_title" href="../master/label_management.html"></a></li>
+        	<li id="customListBlock"><a class="i18n" name='custom_list_title' href="../master/custom_list.html?view=0"></a></li>           
+        </ul>
+      </li>
+      <li id="toolsBlock" class="launcher drop-down">
+        <i class="iconfont icon-icon-test1"></i>
+        <a href="#" class="i18n" name="common_batch_tool"></a>
+      </li>
+      <!--class:active 选中状态-->
+      <li id="masterBlock" class="launcher drop-down">
+        <i class="iconfont icon-icon-test2"></i>
+        <a onclick="sideBarClickFirst(window.event)" href="#" class="i18n" name="common_master_management"></a>
+        <ul class="drop-down-content_1">
+            <li id="clmstList"><a class="i18n" name="suppliers_list_title" href="../master/suppliers_list.html?sideBar=sideBar"></a></li>
+            <li id="userList"><a class="i18n" name="employee_list_title" href="../master/employee_list.html?sideBar=sideBar"></a></li>
+            <li id="roleBarList"><a class="i18n" name="new_custom_list" href="../master/role_list.html"></a></li>
+			<li id="saleList"><a class="i18n" name="salescategory_list_title" href="../master/salescategory_list.html?sideBar=sideBar"></a></li>
+			<li id="taxCostList"><a class="i18n" name="taxcost_list_title" href="../master/taxcost_list.html"></a></li>   
+			<li id="commonList"><a class="i18n" name="commoncode_list_title" href="../master/commoncode_list.html"></a></li>           
+			<li id="companyList"><a class="i18n" name="ltd_list_title" href="../master/ltd_list.html?sideBar=sideBar"></a></li>            
+        </ul>
+      </li>
+    </ul>
+</section>
+

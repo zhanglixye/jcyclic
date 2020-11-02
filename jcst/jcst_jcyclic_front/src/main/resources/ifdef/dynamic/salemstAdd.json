@@ -1,0 +1,88 @@
+{
+  "definitionFilePath" : null,
+  "name" : "产品列表",
+  "path" : "salemstUpd",
+  "rootPath" : "dynamic",
+  "type" : "query",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "salemst",
+      "comment" : "種目list",
+      "type" : "Object",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : [{
+        "defineLine" : 11,
+        "name" : "sale_account_cd",
+        "comment" : "売上種目会計コード",
+        "type" : "String",
+        "description" : "",
+        "required" : true,
+        "format" : "Regular",
+        "formatPattern" : "^[a-zA-Z0-9]+$",
+        "length" : 10,
+        "detailParamList" : null
+      }, {
+        "defineLine" : 12,
+        "name" : "sale_name",
+        "comment" : "種目名称",
+        "type" : "String",
+        "description" : "",
+        "required" : true,
+        "format" : null,
+        "formatPattern" : "",
+        "length" : 20,
+        "detailParamList" : null
+      }, {
+        "defineLine" : 13,
+        "name" : "vat_rate",
+        "comment" : "増値税率",
+        "type" : "String",
+        "description" : "notCheckPoint",
+        "required" : true,
+        "format" : "Regular",
+        "formatPattern" : "^\\d+(\\.\\d{1,4})?$",
+        "length" : 7,
+        "detailParamList" : null
+      }, {
+        "defineLine" : 14,
+        "name" : "rate2",
+        "comment" : "税金1",
+        "type" : "String",
+        "description" : "notCheckPoint",
+        "required" : true,
+        "format" : "Regular",
+        "formatPattern" : "^\\d+(\\.\\d{1,4})?$",
+        "length" : 7,
+        "detailParamList" : null
+      }, {
+        "defineLine" : 15,
+        "name" : "rate3",
+        "comment" : "税金2",
+        "type" : "String",
+        "description" : "notCheckPoint",
+        "required" : true,
+        "format" : "Regular",
+        "formatPattern" : "^\\d+(\\.\\d{1,4})?$",
+        "length" : 7,
+        "detailParamList" : null
+      } ]
+    } ]
+  } ],
+  "outParamList" : [ ]
+}

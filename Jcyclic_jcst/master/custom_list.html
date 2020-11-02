@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title class="i18n" name='custom_list_title'>一覧カスタマイズ</title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/suppliers_registration.css?v=2018092801" />
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jcst/custom_list.css?v=2018092801" />
+		<script type="text/javascript" src="../public/javascript/master/custom_list.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/lib/animate/drag-arrange.js?v=2018092801"></script>
+		<!--#include virtual="../common/boostrap_switch.shtml"-->
+		<!--#include virtual="../common/language.shtml"-->
+	</head>
+	<style>
+	    .list_of_items_no{
+			border-radius: 50px!important;
+		}
+		.tab-content .panel.panel-default{
+			border-radius: 5px !important;
+		}
+	</style>
+	<body class="main page">
+		<!--Navbar-->
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='custom_list_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;background-color:#fff;">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel" style=" border: none; ">
+							<div class="p-3">
+								<ul class="nav nav-tabs jobtypeone" style="border-bottom: none;">
+									<li role="1" class="jobyl active">
+										<a href="#" class="i18n jobtype" value="0" name="customlist_list_of_JOB"></a>
+									</li>
+									<li role="2" class="costyl">
+										<a href="#" class="i18n jobtype" value="1" name="customlist_list_of_cost"></a>
+									</li>
+								</ul>
+								<div class="tab-content job">
+									<div id="tab1" class="tab-pane active">
+										<div class="panel panel-default" style=" border-top-left-radius:0 !important;">
+											<div class="panel-body" style="padding-top: 25px; padding-bottom: 0px; padding-left: 20px;">
+												<div class="form-group col-md-2">
+													<label class="control-label i18n" name="customlist_list_number"></label>
+													<select name="boostrap-select " class="form-control" id="shownumjob" style=" text-align-last: center;width: 60%;">
+														<option value="5" style=" text-align-last: center;">5件</option>
+														<option value="10" style=" text-align-last: center;">10件</option>
+														<option value="20" style=" text-align-last: center;">20件</option>
+														<option value="50" style=" text-align-last: center;">50件</option>
+														<option value="100" style=" text-align-last: center;">100件</option>
+													</select>
+												</div>
+											</div>
+											<div class="panel-body" style="padding-top: 25px; padding-bottom: 0px; padding-left: 20px; padding-right: 20px;">
+												<div class="panel panel-default">
+													<div class="panel-heading i18n" name="customlist_list_of_items" style="font-size: 17px; font-weight: bold;border-bottom: none;">
+														
+													</div>
+
+													<div class="panel-body" id="myModalCuntom" style="padding: 33px 12px 25px 12px;">
+													</div>	
+													
+											</div>
+											<div class="lastChild" style="margin-top: 10px;padding-left: 20px;margin-bottom: 30px;">
+														<button class="btn btn-success i18n" name='employeeRegistration_upload' type="submit" onclick="addcustom()">
+														</button>
+														<button class="btn btn-success i18n" name='custom_button' type="submit" style="display: block;float: right;margin-right: 20px;" onclick="init()">
+														</button>
+														<button class="btn btn-default i18n" id="cusconjob"  name='ltdRegistration_back' type="submit" onclick="goBackPageHandler()"></button>	
+													</div>
+											<!--<div class="lastChild" style="margin-top: 10px;padding-left: 20px;margin-bottom: 30px;">
+												<button class="btn btn-success i18n" name='employeeRegistration_upload' type="submit" onclick="addcustom()">更新
+														</button>
+												<button class="btn btn-success" type="submit" style="display: block;float: right;margin-right: 20px;">更新
+														</button>
+												<button class="btn btn-default i18n" id="cusconjob" name='ltdRegistration_back' type="submit" onclick="goBackPageHandler()">戻る</button>
+											</div>-->
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="hidden tab-content cost">
+								<div id="tab1" class="tab-pane active">
+									<div class="panel panel-default" style="border-top-left-radius:0 !important;">
+										<div class="panel-body" style="padding-top: 25px; padding-bottom: 0px; padding-left: 20px;">
+											<div class="form-group col-md-2">
+												<label class="control-label i18n" name="customlist_list_number">一覧表示件数</label>
+												<select name="boostrap-select " class="form-control" id="shownumcost" style=" text-align-last: center;width: 60%;">
+													<option value="5" style=" text-align-last: center;">5件</option>
+													<option value="10" style=" text-align-last: center;">10件</option>
+													<option value="20" style=" text-align-last: center;">20件</option>
+													<option value="50" style=" text-align-last: center;">50件</option>
+													<option value="100" style=" text-align-last: center;">100件</option>
+												</select>
+											</div>
+										</div>
+										<div class="panel-body" style="padding-top: 25px; padding-bottom: 0px; padding-left: 20px; padding-right: 20px;">
+											<div class="panel panel-default">
+												<div class="panel-heading i18n" name="customlist_list_of_items" style="font-size: 17px; font-weight: bold;border-bottom: none!important;">
+													項目一覧
+												</div>
+												<div class="panel-body" id="myModalCuntomT" style="padding: 33px 12px 25px 12px;">
+												</div>
+											</div>
+										</div>
+										<div class="lastChild" style="margin-top: 10px;padding-left: 20px;margin-bottom: 30px;">
+											<button class="btn btn-success i18n" name='employeeRegistration_upload' type="submit" onclick="addcustom()">変更</button>
+											<button class="btn btn-success i18n" name='custom_button' type="submit" style="display: block;float: right;margin-right: 20px;" onclick="init()">初期状態へ戻す</button>
+											<button class="btn btn-default i18n" id="cusconcost"  name='ltdRegistration_back' type="submit" onclick="goBackPageHandler()">戻る</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</body>
+</html>

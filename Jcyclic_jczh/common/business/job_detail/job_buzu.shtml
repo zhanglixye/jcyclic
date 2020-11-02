@@ -1,0 +1,46 @@
+			<div class="clearfix form-group" style="display: flex;">
+				<div class="card col-xs-3" style="display: flex;flex-direction: column;">										
+					<label class="checkbox-inline" style="padding: 0;position: absolute;">
+						<input type="checkbox" id="reqFlg"/>
+						<span class="iconfont icon-duihaok"></span>
+					</label>
+					<div class="col-xs-10 col-xs-offset-1 i18n" name="salescategoryLogin_qfaxing"></div>
+					<div class="col-xs-11 col-xs-offset-1 i18n" name="salescategoryLogin_newFaxing"></div>
+					<div class="clearfix col-xs-11 col-xs-offset-1" style="flex: 1;">
+						<div class="col-xs-3">
+							<i class="iconfont icon-ren"></i>
+						</div>
+						<div class="clearfix col-xs-9">
+							<div id="requpname"></div>
+							<small id="requpdate"></small>
+						</div>
+					</div>
+					<div class="col-xs-11 col-xs-offset-1">
+						<span class="i18n" name="salescategoryLogin_faHui"></span>
+						<span id="reqtimes">0</span>
+						<span class="i18n" name="salescategoryLogin_Hui"></span>
+					</div>
+				</div>
+				<div class="card col-xs-3" style="display: flex;flex-direction: column;">									
+					<label class="checkbox-inline" style="padding: 0;position: absolute;">
+						<input type="checkbox" id="invFlg"/>
+						<span class="iconfont icon-duihaok"></span>
+					</label>
+					<div class="col-xs-12 col-xs-offset-1 i18n" name="salescategoryLogin_ffaxing"></div>	
+					<div class="col-xs-11 col-xs-offset-1 i18n" name="salescategoryLogin_newFaxing"></div>
+					<div class="clearfix col-xs-11 col-xs-offset-1" style="flex: 1;">
+						<div class="col-xs-3">
+							<i class="iconfont icon-ren"></i>
+						</div>
+						<div class="clearfix col-xs-9">
+							<div id="invupname"></div>
+							<small id="invupdate"></small>
+						</div>
+					</div>
+					<div class="col-xs-11 col-xs-offset-1">
+						<span class="i18n" name="salescategoryLogin_faHui"> </span>
+						<span id="invtimes">0</span>
+						<span class="i18n" name="salescategoryLogin_Hui"></span>
+					</div>
+				</div>
+			</div>

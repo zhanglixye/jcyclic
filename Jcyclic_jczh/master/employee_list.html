@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='employee_list_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/master/employee_list_dataGrid.js?v=2018092801" ></script>
+		<script type="text/javascript" src="../public/lib/csv_json/player.js?v=2018092801"></script>
+		<script type="text/javascript" src="../public/lib/csv_json/papaparse.js?v=2018092801"></script>
+		<!--#include virtual="../common/language.shtml"-->   
+	</head>
+	<style type="text/css">
+		.download_pdf{
+			display: none;
+		    border: 0 !important;
+		    position: absolute;
+		    right: 18px;
+		    z-index: 1;
+		    top: 39px;
+		}
+		.download_pdf a{
+			margin:20px;
+			cursor: pointer;
+			display: block;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+		          <li class="fs18 i18n" name='employee_list_title'></li>
+		        </ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<div class="supplier_sum_hei1">
+				<div class="form-inline">
+					<div class="form-group">
+						<label class="i18n" name='employeeList_employee_number' for="qyfInput" style="margin-right: 5px;"></label>
+						<input oninput="this.value=ToCDB(this.value)" maxlength="20" tabindex="1" style="width: 150px;" class="form-control" type="text" name="userCD" id="userCD" value=""  />
+					</div>
+					<div class="ml-20 form-group">
+						<label class="i18n" name='employeeList_employee_name' for="qyfInput1" style="margin-right: 5px;"></label>
+						<input maxlength="100" tabindex="2" style="width: 150px;" class="form-control" type="text" name="nickname" id="nickname" value="" />
+					</div>
+						<div class="ml-20 form-group">
+						<label class="i18n" name='employeeList_sector' for="qyfInput" style="margin-right: 5px;"></label>
+							<select tabindex="3" onchange="resetDefaultVal()" style="width: 150px;" id="departList" name="departCD" class="form-control departList">
+                      			<option value="" class="i18n"></option>
+                      		
+                      		</select>
+					</div>
+					<div class="ml-20 form-group">
+						<label class="i18n" name='employeeList_Businesslevel' for="qyfInput1" style="margin-right: 5px;"></label>
+						<select tabindex="4" onchange="resetDefaultVal()" style="width: 150px;" name="level" id="levelList" class="form-control levelList">
+                  			<option value="" class="i18n" ></option>
+               	
+                  		</select>
+					</div>
+				</div>		
+				<div class="form-inline top-15 in_bl">
+				<div class="form-group">
+					<label class="i18n" name='employeeList_Roll' for="qyfInput1" style="margin-right: 19px;"></label>
+					<select tabindex="5" onchange="resetDefaultVal()" id="roleList" style="width: 150px;" name="roleID" class="form-control roleList">
+                        <!-- <option value="" class="i18n" name='employeeList_Roll'> </option>-->
+					</select>
+				</div>
+					<div class="ml-20 form-group radio">
+						<label class="marRight i18n" name='employeeList_Y_N_Effect'></label>
+						<label>
+				            <input type="radio" id="delValid" name="delFlg" value="0" checked="checked">
+				            <!--<i></i>-->
+				            <span tabindex="6" class="i18n" name='employeeList_effective'></span>
+				        </label>
+				        <label>
+				            <input type="radio"  id="delInvalid" name="delFlg" value="1">
+				            <!--<i></i>-->
+				            <span tabindex="7" class="i18n" name='employeeList_invalid'></span>
+				        </label>
+				        <label>
+				            <input type="radio" id="allValid" name="delFlg" value="">
+				            <!--<i></i>-->
+				            <span tabindex="8" class="i18n" name='suppliersList_all'></span>
+				        </label>
+					</div>	
+				</div>
+				<div class="form-inline top-15 bottom-15 ov">
+					<input tabindex="10" onclick="clearSearchInfoHandler()" selectname='employeeList_eliminate' class="btn btn-default pull-right marleft i18n-input" type="button" value="">
+					<input tabindex="9" style="width: 7%;" onclick="employeeInitHandler('searchFlg')" selectname='employeeList_retrieval' class="btn btn-success pull-right search i18n-input" type="button" value="">
+				</div>
+				</div>
+				<table class="tableObj" id="employee_list" style="width: 100%;"></table>
+				<div class="switch_table_none hidden">
+					<center style="margin-top: 20px;"></center>
+				</div>
+				<div class="supplier_sum_hei2">
+					<div class="form-inline top-15 ov">
+						<label class="marRight i18n empFile" name='employeeList_Bulk_upload_employee_information'></label>
+						<input tabindex="16" id="empAddBtn" onclick="jumpPage('add')" class="btn btn-success pull-right i18n-input" selectname='employeeList_add' type="button" value="">
+					</div>
+					<div class="form-inline lastChild empFile">
+						<div class="form-group">
+							<input style="visibility: hidden;" tabindex="14" type="file" name="fileSheet1" id="files" accept="" data-btnClass="btn-primary">
+							<i onclick="uploadCsvFile('uploadEmpFile','files')" tabindex="15" class="iconfont icon-shangchuan green" id="submit-parse"></i>
+						</div>
+					</div>
+				</div>		       
+			</aside>
+		</div>	
+		<script>
+			var objTop = $('.supplier_sum_hei1').height();
+			var objBot = $('.supplier_sum_hei2').height();
+			var tableObj = $('.tableObj');
+			auto_tableHei(objTop,objBot,25,tableObj);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title class="i18n" name='jurisdiction'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/jcst/job_registration.css?v=2018092801" />
+		<link rel="stylesheet" type="text/css" href="../public/stylesheets/master/table_all.css?v=2018092801" />
+		<!--#include virtual="../common/language.shtml" -->
+	</head>
+	<style>
+			
+	</style>
+
+	<body class="main page">
+		<!--Navbar-->
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--Sidebar-->
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='jurisdiction'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<!--background-color:rgb(190,195,199);-->
+			<aside id="content">
+				<div class="main_tab">
+					<table border="1">
+						<tr class="title">
+							<td colspan="2"  class="fir_tab" style="background-color:#fff;position: relative;">
+								<span class="title_span1 i18n" name='role_login_img'></span>
+								<span class="title_span2 i18n" name='role_login'></span>
+								<div></div>
+							</td>
+							<td style="background-color:rgb(250,255,233);">共通<br />伝言板<br />+追加<br />／更新</td>
+							<td style="background-color:rgb(250,255,233);">共通<br />締め処理<br />ロック</td>
+							<td style="background-color:rgb(250,255,233);">JOB<br />JOB登録<br />基本情報</td>
+							<td style="background-color:rgb(250,255,233);">JOB<br />JOB登録<br />担当割当</td>
+							<td>JOB<br />JOB一覧<br />JOB詳細<br />JOBALL</td>
+							<td>JOB<br />JOB一覧<br />JOB詳細<br />JOB紐付得意先</td>
+							<td>JOB<br />JOB一覧<br />JOB詳細<br />JOB担当</td>
+							<td>JOB<br />JOB一覧<br />JOB詳細<br />JOB割当</td>
+							<td>JOB<br />JOB更新<br />基本情報<br />JOBALL</td>
+							<td>JOB<br />JOB更新<br />基本情報<br />JOB紐付得意先</td>
+							<td>JOB<br />JOB更新<br />基本情報<br />JOB担当</td>
+							<td>JOB<br />JOB更新<br />基本情報<br />JOB割当</td>
+							<td>JOB<br />JOB更新<br />担当割当</td>
+							<td>JOB<br />原価完了<br />完了取消<br />JOBALL</td>
+							<td>JOB<br />原価完了<br />完了取消<br />JOB紐付得意先</td>
+							<td>JOB<br />原価完了<br />完了取消<br />JOB担当</td>
+							<td>JOB<br />原価完了<br />完了取消<br />JOB割当</td>
+							<td>JOB<br />売上登録<br />売上更新<br />JOBALL</td>
+							<td>JOB<br />売上登録<br />売上更新<br />JOB紐付得意先</td>
+							<td>JOB<br />売上登録<br />売上更新<br />JOB担当</td>
+							<td>JOB<br />売上登録<br />売上更新<br />JOB割当</td>
+							<td>JOB<br />売上取消</td>
+							<td>JOB<br />売上承認<br />承認取消<br />JOBALL</td>
+							<td>JOB<br />売上承認<br />承認取消<br />JOB紐付得意先</td>
+							<td>JOB<br />売上承認<br />承認取消<br />JOB担当</td>
+							<td>JOB<br />売上承認<br />承認取消<br />JOB割当</td>
+							<td>JOB<br />請求申請<br />JOBALL</td>
+							<td>JOB<br />請求申請<br />JOB紐付得意先</td>
+							<td>JOB<br />請求申請<br />JOB担当</td>
+							<td>JOB<br />請求申請<br />JOB割当</td>
+							<td>JOB<br />発票発行申請<br />JOBALL</td>
+							<td>JOB<br />発票発行申請<br />紐付得意先</td>
+							<td>JOB<br />発票発行申請<br />JOB担当</td>
+							<td>JOB<br />発票発行申請<br />JOB割当</td>
+							<td>JOB<br />入金登録<br />更新</td>
+							<td>JOB<br />売買登録票出力<br />JOBALL</td>
+							<td>JOB<br />売買登録票出力<br />JOB紐付得意先</td>
+							<td>JOB<br />売買登録票出力<br />JOB担当</td>
+							<td>JOB<br />売買登録票出力<br />JOB割当</td>
+							<td>原価<br />原価一覧<br />JOBALL</td>
+							<td>原価<br />原価一覧<br />JOB紐付得意先</td>
+							<td>原価<br />原価一覧<br />JOB担当</td>
+							<td>原価<br />原価一覧<br />JOB割当</td>
+							<td>原価<br />発注登録<br />更新<br />JOBALL</td>
+							<td>発注登録<br />更新<br />JOB紐付得意先</td>
+							<td>発注登録<br />更新<br />JOB担当</td>
+							<td>発注登録<br />更新<br />JOB割当</td>
+							<td>発注書出力</td>
+							<td>支払情報登録<br />更新<br />JOBALL</td>
+							<td>支払情報登録<br />更新<br />JOB紐付得意先</td>
+							<td>支払情報登録<br />更新<br />JOB担当</td>
+							<td>支払情報登録<br />更新<br />JOB割当</td>
+							<td>支払申請</td>
+							<td>支払承認<br />承認取消</td>
+							<td>支払完了登録<br />更新</td>
+							<td>立替登録<br />更新<br />JOBALL</td>
+							<td>立替登録<br />更新<br />JOB紐付得意先</td>
+							<td>立替登録<br />更新<br />JOB担当</td>
+							<td>立替登録<br />更新<br />JOB割当</td>
+							<td>立替承認<br />承認取消</td>
+							<td>振替登録<br />更新</td>
+							<td>振替承認<br />承認取消</td>
+							<td>締め処理</td>
+							<td>レポート</td>
+							<td>タイムシート<br />登録<br />全社員</td>
+							<td>タイムシート<br />登録<br />所属社員</td>
+							<td>タイムシート<br />登録<br />本人</td>
+							<td>タイムシート<br />レポート</td>
+							<td>ツール</td>
+							<td>一覧カスタマイズ</td>
+							<td>管理 ラベル</td>
+							<td>マイ ラベル</td>
+							<td>取引先一覧</td>
+							<td>取引先登録<br />変更<br />社員紐付変更</td>
+							<td>社員一覧</td>
+							<td>社員登録・変更<br />基本</td>
+							<td>社員登録・変更<br />他社参照</td>
+							<td>得意先紐付変更</td>
+							<td>ロール一覧</td>
+							<td>ロール登録・<br />変更<br />権限レポート</td>
+							<td>売上種目</td>
+							<td>原価増値税率</td>
+							<td>共通コード</td>
+							<td>会社一覧<br />全会社</td>
+							<td>会社一覧<br />グループ内</td>
+							<td>会社一覧<br />自社</td>
+							<td>会社登録</td>
+							<td>会社更新<br />基本情報</td>
+							<td>請求／帳票出力表記<br />全会社</td>
+							<td>請求／帳票出力表記<br />グループ内</td>
+							<td>請求／帳票出力表記<br />自社</td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="2"  style="border-top: none;background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_system_management' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="2"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_group_company_business_management' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="2"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_my_company_business_management' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="2"  style="background-color:rgb(238,238,238);">
+								<div name='employeeRegistration_finance' class="i18n" style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td rowspan="2" colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_promotion_promotion' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>					
+							</td>
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_head_department' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_common' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td rowspan="2" colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_new_customer' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>					
+							</td>
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_head_department' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_common' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td rowspan="2" colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='role_login_text' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>					
+							</td>
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_head_department' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input style="visibility: hidden;" type="checkbox"></td>
+						</tr>
+						<tr class="check_box">
+							<td colspan="1"  style="background-color:rgb(238,238,238);">
+								<div class="i18n" name='employeeRegistration_common' style="font-size: 11px;font-weight:600;float: left;margin-left: 10px;"></div>
+							</td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="foot_btn">
+					<button class="btn btn-success i18n" name='taxcostRegistration_login'></button>
+					<button class="btn btn-default i18n" name='taxcostRegistration_back'></button>
+				</div>
+			</aside>
+		</div>
+	</body>
+
+</html>

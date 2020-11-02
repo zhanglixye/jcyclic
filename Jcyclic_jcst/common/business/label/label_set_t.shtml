@@ -1,0 +1,26 @@
+<div class="panel panel-default label_set_t" style="border: none;margin-bottom:0;padding-bottom: 10px;display: none;" id="setbig1">
+	<div class="panel-heading l-right" name='jobregistration_label_set' style="font-size: 17px; height: 45px; font-weight: bold;padding: 10px 15px;">
+		<span class="i18n" name="jobregistration_label_set"></span>
+		<i class="iconfont icon-guanbi pull-right" style="font-size: 18px;color:rgb(44,62,80)"></i>
+	</div>
+	<div class="panel-body" style="padding: 15px 20px 0px">
+		<div class="clearfix">
+			<div class="input-group" style="margin-top: 10px; float: left; border: 1px solid #dddddd;border-bottom-left-radius: 0px!important;border-bottom-right-radius: 0px!important;">
+				<input maxlength="50" class="form-control" id="lableStr" placeholder="" type="text" style="border: none;"><span class="input-group-addon" style="background: none; padding: 4px 12px; border: none">
+					<i class="iconfont icon-sousuo filter-lable"></i>
+				</span>
+			</div>
+			<div id="mySelect" class="mySelect" style="border-top-left-radius: 0px!important;border-top-right-radius: 0px!important;">
+			</div>
+		</div>
+		
+		<div class="log-sidebar-l" style="display: flex;margin-top: 10px;">
+			<div class="log-sidebar-l-l left_width">
+				<button class="btn btn-success i18n" id="set" name="jobregistration_set" type="button"></button>
+			</div>
+			<div class="log-sidebar-l-r margin_left" style="margin-left: 16px!important;">
+				<button id="closeBtnInput" class="btn btn-default i18n" name="salescategoryRegistration_clsoe" type="button"></button>
+			</div>
+		</div>
+	</div>
+</div>

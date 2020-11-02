@@ -1,0 +1,43 @@
+package com.kaiwait.webservice.jczh;
+
+
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import com.kaiwait.bean.jczh.io.LendtrnInput;
+import com.kaiwait.core.process.SingleFunctionIF;
+import com.kaiwait.core.process.ValidateResult;
+import com.kaiwait.service.jczh.LendtrnService;
+
+@Component("LendtrnApproval")
+
+public class LendtrnApproval implements SingleFunctionIF<LendtrnInput>{
+	
+	@Resource
+	private LendtrnService LendtrnService;
+	
+	@Override
+	public Object process(LendtrnInput inputParam) {
+		String companycd =inputParam.getCompanyID();
+		String usercd =inputParam.getUserID();
+		inputParam.getLendtrn().setCompany_cd(companycd);
+		inputParam.getLendtrn().setAddusercd(usercd);
+		return LendtrnService.LendtrnApproval(inputParam);
+		 
+	}
+
+	public ValidateResult validate(LendtrnInput inputParam) {		
+		return null;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Class getParamType() {
+		// TODO Auto-generated method stub
+		return LendtrnInput.class;
+	}
+
+
+}

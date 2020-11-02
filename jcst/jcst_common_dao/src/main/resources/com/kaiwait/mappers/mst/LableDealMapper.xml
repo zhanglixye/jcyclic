@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaiwait.mappers.mst.LableDealMapper">
+ <insert id="addLable" parameterType="com.kaiwait.bean.mst.entity.Lable">
+	     insert into labelmst
+	     (LABEL_ID,
+		 LABEL_LEVEL,
+		 LABEL_TEXT,
+		 ADDDATE,
+		 UPDDATE,
+		 ADDUSERCD,
+		 UPDUSERCD,
+		 COMPANY_CD,
+		 LABEL_TYPE
+		
+		 )
+		 values
+	 (
+	    #{lableid,jdbcType=VARCHAR},
+        #{lablelevel,jdbcType=VARCHAR},
+        #{labletext,jdbcType=INTEGER},
+        #{adddate,jdbcType=DATE},
+        #{upddate,jdbcType=DATE},
+        #{addusercd,jdbcType=VARCHAR},
+        #{updusercd,jdbcType=VARCHAR},
+        #{companycd,jdbcType=INTEGER},
+        #{labletype,jdbcType=INTEGER}
+       
+	 )
+   </insert>
+   <select id="isHaveLable" resultType="INTEGER">
+ select count(*) from labelmst where LABEL_TEXT = #{labletext} and LABEL_LEVEL =#{lablelevel} and COMPANY_CD = #{companycd} and DEL_FLG = 0
+</select>
+<insert id="bindLable">
+ <if test="jobcd==null">
+   insert into orderlabeltrn
+  (
+   COST_NO,
+  LABEL_LEVEL,
+  LABEL_ID,
+  COMPANY_CD,
+  ADDDATE,
+  ADDUSERCD
+  )
+  values
+  (
+  #{inputno},
+  #{lablelevel},
+  #{lableid},
+  #{companycd},
+  #{addDate},
+  #{addUsercd}
+  )
+ </if>
+<if test="jobcd!=null">
+  insert into joblabeltrn
+  (
+   JOB_CD,
+  LABEL_CD,
+  COMPANY_CD,
+   ADDDATE,
+  ADDUSERCD
+  )
+  values
+  (
+  #{jobcd},
+  #{lableid},
+  #{companycd},
+   #{addDate},
+  #{addUsercd}
+  )
+</if>
+</insert>
+<select id="isHaveBind" resultType="INTEGER">
+<if test="jobcd==null">
+  select count(*) from orderlabeltrn where COST_NO =#{inputno} and LABEL_ID = #{lableid} and COMPANY_CD = #{companycd}
+</if>
+<if test="jobcd!=null and jobcd!=''">
+ select count(*) from joblabeltrn where JOB_CD =#{jobcd} and LABEL_CD = #{lableid} and COMPANY_CD = #{companycd}
+</if>
+</select>
+<delete id="delBindLable" >
+   <if test="jobcd==null">
+      delete from orderlabeltrn where COST_NO = #{inputno} and LABEL_ID = #{lableid} and COMPANY_CD = #{companycd}   
+   </if>
+   <if test="jobcd!=null and jobcd!=''">
+      delete from joblabeltrn where JOB_CD = #{jobcd} and LABEL_CD = #{lableid} and COMPANY_CD = #{companycd}  
+   </if>
+</delete>
+	
+</mapper>

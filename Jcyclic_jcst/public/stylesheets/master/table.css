@@ -1,0 +1,65 @@
+        .main_tab {
+			overflow: auto;
+			width: 100%;
+			background-color: #fff;
+		}
+		.main_tab>div{
+			overflow: scroll !important;
+		}
+        table{
+			border: solid #c6c6c6 1px;
+			table-layout: fixed;
+			width: 100%;
+			/*margin: 15px;*/
+			overflow-x: auto;
+			/*transform: translateX(-1px);*/
+		}
+		tr#tTitle td{
+			/*transform:translateY(-1px);*/
+		}	
+		tr.check_box td:first-child{
+			/*transform:translateX(-1px);*/
+		}
+		tr#tTitle td:first-child{
+			/*transform:translate(-1px,-1px);*/
+		}
+		.title td{
+			text-align: center;
+			font-size: 11px;
+			font-weight: 600;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 45px;
+			width: 140px;
+			background-color: rgb(234,255,244);
+		}
+		#content {
+			background-color: rgb(190, 195, 199);
+		}				
+		.check_box td{
+			text-align: center;
+		}
+		.fir_tab div{
+		    left: 0px;
+		    /*width: 164px;*/
+		    height: 1px;
+		    background: #c6c6c6;
+		    position: absolute;
+		    /*transform: rotate(32deg);*/
+		    top: 0px;
+		    transform-origin: left;
+		}	
+		.foot_btn{
+			margin-top: 20px;
+		}
+		.title_span{
+			position: relative;
+			left: -25px;
+			top: 30px;
+		}
+		.title_span2{
+			font-size: 11px;
+			position: relative;
+			top: -28px;
+			right: 0px;
+		}	

@@ -1,0 +1,74 @@
+table {
+	table-layout: fixed;
+	border: solid #c6c6c6 1px;
+	width: 100%;
+	margin: 15px;
+}	
+.title td:first-of-type{
+	/*width: 160px;*/
+}
+.title td{
+	text-align: left;
+	font-size: 11px;
+	font-weight: 600;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 42px;
+	width: 140px;
+	background-color: rgb(234,255,244);
+}
+#content {
+	background-color: rgb(190, 195, 199);
+}		
+.main_tab {
+	overflow: auto;
+	width: 100%;
+	background-color: #fff;
+}
+.check_box td{
+	text-align: center;
+}
+.check_box td[colspan='1'] div[name='employeeRegistration_head_department'],.check_box td[colspan='1'] div[name='employeeRegistration_common']{
+	width: 100%;
+	margin-left: 0 !important;
+}
+/*.fir_tab div{
+    left: 0px;
+    width: 164px;
+    height: 1px;
+    background: #c6c6c6;
+    position: absolute;
+    transform: rotate(32deg);
+    top: 0px;
+    transform-origin: left;
+}	*/
+.title_span{
+	font-size: 14px;
+	position: relative;
+	top: -20px;
+	right: -50px;
+}	
+.title_span2{
+	font-size: 14px;
+	position: relative;
+	top: 25px;
+	right: 50px;
+}	
+.foot_btn{
+	margin-top: 20px;
+}
+.fir_tab div{
+    left: 0px;
+    width: 164px;
+    height: 1px;
+    background: #c6c6c6;
+    position: absolute;
+    transform: rotate(32deg);
+    top: 0px;
+    transform-origin: left;
+}		
+.title_span1{
+	position: relative;
+    right: -8px;
+    top: -24px;
+}

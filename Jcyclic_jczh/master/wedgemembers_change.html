@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title class="i18n" name='wedgemembers_change_title'></title>
+		<!--#include virtual="../common/header.shtml"-->
+		<!--#include virtual="../common/easyUi.shtml"-->
+		<!--保证datagrid title_head language 转化成功 多加载一次-->
+        <script type="text/javascript" src="../public/javascript/master/language.js?v=2018092801"></script>
+        <!--#include virtual="../common/language.shtml"-->   
+		<!--dataGrid 表格js-->
+		<script type="text/javascript" src="../public/javascript/master/wedgemembers_change_dataGrid.js?v=2018092801"></script>
+		
+	</head>
+	<style>
+		#content .panel-htop .panel-header .panel-title{			
+			border-bottom: solid #c6c6c6 1px;
+			text-align: center;
+			height: 35px;
+			line-height: 35px;
+			background-color: rgb(236,240,243);
+			border-radius: 0 !important;
+		}
+		.panel-header{
+			padding: 0;
+		}
+		.easyui-fluid div{
+			border-radius: 0 !important;
+		}
+		.datagrid-cell{
+			height: 30px;
+		}
+		.datagrid-header{
+			height: 30px;
+		}
+		.datagrid-header-row{
+			height: 30px;
+		}
+		tr[datagrid-row-index="0"].datagrid-row-selected{
+			background:none;
+		}
+		tr[datagrid-row-index="0"] div{
+			height: 100% !important;
+			padding: 0;
+		}
+		tr[datagrid-row-index="0"] div input.rng{
+			height: 40px;
+		    border: 1px solid #ccc !important;
+		    width: 100% !important;
+		}
+		tr[datagrid-row-index="0"] div input[type='checkbox']{
+			display: none;
+		}
+	</style>
+	<body class="main page">
+		<!--#include virtual="../common/nav.shtml"-->
+		<div id="wrapper">
+			<!--#include virtual="../common/sideBar.shtml"-->
+			<!--Tools -->
+			<section id="tools">
+				<ul class="breadcrumb" id="breadcrumb">
+					<li class="fs18 i18n" name='wedgemembers_change_title'></li>
+				</ul>
+			</section>
+			<!--Content-->
+			<aside id="content" style="padding-bottom: 0;overflow-y: hidden;">
+				<form class="form-inline">
+					<div class="selInput1 form-group">
+						<label class="i18n" name='wedgemembersChange_client_code' for="qyfInput" style="margin-right: 10px;"></label>
+
+						<label id="cldivcd" name="cldivcd" style="border-bottom: 1px solid #cccccc;padding-bottom: 5px;"></label>
+					</div>
+					<div class="selInput2 form-group">
+						<label class="i18n" name='wedgemembersChange_customer_name' for="qyfInput1" style="margin-right: 10px;"></label>
+
+						<label id="divname_full" style="    border-bottom: 1px solid #cccccc;padding-bottom: 5px;"></label>
+					</div>
+
+				</form>
+
+				<form class="form-inline top-15 bottom-15 ov">
+
+				</form>
+				<table class="i18n-input" selectattr='title' selectname='customerwedgeChange_title' id="wedgemembersleft" style="height: 67.8%;width: 42.3%; float: left"></table>
+				<div class="turn">
+					<div class="turn-left" >
+						<span onclick="lefttoright()" tabindex="1" class="iconfont icon-niufuzhuijia-" style="color: #1abc9c;outline: none;"></span>
+					</div>
+					<div class="turn-right" >
+						<span onclick="righttoleft()" tabindex="2" class="iconfont icon-niufushanchu-" style="color: #1abc9c;outline: none;"></span>
+					</div>
+				</div>
+				<table class="i18n-input" selectattr='title' selectname='customerwedgeChange_title2' id="wedgemembersright" style="height: 67.8%;width: 42.3%;float: left"></table>
+				<form class="form-inline top-15 ov" style="padding-right: 3px;">
+					<input class="btn btn-default pull-right i18n-input" selectname='wedgemembersChange_add' type="button" onclick="back()"  tabindex="4"style="width: 7%" value="">
+					<input class="btn btn-success pull-right i18n-input" selectname='wedgemembersChange_update' style="margin-right: 15px; width: 7%"  tabindex="3"onclick="change()" type="button" value="">
+				</form>
+			</aside>
+		</div>
+	</body>
+</html>

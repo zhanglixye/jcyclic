@@ -1,0 +1,7 @@
+{
+	"inParamList": [],
+	"name": "数据导入接口",
+	"path": "import",
+	"rootPath": "common",
+	"type": "upload"
+}

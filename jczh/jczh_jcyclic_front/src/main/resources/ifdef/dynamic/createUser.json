@@ -1,0 +1,88 @@
+{
+  "definitionFilePath" : null,
+  "name" : "产品列表",
+  "path" : "createUser",
+  "rootPath" : "dynamic",
+  "type" : "query",
+  "method" : "POST",
+  "paging" : true,
+  "inParamList" : [ {
+    "defineLine" : 8,
+    "name" : "input",
+    "comment" : "数据",
+    "type" : "Object",
+    "description" : "",
+    "required" : true,
+    "format" : null,
+    "formatPattern" : "",
+    "length" : null,
+    "detailParamList" : [ {
+      "defineLine" : 9,
+      "name" : "memberID",
+      "comment" : "社員番号",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "[0-9A-Za-z]+",
+      "length" : 20,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 10,
+      "name" : "nickname",
+      "comment" : "氏名",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 100,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 11,
+      "name" : "nickNameEn",
+      "comment" : "氏名（英語名）",
+      "type" : "String",
+      "description" : "",
+      "required" : false,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : 100,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 12,
+      "name" : "loginName",
+      "comment" : "ログインID",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "[0-9A-Za-z_-[\\.@&]]+",
+      "length" : 100,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 13,
+      "name" : "pwd",
+      "comment" : "パスワード",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : "Regular",
+      "formatPattern" : "[0-9A-Za-z]+",
+      "length" : 200,
+      "detailParamList" : null
+    }, {
+      "defineLine" : 14,
+      "name" : "roles",
+      "comment" : "ロール",
+      "type" : "String",
+      "description" : "",
+      "required" : true,
+      "format" : null,
+      "formatPattern" : "",
+      "length" : null,
+      "detailParamList" : null
+    } ]
+  } ],
+  "outParamList" : [ ]
+}
